@@ -55,14 +55,14 @@
         }
         h2 {
             padding-top: 18pt;
-            color: #000000;
+            color: #202020;
             font-size: 16pt;
             padding-bottom: 6pt;
             font-family: "Arial";
             line-height: 1.15;
             page-break-after: avoid;
             orphans: 2;
-            widows: 2;
+            widows: 2;  
             text-align: left
         }
         h3 {
@@ -123,30 +123,20 @@
     <h2>1.2 SRS Scope</h2>
     <p>The product discussed in this document is GreenThumb, a mobile application that identifies plants using image recognition and allows guests and users to search a plant database. The application will additionally allow users to upload photographs of plants to expand the gallery of plants available for other users to see and expand the machine learning&rsquo;s training material. The objective of the mobile application is to educate its users on with general species information.</p>
     <h2>1.3 Definitions, Acronyms, Abbreviations</h2>
-    <p> AI: abbr. &lsquo;Artificial Intelligence.&rsquo; Software that can mimic the human intelligence required to perform certain tasks.</p>
-    <p >API: abbr. &lsquo;Application Programming Interface.&rsquo; A set of tools for communicating between components in a software.</p>
-
-    <p >Backend: The program running the API that allows communication between the database and frontend. The ML primarily occurs here.</p>
-
-    <p> CNN: abbr. &lsquo;Convolutional Neural Network.&rsquo; A special type of neural network that is optimized to work with images.</p>
-
-    <p> Frontend: The component of the GreenThumb application responsible for integrating GreenThumb with the user&rsquo;s specific platform.</p>
-
-    <p>GUI: abbr. &lsquo;Graphical User Interface.&rsquo; An interface with which users can interact with a program.</p>
-    <p >ML: abbr. &lsquo;Machine Learning.&rsquo; An application of AI wherein the system is able to learn automatically.</p>
-
-    <p >NN: abbr. &lsquo;Neural Network.&rsquo; An algorithm the tries to replicate how the brain works in order to do things that are usually hard for computers to do. A basic form of AI.</p>
-
-    <p >QA: abbr. &lsquo;Quality Assurance.&rsquo; The assurance that a piece of code or document meets certain pre-established criteria, ensuring the quality of the product at every stage of its development.</p>
-
-    <p >RCNN: abbr. &lsquo;Region Convolutional Neural Network.&rsquo; A special type of CNN that is optimized for detecting multiple objects within an image.</p>
-
-    <p >SRS: abbr. &lsquo;Software Requirements Specification.&rsquo; A document that overviews a proposed application.</p>
-
-    <p >SQL: abbr. &lsquo;Structured Query Language.&rsquo; A language to manage and manipulate databases.</p>
-
-    <p >Tensorflow: &nbsp;A software library developed by Google designed for creating optimized machine learning models.</p>
-    <h2 >1.4 References</h2>
+    <p><b>AI</b>: abbr. &lsquo;Artificial Intelligence.&rsquo; Software that can mimic the human intelligence required to perform certain tasks.</p>
+    <p><b>API</b>: abbr. &lsquo;Application Programming Interface.&rsquo; A set of tools for communicating between components in a software.</p>
+    <p><b>Backend</b>: The program running the API that allows communication between the database and frontend. The ML primarily occurs here.</p>
+    <p><b>CNN</b>: abbr. &lsquo;Convolutional Neural Network.&rsquo; A special type of neural network that is optimized to work with images.</p>
+    <p><b>Frontend</b>: The component of the GreenThumb application responsible for integrating GreenThumb with the user&rsquo;s specific platform.</p>
+    <p><b>GUI</b>: abbr. &lsquo;Graphical User Interface.&rsquo; An interface with which users can interact with a program.</p>
+    <p><b>ML</b>: abbr. &lsquo;Machine Learning.&rsquo; An application of AI wherein the system is able to learn automatically.</p>
+    <p><b>NN</b>: abbr. &lsquo;Neural Network.&rsquo; An algorithm the tries to replicate how the brain works in order to do things that are usually hard for computers to do. A basic form of AI.</p>
+    <p><b>QA</b>: abbr. &lsquo;Quality Assurance.&rsquo; The assurance that a piece of code or document meets certain pre-established criteria, ensuring the quality of the product at every stage of its development.</p>
+    <p><b>RCNN</b>: abbr. &lsquo;Region Convolutional Neural Network.&rsquo; A special type of CNN that is optimized for detecting multiple objects within an image.</p>
+    <p><b>SRS</b>: abbr. &lsquo;Software Requirements Specification.&rsquo; A document that overviews a proposed application.</p>
+    <p><b>SQL</b>: abbr. &lsquo;Structured Query Language.&rsquo; A language to manage and manipulate databases.</p>
+    <p><b>Tensorflow</b>: &nbsp;A software library developed by Google designed for creating optimized machine learning models.</p>
+    <h2>1.4 References</h2>
     <p>The following sources were referenced during the production of this document:</p>
     <ul >
         <li><a  href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/&amp;sa=D&amp;ust=1537753956302000">CP317 course website</a>, including <a  href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/samples.php&amp;sa=D&amp;ust=1537753956302000">previous sample projects</a>.</li>
@@ -161,9 +151,10 @@
     <p >There are three primary components to the GreenThumb app:</p>
     <p ></p>
     <ol  start="1">
-        <li >Frontend: the component of the GreenThumb application responsible for the GUI and integration with the user&rsquo;s Android device.</li>
-        <li >Backend: the component of the GreenThumb application responsible for running the API that allows the frontend to communicate with the database. The ML primarily occurs here.</li>
-        <li >Database: the tables containing the information on each species of plant, as well as user information and user-uploaded photographs.</li>
+        
+        <li ><b>Frontend</b>: the component of the GreenThumb application responsible for the GUI and integration with the user&rsquo;s Android device.</li>
+        <li ><b>Backend</b>: the component of the GreenThumb application responsible for running the API that allows the frontend to communicate with the database. The ML primarily occurs here.</li>
+        <li ><b>Database</b>: the tables containing the information on each species of plant, as well as user information and user-uploaded photographs.</li>
     </ol>
     <h3  >2.1.2 User Interfaces: Sample GUI</h3>
     <ol  start="1">
@@ -198,15 +189,15 @@
     <p >The intended audience for GreenThumb is individuals with an interest in identifying plants, including campers, who may wish to learn the possible dangers of a found plant, and those with a general interest. There will be three primary types of users:</p>
 
     <ol  start="1">
-        <li >Guest: A user with limited privileges within GreenThumb. They may upload photos to have their plants identified, but these photos will not be posted to the corresponding species&rsquo; page. They do not have access to photo upvoting, downvoting, or reporting options. A guest can become a registered user by logging into GreenThumb with their Google account.</li>
+        <li ><b>Guest</b>: A user with limited privileges within GreenThumb. They may upload photos to have their plants identified, but these photos will not be posted to the corresponding species&rsquo; page. They do not have access to photo upvoting, downvoting, or reporting options. A guest can become a registered user by logging into GreenThumb with their Google account.</li>
     </ol>
 
     <ol  start="2">
-        <li >Registered User: A user with the privileges of a&nbsp;guest, along with the ability to post photos to the page for a species of plant, and upvote, downvote, or report the photos of other users. A registered user can remove their own photos.</li>
+        <li ><b>Registered User</b>: A user with the privileges of a&nbsp;guest, along with the ability to post photos to the page for a species of plant, and upvote, downvote, or report the photos of other users. A registered user can remove their own photos.</li>
     </ol>
 
     <ol  start="3">
-        <li >Admin: A user with the privileges of a registered user, along with the ability to remove the photos of other users, add a species to the database, update an existing species in the database, and remove a species from the database.</li>
+        <li ><b>Admin</b>: A user with the privileges of a registered user, along with the ability to remove the photos of other users, add a species to the database, update an existing species in the database, and remove a species from the database.</li>
     </ol>
     <h2 >2.4 Constraints</h2>
     <p >Presently, no iOS version of GreenThumb is planned, as too few team members have access to a personal Mac device on which to write code. Should this change, an iOS version will likely be developed. No use of a mapping services such as Google Maps is planned, either.</p>
@@ -286,9 +277,9 @@
         <li>Saad Ansari (Formatting and Conversion)</li>
         <li>Jackson Newlands (2.1.2, made it present tense and fixed spelling and grammar errors)</li>
     </ul>
-    <p>Version 1.1 - 23/09/2018</p>
+    <p>Version 1.1 - 24/09/2018</p>
     <ul >
-        <li>Austin Bursey(fixed Formatting)</li>
+        <li>Austin Bursey (fixed Formatting)</li>
     </ul>
 </body>
 </html>
