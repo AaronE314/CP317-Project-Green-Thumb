@@ -1,122 +1,180 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Design</title>
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script> -->
 </head>
+
 <body>
-    <h1>Project GreenThumb Design</h1>
+    <h1>Project GreenThumb - Design</h1>
 
-    <h1><a id="Table_of_Contents_0"></a>Table of Contents</h1>
-
+    <h2><a id="#Table_of_Contents"></a></h2>
     <ul>
         <li>
-            <li><a href="#Introduction">1. Introduction</a>
+            <a href="#Introduction">1. Introduction</a>
+            <ul>
+                <li><a href="#Overview">1.1 Overview</a></li>
+                <li><a href="#Purpose">1.2 Purpose</a></li>
+                <li><a href="#Intended_Audience">1.3 Intended Audience</a></li>
+                <li><a href="#Definitions">1.4 Definitions</a></li>
+                <li><a href="#References">1.5 References</a></li>
+            </ul>
 
+            <a href="#Implementation_Plan">2. Implementation Plan</a>
+            <ul>
+                <li><a href="#Choice_of_Language">2.1 Choice of Language</a></li>
+                <li><a href="#Integration">2.2 Integration</a></li>
+            </ul>
+
+            <a href="#Architectural_Design">3. Architectural Design</a>
+            <ul>
+                <li><a href="#Module_Interaction">3.1 Module Interaction</a></li>
+            </ul>
+
+            <a href="#Detailed_Design">4. Detailed Design</a>
+            <ul>
+                <li><a href="#Class_Diagrams">4.1 Class Diagrams</a></li>
                 <ul>
-                    
-                    <li><a href="#Overview">1.1 Overview</a></li>
-                    
-                    <li><a href="#Purpose">1.2 Purpose</a></li>
-                    
-                    <li><a href="#Intended Audience">1.3 Scope</a></li>
-                    
-                    <li><a href="#Definitions">1.4 Definitions</a></li>
-                    
-                    <li><a href="#References">1.5 References</a></li>
-                    
+                    <li><a href="#Android_Class_Diagrams">4.1.1 Android</a></li>
+                    <li><a href="#Web_Class_Diagrams">4.1.2 Web</li>
+                    <li><a href="#Backend_Class_Diagrams">4.1.3 Backend</li>
+                </ul>
+                <li><a href="#Database_Diagram">4.2 Database Diagram</a></li>
+                <li><a href="#API_Endpoints">4.3 API Endpoints</a></li>
             </ul>
-                
-        </li>
 
-        <li>
-            <a href="#PlannedImplementation">2. Planned Implementation</a>
-
+            <a href="#Interface_Style_Guide">5. Interface Style Guide</a>
             <ul>
-                <li><a href="#ChoiceOfLanguage">2.1 Choice of Language</a></li>
-
-                <li><a href="#ResourcesReferenced">2.2 Resources Referenced</a></li>
-
-                <li><a href="#DevelopmentTeam">2.3 Development Team</a></li>
-
-                <li><a href="#Integration">2.4 Integration</a></li>
+                <li><a href="#Colour_Guidelines">5.1 Colour Guidelines</a></li>
+                <li><a href="#Font_Guidelines">5.2 Font Guidelines</a></li>
+                <li><a href="#Icon_Set">5.3 Icon Set</a></li>
+                <li><a href="#Visual_Interface">5.4 Visual Interface</a></li>
+                <ul>
+                    <li><a href="#Android_Interface">5.4.1 Android</a></li>
+                    <li><a href="#Web_Interface">5.4.2 Web</a></li>
+                </ul>
             </ul>
-        </li>
-        <li>
-            <a href="#InterfaceDescriptions">3. Interface guidelines</a>
-            <ul>
-                <li><a href="#ColourGuidelines">3.1 Colour Guidelines</a></li>
 
-                <li><a href="#FontGuidelines">3.2 Font Guidelines</a></li>
-            </ul>
-        </li>
+            <a href="#Versions_Authorship">6. Versions & Authorship</a>
 
-        <li>
-            <a href="#DetailedDesign">4. Detailed Design</a>
-
-        <li>
-            <a href="#Maintenance">5. Maintenance</a>
-        </li>
-        
-        <li>
-            <a href="#Version History">6. Version History</a>
-        </li>
-    </ul>
-    
-    <h1><a id="Introduction"></a>1. Introduction</h1>
-    
-    <h2><a id="#Overview"></a>1.1 Overview</h2>
-    
-    <p>GreenTh&uuml;mb is a mobile application that allows users to approach the natural world around them as an opertunity to learn. People with this app can use their device's camera to photograph plants and allow our ML software to identify it. After identifying hte plant, they will be able to see information related to their plant. They can also browse our database of available plants to learn more about them.</p>
-   
-    <h2><a id="Purpose"></a>1.2 Purpose</h2>
-    
-    <p>The purpose of this document is to establish the architexture and system design for the programmers to follow. This is important in assuring that all portions of the project are compatable accounting for the large number of members in the group. As long as each individual follows this plan, there should be minimal trouble with assembling the final project.</p>
-    
-    <h2><a id="IntendedAudience"></a>1.3 Intended Audience</h2>
-    
-    <p>This document is for the developers of the project to ensure consistency and corectness in the implementation of the software.</p>
-    
-    <h2><a id="Definitions"></a>1.4 Definitions</h2>
-    
-    <p>For an up-to-date list of relevant definitions, acronyms, and abbreviations, please refer to the GreenThumb Software Requirements Specifications.</p>
-    
-    <h2><a id="References"></a>1.5 References</h2>
-    
-    <p>&nbsp;</p>
-
-    <h1><a id="PlannedImplementation"></a>2 Planned Implementation</h1>
-
-    <h2><a id="ChoiceOfLanguage"></a>2.1 Choice of Language</h2>
-
-    <h2><a id="ResourcesReferenced"></a>2.2 Resources Referenced</h2>
-
-    <h2><a id="DevelopmentTeam"></a>2.3 Development Team</h2>
-
-    <h2><a id="Integration"></a>2.4 Integration</h2>
-
-    <h1><a id="InterfaceDescriptions"></a>3. Interface Descriptions</h1>
-
-    <h2><a id="ColourGuidelines"></a>3.1 Colour Guidelines</h2>
-
-    <h2 ><a id="FontGuidelines"></a>3.2 Font Guidelines</h2>
-
-    <h1><a id="DetailedDesign"></a>4. Detailed Design</h1>
-
-    <h1><a id="Maintenance"></a>5. Maintenance</h1>
-    
-    <h1><a id="Version History"></a>6. Version History</h1>
-    
-    <p>Version 0.1</p>
-    <ul>
-        <li>
-            Jackson Newlands - October 25 (1.1)
-        </li>
-        <li>
-            Jackson Newlands - October 26 (1)
         </li>
     </ul>
 
+    <h2><a id="#Introduction">1. Introduction</a></h2>
+    <div>
+        <h3><a id="#Overview">1.1 Overview</a></h3>
+        GreenThumb is an Android application that allows users to upload photographs of plants and have their species
+        identified. Users logged in with their Google account are able to upload their photographs to the pages of the
+        corresponding plant and vote on the photographs of other signed-in users. Additionally, a user may search a
+        plant by its name.
+
+        <h3><a id="#Purpose">1.2 Purpose</a></h3>
+        The purpose of this document is to establish the architectural and detailed design for the developers to
+        follow.
+
+        The purpose of this document is to establish the architexture and system design for the programmers to follow.
+        This is important in assuring that all portions of the project are compatable accounting for the large number
+        of members in the group. As long as each individual follows this plan, there should be minimal trouble with
+        assembling the final project.
+
+        <h3><a id="#Intended_Audience">1.3 Intended Audience</a></h3>
+        The intended audience of this document is the developers.
+
+        <h3><a id="#Definitions">1.4 Definitions</a></h3>
+
+        <h3><a id="#References">1.5 References</a></h3>
+
+    </div>
+
+    <h2><a id="#Implementation_Plan">2. Implementation Plan</a></h2>
+    <div>
+        <h3><a id="#Choice_of_Language">2.1 Choice of Language</a></h3>
+
+        <h3><a id="#Integration">2.2 Integration</a></h3>
+    </div>
+
+    <h2><a id="#Architectural_Design">3. Architectural Design</a></h2>
+    <div>
+        <h3><a id="#Module_Interaction">3.1 Module Interaction</a></h3>
+    </div>
+
+    <h2><a id="#Detailed_Design">4. Detailed Design</a></h2>
+    <div>
+        <h3><a id="#Class_Diagrams">4.1 Class Diagrams</a></h3>
+        <div>
+            <h4><a id="#Android_Class_Diagrams">4.1.1 Android</a></h4>
+            <h4><a id="#Web_Class_Diagrams">4.1.2 Web</h4>
+            <h4><a id="#Backend_Class_Diagrams">4.1.3 Backend</h4>
+        </div>
+
+        <h3><a id="#Database_Diagram">4.2 Database Diagram</a></h3>
+
+        <h3><a id="#API_Endpoints">4.3 API Endpoints</a></h3>
+
+    </div>
+
+    <h2><a id="#Interface_Style_Guide">5. Interface Style Guide</a></h2>
+    <div>
+        <h3><a id="#Colour_Guidelines">5.1 Colour Guidelines</a></h3>
+
+        <h3><a id="#Font_Guidelines">5.2 Font Guidelines</a></h3>
+
+        <h3><a id="#Icon_Set">5.3 Icon Set</a></h3>
+
+        <h3><a id="#Visual_Interface">5.4 Visual Interface</a></h3>
+        <div>
+            <h4><a id="#Android_Interface">5.4.1 Android</a></h4>
+
+            <h4><a id="#Web_Interface">5.4.2 Web</a></h4>
+
+        </div>
+    </div>
+
+    <h2><a id="#Versions_Authorship">6. Versions & Authorship</a></h2>
+    <div>
+        <ul>
+            <li>
+                <b>Version 0.1 (2018/10/25)</b>
+                <ul>
+                    <li>
+                        Jackson Newlands:
+                        <ul>
+                            <li>Overview</li>
+                            <li>Purpose</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.2 (2018/10/26)</b>
+                <ul>
+                    <li>
+                        Saje Bailey:
+                        <ul>
+                            <li>Backend Class Diagram (misc. methods)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Nathaniel Carr:
+                        <ul>
+                            <li>Intended Audience</li>
+                            <li>Revised Overview</li>
+                            <li>Revised Purpose</li>
+                            <li>Updated document formatting</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Aaron Exley:
+                        <ul>
+                            <li>Backend Class Diagram (added MLTrainer, MLIdentifier)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </body>
+
 </html>
