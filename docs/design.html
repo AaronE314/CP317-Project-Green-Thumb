@@ -5,6 +5,15 @@
     <title>Design</title>
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script> -->
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,9 +41,8 @@
             <ul>
                 <li><a href="#Class_Diagrams">3.1 Class Diagrams</a></li>
                 <ul>
-                    <li><a href="#Android_Class_Diagrams">3.1.1 Android</a></li>
-                    <li><a href="#Web_Class_Diagrams">3.1.2 Web</li>
-                    <li><a href="#Backend_Class_Diagrams">3.1.3 Backend</li>
+                    <li><a href="#Frontend_Class_Diagrams">3.1.1 Frontend</a></li>
+                    <li><a href="#Backend_Class_Diagrams">3.1.2 Backend</li>
                 </ul>
                 <li><a href="#Database_Diagram">3.2 Database Diagram</a></li>
                 <li><a href="#API_Endpoints">3.3 API Endpoints</a></li>
@@ -62,8 +70,10 @@
         <h3><a id="Overview">1.1 Overview</a></h3>
         <p>
             GreenThumb is an Android application that allows users to upload photographs of plants and have their
-            species identified. Users logged in with their Google account are able to upload their photographs to the pages of
-            the corresponding plant and vote on the photographs of other signed-in users. Additionally, a user may search a
+            species identified. Users logged in with their Google account are able to upload their photographs to the
+            pages of
+            the corresponding plant and vote on the photographs of other signed-in users. Additionally, a user may
+            search a
             plant by its name.
         </p>
 
@@ -80,8 +90,9 @@
 
         <h3><a id="Definitions">1.4 Definitions, Acronyms, Abbreviations</a></h3>
         <p>
-             <p>For an up-to-date list of relevant definitions, acronyms, and abbreviations, please refer to the GreenThumb Software Requirements Specifications.</p>
-        
+            <p>For an up-to-date list of relevant definitions, acronyms, and abbreviations, please refer to the
+                GreenThumb Software Requirements Specifications.</p>
+
         </p>
 
         <h3><a id="References">1.5 References</a></h3>
@@ -100,23 +111,33 @@
         </p>
         <p>
             On the backend side of the app, the Node.js library for JS is used for the server, as it is one
-            of the industry standards for servers. There is a great deal of documentation on API development for Node.js, and setting up server
+            of the industry standards for servers. There is a great deal of documentation on API development for
+            Node.js, and setting up server
             communication is relatively easy.
         </p>
         <p>
             For the machine learning portion of the app, the Tensorflow library is used. Tensorflow supports Python,
-            and JavaScript, but the primary library from Tensorflow here implemented only works on the Python version of
-            Tensorflow. Conequently, the retraining of the network is done through the Python version, while the rest of the
+            and JavaScript, but the primary library from Tensorflow here implemented only works on the Python version
+            of
+            Tensorflow. Conequently, the retraining of the network is done through the Python version, while the rest
+            of the
             machine learning is done via JavaScript using Tensorflow.js.
         </p>
-        <p>  
-            For the Database, MS SQL Server is used because of its excellent RDBMS functionality. Our reasons for choosing SQL Server over other great RDBMS' like SQL is due to SQL Server's security rules such as not allowing process to manipulate its files or binaries,  Another advantage of SQL Server is to stop query execution midway without killing the entire process.
-            and The filtering of MS SQL is more powerful, it filters at the database level instead of at the table level. 
+        <p>
+            For the Database, MS SQL Server is used because of its excellent RDBMS functionality. Our reasons for
+            choosing SQL Server over other great RDBMS' like SQL is due to SQL Server's security rules such as not
+            allowing process to manipulate its files or binaries, Another advantage of SQL Server is to stop query
+            execution midway without killing the entire process.
+            and The filtering of MS SQL is more powerful, it filters at the database level instead of at the table
+            level.
         </p>
 
         <h3><a id="Integration">2.2 Integration</a></h3>
         <p>
-            The user login and logout functions are provided through integration with the Google Sign-In API. Both the Android and web frontend communicate with the backend via a RESTful API created using Express.js. This API then operates on the database directly and interacts with the machine learning model through the MLTrainer and MLIdentifier. The MLTrainer and MLIdentifier use the Tensorflow object detection library.
+            The user login and logout functions are provided through integration with the Google Sign-In API. Both the
+            Android and web frontend communicate with the backend via a RESTful API created using Express.js. This API
+            then operates on the database directly and interacts with the machine learning model through the MLTrainer
+            and MLIdentifier. The MLTrainer and MLIdentifier use the Tensorflow object detection library.
         </p>
 
     </div>
@@ -125,18 +146,17 @@
     <div>
         <h3><a id="Class_Diagrams">3.1 Class Diagrams</a></h3>
         <div>
-            <h4><a id="Android_Class_Diagrams">3.1.1 Android</a></h4>
-                <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://www.lucidchart.com/documents/embeddedchart/fe1d3d1c-9b0f-45da-93ab-fa1609acbb5c" id="itqnFnKu675Q"></iframe></div>
+            <h4><a id="Frontend_Class_Diagrams">3.1.1 Frontend</a></h4>
+            <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen
+                    frameborder="0" style="width:640px; height:480px" src="https://www.lucidchart.com/documents/embeddedchart/fe1d3d1c-9b0f-45da-93ab-fa1609acbb5c"
+                    id="itqnFnKu675Q"></iframe></div>
             <p>
 
             </p>
-            <h4><a id="Web_Class_Diagrams">3.1.2 Web</h4>
-                <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://www.lucidchart.com/documents/embeddedchart/9f12f508-58f1-4e69-9329-96b5182d12dd" id="BtqnDbnRPryd"></iframe></div>
-            <p>
-
-            </p>
-            <h4><a id="Backend_Class_Diagrams">3.1.3 Backend</h4>
-                <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://www.lucidchart.com/documents/embeddedchart/ce204ce9-82a9-46b0-826a-b53bfe2eef9d" id="65Rmc8jz5nXv"></iframe></div>
+            <h4><a id="Backend_Class_Diagrams">3.1.2 Backend</h4>
+            <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen
+                    frameborder="0" style="width:640px; height:480px" src="https://www.lucidchart.com/documents/embeddedchart/ce204ce9-82a9-46b0-826a-b53bfe2eef9d"
+                    id="65Rmc8jz5nXv"></iframe></div>
         </div>
 
         <h3><a id="Database_Diagram">3.2 Database Diagram</a></h3>
@@ -145,6 +165,173 @@
         </p>
 
         <h3><a id="API_Endpoints">3.3 API Endpoints</a></h3>
+        <table style="width:100%">
+            <tr>
+                <th>Endpoint</th>
+                <th>Request Body</th>
+                <th>Response Body</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>/photos/add</td>
+                <td>{ userId: int, plantId: int, image: Image }</td>
+                <td>{ }</td>
+                <td>Add a new Photo of the specified Plant to the database.</td>
+            </tr>
+            <tr>
+                <td>/photos/byId</td>
+                <td>{ photoId: int }</td>
+                <td>{ photo: Photo }</td>
+                <td>Return the Photo with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/photos/list/byPlant</td>
+                <td>{ plantId: int, startIndex: int, max: int, {newestFirst: bool} }</td>
+                <td>{ photos: Photo[] }</td>
+                <td>Get the specified number of Photos of the specified Plant from the database.</td>
+            </tr>
+            <tr>
+                <td>/photos/list/byRating</td>
+                <td>{ startIndex: int, max: int }</td>
+                <td>{ photos: Photo[] }</td>
+                <td>Get the specified number of best-rated Photos from the database.</td>
+            </tr>
+            <tr>
+                <td>/photos/list/byUser</td>
+                <td>{ userId: int, startIndex: int, max: int, {newestFirst: bool} }</td>
+                <td>{ photos: Photo[] }</td>
+                <td>Get the specified number of Photos uploaded by the specified User from the database.</td>
+            </tr>
+            <tr>
+                <td>/photos/remove</td>
+                <td>{ userId: int, photoId: int }</td>
+                <td>{ }</td>
+                <td>Remove the Photo with the matching ID from the database.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/add</td>
+                <td>{ userId: int, photoId: int, reportText: String }</td>
+                <td>{ }</td>
+                <td>Add a new PhotoReport of the specified Photo to the database.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/byId</td>
+                <td>{ adminId: int, photoReportId: int }</td>
+                <td>{ photoReport: PhotoReport }</td>
+                <td>Return the PhotoReport with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/handle</td>
+                <td>{ adminId: int, reportId: int, {accepted: bool}, {banUploader: bool} }</td>
+                <td>{ }</td>
+                <td>Handle the reported Photo by accepting or rejecting the PhotoReport and specifying whether or not
+                    to ban the User that uploaded the offending Photo.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/handled/list/byAdmin</td>
+                <td>{ adminId: int, startIndex: int, max: int }</td>
+                <td>{ photoReports: PhotoReport[] }</td>
+                <td>Get the specified number of handled PhotoReports handled by the specified Admin from the database.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/unhandled/list/byPriority</td>
+                <td>{ adminId: int, startIndex: int, max: int }</td>
+                <td>{ photoReports: PhotoReport[] }</td>
+                <td>Get the specified number of unhandled PhotoReports, sorted by most reported Photo from the
+                    database.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/unhandled/list/byDate</td>
+                <td>{ adminId: int, startIndex: int, max: int }</td>
+                <td>{ photoReports: PhotoReport[] }</td>
+                <td>Get the specified number of unhandled PhotoReports, sorted in ascending order by date from the
+                    database.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/remove</td>
+                <td>{ adminId: int, photoReportId: int }</td>
+                <td>{ }</td>
+                <td>Remove the PhotoReport with the matching ID from the database.</td>
+            </tr>
+            <tr>
+                <td>/plants/add</td>
+                <td>{ adminId: int, name: String, bio: String }</td>
+                <td>{ plant: Plant, topPhotos: Photo[0..maxPhotos] }</td>
+                <td>Return the Plant with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/plants/byId</td>
+                <td>{ plantId: int, { maxPhotos: int } }</td>
+                <td>{ plant: Plant, topPhotos: Photo[0..maxPhotos] }</td>
+                <td>Return the Plant with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/plants/byImage</td>
+                <td>{ image: Image, { maxPhotos: int } }</td>
+                <td>{ plant: Plant, topPhotos: Photo[0..maxPhotos] }</td>
+                <td>Identify and return a Plant by a ML analysis of the image.</td>
+            </tr>
+            <tr>
+                <td>/plants/byQuery</td>
+                <td>{ query: String, { maxPhotos: int } }</td>
+                <td>{ plant: Plant, topPhotos: Photo[0..maxPhotos] }</td>
+                <td>Identify and return a Plant by a text query.</td>
+            </tr>
+            <tr>
+                <td>/plants/remove</td>
+                <td>{ adminId: int, plantId: int }</td>
+                <td>{ }</td>
+                <td>Remove the Plant with the matching ID from the database.</td>
+            </tr>
+            <tr>
+                <td>/plants/update</td>
+                <td>{ adminId: int, plantId: id, bio: String }</td>
+                <td>{ }</td>
+                <td>Update the bio of the Plant with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/mlModel/retrain</td>
+                <td>{ adminId: int, {date: Date} }</td>
+                <th>{ }</th>
+                <td>Retrain the machine learning model either immediately or at a given time and date.</td>
+            </tr>
+            <tr>
+                <td>/users/add</td>
+                <td>{ userId: int }</td>
+                <td>{ user: User }</td>
+                <td>Add a new User to the database.</td>
+            </tr>
+            <tr>
+                <td>/users/ban</td>
+                <td>{ adminId: int, userId: int }</td>
+                <td>{ }</td>
+                <td>Ban the User with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/users/byId</td>
+                <td>{ userId: int }</td>
+                <td>{ user: User }</td>
+                <td>Return the User with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/users/makeAdmin</td>
+                <td>{ adminId: int, userId: int }</td>
+                <td>{ }</td>
+                <td>make the User with the matching ID an admin.</td>
+            </tr>
+            <tr>
+                <td>/users/remove</td>
+                <td>{ adminId: int, userId: int }</td>
+                <td>{ }</td>
+                <td>Remove the User with the matching ID from the database.</td>
+            </tr>
+            <tr>
+                <td>/users/unban</td>
+                <td>{ adminId: int, userId: int }</td>
+                <td>{ }</td>
+                <td>Unban the User with the matching ID.</td>
+            </tr>
+        </table>
 
     </div>
 
@@ -189,8 +376,8 @@
                     <li>
                         Jackson Newlands:
                         <ul>
-                            <li>Overview</li>
-                            <li>Purpose</li>
+                            <li>Overview section</li>
+                            <li>Purpose section</li>
                         </ul>
                     </li>
                 </ul>
@@ -201,26 +388,26 @@
                     <li>
                         Saad Ansari:
                         <ul>
-                            <li>Added MS SQL to Choice of Languages</li>
-                        <ul>
+                            <li>Added MS SQL to Choice of Languages section</li>
+                        </ul>
                     </li>
                     <li>
                         Saje Bailey:
                         <ul>
-                            <li>Revised Overview</li>
-                            <li>Revised Purpose</li>
-                            <li>Definitions</li>
-                            <li>References</li>
+                            <li>Revised Overview section</li>
+                            <li>Revised Purpose section</li>
+                            <li>Definitions section</li>
+                            <li>References section</li>
                             <li>Backend Class Diagram (misc. methods)</li>
                         </ul>
                     </li>
                     <li>
                         Nathaniel Carr:
                         <ul>
-                            <li>Integration</li>
-                            <li>Intended Audience</li>
-                            <li>Revised Overview</li>
-                            <li>Revised Purpose</li>
+                            <li>Integration section</li>
+                            <li>Intended Audience section</li>
+                            <li>Revised Overview section</li>
+                            <li>Revised Purpose section</li>
                             <li>Updated document formatting</li>
                         </ul>
                     </li>
@@ -228,14 +415,38 @@
                         Aaron Exley:
                         <ul>
                             <li>Backend Class Diagram (added MLTrainer, MLIdentifier)</li>
-                            <li>Choice of Language</li>
+                            <li>Choice of Language section</li>
                         </ul>
                     </li>
                     <li>
                         Austin Bursey:
                         <ul>
-                            <li>Revised MS SQL to Choice of Languages</li>
+                            <li>Added MS SQL to Choice of Languages section</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.3 (2018/10/27)</b>
+                <ul>
+                    <li>
+                        Austin Bursey:
                         <ul>
+                            <li>Backend Class Diagram (created DBInterface, FSInterface)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.4 (2018/10/28)</b>
+                <ul>
+                    <li>
+                        Nathaniel Carr:
+                        <ul>
+                            <li>API Endpoints section</li>
+                            <li>Backend Class Diagram (revised all classes)</li>
+                            <li>Frontend Class Diagram (created all classes, filled Requester)</li>
+                        </ul>
                     </li>
                 </ul>
             </li>
