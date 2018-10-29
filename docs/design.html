@@ -230,20 +230,20 @@
             <tr>
                 <td>/photoReports/handled/list/byAdmin</td>
                 <td>{ adminId: int, startIndex: int, max: int }</td>
-                <td>{ photoReports: PhotoReport[] }</td>
+                <td>{ photoReports: PhotoReport[0..max] }</td>
                 <td>Get the specified number of handled PhotoReports handled by the specified Admin from the database.</td>
             </tr>
             <tr>
                 <td>/photoReports/unhandled/list/byPriority</td>
                 <td>{ adminId: int, startIndex: int, max: int }</td>
-                <td>{ photoReports: PhotoReport[] }</td>
+                <td>{ photoReports: PhotoReport[0..max] }</td>
                 <td>Get the specified number of unhandled PhotoReports, sorted by most reported Photo from the
                     database.</td>
             </tr>
             <tr>
                 <td>/photoReports/unhandled/list/byDate</td>
                 <td>{ adminId: int, startIndex: int, max: int }</td>
-                <td>{ photoReports: PhotoReport[] }</td>
+                <td>{ photoReports: PhotoReport[0..max] }</td>
                 <td>Get the specified number of unhandled PhotoReports, sorted in ascending order by date from the
                     database.</td>
             </tr>
