@@ -216,7 +216,7 @@
             </tr>
             <tr>
                 <td>/photoReports/handle</td>
-                <td>{ adminId: int, reportId: int, {accepted: bool}, {banUploader: bool} }</td>
+                <td>{ adminId: int, reportId: int, adminAction: AdminAction }</td>
                 <td>{ }</td>
                 <td>Handle the reported Photo by accepting or rejecting the PhotoReport and specifying whether or not
                     to ban the User that uploaded the offending Photo.</td>
