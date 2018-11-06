@@ -1,0 +1,15 @@
+Executable : /Users/JacksonNewlands/Library/Android/sdk/cmake/3.6.4111459/bin/cmake
+arguments : 
+-H/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app
+-B/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/.externalNativeBuild/cmake/debug/armeabi-v7a
+-DANDROID_ABI=armeabi-v7a
+-DANDROID_PLATFORM=android-21
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/cmake/debug/obj/armeabi-v7a
+-DCMAKE_BUILD_TYPE=Debug
+-DANDROID_NDK=/Users/JacksonNewlands/Library/Android/sdk/ndk-bundle
+-DCMAKE_CXX_FLAGS=
+-DCMAKE_TOOLCHAIN_FILE=/Users/JacksonNewlands/Library/Android/sdk/ndk-bundle/build/cmake/android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=/Users/JacksonNewlands/Library/Android/sdk/cmake/3.6.4111459/bin/ninja
+-GAndroid Gradle - Ninja
+jvmArgs : 
+
