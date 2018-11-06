@@ -32,7 +32,26 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends AppCompatPreferenceActivity {
+public abstract class SettingsActivity extends AppCompatPreferenceActivity {
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.SettingsActivity.java);
+    }
+
+
+
+
+
+
+
+
+
+    // ==============================================================
+    // This is where my code ends
+    // ==============================================================
+
+
 
     /**
      * A preference value change listener that updates the preference's summary

@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="6dp" />
+
+        <Button
+            android:id="@+id/logOutButton"
+            android:layout_width="383dp"
+            android:layout_height="58dp"
+            android:text="Log Out"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="451dp" />
+
+        <Button
+            android:id="@+id/LogInButton"
+            android:layout_width="388dp"
+            android:layout_height="58dp"
+            android:text="Log In"
+            tools:layout_editor_absoluteX="-3dp"
+            tools:layout_editor_absoluteY="385dp" />
+
+        <EditText
+            android:id="@+id/aboutText"
+            android:layout_width="239dp"
+            android:layout_height="127dp"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:text="This is where the 'about' stuff goes"
+            tools:layout_editor_absoluteX="76dp"
+            tools:layout_editor_absoluteY="106dp" />
+
+        <SeekBar
+            android:id="@+id/fontSizeSlider"
+            android:layout_width="350dp"
+            android:layout_height="29dp"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="338dp" />
+
+        <EditText
+            android:id="@+id/fontSliderLabel"
+            android:layout_width="142dp"
+            android:layout_height="42dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Font Size"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="287dp" />
+
+    </android.support.constraint.ConstraintLayout>
 </LinearLayout>
