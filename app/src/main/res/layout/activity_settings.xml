@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -18,11 +19,11 @@
 
         <Button
             android:id="@+id/logOutButton"
-            android:layout_width="383dp"
-            android:layout_height="58dp"
+            android:layout_width="388dp"
+            android:layout_height="57dp"
             android:text="Log Out"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="451dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="445dp" />
 
         <Button
             android:id="@+id/logInButton"
