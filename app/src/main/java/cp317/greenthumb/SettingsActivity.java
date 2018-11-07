@@ -1,28 +1,11 @@
 package cp317.greenthumb;
 
-import android.annotation.TargetApi;
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.support.v7.app.ActionBar;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
-import android.text.TextUtils;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
-import java.util.List;
-import android.widget.Button;
+import android.widget.SeekBar;
 
 /*
     SettingsActivity controls the buttons and slider on the activity_settings.xml layout
@@ -32,6 +15,8 @@ public abstract class SettingsActivity extends AppCompatPreferenceActivity {
 
 
     private Button logInButton, backButton, logOutButton;
+    private SeekBar fontScaleSlider;
+    int min = 10, max = 20, current = 15;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,22 +24,28 @@ public abstract class SettingsActivity extends AppCompatPreferenceActivity {
         setContentView(R.layout.activity_settings);     // Connects this to the layout page
 
 
-        // onClick functions
+        //logInButton
+
         logInButton = findViewById(R.id.logInButton);
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openLogInActivity();
+                logIn();
             }
         });
+
+
+        //backButton
 
         backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               openMainMenuActivity();
+               backToHomeView();
            }
         });
+
+        //logOutButton
 
         logOutButton = findViewById(R.id.logOutButton);
         logOutButton.setOnClickListener(new View.OnClickListener() {
@@ -63,16 +54,46 @@ public abstract class SettingsActivity extends AppCompatPreferenceActivity {
                logOut();
            }
         });
+
+
+
+        // fontScaleSlider
+
+        fontScaleSlider.setMax(max-min);
+        fontScaleSlider.setProgress(current-min);
+
+
+        fontScaleSlider = findViewById(R.id.fontScaleSlider);
+        fontScaleSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(Seekbar fontScaleSlider, int progress, boolean b) {
+                current = progress + min;
+            }
+
+            @Override
+            public void onStartTrackingTouch(Seekbar fontScaleSlider) {
+
+            }
+
+
+            @Override
+            public void onStopTrackingTouch(Seekbar fontScaleSlider) {
+
+            }
+        });
     }
 
 
+
+
     // Functions called when settings are clicked
-    public void openLogInActivity() {
+    public void logIn() {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
-    public void openMainMenuActivity() {
+    public void backToHomeView() {
         Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
