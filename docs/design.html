@@ -163,78 +163,59 @@
             </tr>
             <tr>
                 <td>/photos/add</td>
-                <td>{ userId: int, plantId: int, image: Image }</td>
+                <td>{ image: Image, plantId: int, userId: int }</td>
                 <td>{ }</td>
                 <td>Add a new Photo of the specified Plant to the database.</td>
             </tr>
             <tr>
                 <td>/photos/byId</td>
                 <td>{ photoId: int }</td>
-                <td>{ photo: Photo }</td>
+                <td>{ photo: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int } }</td>
                 <td>Return the Photo with the matching ID.</td>
             </tr>
             <tr>
-                <td>/photos/list/byPlant</td>
-                <td>{ plantId: int, startIndex: int, max: int, {newestFirst: bool} }</td>
-                <td>{ photos: Photo[] }</td>
-                <td>Get the specified number of Photos of the specified Plant from the database.</td>
+                <td>/photos/list/byDate</td>
+                <td>{ max: int, startIndex: int, {plantId: int}, {userId: int} }</td>
+                <td>{ photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[] }</td>
+                <td>Get the specified number of Photos from the database, sorted by date. If plantId is given, return only Photos of the specified Plant. If userId is given, return only Photos by the specified User.</td>
             </tr>
             <tr>
                 <td>/photos/list/byRating</td>
-                <td>{ startIndex: int, max: int }</td>
-                <td>{ photos: Photo[] }</td>
-                <td>Get the specified number of best-rated Photos from the database.</td>
-            </tr>
-            <tr>
-                <td>/photos/list/byUser</td>
-                <td>{ userId: int, startIndex: int, max: int, {newestFirst: bool} }</td>
-                <td>{ photos: Photo[] }</td>
-                <td>Get the specified number of Photos uploaded by the specified User from the database.</td>
+                <td>{ max: int, startIndex: int, {plantId: int}, {userId: int }</td>
+                <td>{ photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[] }</td>
+                <td>Get the specified number of Photos from the database, sorted by votes. If plantId is given, return only Photos of the specified Plant. If userId is given, return only Photos by the specified User.</td>
             </tr>
             <tr>
                 <td>/photos/remove</td>
-                <td>{ userId: int, photoId: int }</td>
+                <td>{ photoId: int, userId: int }</td>
                 <td>{ }</td>
                 <td>Remove the Photo with the matching ID from the database.</td>
             </tr>
             <tr>
                 <td>/photoReports/add</td>
-                <td>{ userId: int, photoId: int, reportText: String }</td>
+                <td>{ photoId: int, reportText: String, userId: int }</td>
                 <td>{ }</td>
                 <td>Add a new PhotoReport of the specified Photo to the database.</td>
             </tr>
             <tr>
                 <td>/photoReports/byId</td>
                 <td>{ adminId: int, photoReportId: int }</td>
-                <td>{ photoReport: PhotoReport }</td>
+                <td>{ photoReport: { adminAction: int, adminId: int, handleDate: String,id: int, reportDate: String, reportText: String, userId: int } }</td>
                 <td>Return the PhotoReport with the matching ID.</td>
             </tr>
             <tr>
                 <td>/photoReports/handle</td>
-                <td>{ adminId: int, reportId: int, adminAction: AdminAction }</td>
+                <td>{ adminAction: int, adminId: int, reportId: int }</td>
                 <td>{ }</td>
                 <td>Handle the reported Photo by accepting or rejecting the PhotoReport and specifying whether or not
                     to ban the User that uploaded the offending Photo.</td>
             </tr>
             <tr>
-                <td>/photoReports/handled/list/byAdmin</td>
-                <td>{ adminId: int, startIndex: int, max: int }</td>
-                <td>{ photoReports: PhotoReport[0..max] }</td>
-                <td>Get the specified number of handled PhotoReports handled by the specified Admin from the database.</td>
-            </tr>
-            <tr>
-                <td>/photoReports/unhandled/list/byPriority</td>
-                <td>{ adminId: int, startIndex: int, max: int }</td>
-                <td>{ photoReports: PhotoReport[0..max] }</td>
-                <td>Get the specified number of unhandled PhotoReports, sorted by most reported Photo from the
-                    database.</td>
-            </tr>
-            <tr>
-                <td>/photoReports/unhandled/list/byDate</td>
-                <td>{ adminId: int, startIndex: int, max: int }</td>
-                <td>{ photoReports: PhotoReport[0..max] }</td>
-                <td>Get the specified number of unhandled PhotoReports, sorted in ascending order by date from the
-                    database.</td>
+                <td>/photoReports/list/byDate</td>
+                <td>{ adminId: int, startIndex: int, max: int, {handledBy: int}, {unhandledOnly: bool = false} }</td>
+                <td>{ photoReports: { adminAction: int, adminId: int, handleDate: String,id: int, reportDate: String, reportText: String, userId: int }[0..max] }</td>
+                <td>Get the specified number of PhotoReports, sorted in ascending order by date from the
+                    database. Optional: only return unhandled PhotoReports, only return PhotoReports handled by a specified Admin.</td>
             </tr>
             <tr>
                 <td>/photoReports/remove</td>
@@ -245,7 +226,7 @@
             <tr>
                 <td>/plants/add</td>
                 <td>{ adminId: int, name: String, bio: String }</td>
-                <td>{ plant: Plant, topPhotos: Photo[0..maxPhotos] }</td>
+                <td>{ plant: plant: Plant, topPhotos: Photo[0..maxPhotos] }</td>
                 <td>Add a new Plant to the database.</td>
             </tr>
             <tr>
