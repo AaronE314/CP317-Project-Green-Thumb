@@ -43,6 +43,7 @@
         <activity android:name="cp317.greenthumb.ReportsActivity" />
         <activity
             android:name="cp317.greenthumb.SettingsActivity"
+            android:exported="true"
             android:label="@string/title_activity_settings" />
         <activity android:name="cp317.greenthumb.MainMenuActivity" />
     </application>

@@ -34,7 +34,8 @@
         <activity android:name=".ReportsActivity" />
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+            android:exported="true" />
         <activity android:name=".MainMenuActivity"></activity>
     </application>
 
