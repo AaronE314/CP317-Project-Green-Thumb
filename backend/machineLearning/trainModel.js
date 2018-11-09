@@ -55,12 +55,14 @@ setTimeout(function(evt){
 function findHighCheck(action){
     //function used to search for highest index files given data from ls command
     /**
-     * @param {String} data
+     * @param {Buffer} data
      * 
      */
     this.check = function(data){
+        //sets data to a string
+        ret=String(data);
         //searches for line matching 'model.ckpt-[0-9]*\.meta' in data
-        found=data.match(regex);
+        found=ret.match(regex);
         //changes regex to just search for the number within the string
         regex=/\d+/;
 
