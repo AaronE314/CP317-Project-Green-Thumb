@@ -11,7 +11,7 @@ train(process.argv[2]);
 //main function that trains the model and calls the other required methods
 
 /**
- * @author Ben Keunen
+ * 
  * @param time hours of training to be performed
  */
 function train(time){
