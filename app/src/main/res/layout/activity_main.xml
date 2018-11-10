@@ -16,4 +16,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings_Test"
+        tools:layout_editor_absoluteX="246dp"
+        tools:layout_editor_absoluteY="69dp" />
+
 </android.support.constraint.ConstraintLayout>

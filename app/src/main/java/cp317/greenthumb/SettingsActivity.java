@@ -94,12 +94,14 @@ public class SettingsActivity extends AppCompatActivity {
 
     // Opens log in activity when called
     public void logIn() {
+        System.out.println("Going to LogIn activity...");
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
     // Opens main menu activity when called
     public void backToHomeView() {
+        System.out.println("Going to main activity...");
         Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
