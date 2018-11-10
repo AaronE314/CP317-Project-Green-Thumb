@@ -20,18 +20,10 @@ public class MainMenuActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        settingsButton = findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSettings();
-            }
-        });
     }
 
 
-    public void openSettings() {
+    public void openSettings(View v) {
         System.out.println("Going to settings activity...");
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);

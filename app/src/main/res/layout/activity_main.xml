@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MangerActivity">
+    tools:context=".MainMenuActivity">
 
     <TextView
         android:id="@+id/sample_text"
@@ -20,6 +20,7 @@
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="openSettings"
         android:text="Settings_Test"
         tools:layout_editor_absoluteX="246dp"
         tools:layout_editor_absoluteY="69dp" />
