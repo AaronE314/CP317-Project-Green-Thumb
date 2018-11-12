@@ -23,6 +23,26 @@ class Photo {
     this.uploadDate = new Date();
   }
   
+  /*
+  //Fill in when database is ready
+  function nextPhotoId(){
+    var mysql = require('sql');
+
+    var con = mysql.createConnection({
+    host: "localhost",
+    user: "username",
+    password: "password"
+    });
+
+    con.connect(function(err) {
+    if (err) throw err;
+    con.query("SELECT photo_id FROM Photo", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    });
+  }
+  */
+
   /**
    * @returns {int[]} downvoteIds;
    */
