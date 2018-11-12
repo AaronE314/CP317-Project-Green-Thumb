@@ -13,7 +13,7 @@ class Plant {
      * @constructor
      */
 
-    constructor (name, bio) {
+    constructor(name, bio) {
         this.name = name;
         this.bio = bio; 
     }
@@ -22,7 +22,7 @@ class Plant {
      * @returns {string} bio;
      */
 
-    get getBio() {          
+    function getBio() {          
         return this.bio;
     }
 
@@ -30,7 +30,7 @@ class Plant {
      * @returns {int} id
      */
 
-    get getID() {
+    function getID() {
         return this.id;
     }
 
@@ -38,7 +38,7 @@ class Plant {
      * @returns {string} name
      */
 
-    get getName() {
+    function getName() {
         return this.name;
     }
 
@@ -46,7 +46,7 @@ class Plant {
      * @param {string} newBio 
      */
 
-    set setBio(newBio) {
+    function setBio(newBio) {
         this.bio = newBio;
     }
 }
