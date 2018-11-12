@@ -115,11 +115,11 @@ class Photo {
   function addVote(up){
     if (up){
       this.upvoteIds.push(this.userId);
-      upvoteIds.sort();
+      upvoteIds.sort(function(a,b){return a-b});
     }
     else {
       this.downvoteIds.push(this.userId);
-      downvoteIds.sort();
+      downvoteIds.sort(function(a,b){return a-b});
     }
     return;
   }
