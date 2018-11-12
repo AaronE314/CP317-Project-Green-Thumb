@@ -14,7 +14,6 @@ import android.content.Intent;
 
 public class MainMenuActivity extends AppCompatActivity {
 
-    private Button settingsButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -26,6 +26,8 @@ To do:
 
 *////////////////
 
+
+
 public class SettingsActivity extends AppCompatActivity {
 
 
@@ -47,7 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         prefs = getPreferences(MODE_PRIVATE);
 
-        float fs = prefs.getFloat("fontsize", 12);
+        float fs = prefs.getFloat("fontsize", 10);
         fontScaleSlider.setProgress((int)fs);
         view.setTextSize(fontScaleSlider.getProgress());
 
@@ -62,13 +64,14 @@ public class SettingsActivity extends AppCompatActivity {
                 ed.commit();
             }
             @Override
-            public void onStartTrackingTouch(SeekBar fontScaleSlider){
+            public void onStartTrackingTouch(SeekBar fontScaleSlider) {
 
             }
             @Override
             public void onProgressChanged(SeekBar fontScaleSlider, int progress,
                                           boolean fromUser){
                 view.setTextSize(progress);
+                // Set text size of the whole app here
             }
 
         });
