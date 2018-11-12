@@ -80,6 +80,21 @@ class Photo {
   }
 
   /**
+   * @returns {int} UpvoteSum;
+   */
+  function getUpvoteSum(){
+    return this.upvoteIds.length;
+  }
+
+  /**
+   * @returns {int} DownvoteSum;
+   */
+  function getDownvoteSum(){
+    return this.downvoteIds.length;
+  }
+
+
+  /**
    * 
    * @param {int} userId 
    * @returns {boolean} (if the user downvoted)
