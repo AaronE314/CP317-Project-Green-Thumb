@@ -8,19 +8,23 @@ class Photo {
   let this.plantId = -1;
   let this.userId = -1;
   let this.uploadDate = Date;
+  let this.image = [];
 
   /**
    * @param {int} plantId
    * @param {int} userId
+   * @param {int} id
+   * @param {byte[]} image
    * @constructor
    */
-  constructor(plantId, userId, id){
+  constructor(plantId, userId, id, image){
     this.downvoteIds = downvoteIds;
     this.upvoteIds = upvoteIds;
     this.id = id;
     this.plantId = plantId;
     this.userId = userId;
     this.uploadDate = new Date();
+    this.image = image;
   }
  
 
