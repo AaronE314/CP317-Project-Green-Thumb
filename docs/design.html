@@ -164,7 +164,7 @@
             <tr>
                 <td>/photos/add</td>
                 <td>{ image: Image, plantId: int, userId: int }</td>
-                <td>{ }</td>
+                <td>{ photo: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int } }</td>
                 <td>Add a new Photo of the specified Plant to the database.</td>
             </tr>
             <tr>
@@ -194,7 +194,7 @@
             <tr>
                 <td>/photoReports/add</td>
                 <td>{ photoId: int, reportText: String, userId: int }</td>
-                <td>{ }</td>
+                <td>{ photoReport: { adminAction: int, adminId: int, handleDate: String,id: int, reportDate: String, reportText: String, userId: int }  }</td>
                 <td>Add a new PhotoReport of the specified Photo to the database.</td>
             </tr>
             <tr>
@@ -226,7 +226,7 @@
             <tr>
                 <td>/plants/add</td>
                 <td>{ adminId: int, name: String, bio: String }</td>
-                <td>{ plant: Plant }</td>
+                <td>{ plant: { bio: String, id: int, name: String, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[0..maxPhotos] } }</td>
                 <td>Add a new Plant to the database.</td>
             </tr>
             <tr>
@@ -268,7 +268,7 @@
             <tr>
                 <td>/users/add</td>
                 <td>{ userId: int }</td>
-                <td>{ user: User }</td>
+                <td>{ user: { admin: bool, bans: { adminId: int, date: String}[] }, id: int } }</td>
                 <td>Add a new User to the database.</td>
             </tr>
             <tr>
@@ -280,7 +280,7 @@
             <tr>
                 <td>/users/byId</td>
                 <td>{ userId: int }</td>
-                <td>{ user: User }</td>
+                <td>{ user: { admin: bool, bans: { adminId: int, date: String}[] }, id: int } }</td>
                 <td>Return the User with the matching ID.</td>
             </tr>
             <tr>
