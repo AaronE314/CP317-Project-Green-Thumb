@@ -2,25 +2,29 @@
  * @author Adam Cassidy
  */
 class Photo {
-  var downvoteIds = [];
-  var upvoteIds = [];
-  var id = -1;
-  var plantId = -1;
-  var userId = -1;
-  var uploadDate = Date;
+  let this.downvoteIds = [];
+  let this.upvoteIds = [];
+  let this.id = -1;
+  let this.plantId = -1;
+  let this.userId = -1;
+  let this.uploadDate = Date;
+  let this.image = [];
 
   /**
    * @param {int} plantId
    * @param {int} userId
+   * @param {int} id
+   * @param {byte[]} image
    * @constructor
    */
-  constructor(plantId, userId){
+  constructor(plantId, userId, id, image){
     this.downvoteIds = downvoteIds;
     this.upvoteIds = upvoteIds;
-    //this.id = new nextPhotoId(); from DBinterface
+    this.id = id;
     this.plantId = plantId;
     this.userId = userId;
     this.uploadDate = new Date();
+    this.image = image;
   }
   
   /**
