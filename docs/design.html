@@ -231,19 +231,19 @@
             </tr>
             <tr>
                 <td>/plants/byId</td>
-                <td>{ plantId: int, { maxPhotos: int } }</td>
+                <td>{ plantId: int, {maxPhotos: int} }</td>
                 <td>{ plant: { bio: String, id: int, name: String, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[0..maxPhotos] } }</td>
                 <td>Return the Plant with the matching ID.</td>
             </tr>
             <tr>
                 <td>/plants/byImage</td>
-                <td>{ image: Image, { maxPhotos: int } }</td>
+                <td>{ image: Image, {maxPhotos: int} }</td>
                 <td>{ plant: { bio: String, id: int, name: String, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[0..maxPhotos] } }</td>
                 <td>Identify and return a Plant by a ML analysis of the image.</td>
             </tr>
             <tr>
                 <td>/plants/byQuery</td>
-                <td>{ query: String, { maxPhotos: int } }</td>
+                <td>{ query: String, {maxPhotos: int} }</td>
                 <td>{ plant: { bio: String, id: int, name: String, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[0..maxPhotos] } }</td>
                 <td>Identify and return a Plant by a text query.</td>
             </tr>
