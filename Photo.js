@@ -2,12 +2,12 @@
  * @author Adam Cassidy
  */
 class Photo {
-  var downvoteIds = [];
-  var upvoteIds = [];
-  var id = -1;
-  var plantId = -1;
-  var userId = -1;
-  var uploadDate = Date;
+  let this.downvoteIds = [];
+  let this.upvoteIds = [];
+  let this.id = -1;
+  let this.plantId = -1;
+  let this.userId = -1;
+  let this.uploadDate = Date;
 
   /**
    * @param {int} plantId
