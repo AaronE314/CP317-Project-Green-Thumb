@@ -1,5 +1,10 @@
-
-let User = class User {
+/**
+ * @author Saje Bailey
+ */
+export let User = class User {
+    /**
+     * @param {int} userId
+     */
     constructor(userId) {
         this.admin = false;
         this.bans = [];
@@ -16,12 +21,14 @@ let User = class User {
     isAdmin() {
         return this.admin;
     }
-    
+    /**
+     * @param {int} adminId
+     */
     ban(adminId) {
         if (!this.admin) {
             let expiration = new Date();
             let numBans = bans.length;
-            expiration.setDate(expiration.getDate() + (1 + numBans) * 7);
+            expiration.setDate(expiration.getDate() + Math.pow(7, (numBans)));
             let ban = class{
                 constructor(adminId, expiration) {
                     this.adminId = adminId;
@@ -31,6 +38,9 @@ let User = class User {
             this.bans[numBans] = ban;
         }
     }
+    /**
+   * @returns {boolean} banned;
+   */
     isBanned() {
         let len = this.bans.length;
         if (len > 0) {
