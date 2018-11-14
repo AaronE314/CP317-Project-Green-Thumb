@@ -3,50 +3,48 @@
  * */
 
 class Plant {
-    id = -1;
-    name;
-    bio;
-
+    
     /**
      * @param {string} name 
      * @param {string} bio 
      * @constructor
      */
-
     constructor(name, bio) {
-        this.name = name;
-        this.bio = bio; 
-    }
+        //PRIVATE attributtes
+        let _id = -1;
+        let _name = name;
+        let _bio = bio;
     
-    /**
-     * @returns {string} bio;
-     */
+        /**
+         * @returns {string} bio;
+         */
 
-    function getBio() {          
-        return this.bio;
-    }
+        function getBio() {          
+            return _bio;
+        }
 
-    /**
-     * @returns {int} id
-     */
+        /**
+         * @returns {int} id
+         */
 
-    function getID() {
-        return this.id;
-    }
+        function getID() {
+            return _id;
+        }
 
-    /**
-     * @returns {string} name
-     */
+        /**
+         * @returns {string} name
+         */
 
-    function getName() {
-        return this.name;
-    }
+        function getName() {
+            return _name;
+        }
 
-    /**
-     * @param {string} newBio 
-     */
+        /**
+         * @param {string} newBio 
+         */
 
-    function setBio(newBio) {
-        this.bio = newBio;
+        function setBio(newBio) {
+            _bio = newBio;
+        }
     }
 }
