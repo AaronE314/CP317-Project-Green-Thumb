@@ -14,13 +14,13 @@ class Photo {
      */
     constructor(id, plantId, userId, image) {
         // PRIVATE attributes.
-        this.downvoteIds = [];
-        this.upvoteIds = [];
-        this.id = id;
-        this.plantId = plantId;
-        this.userId = userId;
-        this.uploadDate = new Date();
-        this.image = image;
+        let downvoteIds = [];
+        let upvoteIds = [];
+        let id = id;
+        let plantId = plantId;
+        let userId = userId;
+        let uploadDate = new Date();
+        let image = image;
 
         // PUBLIC methods.
         this.getId = getId;
