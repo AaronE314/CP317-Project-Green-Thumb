@@ -151,11 +151,11 @@ class Photo {
 
         // PRIVATE method definitions.
         function searchVoteArray(voteArray, userId) {
-            var first = 0;
-            var mid;
-            var last = voteArray.length;
-            var found = false;
-            var result = -1;
+            let first = 0;
+            let mid;
+            let last = voteArray.length;
+            let found = false;
+            let result = -1;
 
             while (first <= last && !found) {
                 mid = (first + last) / 2;
