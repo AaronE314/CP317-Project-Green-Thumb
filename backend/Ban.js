@@ -4,7 +4,13 @@
  * @desc The Ban class.
  * @author Nathaniel Carr
  */
-class Ban {
+export default class Ban {
+    /**
+     * @param {int} id The Ban ID.
+     * @param {int} userId The ID of the banned User.
+     * @param {int} adminId The ID of the Admin who banned the User.
+     * @param {Date} expirationDate The Date when the Ban expires.
+     */
     constructor(id, userId, adminId, expirationDate) {
         // PRIVATE attributes.
         let _id = id;
@@ -45,5 +51,3 @@ class Ban {
         }
     }
 }
-
-module.exports.Ban = Ban;
