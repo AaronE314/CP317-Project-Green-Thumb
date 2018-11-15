@@ -2,7 +2,7 @@
 /**@abstract
  *
  * @license
- * Copyright 2018 Sir Juggeth Ent. All Rights Reserved.
+ * Copyright 2018 Project Green Thumb. All Rights Reserved.
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
