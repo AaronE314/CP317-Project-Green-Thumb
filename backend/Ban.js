@@ -1,15 +1,17 @@
 "use strict";
-
 /**
  * @desc The Ban class.
  * @author Nathaniel Carr
  */
 export default class Ban {
     /**
-     * @param {int} id The Ban ID.
-     * @param {int} userId The ID of the banned User.
-     * @param {int} adminId The ID of the Admin who banned the User.
-     * @param {Date} expirationDate The Date when the Ban expires.
+     * @desc The Ban class Constructor.
+     * @author Nathaniel Carr
+     * @param {Number} id The Ban ID. Integer.
+     * @param {Number} userId The ID of the banned User. Integer.
+     * @param {Number} adminId The ID of the Admin who banned the User. Integer.
+     * @param {*} expirationDate The Date when the Ban expires.
+     * @constructor
      */
     constructor(id, userId, adminId, expirationDate) {
         // PRIVATE attributes.
@@ -26,25 +28,29 @@ export default class Ban {
 
         // PUBLIC method defintions.
         /**
-         * @returns {int} ID of Ban.
+         * @author Nathaniel Carr
+         * @returns {Number} id The Ban ID. Integer.
          */
-        function getId(){
+        function getId() {
             return _id;
         }
         /**
-         * @returns {int} ID of banned User.
+         * @author Nathaniel Carr
+         * @returns {Number} userId The ID of the banned User. Integer.
          */
         function getUserId() {
             return _userId;
         }
         /**
-         * @returns {int} ID of Admin who gave Ban.
+         * @author Nathaniel Carr
+         * @returns {Number} adminId The ID of the Admin who banned the User. Integer.
          */
         function getAdminId() {
             return _adminId;
         }
         /**
-         * @returns {int} Expiration date of Ban.
+         * @author Nathaniel Carr
+         * @returns {*} expirationDate The Date when the Ban expires.
          */
         function getExpirationDate() {
             return _expirationDate;
