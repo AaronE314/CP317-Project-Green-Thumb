@@ -47,7 +47,7 @@ export default class User {
          */
         function ban(adminId) {
             let expiration = new Date();
-            expiration.setDate(expiration.getDate() + Math.pow(BAN_BASE, (numBans)));
+            expiration.setDate(expiration.getDate() + Math.pow(BAN_BASE, (_bans.length)));
 
             // call function in the DB Interface with appropreate constructor arguments
             // this call to Ban constructor is temporary for testing
@@ -56,7 +56,7 @@ export default class User {
         /**
          * @author Saje Bailey
          * @author Nathaniel Carr
-         * @returns {Boolean} true iff the User is currently banned.
+         * @returns {Boolean} true if the User is currently banned.
          */
         function isBanned() {
             return (_bans.length > 0) && (new Date().getTime() < new Date(_bans[_bans.length - 1]).getTime());
