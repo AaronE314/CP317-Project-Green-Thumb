@@ -1,31 +1,36 @@
+"use strict";
 /**
  * @desc The Photo class.
  * @author Adam Cassidy
  */
-class Photo {
+export default class Photo {
     /**
      * @desc The Photo class constructor.
      * @author Adam Cassidy
-     * @param {int} id The ID of the Photo.
-     * @param {int} plantId The ID of the corresponding Plant.
-     * @param {int} userId The ID of the User who uploaded this Photo.
-     * @param {byte[]} image The byte array for the image.
+     * @param {Number} id The ID of the Photo. Integer.
+     * @param {Number} plantId The ID of the corresponding Plant. Integer.
+     * @param {Number} userId The ID of the User who uploaded this Photo. Integer.
+     * @param {*[]} image The byte array for the image.
+     * @param {*=} uploadDate The Date on which the Photo was uploaded. Today if undefined.
+     * @param {Number[]=} upvoteIds The IDs of the Users who have upvoted on this Photo. Sorted in ascending order. Integer.
+     * @param {Number[]=} downvoteIds The IDs of the Users who have downvoted on this Photo. Sorted in ascending order. Integer.
      * @constructor
      */
-    constructor(id, plantId, userId, image) {
+    constructor(id, plantId, userId, image, uploadDate, upvoteIds, downvoteIds) {
         // PRIVATE attributes.
-        let downvoteIds = [];
-        let upvoteIds = [];
-        let id = id;
-        let plantId = plantId;
-        let userId = userId;
-        let uploadDate = new Date();
-        let image = image;
+        let _id = id;
+        let _plantId = plantId;
+        let _userId = userId;
+        let _image = image;
+        let _uploadDate = uploadDate !== undefined ? new Date(uploadDate) : new Date();
+        let _upvoteIds = upvoteIds !== undefined ? upvoteIds.sort((a, b) => { return a - b; }) : [];
+        let _downvoteIds = downvoteIds !== undefined ? downvoteIds.sort((a, b) => { return a - b; }) : [];
 
         // PUBLIC methods.
         this.getId = getId;
         this.getPlantId = getPlantId;
         this.getUserId = getUserId;
+        this.getImage = getImage;
         this.getUploadDate = getUploadDate;
         this.getUpvoteIds = getUpvoteIds;
         this.getDownvoteIds = getDownvoteIds;
@@ -36,176 +41,147 @@ class Photo {
 
         // PRIVATE method definitions.
         /**
-        * @returns {int} Id;
+        * @author Adam Cassidy
+        * @returns {Number} The ID of the Photo. Integer.
         */
         function getId() {
-            return this.Id;
+            return _id;
         }
-
         /**
-        * @returns {int} plantId;
+        * @author Adam Cassidy
+        * @returns {Number} The ID of the corresponding Plant. Integer.
         */
         function getPlantId() {
-            return this.plantId;
+            return _plantId;
         }
-
         /**
-        * @returns {int} userId;
+        * @author Adam Cassidy
+        * @returns {Number} userId The ID of the User who uploaded this Photo. Integer.
         */
         function getUserId() {
-            return this.userId;
+            return _userId;
         }
-
         /**
-        * @returns {Date} uploadDate;
+         * @author Adam Cassidy
+         * @returns {*[]} The byte array for the image.
+         */
+        function getImage() {
+            return _image;
+        }
+        /**
+         * @author Adam Cassidy
+        * @returns {*} uploadDate The Date on which the Photo was uploaded.
         */
         function getUploadDate() {
-            return this.uploadDate;
+            return _uploadDate;
         }
-
         /**
-        * @returns {int[]} upvoteIds;
+         * @author Adam Cassidy
+        * @returns {Number[]} upvoteIds The IDs of the Users who have upvoted on this Photo. Sorted in ascending order. Integer.
         */
         function getUpvoteIds() {
-            return this.upvoteIds;
+            return _upvoteIds;
         }
-
         /**
-         * @returns {int[]} downvoteIds;
+         * @author Adam Cassidy
+         * @returns {Number[]} downvoteIds The IDs of the Users who have downvoted on this Photo. Sorted in ascending order. Integer.
          */
         function getDownvoteIds() {
-            return this.downvoteIds;
+            return _downvoteIds;
         }
-
         /**
-         * 
-         * @param {int} userId 
-         * @returns {boolean} (if the user upvoted)
+         * @desc Determine whether or not a User with a specified ID upvoted on this Photo.
+         * @author Adam Cassidy
+         * @param {Number} userId The ID of the User in question. Integer.
+         * @returns {Boolean} True iff the User upvoted.
          */
         function userUpvoted(userId) {
-            if (searchVoteArray(this.upvoteIds, this.userId) === -1) {
-                return false;
-            }
-            else {
-                return true;
-            }
+            return binaryIndexOf(_upvoteIds, userId, (a, b) => { return a - b; }) > -1;
         }
-
         /**
-         * 
-         * @param {int} userId 
-         * @returns {boolean} (if the user downvoted)
+         * @desc Determine whether or not a User with a specified ID downvoted on this Photo.
+         * @author Adam Cassidy
+         * @param {Number} userId The ID of the User in question. Integer.
+         * @returns {Boolean} True iff the User downvoted.
          */
         function userDownvoted(userId) {
-            if (searchVoteArray(this.downvoteIds, this.userId) === -1) {
-                return false;
-            }
-
-            else {
-                return true;
-            }
+            return binaryIndexOf(_downvoteIds, userId, (a, b) => { return a - b; }) > -1;
         }
-
         /**
-         * @returns {int} voteSum;
+         * @desc Determine overall total of upvotes and downvotes (one upvote is +1, one downvote is -1).
+         * @author Nathaniel Carr
+         * @author Adam Cassidy
+         * @returns {Number} The difference between the length of upvoteIds and downvoteIds. Integer.
          */
         function getVoteSum() {
-            var sum = 0;
-            for (upvote in this.upvoteIds) {
-                sum += 1;
-            }
-            for (downvote in this.downvoteIds) {
-                sum -= 1;
-            }
-            return sum;
+            return _upvoteIds.length - _downvoteIds.length;
         }
-
+        /**
+         * @desc Add a User's ID to the upvoteIds or downvoteIds (based on up param) if it does not already exist in the array in question, and remove it if it does. There will be at most one instance of userId in either upvoteIds or downvoteIds at the end.
+         * @author Nathaniel Carr
+         * @author Adam Cassidy
+         * @param {Number} userId The User's ID. Integer.
+         * @param {Boolean} up Whether to upvote or downvote.
+         */
         function vote(userId, up) {
-            if (up) {
-                var upIndex = searchVoteArray(this.upvoteIds, this.userId);
-                if (upIndex != -1) {
-                    removeVote(up, upIndex);
-                }
-                else {
-                    var downIndex = searchVoteArray(this.downvoteIds, this.userId);
-                    if (downIndex != -1) {
-                        removeVote(!up, downIndex);
-                    }
-                    addVote(up);
-                }
+            // Find index of userId in upvoteIds if it exists.
+            let index = binaryIndexOf(_upvoteIds, userId, (a, b) => { return a - b; });
+            if (index > -1) {
+                // Splice userId out of upvoteIds.
+                _upvoteIds.splice(index, 1);
+            } else if (up) {
+                // Splice userId into appropriate index in upvoteIds.
+                _upvoteIds.splice(
+                    binaryIndexOf(_upvoteIds, userId, (a, b) => { return a - b; }, true), 0, userId);
             }
-            else {
-                var downIndex = searchVoteArray(this.downvoteIds, this.userId);
-                if (downIndex != -1) {
-                    removeVote(up, downIndex);
-                }
-                else {
-                    var upIndex = searchVoteArray(this.upvoteIds, this.userId);
-                    if (upIndex != -1) {
-                        removeVote(!up, upIndex);
-                    }
-                    addVote(up);
-                }
+
+            // Find index of userId in downvoteIds if it exists.
+            index = binaryIndexOf(_downvoteIds, userId, (a, b) => { return a - b; });
+            if (index > -1) {
+                // Splice userId out of downvoteIds.
+                _downvoteIds.splice(index, 1);
+            } else if (!up) {
+                // Splice userId into appropriate index in downvoteIds.
+                _downvoteIds.splice(binaryIndexOf(_downvoteIds, userId, (a, b) => { return a - b; }, true), 0, userId);
             }
         }
 
         // PRIVATE method definitions.
-        function searchVoteArray(voteArray, userId) {
+        /**
+         * @desc Returns index of item if item is found in arr. Else, returns -1 by default or the index of the next-least item in arr (based on closestLT).
+         * @author Nathaniel Carr
+         * @author Adam Cassidy
+         * @template T
+         * @param {T[]} arr Array to search.
+         * @param {T} item Item to search for.
+         * @param {*} comp Function that compares a to b, each of type T. Returns < 0 if a < b, 0 if a == b, > 0 if a > b.
+         * @param {Boolean=} [closestLT=false] If closestLT set, return index of closest T in arr to item such that the closest T is less than item. If closestLT is false, return -1 if item is not found. Default: false.
+         * @returns {Number} Return index of item if item is found in arr. If closestLT set, return index of closest T in arr to item such that the closest T is less than item. If closestLT is false, return -1 if item is not found.
+         */
+        function binaryIndexOf(arr, item, comp, closestLT) {
+            closestLT |= false;
+
             let first = 0;
             let mid;
-            let last = voteArray.length;
+            let last = arr.length - 1;
             let found = false;
             let result = -1;
 
             while (first <= last && !found) {
-                mid = (first + last) / 2;
-                if (userId === voteArray[mid]) {
+                let compResult = comp(arr[mid], item);
+                mid = Math.floor((first + last) / 2);
+                if (compResult == 0) {
                     found = true;
                     result = mid;
                 }
-                else if (userId < voteArray[mid]) {
+                else if (compResult > 0) {
                     last = mid - 1;
                 }
                 else {
                     first = mid + 1;
                 }
             }
-            return result;
-        }
-
-        /**
-         * 
-         * @param {boolean} up
-         */
-        function addVote(userId, up) {
-            if (up) {
-                this.upvoteIds.push(userId);
-                upvoteIds.sort(function (a, b) { return a - b });
-            }
-            else {
-                this.downvoteIds.push(userId);
-                downvoteIds.sort(function (a, b) { return a - b });
-            }
-            return;
-        }
-
-        /**
-         * 
-         * @param {boolean} up
-         */
-        function removeVote(up, index) {
-            if (up) {
-                if (index != -1) {
-                    this.upvoteIds.splice(index, 1);
-                }
-            }
-            else {
-                if (index != -1) {
-                    this.downvoteIds.splice(index, 1);
-                }
-            }
-            return;
-
+            return closestLT ? first : result;
         }
     }
 }
