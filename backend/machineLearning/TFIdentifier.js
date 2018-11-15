@@ -66,12 +66,12 @@ class TFIdentifier {
    # │ │ │ │ │ │
    # │ │ │ │ │ │
    # * * * * * *
-   * @param {boolean} repeat optional param, default true
+   * @param {boolean} repeat optional param, default false
    *
    * @returns {boolean} confirms that scheduling was set
    */
   static scheduleTraining(time, repeat) {
-    repeat = typeof given !== 'undefined' ? repeat : true;
+    repeat = typeof given !== 'undefined' ? repeat : false;
 
     return false
 
