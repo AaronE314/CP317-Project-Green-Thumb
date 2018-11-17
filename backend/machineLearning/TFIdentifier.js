@@ -27,7 +27,7 @@ class TFIdentifier {
      * 
      * @param image
      */
-    static predict(image) {
+    static async predict(image) {
 
     }
 
