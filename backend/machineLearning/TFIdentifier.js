@@ -148,7 +148,7 @@ class TFIdentifier {
    * be used to predict.
    * @param image the image to predict, as a byte image
    * 
-   * @returns the image converted to a tensor of shape [1, width, height, 3]
+   * @returns the image converted to a tensor of shape [1, width, height,3]
    */
   static _preProcessImage(image) {
 
