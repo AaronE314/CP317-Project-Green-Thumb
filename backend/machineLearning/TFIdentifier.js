@@ -18,7 +18,10 @@
  * @description This class is designed to Identify a given image,
  * and return the results as an array of detections
  *
- * @requires NPM:node-cron @link{https://www.npmjs.com/package/node-cron}
+ * @requires NPM:schedulejs @link{https://bunkat.github.io/schedule/}
+ * or
+ * @requires NPM:later @link{http://bunkat.github.io/later/}
+ * (both very similar, just determining which will suit our needs best)
  */
 class TFIdentifier {
 
@@ -56,26 +59,43 @@ class TFIdentifier {
    *
    * sets schedule to call retrain
    *
-   * @param {string} time time and day (of week/month) in Cron format(* * * * * *)
-   # ┌────────────── second (optional)
-   # │ ┌──────────── minute
-   # │ │ ┌────────── hour
-   # │ │ │ ┌──────── day of month
-   # │ │ │ │ ┌────── month
-   # │ │ │ │ │ ┌──── day of week
-   # │ │ │ │ │ │
-   # │ │ │ │ │ │
-   # * * * * * *
-   * @param {boolean} repeat optional param, default false
+   * @param {String} time time and day (of week/month)
+   * @param {Boolean} repeat optional param, default false
    *
-   * @returns {boolean} confirms that scheduling was set
+   * @returns {Boolean} confirms that scheduling was set
    */
   static scheduleTraining(time, repeat) {
     repeat = typeof given !== 'undefined' ? repeat : false;
 
+    var schedule = require('schedulejs');
+    //var later = require('later');
+
+
     return false
 
   }
+
+  // I don't think I'll need this, but am keeping it here for now, just in case.
+  //
+  // /**
+  //  * @author Justin Harrott
+  //  *
+  //  * Creates ScheduleTask object to be used for scheduling
+  //  *
+  //  * @param {Array} time
+  //  * @param {Boolean} repeat
+  //  *
+  //  * @returns task object literal
+  //  */
+  // static _scheduleTask(time, repeat) {
+  //   let task = {
+  //     date: something,
+  //     repeat: something
+  //   }
+
+  //   return
+  // }
+
 
   /**
    * @author Jhon Duphny
