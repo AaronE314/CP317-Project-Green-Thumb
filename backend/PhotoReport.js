@@ -3,7 +3,7 @@
  * @desc The PhotoReport class.
  * @author Scott Peebles
  * */
-export default class PhotoReport {
+class PhotoReport {
 	/**
 	 * @desc The PhotoReport class constructor.
 	 * @author Scott Peebles
@@ -68,3 +68,5 @@ export default class PhotoReport {
 
 	}
 }
+
+module.exports = PhotoReport;
