@@ -3,7 +3,7 @@
  * @desc The Ban class.
  * @author Nathaniel Carr
  */
-export default class Ban {
+class Ban {
     /**
      * @desc The Ban class Constructor.
      * @author Nathaniel Carr
@@ -57,3 +57,5 @@ export default class Ban {
         }
     }
 }
+
+module.exports = Ban;

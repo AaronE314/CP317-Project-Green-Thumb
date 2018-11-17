@@ -1,13 +1,12 @@
 "use strict";
-import Ban from './Ban.js';
-
+const Ban = require("./Ban.js");
 const BAN_BASE = 3;
 
 /**
  * @desc The User class
  * @author Saje Bailey
  */
-export default class User {
+class User {
     /**
      * @desc Constructor for the User class.
      * @author Saje Bailey
@@ -16,9 +15,9 @@ export default class User {
      * @constructor
      */
     constructor(userId, bans) {
-        // PRIVATE attributes.
-        let _bans = (bans === undefined ? [] : bans);
-        let _id = userId;
+        // PROTECTED attributes.
+        this._id = userId;
+        this._bans = (bans === undefined ? [] : bans);
 
         // PUBLIC methods.
         this.getBans = getBans;
@@ -32,14 +31,14 @@ export default class User {
          * @returns {Ban[]} The list of Bans associated with the User.
          */
         function getBans() {
-            return _bans;
+            return this._bans;
         }
         /**
          * @author Saje Bailey
          * @returns {Number} The ID of the User. Integer.
          */
         function getId() {
-            return _id;
+            return this._id;
         }
         /**
          * @author Saje Bailey
@@ -47,11 +46,11 @@ export default class User {
          */
         function ban(adminId) {
             let expiration = new Date();
-            expiration.setDate(expiration.getDate() + Math.pow(BAN_BASE, (_bans.length)));
+            expiration.setDate(expiration.getDate() + Math.pow(BAN_BASE, (this._bans.length)));
 
             // call function in the DB Interface with appropreate constructor arguments
             // this call to Ban constructor is temporary for testing
-            _bans[_bans.length] = new Ban(adminId, expiration);
+            this._bans[this._bans.length] = new Ban(Math.floor(Math.random() * 10000), this._id, adminId, expiration);
         }
         /**
          * @author Saje Bailey
@@ -59,7 +58,9 @@ export default class User {
          * @returns {Boolean} true if the User is currently banned.
          */
         function isBanned() {
-            return (_bans.length > 0) && (new Date().getTime() < new Date(_bans[_bans.length - 1]).getTime());
+            return (this._bans.length > 0) && (new Date().getTime() < new Date(this._bans[this._bans.length - 1].getExpirationDate()).getTime());
         }
     }
 }
+
+module.exports = User;
