@@ -28,6 +28,7 @@ class PhotoReport {
 		this.getUserId = getUserId;
 		this.getReportText = getReportText;
 		this.getReportDate = getReportDate;
+		this.toJSON = toJSON;
 
 		// PUBLIC method defintions.
 		/**
@@ -65,7 +66,20 @@ class PhotoReport {
 		function getReportDate() {
 			return _reportDate;
 		}
-
+		/**
+		 * @desc Convert the private attributes of PhotoReport object to JSON so it can be sent via an API.
+		 * @author Nathaniel Carr
+		 * @returns {*} The PhotoReport object's attributes.
+		 */
+		function toJSON() {
+			return {
+				id: _id,
+				photoId: _photoId,
+				userId: _userId,
+				reportText: _reportText,
+				reportDate: _reportDate
+			}
+		}
 	}
 }
 

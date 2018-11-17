@@ -22,6 +22,7 @@ class Plant {
         this.getName = getName;
         this.getBio = getBio;
         this.setBio = setBio;
+        this.toJSON = toJSON;
 
         // PUBLIC method definitions.
         /**
@@ -48,6 +49,18 @@ class Plant {
         function setBio(newBio) {
             _bio = newBio;
         }
+        /**
+		 * @desc Convert the private attributes of Plant object to JSON so it can be sent via an API.
+		 * @author Nathaniel Carr
+		 * @returns {*} The Plant object's attributes.
+		 */
+		function toJSON() {
+			return {
+				id: _id,
+                name: _name,
+                bio: _bio
+			}
+		}
     }
 }
 

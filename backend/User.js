@@ -24,6 +24,7 @@ class User {
         this.getId = getId;
         this.ban = ban;
         this.isBanned = isBanned;
+        this.toJSON = toJSON;
 
         // PUBLIC method definitions.
         /**
@@ -60,6 +61,21 @@ class User {
         function isBanned() {
             return (this._bans.length > 0) && (new Date().getTime() < new Date(this._bans[this._bans.length - 1].getExpirationDate()).getTime());
         }
+        /**
+		 * @desc Convert the private attributes of User object to JSON so it can be sent via an API.
+		 * @author Nathaniel Carr
+		 * @returns {*} The User object's attributes.
+		 */
+		function toJSON() {
+            let bans = [];
+            for (let i = 0; i < this._bans.length; i++) {
+                bans.push(this._bans[i].toJSON());
+            }
+			return {
+                id: this._id,
+                bans: bans
+			}
+		}
     }
 }
 

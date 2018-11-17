@@ -25,6 +25,7 @@ class Ban {
         this.getUserId = getUserId;
         this.getAdminId = getAdminId;
         this.getExpirationDate = getExpirationDate;
+        this.toJSON = toJSON;
 
         // PUBLIC method defintions.
         /**
@@ -54,6 +55,19 @@ class Ban {
          */
         function getExpirationDate() {
             return _expirationDate;
+        }
+        /**
+         * @desc Convert the private attributes of Ban object to JSON so it can be sent via an API.
+         * @author Nathaniel Carr
+         * @returns {*} The Ban object's attributes.
+         */
+        function toJSON() {
+            return {
+                id: _id,
+                userId: _userId,
+                adminId: _adminId,
+                expirationDate: _expirationDate
+            }
         }
     }
 }

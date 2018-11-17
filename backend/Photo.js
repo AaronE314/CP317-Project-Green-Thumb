@@ -3,7 +3,7 @@
  * @desc The Photo class.
  * @author Adam Cassidy
  */
-export default class Photo {
+class Photo {
     /**
      * @desc The Photo class constructor.
      * @author Adam Cassidy
@@ -38,6 +38,7 @@ export default class Photo {
         this.userDownvoted = userDownvoted;
         this.getVoteSum = getVoteSum;
         this.vote = vote;
+        this.toJSON = toJSON;
 
         // PRIVATE method definitions.
         /**
@@ -183,5 +184,23 @@ export default class Photo {
             }
             return closestLT ? first : result;
         }
+        /**
+         * @desc Convert the private attributes of Photo object to JSON so it can be sent via an API.
+         * @author Nathaniel Carr
+         * @returns {*} The Photo object's attributes.
+         */
+        function toJSON() {
+            return {
+                id: _id,
+                plantId: _plantId,
+                userId: _userId,
+                image: _image,
+                uploadDate: _uploadDate,
+                upvoteIds: _upvoteIds,
+                downvoteIds: _downvoteIds
+            }
+        }
     }
 }
+
+module.exports = Photo;
