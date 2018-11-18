@@ -8,8 +8,8 @@
  * and return the results as an array of detections
  * 
  */
-class TFTrainer {
 const { spawn } = require('child_process');
+class TFTrainer {
     /**
      * @author Joseph Myc
      * 
@@ -20,8 +20,8 @@ const { spawn } = require('child_process');
     static convertFormat(model, chkpt) {
         // $ arguments represents arguments which should not be changed
         //arguments are [$script, $input type, path to configuration file of the model, prefix of latest checkpoint file given by training, where to save the frozen graph]
-        const exportFile = spawn('python',["export_inference_graph.py","--input_type=image_tensor","--pipeline_config_path=training/"+model,
-        "--trained_checkpoint_prefix=training/model.ckpt-"+String(chkpt), "--output_directory=inference_graph"],);
+        const exportFile = spawn('python', ["export_inference_graph.py", "--input_type=image_tensor", "--pipeline_config_path=training/" + model,
+            "--trained_checkpoint_prefix=training/model.ckpt-" + String(chkpt), "--output_directory=inference_graph"]);
     }
 
     /**
@@ -45,24 +45,24 @@ const { spawn } = require('child_process');
      * @param time (int) hours to train
      * @param model (String) model to be trained ie 'ssd_mobilenet_v1_coco_2017_11_17'
      */
-    static trainModel(time, model){
-        var regex=/model.ckpt-[0-9]*\.meta/g;
+    static trainModel(time, model) {
+        var regex = /model.ckpt-[0-9]*\.meta/g;
         var found;
-        var max=0;
- 
+        var max = 0;
+
         //arguments are [where to log errors, directory of where training occurs, path to configuration file of the model]
         const train = spawn('python',
-        ["train.py", "--logtostderr", "--train_dir=training/", "--pipeline_config_path=training/"+model]);
+            ["train.py", "--logtostderr", "--train_dir=training/", "--pipeline_config_path=training/" + model]);
 
         //sets a timer to allow the training to occur for 'time' hours as input as an argument
-        setTimeout(function(evt){ 
+        setTimeout((evt) => {
             //stops the training after time has passed
             train.kill();
             //calls function to find highest checkpoint and export a graph based upon it
-            findHighCheck(function(name,data){ convertFormat(name, data });
+            findHighCheck((name, data) => { convertFormat(name, data )});
             //60 minutes * 'time' hours
-        },1000*60*60*time);
-        
+        }, 1000 * 60 * 60 * time);
+
 
         /**
          * @param {function} action
@@ -70,25 +70,25 @@ const { spawn } = require('child_process');
          * ensures proper order of execution
          *
          */
-        function findHighCheck(action){
+        function findHighCheck(action) {
             //function used to search for highest index files given data from ls command
             /**
              * @param {Buffer} data
              * 
              */
-            this.check = function(data){
+            this.check = function (data) {
                 //sets data to a string
-                ret=String(data);
+                ret = String(data);
                 //searches for line matching 'model.ckpt-[0-9]*\.meta' in data
-                found=ret.match(regex);
+                found = ret.match(regex);
                 //changes regex to just search for the number within the string
-                regex=/\d+/;
+                regex = /\d+/;
 
                 //searches for the highest number within the original list of lines matching 'model.ckpt-[0-9]*\.meta'
-                for (var i = 0; i < found.length; i++){
-                    var num= parseInt(found[i].match(regex));
-                    if (num>max){
-                        max=num;
+                for (var i = 0; i < found.length; i++) {
+                    var num = parseInt(found[i].match(regex));
+                    if (num > max) {
+                        max = num;
                     }
                 }
                 //performs the convertFormat method upon the max number
@@ -96,7 +96,7 @@ const { spawn } = require('child_process');
             }
 
             //performs ls command from training directory
-            const findCheck = spawn('ls',{cwd:"training"});
+            const findCheck = spawn('ls', { cwd: "training" });
             findCheck.stdout.on('data', this.check);
         }
     }
