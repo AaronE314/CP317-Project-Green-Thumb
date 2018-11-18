@@ -46,9 +46,9 @@ class TFTrainer {
      * @param model (String) model to be trained ie 'ssd_mobilenet_v1_coco_2017_11_17'
      */
     static trainModel(time, model) {
-        var regex = /model.ckpt-[0-9]*\.meta/g;
-        var found;
-        var max = 0;
+        let regex = /model.ckpt-[0-9]*\.meta/g;
+        let found;
+        let max = 0;
 
         //arguments are [where to log errors, directory of where training occurs, path to configuration file of the model]
         const train = spawn('python',
@@ -85,8 +85,8 @@ class TFTrainer {
                 regex = /\d+/;
 
                 //searches for the highest number within the original list of lines matching 'model.ckpt-[0-9]*\.meta'
-                for (var i = 0; i < found.length; i++) {
-                    var num = parseInt(found[i].match(regex));
+                for (let i = 0; i < found.length; i++) {
+                    let num = parseInt(found[i].match(regex));
                     if (num > max) {
                         max = num;
                     }
