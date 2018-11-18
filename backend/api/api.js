@@ -1,9 +1,9 @@
 /**
  * Module: api.js
  * ------------------------------------------------------------------
- * Authors: Nathaniel Carr
+ * Authors: Nathaniel Carr, Aaron Exley
  * ------------------------------------------------------------------
- * Last Update: 2018/11/12
+ * Last Update: 2018/11/17
  * -------------------------------------------------------------------
  * Description:
  * Runs backend API.
@@ -539,35 +539,68 @@ api.post("/plants/byImage", (req, res) => {
 
         req.body.maxPhotos = req.body.maxPhotos !== undefined ? req.body.maxPhotos : DEFAULTS.plantsMaxPhotos;
 
-        let plants = [];
-        let numPlants = parseInt(Math.random() * 10);
-        for (let i = 0; i < numPlants; i++) {
-            let photos = [];
-            let plantId = parseInt(Math.random() * 10000);
-            for (let j = 0; photos.length < req.body.maxPhotos && j < STUB_HELPER.images.length; j++) {
-                photos[photos.length] = {
-                    id: parseInt(Math.random() * 10000),
-                    plantId: plantId,
-                    userId: parseInt(Math.random() * 10000),
-                    upvoteIds: STUB_HELPER.randVoteArr(true),
-                    downvoteIds: STUB_HELPER.randVoteArr(false),
-                    uploadDate: new Date(new Date().getTime() - parseInt(Math.random() * 365 * 24 * 60 * 60 * 1000) - 1),
-                    image: STUB_HELPER.images[i]
-                }
-            }
-            photos.sort((a, b) => { return (a.upvoteIds.length - a.downvoteIds.length) - (b.upvoteIds.length - b.downvoteIds.length); });
-            plants[i] = {
-                id: parseInt(Math.random() * 10000),
-                name: "Sample text",
-                bio: STUB_HELPER.randPlantBio(),
-                photos: photos
+        const MLIdentifier = require('../machineLearning/MLIdentifier.js');
 
-            }
+        const TFResults = await MLIdentifier.predict(req.body.image);
+
+        let plants = [];
+
+        for (let i = 0; i < TFResults.numResults; i++) {
+            plants.push(DBInterface.getPhoto(TFResults.classes[i]));
         }
 
-        res.send({
-            plants: plants
-        });
+        let photos = [];
+        for (let i = 0; i < plants.length; i++) {
+            photos.push(DBInterface.getTopPlantPhotos(plants[i].getID(), 0, 2));
+        }
+
+        let results = [];
+
+        for (let i = 0; i < TFResults.numResults; i++) {
+
+            const min_y = TFResults.boxes[i * 4] * req.body.image.height; //dont know if this property exists, hopefully it does
+            const min_x = TFResults.boxes[i * 4 + 1] * req.body.image.width
+            const max_y = TFResults.boxes[i * 4 + 2] * req.body.image.height;
+            const max_x = TFResults.boxes[i * 4 + 3] * req.body.image.width;
+
+            let result = {
+                plant: plants[i],
+                photos: photos[i],
+                score: TFResults.scores[i],
+                topLeft: {x: min_x, y: min_y},
+                bottomRight: {x: max_x, y: max_y}
+            };
+
+            results.push(result);
+        }
+
+        // let plants = [];
+        // let numPlants = parseInt(Math.random() * 10);
+        // for (let i = 0; i < numPlants; i++) {
+        //     let photos = [];
+        //     let plantId = parseInt(Math.random() * 10000);
+        //     for (let j = 0; photos.length < req.body.maxPhotos && j < STUB_HELPER.images.length; j++) {
+        //         photos[photos.length] = {
+        //             id: parseInt(Math.random() * 10000),
+        //             plantId: plantId,
+        //             userId: parseInt(Math.random() * 10000),
+        //             upvoteIds: STUB_HELPER.randVoteArr(true),
+        //             downvoteIds: STUB_HELPER.randVoteArr(false),
+        //             uploadDate: new Date(new Date().getTime() - parseInt(Math.random() * 365 * 24 * 60 * 60 * 1000) - 1),
+        //             image: STUB_HELPER.images[i]
+        //         }
+        //     }
+        //     photos.sort((a, b) => { return (a.upvoteIds.length - a.downvoteIds.length) - (b.upvoteIds.length - b.downvoteIds.length); });
+        //     plants[i] = {
+        //         id: parseInt(Math.random() * 10000),
+        //         name: "Sample text",
+        //         bio: STUB_HELPER.randPlantBio(),
+        //         photos: photos
+
+        //     }
+        // }
+
+        res.send({results: results});
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
