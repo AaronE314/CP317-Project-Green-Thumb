@@ -42,7 +42,7 @@ class TFTrainer {
      *
      * Requires Train.TFrecord and Test.TFrecord within object_detection folder and labelmap.pbtxt in object_detection/training folder
      *
-     * @param time (float) hours to train
+     * @param time (float) hours to train or null/0 if default time of 8 hours is to be used
      * @param model (String) model to be trained ie 'ssd_mobilenet_v1_coco_2017_11_17'
      */
     static trainModel(time, model) {
@@ -72,13 +72,10 @@ class TFTrainer {
             train.kill();
             //calls function to find highest checkpoint and export a graph based upon it
             findHighCheck((name, data) => { convertFormat(name, data )});
-            //60 minutes * 'time' hours
+            //8 hours
         }, 1000 * 60 * 60 * 8);
         }
             
-        
-
-
         /**
          * @param {function} action
          * action is the input function which in this case was convertFormat(mdoel,data)
