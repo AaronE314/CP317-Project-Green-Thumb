@@ -55,13 +55,28 @@ class TFTrainer {
             ["train.py", "--logtostderr", "--train_dir=training/", "--pipeline_config_path=training/" + model]);
 
         //sets a timer to allow the training to occur for 'time' hours as input as an argument
+        if (time){
         setTimeout((evt) => {
             //stops the training after time has passed
             train.kill();
             //calls function to find highest checkpoint and export a graph based upon it
             findHighCheck((name, data) => { convertFormat(name, data )});
             //60 minutes * 'time' hours
-        }, 1000 * 60 * 60 * time);
+        }, 1000 * 60 * 60 * time);   
+        }
+        
+        //if no time parameter passed use default time of 8 hours.
+        else{
+            setTimeout((evt) => {
+            //stops the training after time has passed
+            train.kill();
+            //calls function to find highest checkpoint and export a graph based upon it
+            findHighCheck((name, data) => { convertFormat(name, data )});
+            //60 minutes * 'time' hours
+        }, 1000 * 60 * 60 * 8);
+        }
+            
+        
 
 
         /**
