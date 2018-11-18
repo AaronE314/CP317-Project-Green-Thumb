@@ -527,7 +527,17 @@ api.post("/plants/byId", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Aaron Exley
  * @desc Return the Plants that best match the included image.
+ * 
+ * @returns return results in the form
+ *          results [
+ *              plant: Plant,
+ *              photos: Photos[3],
+ *              score: flaot,
+ *              topLeft: {x, y},
+ *              bottomRight: {x, y}
+ *          ]
  */
 api.post("/plants/byImage", (req, res) => {
     try {
