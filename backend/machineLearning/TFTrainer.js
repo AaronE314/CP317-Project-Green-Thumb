@@ -35,7 +35,7 @@ const { spawn } = require('child_process');
      * Node.js script that trains a model for a given number of hours
      * must be run from Object_Detection directory
      *
-     * Requires Train.TFrecord and Test.TFrecord within object detection and labelmap.pbtxt within training folder
+     * Requires Train.TFrecord and Test.TFrecord within object_detection folder and labelmap.pbtxt in object_detection/training folder
      *
      * @param time (int) hours to train
      * @param model (String) model to be trained ie 'ssd_mobilenet_v1_coco_2017_11_17'
