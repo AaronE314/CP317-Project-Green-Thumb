@@ -141,6 +141,8 @@ function removeUser(UserID) {
     });
 }
 
+///////////////////////////Retrieval Functions////////////////////////////
+
 /**
  * @desc Returns a number of most recent plant photos
  * @author Saad Ansari
@@ -149,9 +151,6 @@ function removeUser(UserID) {
  * @param {Number} max The maximum number of photos to return
  * @returns {Photo[]} An array of photo objects
 */
-
-///////////////////////////Retrieval Functions////////////////////////////
-
 function getNewestPlantPhotos(plantID, startIndex, max) {
 
     //return Photo[]
