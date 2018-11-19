@@ -18,12 +18,8 @@
  * and return the results as an array of detections
  *
  * @requires NPM:schedulejs @link{https://bunkat.github.io/schedule/}
- * or
  * @requires NPM:later @link{http://bunkat.github.io/later/}
- * (both very similar, just determining which will suit our needs best)
- * 
  * @requires NPM:tensorflow/tfjs @link{}
- * 
  * @requires NPM:canvas @link {}
  */
 
@@ -46,7 +42,7 @@ class TFIdentifier {
    * Used to identify which flowers are in the given image
    *
    * @param image the image to identify, as a byte array
-   * 
+   *
    * @returns the results of the prediction in the form
    *          {numResults: int, boxes: float[400], scores: float[100], classes: int[100]}
    *          - numResults: an int that indicates the amount of objects identified
@@ -59,7 +55,7 @@ class TFIdentifier {
    *                   - maxY = boxes[i * 4 + 2]
    *                   - maxX = boxes[i * 4 + 3]
    *          - scores: an array of floats in which the first numResults elements indicated the percent confidence of each prediction i.
-   *          - classes: an array of ints in which the first numResults elements indicate the id of the class that was predicted (ie. 1 = rose)               
+   *          - classes: an array of ints in which the first numResults elements indicate the id of the class that was predicted (ie. 1 = rose)
    */
   static predict(image) {
 
@@ -77,7 +73,7 @@ class TFIdentifier {
     const scores = prediction[1].dataSync();
     const classes = prediction[2].dataSync();
 
-    return {count: count, boxes: boxes, scores: scores, classes: classes};
+    return { count: count, boxes: boxes, scores: scores, classes: classes };
   }
 
   /**
@@ -86,51 +82,44 @@ class TFIdentifier {
    * Add description ...
    */
   static retrain() {
+    let train = require('./TFTrainer');
 
+    train.trainModel();
+
+    return
   }
 
   /**
    * @author Justin Harrott
    *
-   * sets schedule to call retrain
+   * Creating a new schedule produces a JSON object. Sets scheduled call retrain
    *
-   * @param {String} time time and day (of week/month)
-   * @param {Boolean} repeat optional param, default false
+   * @param {String} time written expression of when the training is to occur
    *
-   * @returns {Boolean} confirms that scheduling was set
+   * @returns {Boolean} confirms that training was scheduled
+   *
+   * @example let scheduled = scheduleTraining("every Sunday at 4:30am") or scheduleTraining("tomorrow at 23:59")
    */
-  static scheduleTraining(time, repeat) {
-    repeat = typeof given !== 'undefined' ? repeat : false;
-
+  static scheduleTraining(time, duration) {
     let schedule = require('schedulejs');
-    //var later = require('later');
+    let later = require('later') // To make schedules easier to read/use, we use the text parser from later
+    let scheduled = false;
 
+    schedule.date.localTime();
 
-    return false
+    let projectAvailability = later.parse.text(time);
 
+    schedule.create(); // All dates are returned as milliseconds from the Unix epoch, you can convert them to dates using - new Date(val);
+
+    let now = new Date().toString();
+    let millisTillTrain = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
+    if (millisTillTrain < 0)
+      millisTillTrain += 86400000; // it's after 10am, try 10am tomorrow.
+
+    setTimeout(retrain(), millisTillTrain);
+
+    return scheduled
   }
-
-  // I don't think I'll need this, but am keeping it here for now, just in case.
-  //
-  // /**
-  //  * @author Justin Harrott
-  //  *
-  //  * Creates ScheduleTask object to be used for scheduling
-  //  *
-  //  * @param {Array} time
-  //  * @param {Boolean} repeat
-  //  *
-  //  * @returns task object literal
-  //  */
-  // static _scheduleTask(time, repeat) {
-  //   let task = {
-  //     date: something,
-  //     repeat: something
-  //   }
-
-  //   return
-  // }
-
 
   /**
    * @author Jhon Duphny
@@ -147,7 +136,7 @@ class TFIdentifier {
    * This function is to convert the byte image into the appropriate tensor to
    * be used to predict.
    * @param image the image to predict, as a byte image
-   * 
+   *
    * @returns the image converted to a tensor of shape [1, width, height,3]
    */
   static _preProcessImage(image) {
