@@ -14,9 +14,9 @@ class User {
      * @param {Number} userId The ID of the User. Integer.
      * @constructor
      */
-    constructor(userId, bans) {
+    constructor(id, bans) {
         // PROTECTED attributes.
-        this._id = userId;
+        this._id = id;
         this._bans = (bans === undefined ? [] : bans);
 
         // PUBLIC methods.
