@@ -93,6 +93,12 @@ function removePlant(plantID) {
             // Delete all associated photos
             'DELETE FROM photo WHERE plant_id = ' + plantID + ';' +
 
+            // Delete all assocaited votes
+            'DELETE FROM voting WHERE ' +
+            '(SELECT pl.[plant_id] FROM plant pl ' +
+            'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
+            'JOIN voting v ON v.photo_id = ph.photo_id) = ' + plantID + ';' +
+
             // Delete the plant
             'DELETE FROM plant WHERE plant_id = ' + plantID + ';'
 
@@ -129,6 +135,10 @@ function removeUser(UserID) {
             '(SELECT u.[user_id] FROM[user] u ' +
             'JOIN post po ON u.[user_id] = po.[user_id]) = ' + userID + ';' +
 
+            // Delete all assocaited votes
+            'DELETE FROM voting WHERE ' +
+            '(SELECT[user_id] FROM voting) = ' + userID + ';' +
+
             // Delete the user
             'DELETE FROM[user] WHERE[user_id] = ' + userID + ';'
 
@@ -151,9 +161,11 @@ function removeUser(UserID) {
  * @param {Number} max The maximum number of photos to return
  * @returns {Photo[]} An array of photo objects
 */
-function getNewestPlantPhotos(plantID, startIndex, max) {
 
-    //return Photo[]
+function getNewestPlantPhotos(plantID, startIndex, max) {
+    var photos = [];
+
+    return photos;
 }
 
 /**
@@ -166,8 +178,9 @@ function getNewestPlantPhotos(plantID, startIndex, max) {
 */
 
 function getNewestUserPhotos(userID, startIndex, max) {
+    var photos = [];
 
-    //return Photo[]
+    return photos;
 }
 
 /**
@@ -179,8 +192,9 @@ function getNewestUserPhotos(userID, startIndex, max) {
 */
 
 function getTopPhotos(startIndex, max) {
+    var photos = [];
 
-    //return Photo[]
+    return photos;
 }
 
 /**
@@ -192,6 +206,7 @@ function getTopPhotos(startIndex, max) {
 */
 
 function getTopPlantPhotos(plantID, startIndex, max) {
+    var photos = [];
 
-    //return Photo[]
+    return photos; ss
 }
