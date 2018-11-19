@@ -4,7 +4,7 @@
 
 The branches go as follows,
 
-# Master Banches
+## Master Banches
 
 DO NOT PUSH TO THIS BRANCH
 
@@ -12,7 +12,7 @@ DO NOT PUSH TO THIS BRANCH
 * Master-Android -> Main Frontend branch
 * Master-Backend -> Main Backend Branch
 
-# Feature Branches
+## Feature Branches
 
 When you are working on a feature (something you are adding to the code), create a feature branch with the following naming scheme
 
@@ -22,7 +22,7 @@ eg:
  * feature-Backend-MachineLearning
  * feature-Android-SettingScreen
    
-# Testing Branches
+## Testing Branches
 
 branches to be used for testing
 
