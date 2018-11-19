@@ -38,7 +38,8 @@ class TFIdentifier {
 
   /**
    * @author Aaron Exley
-   *
+   * @async
+   * 
    * Used to identify which flowers are in the given image
    *
    * @param image the image to identify, as a byte array
@@ -57,7 +58,7 @@ class TFIdentifier {
    *          - scores: an array of floats in which the first numResults elements indicated the percent confidence of each prediction i.
    *          - classes: an array of ints in which the first numResults elements indicate the id of the class that was predicted (ie. 1 = rose)
    */
-  static predict(image) {
+  static async predict(image) {
 
     const tf = require('@tensorflow/tfjs');
     require('@tensorflow/tfjs-node'); //Switch to @tensorflow/tfjs-node-gpu for gpu version
@@ -82,7 +83,7 @@ class TFIdentifier {
    * Add description ...
    */
   static retrain() {
-    let train = require('./TFTrainer');
+    let train = require('./TFTrainer.js');
 
     train.trainModel();
 
