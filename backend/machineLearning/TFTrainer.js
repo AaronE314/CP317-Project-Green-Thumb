@@ -31,7 +31,43 @@ class TFTrainer {
      * @param model
      */
     static saveModel(model) {
+        //function used to search for highest index files given data from ls command
+            /**
+             * @param {Buffer} data
+             * 
+             */
+            let check = function (data) {
 
+                let regexVar = /model.ckpt-[0-9]*\.meta/g;
+                //sets data to a string
+                ret = String(data);
+                //searches for line matching 'model.ckpt-[0-9]*\.meta' in data
+                found = ret.match(regexVar);
+                //changes regex to just search for the number within the string
+                regexVar = /\d+/;
+
+                //searches for the highest number within the original list of lines matching 'model.ckpt-[0-9]*\.meta'
+                let max = 0;
+                for (let i = 0; i < found.length; i++) {
+                    let num = parseInt(found[i].match(regex));
+                    if (num > max) {
+                        max = num;
+                    }
+                }
+
+                return max;
+                //performs the convertFormat method upon the max number
+                action(model, max);
+            }
+
+            //performs ls command from training directory
+            const findCheck = spawn('ls', {cwd: "training"});
+            let chkpt = findCheck.stdout.on('data', check);
+
+            // $ arguments represents arguments which should not be changed
+        //arguments are [$script, $input type, path to configuration file of the model, prefix of latest checkpoint file given by training, where to save the frozen graph]
+        const exportFile = spawn('python', ["export_inference_graph.py", "--input_type=image_tensor", "--pipeline_config_path=training/" + model,
+        "--trained_checkpoint_prefix=training/model.ckpt-" + String(chkpt), "--output_directory=inference_graph"]);
     }
 
     /**
@@ -71,7 +107,7 @@ class TFTrainer {
             //stops the training after time has passed
             train.kill();
             //calls function to find highest checkpoint and export a graph based upon it
-            findHighCheck((name, data) => { convertFormat(name, data )});
+            findHighCheck((name, data) => { convertFormat(name, data) });
             //8 hours
         }, 1000 * 60 * 60 * 8);
         }
