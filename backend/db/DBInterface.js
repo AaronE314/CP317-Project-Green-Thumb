@@ -39,7 +39,6 @@ function removePhoto(photoID) {
             sql.close(); //Close connection
         });
     });
-
 }
 
 /**
@@ -49,17 +48,61 @@ function removePhoto(photoID) {
  * @returns nothing
 */
 function removePhotoReport(photoReportID) {
+    // Connect to database
+    sql.connect(config, function (err) {
+        if (err) { console.log(err); }
 
+        var request = new sql.Request(); // create Request object
+        var sqlQuery = 'DELETE FROM report WHERE report_id = ' + photoReportID; // Create SQL Query
+
+        // Query the database and remove photo
+        request.query(sqlQuery, function (err, recordset) {
+            if (err) { console.log(err); }
+
+            sql.close(); //Close connection
+        });
+    });
 }
 
 /**
- * @desc Removes the plant from the database
+ * @desc Removes the plant and associated records from the database
  * @author Saad Ansari
  * @param {Number} plantID The primary key of the plant
  * @returns nothing
 */
 function removePlant(plantID) {
+    // Connect to database
+    sql.connect(config, function (err) {
+        if (err) { console.log(err); }
 
+        var request = new sql.Request(); // create Request object
+        var sqlQuery = // Create SQL Query
+            // Delete all associated reports
+            'DELETE FROM report WHERE' +
+            '(SELECT pl.plant_id FROM plant pl ' +
+            'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
+            ' JOIN post po ON ph.photo_id = po.photo_id ' +
+            'JOIN report r ON r.post_id = po.post_id) = ' + plantID + ';' +
+
+            // Delete all associated posts
+            'DELETE FROM post WHERE ' +
+            '(SELECT pl.plant_id FROM plant pl ' +
+            'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
+            'JOIN post po ON ph.photo_id = po.photo_id) = ' + plantID + ';' +
+
+            // Delete all associated photos
+            'DELETE FROM photo WHERE plant_id = ' + plantID + ';' +
+
+            // Delete the plant
+            'DELETE FROM plant WHERE plant_id = ' + plantID + ';'
+
+        // Query the database and remove plant
+        request.query(sqlQuery, function (err, recordset) {
+            if (err) { console.log(err); }
+
+            sql.close(); //Close connection
+        });
+    });
 }
 
 /**
@@ -69,7 +112,33 @@ function removePlant(plantID) {
  * @returns nothing
 */
 function removeUser(UserID) {
+    // Connect to database
+    sql.connect(config, function (err) {
+        if (err) { console.log(err); }
 
+        var request = new sql.Request(); // create Request object
+        var sqlQuery = // Create SQL Query
+            // Delete all associated reports
+            'DELETE FROM report WHERE ' +
+            '(SELECT u.[user_id] FROM[user] u ' +
+            'JOIN post po ON u.[user_id] = po.[user_id] ' +
+            'JOIN report r ON r.post_id = po.post_id) = ' + userID + ';' +
+
+            // Delete all associated posts
+            'DELETE FROM post WHERE ' +
+            '(SELECT u.[user_id] FROM[user] u ' +
+            'JOIN post po ON u.[user_id] = po.[user_id]) = ' + userID + ';' +
+
+            // Delete the user
+            'DELETE FROM[user] WHERE[user_id] = ' + userID + ';'
+
+        // Query the database and remove the user
+        request.query(sqlQuery, function (err, recordset) {
+            if (err) { console.log(err); }
+
+            sql.close(); //Close connection
+        });
+    });
 }
 
 /**
