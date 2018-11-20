@@ -26,32 +26,26 @@ var config = {
  * @param {Number} Ban a Ban object.
  * @returns nothing
 */
-function addBan(ban){
-    let conn = new sql.ConnectionPool;
-    let result;
-    let banId = ban.getId();
-    let userId = bad.getUserId();
-    let adminId = ban.getAdminId();
-    let expiration = ban.getExpirationDate();
-    conn.connect().then(function(){
+async function addBan(ban){
+    return await sql.connect(config)
+        .then( async function () {
+
+            let req = new sql.Request();
+            req.input('userId', sql.Int, ban.getUserId());
+            req.input('adminId', sql.Int, ban.getAdminId());
+            req.input('expiration', sql.DateTime, ban.getExpirationDate());
+            return await req.query("Insert into [ban] (userId, adminId, expiration) Values (@userId, @adminId, @expiration)")
         
-        let req = new sql.Request(conn);
-        req.input('userId', sql.Int, userId);
-        req.input('adminId', sql.Int, adminId);
-        req.input('expiration', sql.DateTime, expiration);
-        req.query("Insert into [ban] (userId, adminId, expiration) Values (@userId, @adminId, @expiration)").then(function(recordset){
-            result = recordset;
-            console.log(recordset);
-            conn.close();
+                .then(function (recordset) {                
+                    sql.close();                
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
         });
-    })
-    .catch(function(err){
-     console.log(err);   
-    });
-    return result;
 }
 /**
  * @desc Add a Photo to the database
@@ -60,30 +54,25 @@ function addBan(ban){
  * @returns nothing
 */
 function addPhoto(photo){
-    let conn = new sql.ConnectionPool;
-    let result;
-    let photoId = photo.getId();
-    let plantId = photo.getPlantId();
-    let userId  = photo.getUserId();
-    let image = photo.getImage();
+    return await sql.connect(config)
+    .then( async function () {
 
-    conn.connect().then(function(){
-        let photoId; 
-        let req = new sql.Request(conn);
-        req.input("plantId", sql.Int , plantId);
-        req.input("image", sql.Binary, image );
-        req.input("tfrecord", sql.VarChar , photo.getTfRecord);
-        req.input("userId", sql.int ,photo.getUserId );
-        req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, @image , @tfrecord); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));").then(function(recordset){
-            conn.close();
-        })
-        .catch(function(err){
-            console.log(err);
-        });
-        
+        let req = new sql.Request();
+        req.input("plantId", sql.Int , photo.getPlantId());
+        req.input("image", sql.Binary, photo.getImage() );
+        req.input("tfrecord", sql.VarChar , photo.getTfRecord());
+        req.input("userId", sql.int ,photo.getUserId() );
+        return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, @image , @tfrecord); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));")
+
+            .then(function (recordset) {
+                sql.close();
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
     })
-    .catch(function(err){
-     console.log(err);   
+    .catch(function (err) {
+        console.log(err);
     });
 }
 /**
@@ -93,29 +82,29 @@ function addPhoto(photo){
  * @returns nothing
 */
 function addPhotoReport(pReport){
-    let conn = new sql.ConnectionPool;
-    let result;
-    conn.connect().then(function(){
-        
-        let req = new sql.Request(conn);
-        req.input("photoId", sql.Int , pReport.getPhotoId());
-        req.input("rDate", sql.Date , pReport.getReportDate());
-        req.input("rText", sql.VarChar, pReport.getReportText());
-        req.input("userId", sql.Int , pReport.getUserId());
-        req.query("Insert into [report] (post_id, report_date , report_details) "+
-        "Values((SELECT post_id from [post] where user_id = @userID AND photo_id = phoroID)"+
-        ", @reportDate , @reportDetails); Insert into [admin_report] (report_id , admin_id , admin_action) "+
-        "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY(), @photoReport, @admin_Action)").then(function(recordset){
-            result = recordset;
+    return await sql.connect(config)
+        .then( async function () {
+            req.input("photoId", sql.Int , pReport.getPhotoId());
+            req.input("rDate", sql.Date , pReport.getReportDate());
+            req.input("rText", sql.VarChar, pReport.getReportText());
+            req.input("userId", sql.Int , pReport.getUserId());
+            let req = new sql.Request();
+            return await req.query("Insert into [report] (post_id, report_date , report_details) "+
+            "Values((SELECT post_id from [post] where user_id = @userID AND photo_id = phoroID)"+
+            ", @reportDate , @reportDetails); Insert into [admin_report] (report_id , admin_id , admin_action) "+
+            "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY(), @photoReport, @admin_Action)")
+     
+                .then(function (recordset) {
+                    sql.close();
+
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
         });
-    })
-    .catch(function(err){
-     console.log(err);   
-    });
-    return result;
 }
 /**
  * @desc Add a Plant to the database
@@ -124,22 +113,21 @@ function addPhotoReport(pReport){
  * @returns nothing
 */
 function addPlant(plant){
-    let conn = new sql.ConnectionPool;
-    let result;
-    conn.connect().then(function(){
-        
-        let req = new sql.Request(conn);
+    return await sql.connect(config)
+    .then( async function () {
+        let req = new sql.Request();
         req.input('plantName', sql.VarChar, plant.getName());
         req.input('plantBio', sql.VarChar, plant.getBio());
-        req.query("Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ").then(function(recordset){
-            conn.close();
-        })
-        .catch(function(err){
-            console.log(err);
-        });
+        return await req.query("Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ")
+            .then(function (recordset) {
+                sql.close();
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
     })
-    .catch(function(err){
-     console.log(err);   
+    .catch(function (err) {
+        console.log(err);
     });
 }
 /**
@@ -149,20 +137,21 @@ function addPlant(plant){
  * @returns nothing
 */
 function addUser(user){
-    let conn = new sql.ConnectionPool;
-    let result;
-    conn.connect().then(function(){
-        
-        let req = new sql.Request(conn);
-        req.query("Insert into [user] DEFAULT VALUES  ").then(function(recordset){
-            conn.close();
-        })
-        .catch(function(err){
-            console.log(err);
-        });
+    return await sql.connect(config)
+    .then( async function () {
+
+        let req = new sql.Request();
+
+        return await req.query("Insert into [user] DEFAULT VALUES  ")
+            .then(function (recordset) { 
+                sql.close();
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
     })
-    .catch(function(err){
-     console.log(err);   
+    .catch(function (err) {
+        console.log(err);
     });
 }
 ///////////////////////////Removal Functions////////////////////////////
@@ -308,52 +297,85 @@ function removeUser(UserID) {
 */
 
 function getBan(banID) {
-    let conn = new sql.ConnectionPool;
-    let result;
-    conn.connect().then(function(){
-        
-        let req = new sql.Request(conn);
-        req.input('@banId',sql.Int, banID )
-        req.query("Select * from [projectgreenthumb].[dbo].[plant] where ban_id = @banId ").then(function(recordset){
-            result = new Ban(recordset.recordset[0].ban_id , recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date); 
-            conn.close();
-        })
-        .catch(function(err){
-            console.log(err);
-        });
+    return await sql.connect(config)
+    .then( async function () {
+
+        let req = new sql.Request();
+        req.input('banId', sql.Int, banID);
+        return await req.query("Select * from [projectgreenthumb].[dbo].[plant] where ban_id = @banId ")
+            .then(function (recordset) {
+                ban = new Ban(recordset.recordset[0].ban_id , recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date); 
+                sql.close();
+                return ban; 
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
     })
-    .catch(function(err){
-     console.log(err);   
+    .catch(function (err) {
+        console.log(err);
     });
-    return result; 
 }
 /**
- * @desc [WORK IN PROGRESS ]Returns a Photo object from the Database
+ * @desc Returns a Photo object from the Database
  * @author Austin Bursey
  * @param {Number} photoId The primary key of the Photo table
  * @returns {photo} A Photo object
 */
 
 function getPhoto(photoId) {
-    let conn = new sql.ConnectionPool;
-    let photo;
-    conn.connect().then(function(){
+
+    return await sql.connect(config)
+        .then( async function () {
+
+            let req = new sql.Request();
+            return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo_id = @photoId;")
+                .then(function (recordset) {
+                    //unfinished. 
+                    photo = new Photo(recordset.recordset[0].photo_id , recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image , recordset.recordset[0].upload_date, async function(){
+                        req.input('@photoId', sql.Int, photoId);
+                        return await req.query() 
+                    },async function(){
         
-        let req = new sql.Request(conn);
-        req.input('@photoId',sql.Int, banID )
-        req.query("SELECT *FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id);").then(function(recordset){
-            //unfinished. 
-            photo = new Photo(recordset.recordset[0].photo_id , recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image , ); 
-            conn.close();
+                    }); 
+                    sql.close();
+                    return photo;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
         });
+}
+/**
+ * @desc Returns a Plant object from the Database
+ * @author Austin Bursey
+ * @param {Number} plantId The primary key of the Plant table
+ * @returns {plant} A Plant object
+*/
+
+function getPlant(plantID) {
+    return await sql.connect(config)
+    .then( async function () {
+
+        let req = new sql.Request();
+        req.input('plantId',sql.Int, plantID );
+        return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[plant] where plant_id = @plantId;")
+            .then(function (recordset) {
+                plant = new Plant(recordset.recordset[0].plant_id , recordset.recordset[0].plant_name, recordset.recordset[0].plant_bio); 
+                sql.close();
+                return plant; 
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
     })
-    .catch(function(err){
-     console.log(err);   
+    .catch(function (err) {
+        console.log(err);
     });
-    return result; 
+
 }
 /**
  * @desc Returns a number of most recent plant photos
