@@ -17,7 +17,7 @@
  * @description This class is designed to Identify a given image,
  * and return the results as an array of detections
  *
- * @requires NPM:schedulejs @link{https://bunkat.github.io/schedule/}
+ * @requires NPM:node-schedule @link{https://www.npmjs.com/package/node-schedule}
  * @requires NPM:later @link{http://bunkat.github.io/later/}
  * @requires NPM:tensorflow/tfjs @link{}
  * @requires NPM:canvas @link {}
@@ -25,6 +25,7 @@
 
 const MODEL_URL = 'path/to/tensorflowjs_model.pb';
 const WEIGHTS_URL = 'path/to/weights_manifest.json';
+let scheduledItems = []
 class TFIdentifier {
 
   /**
@@ -39,7 +40,7 @@ class TFIdentifier {
   /**
    * @author Aaron Exley
    * @async
-   * 
+   *
    * Used to identify which flowers are in the given image
    *
    * @param image the image to identify, as a byte array
@@ -80,9 +81,11 @@ class TFIdentifier {
   /**
    * @author Justin Harrott
    *
-   * Add description ...
+   * calls trainModel function from TFTrainer.js
+   *
+   * @param {Number} duration length of training period in hours; default 8 hours
    */
-  static retrain() {
+  static retrain(duration) {
     let train = require('./TFTrainer.js');
 
     train.trainModel();
@@ -95,31 +98,57 @@ class TFIdentifier {
    *
    * Creating a new schedule produces a JSON object. Sets scheduled call retrain
    *
-   * @param {String} time written expression of when the training is to occur
+   * @param {String} newItem R:YYYY:MO:DD:HH:MM:D format
+   * R = REPEAT: 0 for no repeats, 1 for weekly repeat
+   * YYYY = YEAR: 4 digit year
+   * MO = MONTH: 2 digit month; Jan = 00 ... Dec = 11
+   * DD = DAY OF MONTH: 2 digit day of the month; from 1-31
+   * HH = HOUR: 2 digit, 24 hour format; from 00-23
+   * MM = MINUTES: 2 digit, 60 minute format; from 00-59
+   * D = DURATION: 1 digit length of training period in hours
    *
-   * @returns {Boolean} confirms that training was scheduled
-   *
-   * @example let scheduled = scheduleTraining("every Sunday at 4:30am") or scheduleTraining("tomorrow at 23:59")
+   * @example let scheduled = scheduleTraining("1:2018:10:04:04:20:2");
+   *      - will schedule 2 hours of training every Sunday, at 4:20 AM, starting Nov. 4, 2018.
    */
-  static scheduleTraining(time, duration) {
-    let schedule = require('schedulejs');
-    let later = require('later') // To make schedules easier to read/use, we use the text parser from later
-    let scheduled = false;
+  static scheduleTraining(newItem) {
+    let id = scheduledItems.length == 0 ? 1 : scheduledItems[scheduledItems.length - 1].ID + 1; // ID's start at 1, otherwise +1 to the last element's ID
 
-    schedule.date.localTime();
+    let item = newItem.split(":");
 
-    let projectAvailability = later.parse.text(time);
+    let schedObj = {
+      id: id,
+      repeat: item[0],
+      startDate: [item[1], item[2], item[3]], // [ YYYY, MO, DD ]
+      hr: item[4],
+      min: item[5],
+      duration: item[6]
+    }
 
-    schedule.create(); // All dates are returned as milliseconds from the Unix epoch, you can convert them to dates using - new Date(val);
+    scheduledItems.push(schedObj);
 
-    let now = new Date().toString();
-    let millisTillTrain = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
-    if (millisTillTrain < 0)
-      millisTillTrain += 86400000; // it's after 10am, try 10am tomorrow.
+    var sched = require('node-schedule');
+    let schedDate = new Date(item[1], item[2], item[3], item[4], item[5], 0)
 
-    setTimeout(retrain(), millisTillTrain);
+    // node-cron syntax
+    // # ┌────────────── second (optional)
+    // # │ ┌──────────── minute
+    // # │ │ ┌────────── hour
+    // # │ │ │ ┌──────── day of month
+    // # │ │ │ │ ┌────── month
+    // # │ │ │ │ │ ┌──── day of week
+    // # │ │ │ │ │ │
+    // # │ │ │ │ │ │
+    // # * * * * * *
+    //
+    // Date syntax
+    // Date(YYYY, MM, DD, HH, MM, SS, NS)
+    let schedStr = schedObj.repeat == 0 ? schedDate : schedObj.min + " " + schedObj.hr + " * * " + schedDate.getDay();
 
-    return scheduled
+    sched.schedule(schedStr, () => {
+      retrain(schedObj.duration);
+    });
+
+    return
   }
 
   /**
