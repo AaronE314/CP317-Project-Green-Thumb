@@ -34,34 +34,32 @@ class TFTrainer {
 
                 let regexVar = /model.ckpt-[0-9]*\.meta/g;
                 //sets data to a string
-                ret = String(data);
+                let ret = String(data);
                 //searches for line matching 'model.ckpt-[0-9]*\.meta' in data
-                found = ret.match(regexVar);
+                let found = ret.match(regexVar);
                 //changes regex to just search for the number within the string
                 regexVar = /\d+/;
 
                 //searches for the highest number within the original list of lines matching 'model.ckpt-[0-9]*\.meta'
                 let max = 0;
                 for (let i = 0; i < found.length; i++) {
-                    let num = parseInt(found[i].match(regex));
+                    let num = parseInt(found[i].match(regexVar));
                     if (num > max) {
                         max = num;
                     }
                 }
-
-                return max;
-                //performs the convertFormat method upon the max number
-                action(model, max);
+             // $ arguments represents arguments which should not be changed
+            //arguments are [$script, $input type, path to configuration file of the model, prefix of latest checkpoint file given by training, where to save the frozen graph]
+            const exportFile = spawn('python', ["export_inference_graph.py", "--input_type=image_tensor", "--pipeline_config_path=training/" + model,
+            "--trained_checkpoint_prefix=training/model.ckpt-" + String(max), "--output_directory=inference_graph"]);
+               
             }
 
             //performs ls command from training directory
             const findCheck = spawn('ls', {cwd: "training"});
-            let chkpt = findCheck.stdout.on('data', check);
+            findCheck.stdout.on('data', check);
 
-            // $ arguments represents arguments which should not be changed
-        //arguments are [$script, $input type, path to configuration file of the model, prefix of latest checkpoint file given by training, where to save the frozen graph]
-        const exportFile = spawn('python', ["export_inference_graph.py", "--input_type=image_tensor", "--pipeline_config_path=training/" + model,
-        "--trained_checkpoint_prefix=training/model.ckpt-" + String(chkpt), "--output_directory=inference_graph"]);
+
     }
 
     /**
@@ -98,7 +96,7 @@ class TFTrainer {
             //stops the training after time has passed
             train.kill();
             //calls function to find highest checkpoint and export a graph based upon it
-            saveModel(model);
+            TFTrainer.saveModel(model);
             //8 hours
         }, 1000 * 60 * 60 * 8);
         }
