@@ -7,15 +7,15 @@ class Ban {
     /**
      * @desc The Ban class Constructor.
      * @author Nathaniel Carr
-     * @param {Number} id The Ban ID. Integer.
      * @param {Number} userId The ID of the banned User. Integer.
      * @param {Number} adminId The ID of the Admin who banned the User. Integer.
      * @param {*} expirationDate The Date when the Ban expires.
+     * @param {Number=} id The Ban ID. Integer.
      * @constructor
      */
-    constructor(id, userId, adminId, expirationDate) {
+    constructor(userId, adminId, expirationDate, id) {
         // PRIVATE attributes.
-        let _id = id;
+        let _id = id; // id may be undefined (that's fine -- it's an optional argument).
         let _userId = userId;
         let _adminId = adminId;
         let _expirationDate = expirationDate;
@@ -25,6 +25,7 @@ class Ban {
         this.getUserId = getUserId;
         this.getAdminId = getAdminId;
         this.getExpirationDate = getExpirationDate;
+        this.setId = setId;
         this.toJSON = toJSON;
 
         // PUBLIC method defintions.
@@ -55,6 +56,16 @@ class Ban {
          */
         function getExpirationDate() {
             return _expirationDate;
+        }
+        /**
+         * @desc Set the Ban ID. Can only be done once.
+         * @author Nathaniel Carr
+         * @param {Number} id The Ban ID. Integer.
+         */
+        function setId(id) {
+            if (!_id) {
+                _id = id;
+            }
         }
         /**
          * @desc Convert the private attributes of Ban object to JSON so it can be sent via an API.
