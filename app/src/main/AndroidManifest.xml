@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cp317.greenthumb">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".MainMenuActivity"
+            android:label="@string/title_activity_main_menu" />
+        <activity
+            android:name=".ReportsActivity"
+            android:label="@string/title_activity_reports"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ScanActivity"
+            android:label="@string/title_activity_scan" />
+        <activity android:name=".SearchActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:label="@string/title_activity_splash_screen" />
+        <activity android:name=".PlantDescriptionActivity" />
+        <activity android:name=".GalleryActivity"></activity>
+    </application>
+
+</manifest>

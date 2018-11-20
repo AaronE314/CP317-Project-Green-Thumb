@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainMenuActivity"
+    android:background="@drawable/default_background"
+    >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="372dp"
+        android:layout_height="149dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.191"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageButton
+        android:id="@+id/scanButton"
+        android:layout_width="151dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="100dp"
+        android:alpha="0.75"
+        android:contentDescription="@null"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.124"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/scanAlbumButton"
+        android:layout_width="151dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="100dp"
+        android:contentDescription="@null"
+        android:alpha="0.75"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.969"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/searchButton"
+        android:layout_width="280dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@null"
+        android:alpha="0.75"
+        android:background="@null"
+        android:src="@drawable/button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scanButton"
+        app:layout_constraintVertical_bias="0.647" />
+
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="42dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:contentDescription="@null"
+        android:src="@drawable/settings_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/cameraIcon"
+        android:layout_width="53dp"
+        android:layout_height="51dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scanButton"
+        app:layout_constraintEnd_toEndOf="@+id/scanButton"
+        app:layout_constraintStart_toStartOf="@+id/scanButton"
+        android:contentDescription="@null"
+        app:layout_constraintTop_toTopOf="@+id/scanButton"
+        app:srcCompat="@drawable/scan_camera_icon" />
+
+
+    <ImageView
+        android:id="@+id/searchIcon"
+        android:layout_width="76dp"
+        android:layout_height="58dp"
+        app:layout_constraintBottom_toBottomOf="@+id/searchButton"
+        app:layout_constraintEnd_toEndOf="@+id/searchButton"
+        app:layout_constraintStart_toStartOf="@+id/searchButton"
+        android:contentDescription="@null"
+        app:layout_constraintTop_toTopOf="@+id/searchButton"
+        app:srcCompat="@drawable/search_icon" />
+
+    <ImageView
+        android:id="@+id/albumIcon"
+        android:layout_width="74dp"
+        android:layout_height="57dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scanAlbumButton"
+        app:layout_constraintEnd_toEndOf="@+id/scanAlbumButton"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="@+id/scanAlbumButton"
+        app:layout_constraintTop_toTopOf="@+id/scanAlbumButton"
+        app:srcCompat="@drawable/scan_album_icon" />
+
+</android.support.constraint.ConstraintLayout>
