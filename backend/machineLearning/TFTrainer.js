@@ -85,7 +85,7 @@ class TFTrainer {
             //stops the training after time has passed
             train.kill();
             //calls function to find highest checkpoint and export a graph based upon it
-            saveModel(model);
+            TFTrainer.saveModel(model);
             //60 minutes * 'time' hours
         }, 1000 * 60 * 60 * time);   
         }
