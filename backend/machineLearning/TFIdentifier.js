@@ -12,7 +12,7 @@
  *
  * @author Aaron Exley
  * @author Justin Harrott
- * @author Jhon Duphny
+ * @author John Dunphy
  *
  * @description This class is designed to Identify a given image,
  * and return the results as an array of detections
