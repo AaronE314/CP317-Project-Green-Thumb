@@ -12,6 +12,17 @@
  * - express.js docs: https://expressjs.com/en/4x/api.html
  */
 
+// Imports.
+const Admin = require("../Admin.js");
+const Ban = require("../Ban.js");
+const Photo = require("../Photo.js");
+const PhotoReport = require("../PhotoReport.js");
+const Plant = require("../Plant.js");
+const User = require("../User.js");
+const DBInterface = require("../db/DBInterface.js");
+const MLIdentifier = require("../machineLearning/MLIdentifier.js");
+const MLTrainer = require("../machineLearning/MLTrainer.js");
+
 // Constants.
 const assert = require("assert");
 const API_PORT = 2500;
@@ -68,6 +79,7 @@ const STUB_HELPER = {
 };
 const ERROR_MSG = {
     missingParam: (param) => { return `Missing required '${param}' parameter in request body.`; },
+    missingObject: (param) => { return `The requested ${param} object could not be found in the database.`; },
     invalidParam: (param) => { return `Parameter '${param}' is invalid.`; },
     unauthorized: () => { return `User is not authorized to perform this action.`; },
     missingText: (param) => { return `Parameter '${param}' must be a non-empty String.`; },
@@ -456,27 +468,28 @@ api.post("/photoReports/remove", (req, res) => {
  * @author Nathaniel Carr
  * @desc Add and return the submitted Plant to the database.
  */
-api.post("/plants/add", (req, res) => {
+api.post("/plants/add", async (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
             assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.name !== undefined, ERROR_MSG.missingParam("name"));
             assert(body.bio !== undefined, ERROR_MSG.missingParam("bio"));
-            assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
             assert(body.name !== "", ERROR_MSG.missingText("name"));
             assert(body.bio !== "", ERROR_MSG.missingText("bio"));
-            // TODO check that adminId belongs to an admin.
-            // TODO check that no plant with the same name exists.
+            assert(DBInterface.checkAdmin(body.adminId), ERROR_MSG.unauthorized());
         })) { return; }
 
+        let plant = await DBInterface.addPlant(new Plant(body.name, body.bio));
+        let photos = await DBInterface.getTopPlantPhotos(plant.getId());
+        for (let i = 0; i < photos.length; i++) {
+            photos[i] = photos[i].toJSON();
+        }
+
         res.send({
-            plant: {
-                id: parseInt(Math.random() * 10000),
-                name: req.body.name,
-                bio: req.body.bio,
-                photos: []
-            }
+            plant: plant.toJSON(),
+            photos: photos
         });
+
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
@@ -491,34 +504,23 @@ api.post("/plants/byId", (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
             assert(body.plantId !== undefined, ERROR_MSG.missingParam("plantId"));
-            assert(body.plantId >= 0, ERROR_MSG.noNeg("plantId"));
             assert(body.maxPhotos === undefined || body.maxPhotos >= 0), ERROR_MSG.noNeg("maxPhotos");
             // TODO check that the plantId is valid.
         })) { return; }
 
         req.body.maxPhotos = req.body.maxPhotos !== undefined ? req.body.maxPhotos : DEFAULTS.plantsMaxPhotos;
-        let photos = [];
-        for (let i = 0; photos.length < req.body.maxPhotos && i < STUB_HELPER.images.length; i++) {
-            photos[photos.length] = {
-                id: parseInt(Math.random() * 10000),
-                plantId: req.body.plantId,
-                userId: parseInt(Math.random() * 10000),
-                upvoteIds: STUB_HELPER.randVoteArr(true),
-                downvoteIds: STUB_HELPER.randVoteArr(false),
-                uploadDate: new Date(new Date().getTime() - parseInt(Math.random() * 365 * 24 * 60 * 60 * 1000) - 1),
-                image: STUB_HELPER.images[i]
-            }
+
+        let plant = await DBInterface.getPlant(req.body.plantId);
+        let photos = await DBInterface.getTopPlantPhotos(plant.getId());
+        for (let i = 0; i < photos.length; i++) {
+            photos[i] = photos[i].toJSON();
         }
-        photos.sort((a, b) => { return (a.upvoteIds.length - a.downvoteIds.length) - (b.upvoteIds.length - b.downvoteIds.length); });
 
         res.send({
-            plant: {
-                id: req.body.plantId,
-                name: "Sample text",
-                bio: STUB_HELPER.randPlantBio(),
-                photos: photos
-            }
+            plant: plant.toJSON(),
+            photos: photos
         });
+
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
@@ -532,14 +534,16 @@ api.post("/plants/byId", (req, res) => {
  * 
  * @returns return results in the form
  *          results [
- *              plant: Plant,
- *              photos: Photos[3],
- *              score: flaot,
- *              topLeft: {x, y},
- *              bottomRight: {x, y}
+ *              { 
+ *                  plant: Plant,
+ *                  photos: Photos[3],
+ *                  score: float,
+ *                  topLeft: {x, y},
+ *                  bottomRight: {x, y}
+ *              }
  *          ]
  */
-api.post("/plants/byImage", (req, res) => {
+api.post("/plants/byImage", async (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
             assert(body.image !== undefined, ERROR_MSG.missingParam("image"));
@@ -549,68 +553,39 @@ api.post("/plants/byImage", (req, res) => {
 
         req.body.maxPhotos = req.body.maxPhotos !== undefined ? req.body.maxPhotos : DEFAULTS.plantsMaxPhotos;
 
-        const MLIdentifier = require('../machineLearning/MLIdentifier.js');
-
-        const TFResults = await MLIdentifier.predict(req.body.image);
-
-        let plants = [];
-
-        for (let i = 0; i < TFResults.numResults; i++) {
-            plants.push(DBInterface.getPhoto(TFResults.classes[i]));
-        }
-
-        let photos = [];
-        for (let i = 0; i < plants.length; i++) {
-            photos.push(DBInterface.getTopPlantPhotos(plants[i].getID(), 0, 2));
-        }
+        let TFResults = await MLIdentifier.predict(req.body.image);
 
         let results = [];
-
         for (let i = 0; i < TFResults.numResults; i++) {
+            let plant = await DBInterface.getPlant(TFResults.classes[i]);
+            let photos = await DBInterface.getTopPlantPhotos(plant.getId(), 0, req.body.maxPhotos);
+            for (let j = 0; j < photos.length; j++) {
+                photos[j] = photos[j].toJSON();
+            }
 
-            const min_y = TFResults.boxes[i * 4] * req.body.image.height; //dont know if this property exists, hopefully it does
-            const min_x = TFResults.boxes[i * 4 + 1] * req.body.image.width
-            const max_y = TFResults.boxes[i * 4 + 2] * req.body.image.height;
-            const max_x = TFResults.boxes[i * 4 + 3] * req.body.image.width;
+            // TODO dont know if this property exists, hopefully it does
+            let min_y = TFResults.boxes[i * 4] * req.body.image.height;
+            let min_x = TFResults.boxes[i * 4 + 1] * req.body.image.width
+            let max_y = TFResults.boxes[i * 4 + 2] * req.body.image.height;
+            let max_x = TFResults.boxes[i * 4 + 3] * req.body.image.width;
 
-            let result = {
-                plant: plants[i],
-                photos: photos[i],
+            results.push({
+                plant: plant,
+                photos: photos,
                 score: TFResults.scores[i],
-                topLeft: {x: min_x, y: min_y},
-                bottomRight: {x: max_x, y: max_y}
-            };
-
-            results.push(result);
+                topLeft: {
+                    x: min_x,
+                    y: min_y
+                },
+                bottomRight: {
+                    x: max_x,
+                    y: max_y
+                }
+            });
         }
 
-        // let plants = [];
-        // let numPlants = parseInt(Math.random() * 10);
-        // for (let i = 0; i < numPlants; i++) {
-        //     let photos = [];
-        //     let plantId = parseInt(Math.random() * 10000);
-        //     for (let j = 0; photos.length < req.body.maxPhotos && j < STUB_HELPER.images.length; j++) {
-        //         photos[photos.length] = {
-        //             id: parseInt(Math.random() * 10000),
-        //             plantId: plantId,
-        //             userId: parseInt(Math.random() * 10000),
-        //             upvoteIds: STUB_HELPER.randVoteArr(true),
-        //             downvoteIds: STUB_HELPER.randVoteArr(false),
-        //             uploadDate: new Date(new Date().getTime() - parseInt(Math.random() * 365 * 24 * 60 * 60 * 1000) - 1),
-        //             image: STUB_HELPER.images[i]
-        //         }
-        //     }
-        //     photos.sort((a, b) => { return (a.upvoteIds.length - a.downvoteIds.length) - (b.upvoteIds.length - b.downvoteIds.length); });
-        //     plants[i] = {
-        //         id: parseInt(Math.random() * 10000),
-        //         name: "Sample text",
-        //         bio: STUB_HELPER.randPlantBio(),
-        //         photos: photos
+        res.send({ results: results });
 
-        //     }
-        // }
-
-        res.send({results: results});
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
@@ -621,7 +596,7 @@ api.post("/plants/byImage", (req, res) => {
  * @author Nathaniel Carr
  * @desc Return the Plants that best match the included query.
  */
-api.post("/plants/byQuery", (req, res) => {
+api.post("/plants/byQuery", async (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
             assert(body.query !== undefined, ERROR_MSG.missingParam("query"));
@@ -631,35 +606,21 @@ api.post("/plants/byQuery", (req, res) => {
 
         req.body.maxPhotos = req.body.maxPhotos !== undefined ? req.body.maxPhotos : DEFAULTS.plantsMaxPhotos;
 
-        let plants = [];
-        let numPlants = parseInt(Math.random() * 10);
-        for (let i = 0; i < numPlants; i++) {
-            let photos = [];
-            let plantId = parseInt(Math.random() * 10000);
-            for (let j = 0; photos.length < req.body.maxPhotos && j < STUB_HELPER.images.length; j++) {
-                photos[photos.length] = {
-                    id: parseInt(Math.random() * 10000),
-                    plantId: plantId,
-                    userId: parseInt(Math.random() * 10000),
-                    upvoteIds: STUB_HELPER.randVoteArr(true),
-                    downvoteIds: STUB_HELPER.randVoteArr(false),
-                    uploadDate: new Date(new Date().getTime() - parseInt(Math.random() * 365 * 24 * 60 * 60 * 1000) - 1),
-                    image: STUB_HELPER.images[i]
-                }
+        let plants = DBInterface.getPlantsByQuery(body.query);
+        let results = [];
+        for (let i = 0; i < plants.length; i++) {
+            let photos = await DBInterface.getTopPlantPhotos(plants[i].getId(), 0, req.body.maxPhotos);
+            for (let j = 0; j < photos.length; j++) {
+                photos[i] = photos[i].toJSON();
             }
-            photos.sort((a, b) => { return (a.upvoteIds.length - a.downvoteIds.length) - (b.upvoteIds.length - b.downvoteIds.length); });
-            plants[i] = {
-                id: parseInt(Math.random() * 10000),
-                name: "Sample text",
-                bio: STUB_HELPER.randPlantBio(),
+            results.push({
+                plant: plants[i].toJSON(),
                 photos: photos
-
-            }
+            })
         }
 
-        res.send({
-            plants: plants
-        });
+        return results;
+
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
@@ -670,18 +631,17 @@ api.post("/plants/byQuery", (req, res) => {
  * @author Nathaniel Carr
  * @desc Remove the Plant with the corresponding ID from the database.
  */
-api.post("/plants/remove", (req, res) => {
+api.post("/plants/remove", async (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
             assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.plantId !== undefined, ERROR_MSG.missingParam("plantId"));
-            assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
-            assert(body.plantId >= 0, ERROR_MSG.noNeg("plantId"));
-            // TODO check that the adminId belongs to an admin.
-            // TODO check that the plantId is valid.
+            assert(DBInterface.checkAdmin(body.adminId), ERROR_MSG.unauthorized());
         })) { return; }
 
+        await DBInterface.removePlant(req.body.plantId);
         res.send({});
+
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
@@ -698,14 +658,18 @@ api.post("/plants/update", (req, res) => {
             assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.plantId !== undefined, ERROR_MSG.missingParam("plantId"));
             assert(body.bio !== undefined, ERROR_MSG.missingParam("bio"));
-            assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
-            assert(body.plantId >= 0, ERROR_MSG.noNeg("plantId"));
             assert(body.bio !== "", ERROR_MSG.missingText("bio"));
-            // TODO check that the adminId belongs to an admin.
-            // TODO check that the plantId is valid.
+            assert(DBInterface.checkAdmin(body.adminId), ERROR_MSG.unauthorized());
         })) { return; }
 
-        res.send({});
+        let plant = await DBInterface.getPlant(req.body.plantId);
+
+        plant.setBio(req.body.bio);
+
+        res.send({
+            plant: await DBInterface.updatePlant(plant)
+        });
+
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
@@ -720,11 +684,13 @@ api.post("/mlModel/training/immediate", (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
             assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
-            assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
-            // TODO check that the adminId belongs to an admin.
+            assert(DBInterface.checkAdmin(body.adminId), ERROR_MSG.unauthorized());
         })) { return; }
 
+        MLTrainer.retrain();
+
         res.send({});
+
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
