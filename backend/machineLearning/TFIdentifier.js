@@ -18,7 +18,6 @@
  * and return the results as an array of detections
  *
  * @requires NPM:node-schedule @link{https://www.npmjs.com/package/node-schedule}
- * @requires NPM:later @link{http://bunkat.github.io/later/}
  * @requires NPM:tensorflow/tfjs @link{}
  * @requires NPM:canvas @link {}
  */
@@ -41,10 +40,10 @@ class TFIdentifier {
     var id = 1;
     var plants [];
     var picture = getPhoto(i);
-    while(picture != null){
-	    plants.push(_preProcessImage(picture));
-	    i++;
-	    picture = getPhoto(i);
+    while (picture != null) {
+      plants.push(_preProcessImage(picture));
+      i++;
+      picture = getPhoto(i);
     }
     return plants;
   }
