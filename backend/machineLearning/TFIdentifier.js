@@ -88,7 +88,7 @@ class TFIdentifier {
   static retrain(duration) {
     let train = require('./TFTrainer.js');
 
-    train.trainModel();
+    train.trainModel(duration);
 
     return
   }
