@@ -7,7 +7,10 @@
 
 // Imports
 var sql = require("mssql");
-
+var Ban = require("./Ban.js");
+var Photo = require("./Photo.js");
+var PhotoReport = require("./PhotoReport.js");
+var Plant = require("./Plant.js");
 
 // Configuration for database
 var config = {
@@ -16,7 +19,152 @@ var config = {
     server: 'greenthumbdb.cn0ybdo6z84o.us-east-2.rds.amazonaws.com',
     database: 'projectgreenthumb'
 };
+///////////////////////////Insertion Functions////////////////////////////
+/**
+ * @desc Add the ban to the database
+ * @author Austin Bursey
+ * @param {Number} Ban a Ban object.
+ * @returns nothing
+*/
+function addBan(ban){
+    let conn = new sql.ConnectionPool;
+    let result;
+    let banId = ban.getId();
+    let userId = bad.getUserId();
+    let adminId = ban.getAdminId();
+    let expiration = ban.getExpirationDate();
+    conn.connect().then(function(){
+        
+        let req = new sql.Request(conn);
+        req.input('userId', sql.Int, userId);
+        req.input('adminId', sql.Int, adminId);
+        req.input('expiration', sql.DateTime, expiration);
+        req.query("Insert into [ban] (userId, adminId, expiration) Values (@userId, @adminId, @expiration)").then(function(recordset){
+            result = recordset;
+            console.log(recordset);
+            conn.close();
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+    })
+    .catch(function(err){
+     console.log(err);   
+    });
+    return result;
+}
+/**
+ * @desc Add a Photo to the database
+ * @author Austin Bursey
+ * @param {Number} Photo a Photo object.
+ * @returns nothing
+*/
+function addPhoto(photo){
+    let conn = new sql.ConnectionPool;
+    let result;
+    let photoId = photo.getId();
+    let plantId = photo.getPlantId();
+    let userId  = photo.getUserId();
+    let image = photo.getImage();
 
+    conn.connect().then(function(){
+        let photoId; 
+        let req = new sql.Request(conn);
+        req.input("plantId", sql.Int , plantId);
+        req.input("image", sql.Binary, image );
+        req.input("tfrecord", sql.VarChar , photo.getTfRecord);
+        req.input("userId", sql.int ,photo.getUserId );
+        req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, @image , @tfrecord); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));").then(function(recordset){
+            conn.close();
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+        
+    })
+    .catch(function(err){
+     console.log(err);   
+    });
+}
+/**
+ * @desc Add a PhotoReport to the database
+ * @author Austin Bursey
+ * @param {Number} pReport a PhotoReport object.
+ * @returns nothing
+*/
+function addPhotoReport(pReport){
+    let conn = new sql.ConnectionPool;
+    let result;
+    conn.connect().then(function(){
+        
+        let req = new sql.Request(conn);
+        req.input("photoId", sql.Int , pReport.getPhotoId());
+        req.input("rDate", sql.Date , pReport.getReportDate());
+        req.input("rText", sql.VarChar, pReport.getReportText());
+        req.input("userId", sql.Int , pReport.getUserId());
+        req.query("Insert into [report] (post_id, report_date , report_details) "+
+        "Values((SELECT post_id from [post] where user_id = @userID AND photo_id = phoroID)"+
+        ", @reportDate , @reportDetails); Insert into [admin_report] (report_id , admin_id , admin_action) "+
+        "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY(), @photoReport, @admin_Action)").then(function(recordset){
+            result = recordset;
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+    })
+    .catch(function(err){
+     console.log(err);   
+    });
+    return result;
+}
+/**
+ * @desc Add a Plant to the database
+ * @author Austin Bursey
+ * @param {Number} plant a Plant object.
+ * @returns nothing
+*/
+function addPlant(plant){
+    let conn = new sql.ConnectionPool;
+    let result;
+    conn.connect().then(function(){
+        
+        let req = new sql.Request(conn);
+        req.input('plantName', sql.VarChar, plant.getName());
+        req.input('plantBio', sql.VarChar, plant.getBio());
+        req.query("Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ").then(function(recordset){
+            conn.close();
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+    })
+    .catch(function(err){
+     console.log(err);   
+    });
+}
+/**
+ * @desc Add a User to the database
+ * @author Austin Bursey
+ * @param {Number} User a User object.
+ * @returns nothing
+*/
+function addUser(user){
+    let conn = new sql.ConnectionPool;
+    let result;
+    conn.connect().then(function(){
+        
+        let req = new sql.Request(conn);
+        req.query("Insert into [user] DEFAULT VALUES  ").then(function(recordset){
+            conn.close();
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+    })
+    .catch(function(err){
+     console.log(err);   
+    });
+}
 ///////////////////////////Removal Functions////////////////////////////
 /**
  * @desc Removes the photo from the database
@@ -152,7 +300,61 @@ function removeUser(UserID) {
 }
 
 ///////////////////////////Retrieval Functions////////////////////////////
+/**
+ * @desc Returns a Ban object from the Database
+ * @author Austin Bursey
+ * @param {Int} BanId The primary key of the Ban table
+ * @returns {result} A Ban object
+*/
 
+function getBan(banID) {
+    let conn = new sql.ConnectionPool;
+    let result;
+    conn.connect().then(function(){
+        
+        let req = new sql.Request(conn);
+        req.input('@banId',sql.Int, banID )
+        req.query("Select * from [projectgreenthumb].[dbo].[plant] where ban_id = @banId ").then(function(recordset){
+            result = new Ban(recordset.recordset[0].ban_id , recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date); 
+            conn.close();
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+    })
+    .catch(function(err){
+     console.log(err);   
+    });
+    return result; 
+}
+/**
+ * @desc [WORK IN PROGRESS ]Returns a Photo object from the Database
+ * @author Austin Bursey
+ * @param {Number} photoId The primary key of the Photo table
+ * @returns {photo} A Photo object
+*/
+
+function getPhoto(photoId) {
+    let conn = new sql.ConnectionPool;
+    let photo;
+    conn.connect().then(function(){
+        
+        let req = new sql.Request(conn);
+        req.input('@photoId',sql.Int, banID )
+        req.query("SELECT *FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id);").then(function(recordset){
+            //unfinished. 
+            photo = new Photo(recordset.recordset[0].photo_id , recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image , ); 
+            conn.close();
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+    })
+    .catch(function(err){
+     console.log(err);   
+    });
+    return result; 
+}
 /**
  * @desc Returns a number of most recent plant photos
  * @author Saad Ansari
