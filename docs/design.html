@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Design</title>
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Project GreenThumb - Design</h1>
+
+    <h2><a id="#Table_of_Contents"></a></h2>
+    <ul>
+        <li>
+            <a href="#Introduction">1. Introduction</a>
+            <ul>
+                <li><a href="#Overview">1.1 Overview</a></li>
+                <li><a href="#Purpose">1.2 Purpose</a></li>
+                <li><a href="#Intended_Audience">1.3 Intended Audience</a></li>
+                <li><a href="#Definitions">1.4 Definitions</a></li>
+                <li><a href="#References">1.5 References</a></li>
+            </ul>
+
+            <a href="#Implementation_Plan">2. Implementation Plan</a>
+            <ul>
+                <li><a href="#Choice_of_Language">2.1 Choice of Language</a></li>
+                <li><a href="#Integration">2.2 Integration</a></li>
+            </ul>
+
+            <a href="#Detailed_Design">3. Detailed Design</a>
+            <ul>
+                <li><a href="#Class_Diagrams">3.1 Class Diagrams</a></li>
+                <ul>
+                    <li><a href="#Frontend_Class_Diagrams">3.1.1 Frontend</a></li>
+                    <li><a href="#Backend_Class_Diagrams">3.1.2 Backend</li>
+                </ul>
+                <li><a href="#API_Endpoints">3.3 API Endpoints</a></li>
+            </ul>
+
+            <a href="#Interface_Style_Guide">4. Interface Style Guide</a>
+            <ul>
+                <li><a href="#Colour_Guidelines">4.1 Colour Guidelines</a></li>
+                <li><a href="#Font_Guidelines">4.2 Font Guidelines</a></li>
+                <li><a href="#Icon_Set">4.3 Icon Set</a></li>
+            </ul>
+
+            <a href="#Versions_Authorship">5. Versions & Authorship</a>
+
+        </li>
+    </ul>
+
+    <h2><a id="Introduction">1. Introduction</a></h2>
+    <div>
+        <h3><a id="Overview">1.1 Overview</a></h3>
+        <p>
+            GreenThumb is an Android application that allows users to upload photographs of plants and have their
+            species identified. Users logged in with their Google account are able to upload their photographs to the
+            pages of
+            the corresponding plant and vote on the photographs of other signed-in users. Additionally, a user may
+            search a
+            plant by its name.
+        </p>
+
+        <h3><a id="Purpose">1.2 Purpose</a></h3>
+        <p>
+            The purpose of this document is to establish the architectural and detailed design for the developers to
+            follow to ensure consistency and correctness in the implementation of the software.
+        </p>
+
+        <h3><a id="Intended_Audience">1.3 Intended Audience</a></h3>
+        <p>
+            The intended audience of this document is the developers.
+        </p>
+
+        <h3><a id="Definitions">1.4 Definitions, Acronyms, Abbreviations</a></h3>
+        <p>
+            <p>For an up-to-date list of relevant definitions, acronyms, and abbreviations, please refer to the
+                GreenThumb Software Requirements Specifications.
+
+        </p>
+
+        <h3><a id="References">1.5 References</a></h3>
+        <p>
+            All references can be found in the SRS documentation.
+        </p>
+
+    </div>
+
+    <h2><a id="Implementation_Plan">2. Implementation Plan</a></h2>
+    <div>
+        <h3><a id="Choice_of_Language">2.1 Choice of Language</a></h3>
+        <p>
+            For the Android frontend, Java is used, as it is the primary language for Android development.
+            Consequently, there is a great deal of well-designed documentation available from which to learn.
+        </p>
+        <p>
+            For the backend, the Node.js library for JavaScript is used for the server, as it is one
+            of the industry standards for servers. There is a great deal of documentation on API development for
+            Node.js, and setting up server communication is relatively easy.
+        </p>
+        <p>
+            For the machine learning portion of the app, the Tensorflow library is used. Tensorflow supports Python
+            and JavaScript, but the primary library from Tensorflow here implemented only works on the Python version
+            of
+            Tensorflow. Consequently, the retraining of the network is done through the Python version, while the rest
+            of the
+            machine learning is done via JavaScript using Tensorflow.js.
+        </p>
+        <p>
+            For the Database, Microsoft SQL Server is used because of its excellent RDBMS functionality. Our reason for
+            choosing Microsoft SQL Server over other RDBMS, such as MySQL, is due to its security rules which do not
+            allow processes to manipulate its files or binaries. Another advantage of SQL Server is that it can stop
+            query
+            execution before completion without killing the entire process.
+
+        </p>
+
+        <h3><a id="Integration">2.2 Integration</a></h3>
+        <p>
+            The user login and logout functions are provided through integration with the Google Sign-In API. Both the
+            Android and web frontend communicate with the backend via a RESTful API created using Express.js. This API
+            then operates on the database directly and interacts with the machine learning model through the MLTrainer
+            and MLIdentifier. The MLTrainer and MLIdentifier use the Tensorflow object detection library.
+        </p>
+
+    </div>
+
+    <h2><a id="Detailed_Design">3. Detailed Design</a></h2>
+    <div>
+        <h3><a id="Class_Diagrams">3.1 Class Diagrams</a></h3>
+        <div>
+            <h4><a id="Frontend_Class_Diagrams">3.1.1 Frontend</a></h4>
+            <div style="width: 960px; height: 720px; margin: 10px; position: relative;"><iframe allowfullscreen
+                    frameborder="0" style="width:960px; height:720px" src="https://www.lucidchart.com/documents/embeddedchart/fe1d3d1c-9b0f-45da-93ab-fa1609acbb5c"
+                    id="26unBgCKeDdp"></iframe></div>
+            <p>
+
+            </p>
+            <h4><a id="Backend_Class_Diagrams">3.1.2 Backend</h4>
+            <div style="width: 960px; height: 720px; margin: 10px; position: relative;"><iframe allowfullscreen
+                    frameborder="0" style="width:960px; height:720px" src="https://www.lucidchart.com/documents/embeddedchart/ce204ce9-82a9-46b0-826a-b53bfe2eef9d"
+                    id="x5unJ2IbV.ku"></iframe></div>
+        </div>
+
+
+        <h3><a id="API_Endpoints">3.3 API Endpoints</a></h3>
+        <table style="width:100%">
+            <tr>
+                <th>Endpoint</th>
+                <th>Request Body</th>
+                <th>Response Body</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>/photos/add</td>
+                <td>{ image: Image, plantId: int, userId: int }</td>
+                <td>{ photo: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int } }</td>
+                <td>Add a new Photo of the specified Plant to the database.</td>
+            </tr>
+            <tr>
+                <td>/photos/byId</td>
+                <td>{ photoId: int }</td>
+                <td>{ photo: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int } }</td>
+                <td>Return the Photo with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/photos/list/byDate</td>
+                <td>{ max: int, startIndex: int, {plantId: int}, {userId: int} }</td>
+                <td>{ photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[] }</td>
+                <td>Get the specified number of Photos from the database, sorted by date. If plantId is given, return only Photos of the specified Plant. If userId is given, return only Photos by the specified User.</td>
+            </tr>
+            <tr>
+                <td>/photos/list/byRating</td>
+                <td>{ max: int, startIndex: int, {plantId: int}, {userId: int }</td>
+                <td>{ photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[] }</td>
+                <td>Get the specified number of Photos from the database, sorted by votes. If plantId is given, return only Photos of the specified Plant. If userId is given, return only Photos by the specified User.</td>
+            </tr>
+            <tr>
+                <td>/photos/remove</td>
+                <td>{ photoId: int, userId: int }</td>
+                <td>{ }</td>
+                <td>Remove the Photo with the matching ID from the database.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/add</td>
+                <td>{ photoId: int, reportText: String, userId: int }</td>
+                <td>{ photoReport: { adminAction: int, adminId: int, handleDate: String,id: int, reportDate: String, reportText: String, userId: int }  }</td>
+                <td>Add a new PhotoReport of the specified Photo to the database.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/byId</td>
+                <td>{ adminId: int, photoReportId: int }</td>
+                <td>{ photoReport: { adminAction: int, adminId: int, handleDate: String,id: int, reportDate: String, reportText: String, userId: int } }</td>
+                <td>Return the PhotoReport with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/handle</td>
+                <td>{ adminAction: int, adminId: int, photoReportId: int }</td>
+                <td>{ }</td>
+                <td>Handle the reported Photo by accepting or rejecting the PhotoReport and specifying whether or not
+                    to ban the User that uploaded the offending Photo.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/list/byDate</td>
+                <td>{ adminId: int, startIndex: int, max: int, {handledBy: int}, {unhandledOnly: bool = false} }</td>
+                <td>{ photoReports: { adminAction: int, adminId: int, handleDate: String,id: int, reportDate: String, reportText: String, userId: int }[0..max] }</td>
+                <td>Get the specified number of PhotoReports, sorted in ascending order by date from the
+                    database. Optional: only return unhandled PhotoReports, only return PhotoReports handled by a specified Admin.</td>
+            </tr>
+            <tr>
+                <td>/photoReports/remove</td>
+                <td>{ adminId: int, photoReportId: int }</td>
+                <td>{ }</td>
+                <td>Remove the PhotoReport with the matching ID from the database.</td>
+            </tr>
+            <tr>
+                <td>/plants/add</td>
+                <td>{ adminId: int, name: String, bio: String }</td>
+                <td>{ plant: { bio: String, id: int, name: String, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[0..maxPhotos] } }</td>
+                <td>Add a new Plant to the database.</td>
+            </tr>
+            <tr>
+                <td>/plants/byId</td>
+                <td>{ plantId: int, {maxPhotos: int} }</td>
+                <td>{ plant: { bio: String, id: int, name: String, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[0..maxPhotos] } }</td>
+                <td>Return the Plant with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/plants/byImage</td>
+                <td>{ image: Image, {maxPhotos: int} }</td>
+                <td>{ plants: { bio: String, id: int, name: String, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[0..maxPhotos] }[] }</td>
+                <td>Identify and return a Plant by a ML analysis of the image.</td>
+            </tr>
+            <tr>
+                <td>/plants/byQuery</td>
+                <td>{ query: String, {maxPhotos: int} }</td>
+                <td>{ plants: { bio: String, id: int, name: String, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[0..maxPhotos] }[] }</td>
+                <td>Identify and return a Plant by a text query.</td>
+            </tr>
+            <tr>
+                <td>/plants/remove</td>
+                <td>{ adminId: int, plantId: int }</td>
+                <td>{ }</td>
+                <td>Remove the Plant with the matching ID from the database.</td>
+            </tr>
+            <tr>
+                <td>/plants/update</td>
+                <td>{ adminId: int, plantId: id, bio: String }</td>
+                <td>{ }</td>
+                <td>Update the bio of the Plant with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/mlModel/training/immediate</td>
+                <td>{ adminId: int }</td>
+                <td>{ }</td>
+                <td>Retrain the machine learning model immediately.</td>
+            </tr>
+            <tr>
+                <td>/users/add</td>
+                <td>{ userId: int }</td>
+                <td>{ user: { admin: bool, bans: { adminId: int, date: String}[] }, id: int } }</td>
+                <td>Add a new User to the database.</td>
+            </tr>
+            <tr>
+                <td>/users/ban</td>
+                <td>{ adminId: int, userId: int }</td>
+                <td>{ }</td>
+                <td>Ban the User with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/users/byId</td>
+                <td>{ userId: int }</td>
+                <td>{ user: { admin: bool, bans: { adminId: int, date: String}[] }, id: int } }</td>
+                <td>Return the User with the matching ID.</td>
+            </tr>
+            <tr>
+                <td>/users/makeAdmin</td>
+                <td>{ adminId: int, userId: int }</td>
+                <td>{ }</td>
+                <td>Make the User with the matching ID an admin.</td>
+            </tr>
+            <tr>
+                <td>/users/remove</td>
+                <td>{ adminId: int, userId: int }</td>
+                <td>{ }</td>
+                <td>Remove the User with the matching ID from the database.</td>
+            </tr>
+        </table>
+
+    </div>
+
+    <h2><a id="Interface_Style_Guide">4. Interface Style Guide</a></h2>
+    <div>
+        <h3><a id="Colour_Guidelines">4.1 Colour Guidelines</a></h3>
+        <p>
+            <table style="width:100%">
+                <tr>
+                    <th>Purpose</th>
+                    <th>Sample</th>
+                    <th>Hex Code</th>
+                </tr>
+                <tr>
+                    <td>Background</td>
+                    <td bgcolor="#f9fafc"></td>
+                    <td>#f9fafc</td>
+                </tr>
+                <tr>
+                    <td>Accent One</td>
+                    <td bgcolor="#49B773"></td>
+                    <td>#49B773</td>
+                </tr>
+                <tr>
+                    <td>Accent Two</td>
+                    <td bgcolor="#87653B"></td>
+                    <td>#87653B</td>
+                </tr>
+            </table>
+
+        </p>
+
+        <h3><a id="Font_Guidelines">4.2 Font Guidelines</a></h3>
+        <div>
+            All fonts are true black (#000000).
+            The Web interface uses Arial font.
+            The Android interface uses Droid font - the Android default.
+        </div>
+
+        <h3><a id="Icon_Set">4.3 Icon Set</a></h3>
+        <div>
+            <table>
+                <tr>
+                    <th>Icon</th>
+                    <th>Logo</th>
+                </tr>
+                <tr>
+                    <td><img src="https://raw.githubusercontent.com/AaronE314/CP317-Project-Green-Thumb/master/resources/icon.png"
+                            alt="GreenThumb app icon" style="width:100px;height:100px;"></td>
+                    <td><img src="https://raw.githubusercontent.com/AaronE314/CP317-Project-Green-Thumb/master/resources/logo.png"
+                            alt="GreenThumb app logo" style="width:500px;height:200px;"></td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+    <h2><a id="Versions_Authorship">5. Versions & Authorship</a></h2>
+    <div>
+        <ul>
+            <li>
+                <b>Version 0.1 (2018/10/25)</b>
+                <ul>
+                    <li>
+                        Austin Bursey:
+                        <ul>
+                            <li>Document Outline Created</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Jackson Newlands:
+                        <ul>
+                            <li>Overview section</li>
+                            <li>Purpose section</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.2 (2018/10/26)</b>
+                <ul>
+                    <li>
+                        Saad Ansari:
+                        <ul>
+                            <li>Added MS SQL to Choice of Languages section</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Saje Bailey:
+                        <ul>
+                            <li>Revised Overview section</li>
+                            <li>Revised Purpose section</li>
+                            <li>Definitions section</li>
+                            <li>References section</li>
+                            <li>Backend Class Diagram (misc. methods)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Nathaniel Carr:
+                        <ul>
+                            <li>Integration section</li>
+                            <li>Intended Audience section</li>
+                            <li>Revised Overview section</li>
+                            <li>Revised Purpose section</li>
+                            <li>Updated document formatting</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Aaron Exley:
+                        <ul>
+                            <li>Backend Class Diagram (added MLTrainer, MLIdentifier)</li>
+                            <li>Choice of Language section</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Austin Bursey:
+                        <ul>
+                            <li>Added MS SQL to Choice of Language section</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.3 (2018/10/27)</b>
+                <ul>
+                    <li>
+                        Austin Bursey:
+                        <ul>
+                            <li>Backend Class Diagram (created DBInterface, FSInterface)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.4 (2018/10/28)</b>
+                <ul>
+                    <li>
+                        Nathaniel Carr:
+                        <ul>
+                            <li>API Endpoints section</li>
+                            <li>Backend Class Diagram (revised all classes)</li>
+                            <li>Frontend Class Diagram (created all classes, filled Requester)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.5 (2018/10/28)</b>
+                <ul>
+                    <li>
+                        Tim McGill
+                        <ul>
+                            <li>Font Guidelines (4.2)</li>
+                            <li>Frontend Class Diagram (filled/revised some of the classes)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.6 (2018/10/29)</b>
+                <ul>
+                    <li>
+                        Adam Cassidy:
+                        <ul>
+                            <li>Revised Purpose section</li>
+                            <li>Revised Choice of Language section</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 1.0 (2018/10/30)</b>
+                <ul>
+                    <li>
+                        Nathaniel Carr:
+                        <ul>
+                            <li>Reformatting in Interface Style Guide</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Tim McGill:
+                        <ul>
+                            <li>Colour Guidelines</li>
+                            <li>Font Guidelines</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Brendan Whelan:
+                        <ul>
+                            <li>Icon design</li>
+                            <li>Logo design</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 1.1  (2018/11/07)</b>
+                <ul>
+                    <li>
+                        Adam Cassidy:
+                        <ul>
+                            <li>Revised the Photo class in the Backend Class Diagram</li>
+                        </ul>
+                    </li>
+                </ul>
+             </li>
+            <li>
+                <b>Version 1.2  (2018/11/12)</b>
+                <ul>
+                    <li>
+                        Adam Cassidy:
+                        <ul>
+                            <li>Revised the Photo class constructor in the Backend Class Diagram</li>
+                        </ul>
+                    </li>
+                </ul>
+             </li>
+            <li>
+                <b>Version 1.2  (2018/11/13)</b>
+                <ul>
+                    <li>
+                        Adam Cassidy:
+                        <ul>
+                            <li>Added image in the Photo class in the Backend Class Diagram</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Brendan Whelan:
+                        <ul>
+                            <li>Fixed spelling errors in classes for Frontend Class Diagram</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

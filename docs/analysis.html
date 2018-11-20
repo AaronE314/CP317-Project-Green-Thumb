@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis</title>
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+</head>
+<body>
+
+    <h1>Project GreenThumb - Analysis</h1>
+
+
+    <h2>Table of Contents</h2>
+    <ul>
+        <li><a href="#Introduction">1. Introduction</a></li>
+            <ul>
+                <li><a href="#Use_Case_Diagram">1.1 Use Case Diagram</a></li>
+        </ul>
+        <li><a href="#Object_Classification">2. Object Classification</a>
+            <ul>
+                <li><a href="#Entity_Objects">2.1 Entity Objects</a></li>
+                <li><a href="#Boundary_Objects">2.2 Boundary Objects</a></li>
+                <li><a href="#Control_Objects">2.3 Control Objects</a></li>
+            </ul>
+        </li>
+        <li><a href="#Classes">3. Classes</a>
+            <ul>
+                <li><a href="#AppServer_State_Diagram">3.1 AppServer State Diagram</a></li>
+                <li><a href="#MLIdentifier_State_Diagram">3.2 MLIdentifier State Diagram</a></li>
+                <li><a href="#MLTrainer_State_Diagram">3.3 MLTrainer State Diagram</a></li>
+            </ul>
+        </li>
+        <li><a href="#Versions">4. Versions</li>
+        <li><a href="#Authorship">5. Authorship</li>
+    </ul>
+
+    <h2> <a id="Introduction"></a>1. Introduction</h2>
+    <p>Green Thumb is a mobile application built for Android devices. It allows users to upload a photograph of a plant and have its species determined by image recognition and machine learning, as well as browse a database of plants to learn more about them. Further, registered users can upload their photographs to the appropriate species’ page, where they can be seen by other users.</p>
+    
+    <h3> <a id="Use_Case_Diagram"></a>1.1 Use Case Diagram</h3>
+    <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://www.lucidchart.com/documents/embeddedchart/a990d216-6d02-4dd7-95fb-789f851f6e40" id="C1rjOm04m1oM"></iframe></div>
+    
+    
+    <h2><a id="Object_Classification"></a>2. Object Classification</h2>
+    <div style="width: 960px; height: 720px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width: 960px; height: 720px" src="https://www.lucidchart.com/documents/embeddedchart/ccb4c4fe-f5dd-46fc-8914-5ff61c6533e4" id="~r0i-xTj_201"></iframe></div>
+    <h3><a id="Entity_Objects"></a>2.1 Entity Objects</h3>
+    <ul>
+        <li>
+            <b>Admin</b> - A special type of User that is able to strike/ban other Users, add/update/remove Plants, and handle PhotoReports.
+        </li>
+        <li>
+            <b>Photo</b> - A photograph of a Plant subject to upvotes/downvotes by Users.
+        </li>
+        <li>
+            <b>PhotoReport</b> - A User-submitted report of a Photo to be handled by an Admin.
+        </li>
+        <li>
+            <b>Plant</b> - The details for one species of plant, including a name, bio, and region, as well as a set of photographs of the species.
+        </li>
+        <li>
+            <b>User</b> - A user of GreenThumb that has signed in with their Google account. They can post Photos to Plants, and upvote/downvote the Photos of other Users.
+        </li>
+    </ul>
+
+    <h3><a id="Boundary_Objects"></a>2.2 Boundary Objects</h3>
+    <ul>
+        <li>
+           <b>AdminView</b> - A <i>web</i> page wherein Admins can perform administrative actions.
+                    </li>
+                    <li>
+                        <b>FirstStartUpView</b> - A welcome screen shown to a user who has never opened GreenThumb before. Provides a choice between logging in with the user's Google account or continuing as a guest.
+                    </li>
+                    <li>
+                        <b>GalleryView</b> - A screen containing multiple photos of a species of plant.
+                    </li>
+                    <li>
+                        <b>HomeView</b> - The primary screen from which the user can navigate to the other screens.
+                    </li>
+                    <li>
+                        <b>PhotoReportView</b> - A screen for reporting a photo.
+                    </li>
+                    <li>
+                        <b>PlantView</b> - A screen containing information on the selected plant.
+                    </li>
+                    <li>
+                         <b>ScanView</b> - A screen wherein the user can take and send to the server photos of their plants for identification.
+                    </li>
+                    <li>
+                        <b>SearchView</b> - A search screen to browse plants by name.
+                    </li>
+                    <li>
+                        <b>SettingView</b> - A settings screen wherein a guest can log in if they change their mind.
+                    </li>
+                    <li>
+                         <b>StartUpView</b> - A welcome screen shown to a user who has opened GreenThumb before. A splash screen displayed while the HomeView is loading.
+                    </li>
+                </ul>
+
+    <h3><a id="Control_Objects"></a>2.3 Control Objects</h3>
+    <ul>
+        <li>
+            <b>AppServer</b> - Responds to HTTP requests sent by the views to the backend.
+        </li>
+        <li>
+            <b>MLIdentifier</b> - Identifies the plant in a user-submitted photo.
+        </li>
+        <li>
+            <b>MLTrainer</b> - Trains the image recognition model by feeding it user-submitted photos.
+        </li>
+    </ul>
+    
+    <h2><a id="Classes"></a>3. Classes</h2>
+    <div style="width: 960px; height: 720px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width: 960px; height: 720px" src="https://www.lucidchart.com/documents/embeddedchart/6ae6dea2-0c30-42b4-adc9-65c48034ccb0" id="JyRirTEnwgtK"></iframe></div>
+
+    <h3><a id="AppServer_State_Diagram"></a>3.1 AppServer State Diagram</h3>
+    <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://www.lucidchart.com/documents/embeddedchart/8eb5d0eb-4c8f-4613-9f2d-54380930839e" id="F7bjiw9ucnrp"></iframe></div>
+    
+    <h3><a id="MLIdentifier_State_Diagram"></a>3.2 MLIdentifier State Diagram</h3>
+    <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://www.lucidchart.com/documents/embeddedchart/bf97246c-2116-4229-b29a-1e98748e0694" id="V7bjmmsEU4zr"></iframe></div>
+    
+    <h3><a id="MLTrainer_State_Diagram"></a>3.3 MLTrainer State Diagram</h3>
+    <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:640px; height:480px" src="https://www.lucidchart.com/documents/embeddedchart/48aee4c0-bcfb-493f-8daf-07d0b3bd18cd" id="67bjl6n_Lfh7"></iframe></div>
+
+    <h2><a id="Versions"></a>4. Versions</h1>
+            <ul>
+                <li>Version 0.1 (2018/10/12) - Document outline created</li>
+                <li>Version 0.2 (2018/10/13) - Object classifications, object diagram, class diagram added</li>
+                <li>Version 0.3 (2018/10/14) - State diagrams added</li>
+            </ul>
+    
+     <h2><a id="Authorship"></a>5. Authorship</h1>
+            <ul>
+                <li>Saad Ansari - Introduction</li>
+                <li>Austin Bursey - Class diagram</li>
+                <li>Nathaniel Carr - Object classifications, object diagram, class diagram, AppServer state diagram</li>
+                <li>Aaron Exley - MLTrainer, MLIdentifier state diagram</li>
+                <li>Tim McGill - Object classifications</li>
+            </ul>
+</body>
+</html>
