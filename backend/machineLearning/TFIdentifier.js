@@ -111,7 +111,7 @@ class TFIdentifier {
    *      - will schedule 2 hours of training every Sunday, at 4:20 AM, starting Nov. 4, 2018.
    */
   static scheduleTraining(newItem) {
-    let id = scheduledItems.length == 0 ? 1 : scheduledItems[scheduledItems.length - 1].ID + 1; // ID's start at 1, otherwise +1 to the last element's ID
+    let id = scheduledItems.length == 0 ? 1 : scheduledItems[scheduledItems.length - 1].id + 1; // ID's start at 1, otherwise +1 to the last element's ID
 
     let item = newItem.split(":");
 
@@ -122,12 +122,12 @@ class TFIdentifier {
       hr: item[4],
       min: item[5],
       duration: item[6]
-    }
+    };
 
     scheduledItems.push(schedObj);
 
     var sched = require('node-schedule');
-    let schedDate = new Date(item[1], item[2], item[3], item[4], item[5], 0)
+    let schedDate = new Date(item[1], item[2], item[3], item[4], item[5], 0);
 
     // node-cron syntax
     // # ┌────────────── second (optional)
