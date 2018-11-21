@@ -18,7 +18,7 @@ class Photo {
      */
     constructor(id, plantId, userId, image, uploadDate, upvoteIds, downvoteIds) {
         // PRIVATE attributes.
-        let _id = id;
+        let _id = id //can be undefined because the id is optional;
         let _plantId = plantId;
         let _userId = userId;
         let _image = image;
@@ -39,6 +39,7 @@ class Photo {
         this.getVoteSum = getVoteSum;
         this.vote = vote;
         this.toJSON = toJSON;
+        this.setId = setId;
 
         // PRIVATE method definitions.
         /**
@@ -198,6 +199,16 @@ class Photo {
                 uploadDate: _uploadDate,
                 upvoteIds: _upvoteIds,
                 downvoteIds: _downvoteIds
+            }
+        }
+        /**
+         * @desc Sets the Photo's id and can only be done once if the current id is undefined.
+         * @param {Number} id; the Photo id. Integer.
+         * @author Adam Cassidy
+         */
+        function setId(id) {
+            if (!_id) {
+                _id = id;
             }
         }
     }
