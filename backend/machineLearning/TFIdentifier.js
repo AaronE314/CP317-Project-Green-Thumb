@@ -1,30 +1,26 @@
-/**@abstract
- *
- * @license
- * Copyright 2018 Project Green Thumb. All Rights Reserved.
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * =============================================================================
- *
+const MODEL_URL = 'path/to/tensorflowjs_model.pb';
+const WEIGHTS_URL = 'path/to/weights_manifest.json';
+
+/**
+ * @module: TFIdentifier.js
+ * ------------------------------------------------------------------
  * @author Aaron Exley
  * @author Justin Harrott
  * @author Jhon Duphny
- *
- * @description This class is designed to Identify a given image,
+ * ------------------------------------------------------------------
+ * @version: 2018/11/19
+ * -------------------------------------------------------------------
+ * @description:
+ * This class is designed to Identify a given image,
  * and return the results as an array of detections
- *
+ * It also it used to grab the appropriate images from the database for training,
+ * and to call the retraining when needed.
+ * -------------------------------------------------------------------
  * @requires NPM:schedulejs @link{https://bunkat.github.io/schedule/}
  * @requires NPM:later @link{http://bunkat.github.io/later/}
  * @requires NPM:tensorflow/tfjs @link{}
  * @requires NPM:canvas @link {}
  */
-
-const MODEL_URL = 'path/to/tensorflowjs_model.pb';
-const WEIGHTS_URL = 'path/to/weights_manifest.json';
 class TFIdentifier {
 
   /**
