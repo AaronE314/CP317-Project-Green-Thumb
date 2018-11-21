@@ -548,12 +548,12 @@ api.post("/plants/byImage", async (req, res) => {
         if (!validateParams(req, res, (body) => {
             assert(body.image !== undefined, ERROR_MSG.missingParam("image"));
             assert(body.maxPhotos === undefined || body.maxPhotos >= 0), ERROR_MSG.noNeg("maxPhotos");
-            // TODO check that image is valid.
+            // TODO: check that image is valid.
         })) { return; }
 
         req.body.maxPhotos = req.body.maxPhotos !== undefined ? req.body.maxPhotos : DEFAULTS.plantsMaxPhotos;
 
-        let TFResults = await MLIdentifier.predict(req.body.image);
+        let TFResults = MLIdentifier.predict(req.body.image);
 
         let results = [];
         for (let i = 0; i < TFResults.numResults; i++) {
@@ -563,7 +563,7 @@ api.post("/plants/byImage", async (req, res) => {
                 photos[j] = photos[j].toJSON();
             }
 
-            // TODO dont know if this property exists, hopefully it does
+            // TODO: Verify that req.body.image has a height and width property
             let min_y = TFResults.boxes[i * 4] * req.body.image.height;
             let min_x = TFResults.boxes[i * 4 + 1] * req.body.image.width
             let max_y = TFResults.boxes[i * 4 + 2] * req.body.image.height;
