@@ -1,5 +1,6 @@
 const MODEL_URL = 'path/to/tensorflowjs_model.pb';
 const WEIGHTS_URL = 'path/to/weights_manifest.json';
+const TEMP_ENCODED_LOC = "temp/encodedImage"
 let scheduledItems = []
 /**
  * @module: TFIdentifier.js
@@ -16,9 +17,11 @@ let scheduledItems = []
  * It also it used to grab the appropriate images from the database for training,
  * and to call the retraining when needed.
  * -------------------------------------------------------------------
-* @requires NPM:node-schedule @link{https://www.npmjs.com/package/node-schedule}
- * @requires NPM:tensorflow/tfjs @link{}
- * @requires NPM:canvas @link {}
+ * @requires NPM:node-schedule @link{https://www.npmjs.com/package/node-schedule}
+ * @requires NPM:tensorflow/tfjs @link{https://www.npmjs.com/package/@tensorflow/tfjs-node}
+ * @requires NPM:canvas @link {https://www.npmjs.com/package/canvas}
+ * @requires NPM:child_process @link {https://www.npmjs.com/package/child_process}
+ * @requires NPM:fs @link {https://www.npmjs.com/package/fs}
  */
 class TFIdentifier {
 
@@ -33,7 +36,7 @@ class TFIdentifier {
    */
   static gatherImages() {
     var id = 1;
-    var plants [];
+    var plants = [];
     var picture = getPhoto(i);
     while (picture != null) {
       plants.push(_preProcessImage(picture));
@@ -65,21 +68,21 @@ class TFIdentifier {
    *          - scores: an array of floats in which the first numResults elements indicated the percent confidence of each prediction i.
    *          - classes: an array of ints in which the first numResults elements indicate the id of the class that was predicted (ie. 1 = rose)
    */
-  static async predict(image) {
+  static predict(image) {
 
-    const tf = require('@tensorflow/tfjs');
-    require('@tensorflow/tfjs-node'); //Switch to @tensorflow/tfjs-node-gpu for gpu version
+    const child_process = require("child_process");
+    const fs = require('fs');
 
-    const imageT = this._preProcessImage(image);
+    fs.writeFileSync(TEMP_ENCODED_LOC, image);
 
-    const model = await tf.loadFrozenModel(MODEL_URL, WEIGHTS_URL);
+    const data = child_process.execSync(`python TFExecutor.py ${TEMP_ENCODED_LOC}`);
 
-    const prediction = await model.executeAsync(imageT);
+    const output = JSON.parse("[" + data.toString() + "]");
 
-    const count = prediction[3].dataSync()[0];
-    const boxes = prediction[0].dataSync();
-    const scores = prediction[1].dataSync();
-    const classes = prediction[2].dataSync();
+    const count = output[3];
+    const boxes = output[0];
+    const scores = output[1];
+    const classes = output[2];
 
     return { count: count, boxes: boxes, scores: scores, classes: classes };
   }
@@ -133,7 +136,7 @@ class TFIdentifier {
       sched: false
     };
 
-    var sched = require('node-schedule');
+    let sched = require('node-schedule');
     // node-cron syntax
     // # ┌────────────── second (optional)
     // # │ ┌──────────── minute
