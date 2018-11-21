@@ -139,8 +139,6 @@ class TFIdentifier {
     };
 
     var sched = require('node-schedule');
-    let schedDate = new Date(item[1], item[2], item[3], item[4], item[5], 0);
-
     // node-cron syntax
     // # ┌────────────── second (optional)
     // # │ ┌──────────── minute
@@ -154,6 +152,7 @@ class TFIdentifier {
     //
     // Date syntax
     // Date(YYYY, MM, DD, HH, MM, SS, NS)
+    let schedDate = new Date(item[1], item[2], item[3], item[4], item[5], 0);
     let schedStr = schedObj.repeat == 0 ? schedDate : schedObj.min + " " + schedObj.hr + " * * " + schedDate.getDay();
 
     schedObj.sched = sched.schedule(schedStr, () => {
