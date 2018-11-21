@@ -1,12 +1,12 @@
 const MODEL_URL = 'path/to/tensorflowjs_model.pb';
 const WEIGHTS_URL = 'path/to/weights_manifest.json';
-
+let scheduledItems = []
 /**
  * @module: TFIdentifier.js
  * ------------------------------------------------------------------
  * @author Aaron Exley
  * @author Justin Harrott
- * @author Jhon Duphny
+ * @author John Dunphy
  * ------------------------------------------------------------------
  * @version: 2018/11/19
  * -------------------------------------------------------------------
@@ -16,26 +16,37 @@ const WEIGHTS_URL = 'path/to/weights_manifest.json';
  * It also it used to grab the appropriate images from the database for training,
  * and to call the retraining when needed.
  * -------------------------------------------------------------------
- * @requires NPM:schedulejs @link{https://bunkat.github.io/schedule/}
- * @requires NPM:later @link{http://bunkat.github.io/later/}
+* @requires NPM:node-schedule @link{https://www.npmjs.com/package/node-schedule}
  * @requires NPM:tensorflow/tfjs @link{}
  * @requires NPM:canvas @link {}
  */
 class TFIdentifier {
 
   /**
-   * @author Jhon Duphny
+   * @author John Dunphy
    *
-   * Add description ...
+   * @description gathers all images from the database and converts them to a form
+   * that the ai can read.
+   *
+   * @returns an array of images where each photo is stored in the array at id-1
+   * for any given photo id.
    */
   static gatherImages() {
-
+    var id = 1;
+    var plants [];
+    var picture = getPhoto(i);
+    while (picture != null) {
+      plants.push(_preProcessImage(picture));
+      i++;
+      picture = getPhoto(i);
+    }
+    return plants;
   }
 
   /**
    * @author Aaron Exley
    * @async
-   * 
+   *
    * Used to identify which flowers are in the given image
    *
    * @param image the image to identify, as a byte array
@@ -76,12 +87,14 @@ class TFIdentifier {
   /**
    * @author Justin Harrott
    *
-   * Add description ...
+   * calls trainModel function from TFTrainer.js
+   *
+   * @param {Number} duration length of training period in hours; default 8 hours
    */
-  static retrain() {
+  static retrain(duration) {
     let train = require('./TFTrainer.js');
 
-    train.trainModel();
+    train.trainModel(duration);
 
     return
   }
@@ -91,35 +104,64 @@ class TFIdentifier {
    *
    * Creating a new schedule produces a JSON object. Sets scheduled call retrain
    *
-   * @param {String} time written expression of when the training is to occur
+   * @param {String} newItem R:YYYY:MO:DD:HH:MM:D format
+   * R = REPEAT: 0 for no repeats, 1 for weekly repeat
+   * YYYY = YEAR: 4 digit year
+   * MO = MONTH: 2 digit month; Jan = 00 ... Dec = 11
+   * DD = DAY OF MONTH: 2 digit day of the month; from 1-31
+   * HH = HOUR: 2 digit, 24 hour format; from 00-23
+   * MM = MINUTES: 2 digit, 60 minute format; from 00-59
+   * D = DURATION: 1 digit length of training period in hours
    *
-   * @returns {Boolean} confirms that training was scheduled
+   * @returns schedObj.id id of the scheduled object
    *
-   * @example let scheduled = scheduleTraining("every Sunday at 4:30am") or scheduleTraining("tomorrow at 23:59")
+   * @example let scheduled = scheduleTraining("1:2018:10:04:04:20:2");
+   *      - will schedule 2 hours of training every Sunday, at 4:20 AM, starting Nov. 4, 2018.
    */
-  static scheduleTraining(time, duration) {
-    let schedule = require('schedulejs');
-    let later = require('later') // To make schedules easier to read/use, we use the text parser from later
-    let scheduled = false;
+  static scheduleTraining(newItem) {
+    let id = scheduledItems.length == 0 ? 1 : scheduledItems[scheduledItems.length - 1].id + 1; // ID's start at 1, otherwise +1 to the last element's ID
 
-    schedule.date.localTime();
+    let item = newItem.split(":");
 
-    let projectAvailability = later.parse.text(time);
+    let schedObj = {
+      id: id,
+      repeat: item[0],
+      startDate: [item[1], item[2], item[3]], // [ YYYY, MO, DD ]
+      hr: item[4],
+      min: item[5],
+      duration: item[6],
+      sched: false
+    };
 
-    schedule.create(); // All dates are returned as milliseconds from the Unix epoch, you can convert them to dates using - new Date(val);
+    var sched = require('node-schedule');
+    // node-cron syntax
+    // # ┌────────────── second (optional)
+    // # │ ┌──────────── minute
+    // # │ │ ┌────────── hour
+    // # │ │ │ ┌──────── day of month
+    // # │ │ │ │ ┌────── month
+    // # │ │ │ │ │ ┌──── day of week
+    // # │ │ │ │ │ │
+    // # │ │ │ │ │ │
+    // # * * * * * *
+    //
+    // Date syntax
+    // Date(YYYY, MM, DD, HH, MM, SS, NS)
+    let schedDate = new Date(item[1], item[2], item[3], item[4], item[5], 0);
+    let schedStr = schedObj.repeat == 0 ? schedDate : schedObj.min + " " + schedObj.hr + " * * " + schedDate.getDay();
 
-    let now = new Date().toString();
-    let millisTillTrain = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
-    if (millisTillTrain < 0)
-      millisTillTrain += 86400000; // it's after 10am, try 10am tomorrow.
+    schedObj.sched = sched.schedule(schedStr, () => {
+      retrain(schedObj.duration);
+    });
 
-    setTimeout(retrain(), millisTillTrain);
 
-    return scheduled
+    scheduledItems.push(schedObj);
+
+    return (schedObj.id)
   }
 
   /**
-   * @author Jhon Duphny
+   * @author John Dunphy
    *
    * Add description ...
    */
