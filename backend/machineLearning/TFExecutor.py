@@ -1,4 +1,8 @@
+"""
+This File is used to run the predict what is in an image given as a byte string
 
+author: Aaron Exley
+"""
 # Built in libaries
 import sys
 import base64
