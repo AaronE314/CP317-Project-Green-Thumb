@@ -118,6 +118,8 @@ class TFIdentifier {
    * MM = MINUTES: 2 digit, 60 minute format; from 00-59
    * D = DURATION: 1 digit length of training period in hours
    *
+   * @returns schedObj.id id of the scheduled object
+   *
    * @example let scheduled = scheduleTraining("1:2018:10:04:04:20:2");
    *      - will schedule 2 hours of training every Sunday, at 4:20 AM, starting Nov. 4, 2018.
    */
@@ -132,10 +134,9 @@ class TFIdentifier {
       startDate: [item[1], item[2], item[3]], // [ YYYY, MO, DD ]
       hr: item[4],
       min: item[5],
-      duration: item[6]
+      duration: item[6],
+      sched: false
     };
-
-    scheduledItems.push(schedObj);
 
     var sched = require('node-schedule');
     let schedDate = new Date(item[1], item[2], item[3], item[4], item[5], 0);
@@ -155,11 +156,14 @@ class TFIdentifier {
     // Date(YYYY, MM, DD, HH, MM, SS, NS)
     let schedStr = schedObj.repeat == 0 ? schedDate : schedObj.min + " " + schedObj.hr + " * * " + schedDate.getDay();
 
-    sched.schedule(schedStr, () => {
+    schedObj.sched = sched.schedule(schedStr, () => {
       retrain(schedObj.duration);
     });
 
-    return
+
+    scheduledItems.push(schedObj);
+
+    return (schedObj.id)
   }
 
   /**
