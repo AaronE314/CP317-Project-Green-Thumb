@@ -10,28 +10,10 @@ import android.widget.TextView;
 import android.content.SharedPreferences;
 
 
-/*
-    SettingsActivity controls the buttons and slider on the activity_settings.xml layout
- */
-
-
-
-
-/*///////////////
-
-To do:
-    - font slider starts at max every time page reloads
-    - get font to change on all pages
-    - log out function
-
-*////////////////
-
-
-
 public class SettingsActivity extends AppCompatActivity {
 
 
-   // private Button logInButton, backButton, logOutButton;
+    // private Button logInButton, backButton, logOutButton;
     private SeekBar fontScaleSlider;
     private TextView view;
     private SharedPreferences prefs;
@@ -40,17 +22,22 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);     // Connects this to the layout page
 
+        setContentView(R.layout.activity_settings);     // Connects this to the layout page
 
         // Fonts Scale Slider
         fontScaleSlider = findViewById(R.id.fontScaleSlider);
         view = findViewById(R.id.changeFont);
 
-        prefs = getPreferences(MODE_PRIVATE);
 
-        float fs = prefs.getFloat("fontsize", 10);
-        fontScaleSlider.setProgress((int)fs);
+        prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
+        int textSize = prefs.getInt("fontSize", 16); // new
+        //float fs = prefs.getFloat("fontsize", 0.0f);
+
+        //  prefs = getPreferences(MODE_PRIVATE);
+
+        //float fs = prefs.getFloat("fontsize", 10);
+        fontScaleSlider.setProgress(textSize);
         view.setTextSize(fontScaleSlider.getProgress());
 
 
@@ -58,7 +45,8 @@ public class SettingsActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar fontScaleSlider){
-                prefs = getPreferences(MODE_PRIVATE);
+                // prefs = getPreferences(MODE_PRIVATE);
+                prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
                 SharedPreferences.Editor ed = prefs.edit();
                 ed.putFloat("fontsize", view.getTextSize());
                 ed.commit();
@@ -72,14 +60,16 @@ public class SettingsActivity extends AppCompatActivity {
                                           boolean fromUser){
                 view.setTextSize(progress);
                 // Set text size of the whole app here
+                prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
+                SharedPreferences.Editor ed = prefs.edit();
+                ed.putInt("fontSize", progress);  // was view.getTextSize() and was putFloat
+                ed.apply();    // was ed.commit()
             }
 
         });
 
 
     }
-
-
 
 
     // Opens log in activity when called
@@ -96,11 +86,19 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // Log out function
-//    public void logOut() {
-        // Here's where the logout function goes
-//    }
+    /*
+     //Log out function
+    private void logOut(View v) {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        //
+                    }
+                });
+    }
 
+*/
 
 
 
