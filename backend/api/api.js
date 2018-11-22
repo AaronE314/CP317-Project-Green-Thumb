@@ -760,6 +760,7 @@ api.post("/users/ban", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Adam Cassidy
  * @desc Return the User with the corresponding ID from the database.
  */
 api.post("/users/byId", (req, res) => {
@@ -797,6 +798,7 @@ api.post("/users/byId", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Adam Cassidy
  * @desc Make the User with the corresponding ID an Admin in the database.
  */
 api.post("/users/makeAdmin", (req, res) => {
@@ -823,6 +825,7 @@ api.post("/users/makeAdmin", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Adam Cassidy
  * @desc Remove the User with the corresponding ID from the database.
  */
 api.post("/users/remove", (req, res) => {
