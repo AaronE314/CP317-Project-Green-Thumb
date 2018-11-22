@@ -87,6 +87,7 @@ const ERROR_MSG = {
     noPos: (param) => { return `Parameter '${param}' may not be positive.`; },
     onlyNeg: (param) => { return `Parameter '${param}' must be negative.`; },
     onlyPos: (param) => { return `Parameter '${param}' must be positive.`; },
+    duplicate: (param) => {return `Parameter '${param}' is already in the database.`; },
 };
 const ERROR_CODE = {
     badRequest: 400,
@@ -699,6 +700,7 @@ api.post("/mlModel/training/immediate", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Adam Cassidy
  * @desc Add and return the submitted User to the database.
  */
 api.post("/users/add", (req, res) => {
@@ -707,7 +709,10 @@ api.post("/users/add", (req, res) => {
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             // TODO check that no user with the given userId exists.
+            assert(DBInterface.getUser(body.userId)===null, ERROR_MSG.duplicate());
         })) { return; }
+        
+        DBInterface.addUser(User);
 
         res.send({
             user: {
@@ -724,6 +729,7 @@ api.post("/users/add", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Adam Cassidy
  * @desc Add a new ban to the User with the corresponding ID.
  */
 api.post("/users/ban", (req, res) => {
@@ -735,7 +741,15 @@ api.post("/users/ban", (req, res) => {
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             // TODO check that the adminId belongs to an admin.
             // TODO check that the userId is valid.
+            assert(DBInterface.getUser(body.userId)!==null, ERROR_MSG.invalidParam());
         })) { return; }
+
+        let currUser = DBInterface.getUser(body.userId);
+
+        currUser.ban(body.adminId);
+
+        //adds the last ban in the user's Ban[] to the database.
+        DBInterface.addBan(currUser.getBans()[-1]);
 
         res.send({});
     } catch (err) {
@@ -754,6 +768,7 @@ api.post("/users/byId", (req, res) => {
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             // TODO check that the userId is valid.
+            assert(DBInterface.getUser(body.userId)!==null, ERROR_MSG.invalidParam());
         })) { return; }
 
         let bans = [];
@@ -793,7 +808,11 @@ api.post("/users/makeAdmin", (req, res) => {
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             // TODO check that the adminId belongs to an admin.
             // TODO check that the userId is valid.
+            assert(DBInterface.getUser(body.userId)!==null, ERROR_MSG.invalidParam());
+            
         })) { return; }
+
+        DBInterface.getUser(body.userId) = new Admin(body.adminId, DBInterface.getUser(body.userId).getBans());
 
         res.send({});
     } catch (err) {
@@ -815,7 +834,10 @@ api.post("/users/remove", (req, res) => {
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             // TODO check that the adminId belongs to an admin.
             // TODO check that the userId is valid.
+            assert(DBInterface.getUser(body.userId)!==null, ERROR_MSG.invalidParam());
         })) { return; }
+
+        DBInterface.removeUser(body.userId);
 
         res.send({});
     } catch (err) {
