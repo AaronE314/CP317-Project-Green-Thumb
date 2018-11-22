@@ -8,7 +8,43 @@
             "type": "node",
             "request": "launch",
             "name": "API",
-            "program": "${workspaceFolder}/backend\\api.js"
-        }
+            "program": "${workspaceFolder}/backend\\api\\api.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "User",
+            "program": "${workspaceFolder}/backend\\User.js",
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Ban",
+            "program": "${workspaceFolder}/backend\\Ban.js",
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Plant",
+            "program": "${workspaceFolder}/backend\\Plant.js",
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Photo",
+            "program": "${workspaceFolder}/backend\\Photo.js",
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "PhotoReport",
+            "program": "${workspaceFolder}/backend\\PhotoReport.js",
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Admin",
+            "program": "${workspaceFolder}/backend\\Admin.js",
+        },
     ]
 }
