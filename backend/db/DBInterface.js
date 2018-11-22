@@ -36,8 +36,11 @@ async function addBan(ban){
             req.input('expiration', sql.DateTime, ban.getExpirationDate());
             return await req.query("Insert into [ban] (userId, adminId, expiration) Values (@userId, @adminId, @expiration)")
         
-                .then(function (recordset) {                
-                    sql.close();                
+                .then(function (recordset) {  
+
+                ban = new Ban(recordset.recordset[0].ban_id , recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date); 
+                sql.close();
+                return ban;              
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -53,7 +56,7 @@ async function addBan(ban){
  * @param {Number} Photo a Photo object.
  * @returns nothing
 */
-function addPhoto(photo){
+async function addPhoto(photo){
     return await sql.connect(config)
     .then( async function () {
 
@@ -81,7 +84,7 @@ function addPhoto(photo){
  * @param {Number} pReport a PhotoReport object.
  * @returns nothing
 */
-function addPhotoReport(pReport){
+async function addPhotoReport(pReport){
     return await sql.connect(config)
         .then( async function () {
             req.input("photoId", sql.Int , pReport.getPhotoId());
@@ -112,7 +115,7 @@ function addPhotoReport(pReport){
  * @param {Number} plant a Plant object.
  * @returns nothing
 */
-function addPlant(plant){
+async function addPlant(plant){
     return await sql.connect(config)
     .then( async function () {
         let req = new sql.Request();
@@ -136,7 +139,7 @@ function addPlant(plant){
  * @param {Number} User a User object.
  * @returns nothing
 */
-function addUser(user){
+async function addUser(user){
     return await sql.connect(config)
     .then( async function () {
 
@@ -161,7 +164,7 @@ function addUser(user){
  * @param {Number} photoID The primary key of the photo
  * @returns nothing
 */
-function removePhoto(photoID) {
+async function removePhoto(photoID) {
     // Connect to database
     sql.connect(config, function (err) {
         if (err) { console.log(err); }
@@ -184,7 +187,7 @@ function removePhoto(photoID) {
  * @param {Number} photoReportID The primary key of the photoReport
  * @returns nothing
 */
-function removePhotoReport(photoReportID) {
+async function removePhotoReport(photoReportID) {
     // Connect to database
     sql.connect(config, function (err) {
         if (err) { console.log(err); }
@@ -207,7 +210,7 @@ function removePhotoReport(photoReportID) {
  * @param {Number} plantID The primary key of the plant
  * @returns nothing
 */
-function removePlant(plantID) {
+async function removePlant(plantID) {
     // Connect to database
     sql.connect(config, function (err) {
         if (err) { console.log(err); }
@@ -254,7 +257,7 @@ function removePlant(plantID) {
  * @param {Number} UserID The primary key of the user
  * @returns nothing
 */
-function removeUser(UserID) {
+async function removeUser(UserID) {
     // Connect to database
     sql.connect(config, function (err) {
         if (err) { console.log(err); }
@@ -296,7 +299,7 @@ function removeUser(UserID) {
  * @returns {result} A Ban object
 */
 
-function getBan(banID) {
+async function getBan(banID) {
     return await sql.connect(config)
     .then( async function () {
 
@@ -323,7 +326,7 @@ function getBan(banID) {
  * @returns {photo} A Photo object
 */
 
-function getPhoto(photoId) {
+async function getPhoto(photoId) {
 
     return await sql.connect(config)
         .then( async function () {
@@ -334,9 +337,18 @@ function getPhoto(photoId) {
                     //unfinished. 
                     photo = new Photo(recordset.recordset[0].photo_id , recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image , recordset.recordset[0].upload_date, async function(){
                         req.input('@photoId', sql.Int, photoId);
-                        return await req.query() 
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = @photoId and vote = 1 ").then(function(recordset){
+                            return recordset; 
+                        }).catch(function(err){
+                            console.log(err); 
+                        })
                     },async function(){
-        
+                        req.input('@photoId', sql.Int, photoId);
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = @photoId and vote = 0").then(function(recordset){
+                            return recordset; 
+                        }).catch(function(err){
+                            console.log(err); 
+                        })        
                     }); 
                     sql.close();
                     return photo;
@@ -356,7 +368,7 @@ function getPhoto(photoId) {
  * @returns {plant} A Plant object
 */
 
-function getPlant(plantID) {
+async function getPlant(plantID) {
     return await sql.connect(config)
     .then( async function () {
 
@@ -386,7 +398,7 @@ function getPlant(plantID) {
  * @returns {Photo[]} An array of photo objects
 */
 
-function getNewestPlantPhotos(plantID, startIndex, max) {
+async function getNewestPlantPhotos(plantID, startIndex, max) {
     var photos = [];
 
     return photos;
@@ -401,7 +413,7 @@ function getNewestPlantPhotos(plantID, startIndex, max) {
  * @returns {Photo[]} An array of photo objects
 */
 
-function getNewestUserPhotos(userID, startIndex, max) {
+async function getNewestUserPhotos(userID, startIndex, max) {
     var photos = [];
 
     return photos;
@@ -415,7 +427,7 @@ function getNewestUserPhotos(userID, startIndex, max) {
  * @returns {Photo[]} An array of photo objects
 */
 
-function getTopPhotos(startIndex, max) {
+async function getTopPhotos(startIndex, max) {
     var photos = [];
 
     return photos;
@@ -429,7 +441,7 @@ function getTopPhotos(startIndex, max) {
  * @returns {Photo[]} An array of photo objects
 */
 
-function getTopPlantPhotos(plantID, startIndex, max) {
+async function getTopPlantPhotos(plantID, startIndex, max) {
     var photos = [];
 
     return photos; ss
