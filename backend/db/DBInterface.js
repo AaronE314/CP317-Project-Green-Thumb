@@ -411,7 +411,6 @@ async function getPlant(plantID) {
 
 async function getNewestPlantPhotos(plantID, startIndex, max) {
     photos = [];
-
     await sql.connect(config)
         .then(async function () {
 
@@ -451,8 +450,7 @@ async function getNewestPlantPhotos(plantID, startIndex, max) {
         .catch(function (err) {
             console.log(err);
         });
-
-    return photos.slice(startIndex,startIndex + max);
+    return photos.slice(startIndex, startIndex + max);
 }
 
 /**
@@ -465,9 +463,47 @@ async function getNewestPlantPhotos(plantID, startIndex, max) {
 */
 
 async function getNewestUserPhotos(userID, startIndex, max) {
-    var photos = [];
+    photos = [];
+    await sql.connect(config)
+        .then(async function () {
 
-    return photos;
+            let req = new sql.Request();
+            req.input('userId', sql.Int, userId);
+            sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
+                'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
+                'FROM photo ph ' +
+                'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
+                'WHERE po.[user_id] = @userId ORDER BY po.upload_date DESC'
+            return await req.query(sqlQuery).then(function (recordset) {
+                ind = 0
+                while (recordset[ind] != null) {
+                    photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
+                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                            return recordset;
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
+                    }, async function () {
+                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+                            return recordset;
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
+                    }));
+                    ind = ind + 1;
+                }
+                sql.close();
+            })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+    return photos.slice(startIndex, startIndex + max);
 }
 
 /**
@@ -479,9 +515,51 @@ async function getNewestUserPhotos(userID, startIndex, max) {
 */
 
 async function getTopPhotos(startIndex, max) {
-    var photos = [];
+    photos = [];
+    await sql.connect(config)
+        .then(async function () {
 
-    return photos;
+            let req = new sql.Request();
+            // Potentially req.input('startindex', sql.Int, startIndex);
+            // Potentially req.input('count', sql.Int, max);
+            sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
+            'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
+            ', SUM(v.vote) FROM photo ph ' +
+            'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
+            'LEFT OUTER JOIN voting v ON v.photo_id = ph.photo_id' +
+            'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ' +
+            'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
+            'ORDER BY SUM(v.vote) DESC'
+            return await req.query(sqlQuery).then(function (recordset) {
+                ind = 0
+                while (recordset[ind] != null) {
+                    photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
+                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                            return recordset;
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
+                    }, async function () {
+                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+                            return recordset;
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
+                    }));
+                    ind = ind + 1;
+                }
+                sql.close();
+            })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+    return photos.slice(startIndex, startIndex + max);
 }
 
 /**
@@ -493,7 +571,47 @@ async function getTopPhotos(startIndex, max) {
 */
 
 async function getTopPlantPhotos(plantID, startIndex, max) {
-    var photos = [];
+    photos = [];
+    await sql.connect(config)
+        .then(async function () {
 
-    return photos;
+            let req = new sql.Request();
+            req.input('plantId', sql.Int, plantId);
+            sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
+            ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
+            'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
+            'LEFT OUTER JOIN voting v ON v.photo_id = ph.photo_id ' +
+            'WHERE ph.plant_id = @plantTopId ' +
+            'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' + 
+            'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
+            return await req.query(sqlQuery).then(function (recordset) {
+                ind = 0
+                while (recordset[ind] != null) {
+                    photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
+                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                            return recordset;
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
+                    }, async function () {
+                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+                            return recordset;
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
+                    }));
+                    ind = ind + 1;
+                }
+                sql.close();
+            })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+    return photos.slice(startIndex, startIndex + max);
 }
