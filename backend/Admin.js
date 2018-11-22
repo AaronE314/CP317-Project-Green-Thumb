@@ -12,11 +12,11 @@ class Admin extends User {
      * @desc Constructor for the Admin class.
      * @author Saje Bailey
      * @param {Ban[]} bans The list of Bans issued by Admin.
-     * @param {Number} userId The ID of the Admin. Integer.
+     * @param {Number} adminId The ID of the Admin. Integer.
      * @constructor
      */
-    constructor(userId, bans) {
-        super(userId, bans);
+    constructor(adminId, bans) {
+        super(adminId, bans);
 
         this.addBan = addBan;
         this.ban = ban;
