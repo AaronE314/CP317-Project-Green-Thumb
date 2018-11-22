@@ -1,7 +1,6 @@
 "use strict";
 
-import Ban from './Ban.js'
-
+const Ban = require("./Ban.js");
 const User = require("./User.js");
 
 /**
