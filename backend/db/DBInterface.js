@@ -3,6 +3,7 @@
  * @author Saad Ansari
  * @author Luke Turnbull
  * @author Austin Bursey
+ * @author Nicolas Ross
  */
 
 // Imports
@@ -372,6 +373,35 @@ async function getPhoto(photoId) {
             console.log(err);
         });
 }
+
+/**
+ * @desc Returns a PhotoReport object from the Database
+ * @auther Nicolas Ross
+ * @param {Number} photoReportId The primary key of the PhotoReport table
+ * @ returns {photoReport} A Plant object
+ */
+
+async function getPhotoReport(photoReportId) {
+	return await sql.connect(config)
+	.then( async function () {
+	
+		let req = new sql.Request();
+		req.input('photoReportId', sql.Int, photoReportId);
+		return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[report] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.post_id = report.post_id) where report_id = @photoReportId;")
+			.then(function (recordset) {
+				report = new PhotoReport(recordset.recordset[0].report_id, recordset.recordset[0].photo_id, recordset.recordset[0].user_id, recordset.recordset[0].report_details, recordset.recordset[0].report_date);
+				sql.close();
+				return report;
+
+			}).catch(function(err){
+				console.log(err);
+			});
+
+	}).catch(function(err){
+		console.log(err);
+	});
+}
+
 /**
  * @desc Returns a Plant object from the Database
  * @author Austin Bursey
