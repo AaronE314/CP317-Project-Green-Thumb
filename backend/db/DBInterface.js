@@ -387,7 +387,7 @@ async function getPhotoReport(photoReportId) {
 	
 		let req = new sql.Request();
 		req.input('photoReportId', sql.Int, photoReportId);
-		return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[report] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.post_id = report.post_id) where report_id = @photoReportId;")
+		return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[report] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.post_id = report.post_id) where report.report_id = @photoReportId;")
 			.then(function (recordset) {
 				report = new PhotoReport(recordset.recordset[0].report_id, recordset.recordset[0].photo_id, recordset.recordset[0].user_id, recordset.recordset[0].report_details, recordset.recordset[0].report_date);
 				sql.close();
@@ -416,7 +416,7 @@ async function getPhotoReportsByAdmin(adminId) {
 	
 		let req = new sql.Request();
 		req.input('adminId', sql.Int, adminId);
-		return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[admin_report] INNER JOIN [projectgreenthumb].[dbo].[report] ON (report.report_id = admin_report.report_id) where admin_id = @adminId;")
+		return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[admin_report] INNER JOIN [projectgreenthumb].[dbo].[report] ON (report.report_id = admin_report.report_id) where admin_report.admin_id = @adminId;")
 			.then(function (recordset) {
 				ind = 0;
 				while(recordset[ind] != null) {
