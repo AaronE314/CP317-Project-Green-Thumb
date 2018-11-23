@@ -707,14 +707,14 @@ api.post("/users/add", (req, res) => {
         if (!validateParams(req, res, (body) => {
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
         })) { return; }
-
-        DBInterface.addUser(User);
+        let currUser = new User(req.body.userId);
+        DBInterface.addUser(currUser);
 
         res.send({
             user: {
                 admin: false,
                 bans: [],
-                id: parseInt(Math.random() * 10000)
+                id: req.body.userId
             }
         });
     } catch (err) {
@@ -751,9 +751,9 @@ api.post("/users/byId", (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
-            assert(DBInterface.getUser(body.userId) !== null, ERROR_MSG.invalidParam("userId"));
         })) { return; }
-
+        
+        /*
         let bans = [];
         if (parseInt(Math.random() * 2)) {
             let num = parseInt(Math.random() * 3);
@@ -764,11 +764,13 @@ api.post("/users/byId", (req, res) => {
                 }
             }
         }
+        */
+        let currUser = DBInterface.getUser(req.body.userId);
 
         res.send({
             user: {
                 admin: parseInt(Math.random() * 25) == 0,
-                bans: bans,
+                bans: currUser.getBans(),
                 id: req.body.userId
             }
         });
