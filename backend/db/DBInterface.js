@@ -378,7 +378,7 @@ async function getPhoto(photoId) {
  * @desc Returns a PhotoReport object from the Database
  * @auther Nicolas Ross
  * @param {Number} photoReportId The primary key of the PhotoReport table
- * @ returns {photoReport} A Plant object
+ * @ returns {photoReport} A PhotoReport object
  */
 
 async function getPhotoReport(photoReportId) {
@@ -400,6 +400,57 @@ async function getPhotoReport(photoReportId) {
 	}).catch(function(err){
 		console.log(err);
 	});
+}
+
+/**
+ * @desc [WORK IN PROGRESS] Returns a PhotoReport array from the Database
+ * @auther Nicolas Ross
+ * @param {Number} adminId The primary key of the PhotoReport table
+ * @ returns {photoReport} A report array
+ */
+
+async function getPhotoReportsByAdmin(adminId) {
+	reports = [];
+	return await sql.connect(config)
+	.then( async function () {
+	
+		let req = new sql.Request();
+		req.input('adminId', sql.Int, adminId);
+		return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[admin_report] INNER JOIN [projectgreenthumb].[dbo].[report] ON (report.report_id = admin_report.report_id) where admin_id = @adminId;")
+			.then(function (recordset) {
+				ind = 0;
+				while(recordset[ind] != null) {
+					reports.push(PhotoReport(recordset.recordset[ind].report_id, async function () {
+						req.input('postId', sql.Int, recordset[ind].post_id);
+						return await req.query("SELECT photo_id FROM [projectgreenthumb].[dbo].[post] where post.post_id = @postId").then(function(recordset) {
+							return recordset;
+
+						}).catch(function(err) {
+							console.log(err);
+						})
+					}, async function () {
+						req.input('postId', sql.Int, recordset[ind].post_id);
+						return await req.query("SELECT user_id FROM [projectgreenthumb].[dbo].[post] where post.post_id = @postId").then(function(recordset) {
+							return recordset;
+
+						}).catch(function(err) {
+							console.log(err);
+						})
+
+					}, recordset.recordset[ind].report_details, recordset.recordset[ind].report_date));
+					ind = ind + 1;
+				} 
+				sql.close();
+
+			}).catch(function(err){
+				console.log(err);
+			});
+
+	}).catch(function(err){
+		console.log(err);
+	});
+
+	return reports;
 }
 
 /**
