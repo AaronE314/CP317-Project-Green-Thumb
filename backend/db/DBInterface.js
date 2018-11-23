@@ -696,3 +696,130 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
         });
     return photos.slice(startIndex, startIndex + max);
 }
+
+/**
+ * @desc Returns an array of the top rated photos of a specific user
+ * @author Luke Turnbull
+ * @param {Number} startIndex The starting of the top count
+ * @param {Number} max The maximum number of photos to return
+ * @returns {Photo[]} An array of photo objects
+*/
+
+function getTopUserPhotos(userID, startIndex, max) {
+    var photos = [];
+
+    return photos;
+}
+
+/**
+ * @desc Returns an array of photo reports by priority
+ * @author Luke Turnbull
+ * @param {Number} startIndex The starting of the top count
+ * @param {Number} max The maximum number of photoReports to return
+ * @returns {Photo[]} An array of photoReport objects
+*/
+
+function getUnhandeledPhotoReportsByPriority(startIndex, max) {
+    var photoReports = [];
+
+    return photoReports;
+}
+
+
+/**
+ * @desc Returns an array of photo reports by Date
+ * @author Luke Turnbull
+ * @param {Number} startIndex The starting of the top count
+ * @param {Number} max The maximum number of photoReports to return
+ * @returns {Photo[]} An array of photoReport objects
+*/
+
+function getUnhandeledPhotoReportsByDate(startIndex, max) {
+    var photoReports = [];
+    for(i = startIndex; i < max; i ++){
+        photoReports.push(getPhoto(i));
+    }
+
+    return photoReports;
+}
+
+///////////////////////////Update Functions////////////////////////////
+
+/**
+ * @desc Updates a photo object in database
+ * @author Luke Turnbull
+ * @param {Number} Photo 
+ * @returns nothing
+*/
+
+function updatePhoto(photo){
+    return await sql.connect(config)
+    .then( async function () {
+        let req = new sql.Request();
+        req.input('plantId', sql.Int, photo.getPlantId());
+        req.input('image', sql.VarChar, photo.getImage());
+        req.input('tf_record', sql.VarChar, photo.getTfRecord());
+        return await req.query("UPDATE [photo] SET [plant_id] = @plantId, [image] = @image, [tf_record] = @tfrecord")
+            .then(function (recordset) {
+                return user;                
+                sql.close();                
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+
+/**
+ * @desc Update a Photo Report object in database
+ * @author Luke Turnbull
+ * @param {Number} PhotoReport
+ * @returns nothing
+*/
+function updatePhotoReport(pReport){
+    return await sql.connect(config)
+        .then( async function () {
+            req.input("reportId", sql.Int , pReport.getPhotoId());
+            req.input("rDate", sql.Date , pReport.getReportDate());
+            req.input("rText", sql.VarChar, pReport.getReportText());
+            let req = new sql.Request();
+            return await req.query("UPDATE [report] SET report_date = @rDate, report_details = rText WHERE report_id = @reportId")
+                .then(function (recordset) {
+                    sql.close();
+
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+
+/**
+ * @desc Update a Plant object in database
+ * @author Luke Turnbull
+ * @param {Number} Plant
+ * @returns nothing
+*/
+function updatePlant(plant){
+    return await sql.connect(config)
+    .then( async function () {
+        let req = new sql.Request();
+        req.input('plantName', sql.VarChar, plant.getName());
+        req.input('plantBio', sql.VarChar, plant.getBio());
+        return await req.query("UPDATE [plant] SET [plant_name] = @plantName, plant_bio = @plantBio ")
+            .then(function (recordset) {
+                sql.close();
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
