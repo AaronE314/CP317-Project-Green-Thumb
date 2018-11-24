@@ -2,6 +2,8 @@ const MODEL_URL = 'path/to/tensorflowjs_model.pb';
 const WEIGHTS_URL = 'path/to/weights_manifest.json';
 const TEMP_ENCODED_LOC = "temp/encodedImage"
 let scheduledItems = []
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
 /**
  * @module: TFIdentifier.js
  * ------------------------------------------------------------------
@@ -116,7 +118,7 @@ class TFIdentifier {
    * MM = MINUTES: 2 digit, 60 minute format; from 00-59
    * D = DURATION: 1 digit length of training period in hours
    *
-   * @returns schedObj.id id of the scheduled object
+   * @returns id of the scheduled object
    *
    * @example let scheduled = scheduleTraining("1:2018:10:04:04:20:2");
    *      - will schedule 2 hours of training every Sunday, at 4:20 AM, starting Nov. 4, 2018.
@@ -153,14 +155,36 @@ class TFIdentifier {
     let schedDate = new Date(item[1], item[2], item[3], item[4], item[5], 0);
     let schedStr = schedObj.repeat == 0 ? schedDate : schedObj.min + " " + schedObj.hr + " * * " + schedDate.getDay();
 
-    schedObj.sched = sched.schedule(schedStr, () => {
-      retrain(schedObj.duration);
-    });
-
+    schedObj.sched = sched.scheduleJob(schedStr, retrain(x).bind(schedObj.duration));
 
     scheduledItems.push(schedObj);
 
     return (schedObj.id)
+  }
+
+  /**
+   * @author Justin Harrott
+   *
+   * cancels a scheduled training time
+   *
+   * @param {String} idGiven unique id of scheduled training object
+   * 
+   * @returns string description of cancelled item's information, else -1
+   */
+  static cancelScheduledTrain(idGiven){
+    let pos = schedItems.findIndex(item => item.id === idGiven);
+    if(pos != -1){
+      let removedItem = scheduledTraining.splice(pos, 1);
+      removedItem.sched.cancel();
+      
+      let dat = new Date(removedItem.startDate[0], removedItem.startDate[1], removedItem.startDate[2], removedItem.hr, removedItem.min, 0, 0);
+      let d = dat.getDay();
+      let confirmation = ('Training ID: ' + removedItem.id + ', next scheduled for ' + days[d] + ' @ ' + removedItem.hr + ':' + removedItem.min + ', was cancelled and removed from all future schedules.');
+      
+      return confirmation
+    }
+    
+    return -1
   }
 
   /**
