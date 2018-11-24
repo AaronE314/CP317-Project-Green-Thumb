@@ -15,28 +15,18 @@ class Admin extends User {
      * @param {Number} adminId The ID of the Admin. Integer.
      * @constructor
      */
-    constructor(adminId, bans) {
-        super(adminId, bans);
-
-        this.addBan = addBan;
-        this.ban = ban;
+    constructor(id, bans) {
+        super(id, bans);
+        
+        this.getNextExpiration = getNextExpiration;
         this.isBanned = isBanned;
 
         /**
          * @author Saje Bailey
-         * @returns {Ban[]} The list of Bans issued by Admin.
-         */
-        function addBan(userId, expiration) {
-            this._bans[this._bans.length] = new Ban(userId, expiration);
-        }
-
-        /**
-         * @author Saje Bailey
-         * @param {Number} adminId The ID of the Admin banning the User. Integer.
          * @throws exception, an Admin cannot be banned
          */
-        function ban(adminId) {
-            throw "An Admin cannot be banned.";
+        function getNextExpiration() {
+            throw "Cannot calculate Ban expiration for an Admin.";
         }
 
         /**
