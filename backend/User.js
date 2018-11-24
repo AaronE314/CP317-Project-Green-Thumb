@@ -22,7 +22,7 @@ class User {
         // PUBLIC methods.
         this.getBans = getBans;
         this.getId = getId;
-        this.ban = ban;
+	this.getNextExpiration = getNextExpiraion;
         this.isBanned = isBanned;
         this.toJSON = toJSON;
 
@@ -43,15 +43,13 @@ class User {
         }
         /**
          * @author Saje Bailey
-         * @param {Number} adminId The ID of the Admin banning the User. Integer.
+         * @returns {Date} The date that the next ban on this User will expire based on toda's date and number of previous bans.
          */
-        function ban(adminId) {
+        function getNextExpiration() {
             let expiration = new Date();
             expiration.setDate(expiration.getDate() + Math.pow(BAN_BASE, (this._bans.length)));
 
-            // call function in the DB Interface with appropreate constructor arguments
-            // this call to Ban constructor is temporary for testing
-            this._bans[this._bans.length] = new Ban(Math.floor(Math.random() * 10000), this._id, adminId, expiration);
+            return expiration;
         }
         /**
          * @author Saje Bailey
@@ -59,7 +57,7 @@ class User {
          * @returns {Boolean} true if the User is currently banned.
          */
         function isBanned() {
-            return (this._bans.length > 0) && (new Date().getTime() < new Date(this._bans[this._bans.length - 1].getExpirationDate()).getTime());
+            return (this._bans.length > 0) && (new Date().getTime() < this._bans[this._bans.length - 1].getExpirationDate().getTime());
         }
         /**
 		 * @desc Convert the private attributes of User object to JSON so it can be sent via an API.
