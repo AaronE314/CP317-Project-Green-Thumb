@@ -30,4 +30,11 @@
         android:positiveButtonText="@null"
         android:title="@string/pref_title_add_friends_to_messages" />
 
+
+    <FontPreference
+        android:defaultValue="15"
+        android:key="fontsize"
+        android:title="fontsize"
+        />
+
 </PreferenceScreen>

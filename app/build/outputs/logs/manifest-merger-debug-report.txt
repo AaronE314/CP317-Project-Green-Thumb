@@ -7,6 +7,12 @@ INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/
 MERGED from [com.android.support:design:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/c6a0509268f0e8a4da89ee85a93648c0/AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/8f74f511c329db06e1ec4f4a9fda300e/AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:17:1-39:12
+MERGED from [com.google.android.gms:play-services-auth-api-phone:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-api-phone-15.0.1.aar/e89a23ea7d91e674ed36793e3c1158c7/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-auth-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-base-15.0.1.aar/7269928268c0fc9cb98ebda90519e87c/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/dd899eaaf4b94e7f0d9fb94b1786fcf4/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/d871ed95b820c99725dccbe66ef0b627/AndroidManifest.xml:17:1-28:12
 MERGED from [com.android.support:support-v4:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/4538079917711f417c9cd3e37761f90a/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-fragment:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/6dac8458ac2a586cf3741de962cbc407/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/3aa5c98afe70a0f972be339a1b8c63f5/AndroidManifest.xml:17:1-22:12
@@ -15,7 +21,6 @@ MERGED from [com.android.support:support-core-ui:28.0.0] /Users/JacksonNewlands/
 MERGED from [com.android.support:support-core-utils:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/4a88be5c29e1eae3da5ae21c8276ce12/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/a4e2b04844498ba7e5ab55a516956041/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:transition:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/c660bfd8bbed559e6d961a3c8de5dd10/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-media-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/a1382266f744910d7719b47ef4d358e8/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:loader:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/c79a6167457a6bde7ce0a91e985ae837/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:viewpager:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/4ffc81652aad94a048c6799f6961dc6a/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/a632d8a6502e869f0fa9a837877e3ece/AndroidManifest.xml:17:1-22:12
@@ -24,6 +29,7 @@ MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/JacksonNewland
 MERGED from [com.android.support:customview:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/d3eb23f20598fffa71999729a126971d/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/8abf70afc513d1c3fca542b95395abfa/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/a8328a6b33b5db27b532621153c4127d/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/a1382266f744910d7719b47ef4d358e8/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/3784ff8e22cfca76f2246d09d72148ef/AndroidManifest.xml:17:1-24:12
 MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/d4c6e7c03ef937474fd6cde9c2fe5c93/AndroidManifest.xml:17:1-25:12
 MERGED from [com.android.support:cursoradapter:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/939583c0918c375600a0847949dcf629/AndroidManifest.xml:17:1-22:12
@@ -72,6 +78,14 @@ MERGED from [com.android.support:design:28.0.0] /Users/JacksonNewlands/gradle/ca
 MERGED from [com.android.support:design:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/c6a0509268f0e8a4da89ee85a93648c0/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/8f74f511c329db06e1ec4f4a9fda300e/AndroidManifest.xml:9:5-20
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/8f74f511c329db06e1ec4f4a9fda300e/AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:22:5-37:19
+MERGED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:22:5-37:19
+MERGED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/dd899eaaf4b94e7f0d9fb94b1786fcf4/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/dd899eaaf4b94e7f0d9fb94b1786fcf4/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/d871ed95b820c99725dccbe66ef0b627/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/d871ed95b820c99725dccbe66ef0b627/AndroidManifest.xml:22:5-26:19
 MERGED from [com.android.support:support-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/3784ff8e22cfca76f2246d09d72148ef/AndroidManifest.xml:22:5-94
 MERGED from [com.android.support:support-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/3784ff8e22cfca76f2246d09d72148ef/AndroidManifest.xml:22:5-94
 MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/d4c6e7c03ef937474fd6cde9c2fe5c93/AndroidManifest.xml:22:5-23:19
@@ -156,6 +170,18 @@ MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/JacksonNewlands/gra
 MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/8f74f511c329db06e1ec4f4a9fda300e/AndroidManifest.xml:5:5-7:41
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/8f74f511c329db06e1ec4f4a9fda300e/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-api-phone-15.0.1.aar/e89a23ea7d91e674ed36793e3c1158c7/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-api-phone-15.0.1.aar/e89a23ea7d91e674ed36793e3c1158c7/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-base-15.0.1.aar/7269928268c0fc9cb98ebda90519e87c/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-base-15.0.1.aar/7269928268c0fc9cb98ebda90519e87c/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/dd899eaaf4b94e7f0d9fb94b1786fcf4/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/dd899eaaf4b94e7f0d9fb94b1786fcf4/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/d871ed95b820c99725dccbe66ef0b627/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/d871ed95b820c99725dccbe66ef0b627/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/4538079917711f417c9cd3e37761f90a/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-v4:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/4538079917711f417c9cd3e37761f90a/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-fragment:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/6dac8458ac2a586cf3741de962cbc407/AndroidManifest.xml:20:5-44
@@ -172,8 +198,6 @@ MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/JacksonN
 MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/a4e2b04844498ba7e5ab55a516956041/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:transition:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/c660bfd8bbed559e6d961a3c8de5dd10/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:transition:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/c660bfd8bbed559e6d961a3c8de5dd10/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/a1382266f744910d7719b47ef4d358e8/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/a1382266f744910d7719b47ef4d358e8/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:loader:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/c79a6167457a6bde7ce0a91e985ae837/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:loader:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/c79a6167457a6bde7ce0a91e985ae837/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:viewpager:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/4ffc81652aad94a048c6799f6961dc6a/AndroidManifest.xml:20:5-44
@@ -190,6 +214,8 @@ MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/JacksonNewlan
 MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/8abf70afc513d1c3fca542b95395abfa/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/a8328a6b33b5db27b532621153c4127d/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/a8328a6b33b5db27b532621153c4127d/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/a1382266f744910d7719b47ef4d358e8/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/a1382266f744910d7719b47ef4d358e8/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/3784ff8e22cfca76f2246d09d72148ef/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/3784ff8e22cfca76f2246d09d72148ef/AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/d4c6e7c03ef937474fd6cde9c2fe5c93/AndroidManifest.xml:20:5-44
@@ -226,3 +252,35 @@ INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/
 		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
 		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
+activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
+ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:23:9-27:75
+	android:excludeFromRecents
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:25:13-46
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:26:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:27:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:24:13-93
+service#com.google.android.gms.auth.api.signin.RevocationBoundService
+ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:33:9-36:110
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:35:13-36
+	android:permission
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:36:13-107
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/e8c8e26eefc5b0738e490c076795b66d/AndroidManifest.xml:34:13-89
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/d871ed95b820c99725dccbe66ef0b627/AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/d871ed95b820c99725dccbe66ef0b627/AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/d871ed95b820c99725dccbe66ef0b627/AndroidManifest.xml:24:13-58

@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.content.SharedPreferences;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import android.widget.Toast;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -15,92 +18,95 @@ public class SettingsActivity extends AppCompatActivity {
 
     // private Button logInButton, backButton, logOutButton;
     private SeekBar fontScaleSlider;
-    private TextView view;
+    private TextView previewLabel;
     private SharedPreferences prefs;
+    private Button logOutButton;
+    private GoogleSignInClient mGoogleSignInClient;
+
+    // Seekbar specs
+    int max = 10;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_settings);     // Connects this to the layout page
+        // Connect this page to the layout page activity_settings.xml
+        setContentView(R.layout.activity_settings);
 
-        // Fonts Scale Slider
+        // Variable Assignments
         fontScaleSlider = findViewById(R.id.fontScaleSlider);
-        view = findViewById(R.id.changeFont);
+        previewLabel = findViewById(R.id.changeFont);
+        logOutButton = findViewById(R.id.logOutButton);
 
+        // Log out button listener
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    System.out.println("Signing out...");
+                    mGoogleSignInClient.signOut();
+                    Toast.makeText(getApplicationContext(), "Signed Out", Toast.LENGTH_LONG).show();
+                    System.out.println("Sign Out Successful");
+                }
+                catch (NullPointerException e){
+                    Toast.makeText(getApplicationContext(), "Cannot Sign Out", Toast.LENGTH_LONG).show();
+                    System.out.println("Sign Out Unsuccessful");
+                }
+            }
+        });
 
+        // Prefs are SharedPreferences
         prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
-        int textSize = prefs.getInt("fontSize", 16); // new
-        //float fs = prefs.getFloat("fontsize", 0.0f);
+        System.out.println("Prefs = " + prefs);
 
-        //  prefs = getPreferences(MODE_PRIVATE);
+        // Set the max and min for the slider
+        fontScaleSlider.setMax(max);
 
-        //float fs = prefs.getFloat("fontsize", 10);
+        // Set the slider to the current text size
+        int textSize = prefs.getInt("fontSize", MODE_PRIVATE);
         fontScaleSlider.setProgress(textSize);
-        view.setTextSize(fontScaleSlider.getProgress());
+        System.out.println("Text size = " + textSize);
 
+        // Set the text size of preview label
+        previewLabel.setTextSize(fontScaleSlider.getProgress());
 
+        // Slider override functions
         fontScaleSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
-            public void onStopTrackingTouch(SeekBar fontScaleSlider){
-                // prefs = getPreferences(MODE_PRIVATE);
-                prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
-                SharedPreferences.Editor ed = prefs.edit();
-                ed.putFloat("fontsize", view.getTextSize());
-                ed.commit();
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar fontScaleSlider) {
+            public void onStartTrackingTouch(SeekBar fontScaleSlider) { }
 
-            }
             @Override
             public void onProgressChanged(SeekBar fontScaleSlider, int progress,
                                           boolean fromUser){
-                view.setTextSize(progress);
-                // Set text size of the whole app here
-                prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
-                SharedPreferences.Editor ed = prefs.edit();
-                ed.putInt("fontSize", progress);  // was view.getTextSize() and was putFloat
-                ed.apply();    // was ed.commit()
+                // Set previewLabel to the current size based on the slider
+                previewLabel.setTextSize(progress+10);
+                System.out.println("Font size = " + (progress+10));   // For testing
             }
 
+            @Override
+            public void onStopTrackingTouch(SeekBar fontScaleSlider){
+                // When user releases slider, set the font size to that value
+                prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
+                SharedPreferences.Editor ed = prefs.edit();
+                ed.putFloat("fontsize", previewLabel.getTextSize());
+                ed.commit();
+            }
         });
-
-
     }
 
-
-    // Opens log in activity when called
-    public void logIn(View v) {
-        System.out.println("Going to LogIn activity...");
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    // Opens main menu activity when called
+    // Opens main menu activity when back button clicked
     public void backToHomeView(View v) {
         System.out.println("Going to main activity...");
         Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
     }
 
-    /*
-     //Log out function
-    private void logOut(View v) {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        //
-                    }
-                });
+
+    // Opens log in activity when log in button clicked
+    public void logIn(View v) {
+        System.out.println("Going to LogIn activity...");
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
-
-*/
-
-
-
-
 }
