@@ -43,32 +43,30 @@ public class SettingsActivity extends AppCompatActivity {
         logOutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
-                    System.out.println("Signing out...");
                     mGoogleSignInClient.signOut();
+                    // Display successful sign-out on screen
                     Toast.makeText(getApplicationContext(), "Signed Out", Toast.LENGTH_LONG).show();
-                    System.out.println("Sign Out Successful");
                 }
                 catch (NullPointerException e){
-                    Toast.makeText(getApplicationContext(), "Cannot Sign Out", Toast.LENGTH_LONG).show();
-                    System.out.println("Sign Out Unsuccessful");
+                    // Display unsuccessful sign-out on screen
+                    Toast.makeText(getApplicationContext(), "Sign Out Unsuccessful", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
         // Prefs are SharedPreferences
         prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
-        System.out.println("Prefs = " + prefs);
 
         // Set the max and min for the slider
         fontScaleSlider.setMax(max);
 
         // Set the slider to the current text size
-        int textSize = prefs.getInt("fontSize", MODE_PRIVATE);
-        fontScaleSlider.setProgress(textSize);
-        System.out.println("Text size = " + textSize);
+        float textSize = prefs.getFloat("fontsize", MODE_PRIVATE);
+        textSize = (textSize-(textSize/7))/3;   // I don't know why, but this works
+        fontScaleSlider.setProgress((int)(textSize-10));
 
         // Set the text size of preview label
-        previewLabel.setTextSize(fontScaleSlider.getProgress());
+        previewLabel.setTextSize(textSize);
 
         // Slider override functions
         fontScaleSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -81,7 +79,6 @@ public class SettingsActivity extends AppCompatActivity {
                                           boolean fromUser){
                 // Set previewLabel to the current size based on the slider
                 previewLabel.setTextSize(progress+10);
-                System.out.println("Font size = " + (progress+10));   // For testing
             }
 
             @Override
