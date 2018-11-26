@@ -50,7 +50,7 @@ class TFTrainer {
                 }
              // $ arguments represents arguments which should not be changed
             //arguments are [$script, $input type, path to configuration file of the model, prefix of latest checkpoint file given by training, where to save the frozen graph]
-            const exportFile = spawn('python', ["export_inference_graph.py", "--input_type=image_tensor", "--pipeline_config_path=training/" + model,
+            const exportFile = spawn('python', ["object_detection/export_inference_graph.py", "--input_type=image_tensor", "--pipeline_config_path=training/" + model,
             "--trained_checkpoint_prefix=training/model.ckpt-" + String(max), "--output_directory=model"]);
                
             }
@@ -77,7 +77,7 @@ class TFTrainer {
 
         //arguments are [where to log errors, directory of where training occurs, path to configuration file of the model]
         const train = spawn('python',
-            ["train.py", "--logtostderr", "--train_dir=training/", "--pipeline_config_path=training/" + model]);
+            ["object_detection/legacy/train.py", "--logtostderr", "--train_dir=training/", "--pipeline_config_path=training/" + model]);
 
         //sets a timer to allow the training to occur for 'time' hours as input as an argument
         if (time){
