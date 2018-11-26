@@ -51,7 +51,7 @@ class TFTrainer {
              // $ arguments represents arguments which should not be changed
             //arguments are [$script, $input type, path to configuration file of the model, prefix of latest checkpoint file given by training, where to save the frozen graph]
             const exportFile = spawn('python', ["export_inference_graph.py", "--input_type=image_tensor", "--pipeline_config_path=training/" + model,
-            "--trained_checkpoint_prefix=training/model.ckpt-" + String(max), "--output_directory=inference_graph"]);
+            "--trained_checkpoint_prefix=training/model.ckpt-" + String(max), "--output_directory=model"]);
                
             }
 
