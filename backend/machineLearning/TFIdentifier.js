@@ -30,8 +30,7 @@ class TFIdentifier {
   /**
    * @author John Dunphy
    *
-   * @description gathers all images from the database and converts them to a form
-   * that the ai can read.
+   * @description gathers all images from the database to be used in indentificaction
    *
    * @returns an array of images where each photo is stored in the array at id-1
    * for any given photo id.
@@ -41,7 +40,7 @@ class TFIdentifier {
     var plants = [];
     var picture = getPhoto(i);
     while (picture != null) {
-      plants.push(_preProcessImage(picture));
+      plants.push(picture);
       i++;
       picture = getPhoto(i);
     }
