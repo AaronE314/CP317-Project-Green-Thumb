@@ -3,6 +3,7 @@
  * @author Saad Ansari
  * @author Luke Turnbull
  * @author Austin Bursey
+ * @author Nicolas Ross
  */
 
 // Imports
@@ -372,6 +373,86 @@ async function getPhoto(photoId) {
             console.log(err);
         });
 }
+
+/**
+ * @desc Returns a PhotoReport object from the Database
+ * @auther Nicolas Ross
+ * @param {Number} photoReportId The primary key of the PhotoReport table
+ * @ returns {photoReport} A PhotoReport object
+ */
+
+async function getPhotoReport(photoReportId) {
+	return await sql.connect(config)
+	.then( async function () {
+	
+		let req = new sql.Request();
+		req.input('photoReportId', sql.Int, photoReportId);
+		return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[report] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.post_id = report.post_id) where report.report_id = @photoReportId;")
+			.then(function (recordset) {
+				report = new PhotoReport(recordset.recordset[0].report_id, recordset.recordset[0].photo_id, recordset.recordset[0].user_id, recordset.recordset[0].report_details, recordset.recordset[0].report_date);
+				sql.close();
+				return report;
+
+			}).catch(function(err){
+				console.log(err);
+			});
+
+	}).catch(function(err){
+		console.log(err);
+	});
+}
+
+/**
+ * @desc [WORK IN PROGRESS] Returns a PhotoReport array from the Database
+ * @auther Nicolas Ross
+ * @param {Number} adminId The primary key of the PhotoReport table
+ * @ returns {photoReport} A report array
+ */
+
+async function getPhotoReportsByAdmin(adminId) {
+	reports = [];
+	return await sql.connect(config)
+	.then( async function () {
+	
+		let req = new sql.Request();
+		req.input('adminId', sql.Int, adminId);
+		return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[admin_report] INNER JOIN [projectgreenthumb].[dbo].[report] ON (report.report_id = admin_report.report_id) where admin_report.admin_id = @adminId;")
+			.then(function (recordset) {
+				ind = 0;
+				while(recordset[ind] != null) {
+					reports.push(PhotoReport(recordset.recordset[ind].report_id, async function () {
+						req.input('postId', sql.Int, recordset[ind].post_id);
+						return await req.query("SELECT photo_id FROM [projectgreenthumb].[dbo].[post] where post.post_id = @postId").then(function(recordset) {
+							return recordset;
+
+						}).catch(function(err) {
+							console.log(err);
+						})
+					}, async function () {
+						req.input('postId', sql.Int, recordset[ind].post_id);
+						return await req.query("SELECT user_id FROM [projectgreenthumb].[dbo].[post] where post.post_id = @postId").then(function(recordset) {
+							return recordset;
+
+						}).catch(function(err) {
+							console.log(err);
+						})
+
+					}, recordset.recordset[ind].report_details, recordset.recordset[ind].report_date));
+					ind = ind + 1;
+				} 
+				sql.close();
+
+			}).catch(function(err){
+				console.log(err);
+			});
+
+	}).catch(function(err){
+		console.log(err);
+	});
+
+	return reports;
+}
+
 /**
  * @desc Returns a Plant object from the Database
  * @author Austin Bursey
@@ -615,3 +696,168 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
         });
     return photos.slice(startIndex, startIndex + max);
 }
+
+/**
+ * @desc Returns an array of the top rated photos of a specific user
+ * @author Luke Turnbull
+ * @param {Number} startIndex The starting of the top count
+ * @param {Number} max The maximum number of photos to return
+ * @returns {Photo[]} An array of photo objects
+*/
+
+function getTopUserPhotos(userID, startIndex, max) {
+    var photos = [];
+
+            let req = new sql.Request();
+            req.input('plantId', sql.Int, plantId);
+            sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
+            ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
+            'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
+            'LEFT OUTER JOIN voting v ON v.photo_id = ph.photo_id ' +
+            'WHERE ph.plant_id = @plantTopId ' +
+            'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' + 
+            'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
+            return await req.query(sqlQuery).then(function (recordset) {
+                ind = 0
+                while (recordset[ind] != null) {
+                    photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
+                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                            return recordset;
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
+                    }, async function () {
+                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+                            return recordset;
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
+                    }));
+                    ind = ind + 1;
+                }
+                sql.close();
+            })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+    return photos.slice(startIndex, startIndex + max);
+}
+
+/**
+ * @desc Returns an array of photo reports by priority
+ * @author Luke Turnbull
+ * @param {Number} startIndex The starting of the top count
+ * @param {Number} max The maximum number of photoReports to return
+ * @returns {Photo[]} An array of photoReport objects
+*/
+
+function getUnhandeledPhotoReportsByPriority(startIndex, max) {
+    var photoReports = [];
+
+    return photoReports;
+}
+
+
+/**
+ * @desc Returns an array of photo reports by Date
+ * @author Luke Turnbull
+ * @param {Number} startIndex The starting of the top count
+ * @param {Number} max The maximum number of photoReports to return
+ * @returns {Photo[]} An array of photoReport objects
+*/
+
+function getUnhandeledPhotoReportsByDate(startIndex, max) {
+    var photoReports = [];
+    for(i = startIndex; i < max; i ++){
+        photoReports.push(getPhoto(i));
+    }
+
+    return photoReports;
+}
+
+///////////////////////////Update Functions////////////////////////////
+
+/**
+ * @desc Updates a photo object in database
+ * @author Luke Turnbull
+ * @param {Number} Photo 
+ * @returns nothing
+*/
+
+function updatePhoto(photo){
+    return await sql.connect(config)
+    .then( async function () {
+        let req = new sql.Request();
+        req.input('plantId', sql.Int, photo.getPlantId());
+        req.input('image', sql.VarChar, photo.getImage());
+        req.input('tf_record', sql.VarChar, photo.getTfRecord());
+        return await req.query("UPDATE [photo] SET [plant_id] = @plantId, [image] = @image, [tf_record] = @tfrecord")
+            .then(function (recordset) {
+                return user;                
+                sql.close();                
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+
+/**
+ * @desc Update a Photo Report object in database
+ * @author Luke Turnbull
+ * @param {Number} PhotoReport
+ * @returns nothing
+*/
+function updatePhotoReport(pReport){
+    return await sql.connect(config)
+        .then( async function () {
+            req.input("reportId", sql.Int , pReport.getPhotoId());
+            req.input("rDate", sql.Date , pReport.getReportDate());
+            req.input("rText", sql.VarChar, pReport.getReportText());
+            let req = new sql.Request();
+            return await req.query("UPDATE [report] SET report_date = @rDate, report_details = rText WHERE report_id = @reportId")
+                .then(function (recordset) {
+                    sql.close();
+
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+
+/**
+ * @desc Update a Plant object in database
+ * @author Luke Turnbull
+ * @param {Number} Plant
+ * @returns nothing
+*/
+function updatePlant(plant){
+    return await sql.connect(config)
+    .then( async function () {
+        let req = new sql.Request();
+        req.input('plantName', sql.VarChar, plant.getName());
+        req.input('plantBio', sql.VarChar, plant.getBio());
+        return await req.query("UPDATE [plant] SET [plant_name] = @plantName, plant_bio = @plantBio ")
+            .then(function (recordset) {
+                sql.close();
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
