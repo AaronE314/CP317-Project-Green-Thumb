@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+
+		<title>Log In</title>
+		
+        <meta name="google-signin-scope" content="profile email">
+        
+        <!--It should put your client id into content part to get it works-->
+		<meta name="google-signin-client_id" content="YOUR-CLIENT-ID.apps.googleusercontent.com">
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		
+		
+		<style>
+            .g-signin2{
+                width:100%;
+                margin-left: 40%;
+                
+            }
+            .adminView{
+                display: none;
+            }
+		</style>
+
+	</head>
+
+	<body>
+	   <!--Display GreenThum Logo-->
+		<h1 align = "center"><img src = "Logo.png" width = "800" height= "300" ></h1>
+                <!--Display Google Sign in Button-->
+                <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="300" data-height="50"
+                     data-longtitle="true"></div>
+                <!--Need Javascript Functions to go to admin page-->
+                <script type="text/javascript" src="GoogleLogin.js"></script>
+       <!--Need a button to sign out
+        <div class = "adminView">
+            <a href="#" onclick="signOut();">Sign out</a>
+            <script src="GoogleLogin.js"></script>
+            
+        </div>
+        -->
+    </body>
+</html>
