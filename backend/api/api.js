@@ -774,7 +774,7 @@ api.post("/users/byId", (req, res) => {
 
         res.send({
             user: {
-                admin: ,
+                admin: (currUser is Admin),
                 bans: currUser.getBans(),
                 id: req.body.userId
             }
@@ -801,7 +801,7 @@ api.post("/users/makeAdmin", (req, res) => {
             // TODO check that the userId is valid.
         })) { return; }
         
-        DBInterface.addAdmin(new Admin(req.body.adminId, DBInterface.getUser(body.userId).getBans()));
+        DBInterface.addAdmin(new Admin(req.body.userId, DBInterface.getUser(req.body.userId).getBans()));
         
         res.send({});
     } catch (err) {
