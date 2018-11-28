@@ -1,7 +1,7 @@
 const MODEL_URL = 'path/to/tensorflowjs_model.pb';
 const WEIGHTS_URL = 'path/to/weights_manifest.json';
-const TEMP_ENCODED_LOC = "temp/encodedImage"
-let scheduledItems = []
+const TEMP_ENCODED_LOC = "temp/encodedImage";
+let scheduledItems = [];
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 /**
@@ -53,7 +53,7 @@ class TFIdentifier {
    *
    * Used to identify which flowers are in the given image
    *
-   * @param image the image to identify, as a byte array
+   * @param {Base64 ByteString} image the image to identify, as a byte array
    *
    * @returns the results of the prediction in the form
    *          {numResults: int, boxes: float[400], scores: float[100], classes: int[100]}
@@ -154,7 +154,7 @@ class TFIdentifier {
     let schedDate = new Date(item[1], item[2], item[3], item[4], item[5], 0);
     let schedStr = schedObj.repeat == 0 ? schedDate : schedObj.min + " " + schedObj.hr + " * * " + schedDate.getDay();
 
-    schedObj.sched = sched.scheduleJob(schedStr, retrain(x).bind(schedObj.duration));
+    schedObj.sched = sched.scheduleJob(schedStr, retrain(x).bind(Number(schedObj.duration)));
 
     scheduledItems.push(schedObj);
 
@@ -171,19 +171,19 @@ class TFIdentifier {
    * @returns string description of cancelled item's information, else -1
    */
   static cancelScheduledTrain(idGiven){
+    let confirmation = -1;
     let pos = schedItems.findIndex(item => item.id === idGiven);
+    
     if(pos != -1){
       let removedItem = scheduledTraining.splice(pos, 1);
       removedItem.sched.cancel();
       
       let dat = new Date(removedItem.startDate[0], removedItem.startDate[1], removedItem.startDate[2], removedItem.hr, removedItem.min, 0, 0);
       let d = dat.getDay();
-      let confirmation = ('Training ID: ' + removedItem.id + ', next scheduled for ' + days[d] + ' @ ' + removedItem.hr + ':' + removedItem.min + ', was cancelled and removed from all future schedules.');
-      
-      return confirmation
+      confirmation = ('Training ID: ' + removedItem.id + ', next scheduled for ' + days[d] + ' @ ' + removedItem.hr + ':' + removedItem.min + ', was cancelled and removed from all future schedules.');
     }
     
-    return -1
+    return confirmation
   }
 
   /**
@@ -200,7 +200,7 @@ class TFIdentifier {
    *
    * This function is to convert the byte image into the appropriate tensor to
    * be used to predict.
-   * @param image the image to predict, as a byte image
+   * @param {Base64 ByteString} image the image to predict, as a byte image
    *
    * @returns the image converted to a tensor of shape [1, width, height,3]
    */
