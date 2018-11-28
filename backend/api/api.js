@@ -708,12 +708,15 @@ api.post("/users/add", (req, res) => {
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             // TODO check that no user with the given userId exists.
         })) { return; }
-
+        
+        let currUser = new User(req.body.userId);
+        DBInterface.addUser(currUser);
+        
         res.send({
             user: {
                 admin: false,
                 bans: [],
-                id: parseInt(Math.random() * 10000)
+                id: req.body.userId
             }
         });
     } catch (err) {
@@ -736,6 +739,8 @@ api.post("/users/ban", (req, res) => {
             // TODO check that the adminId belongs to an admin.
             // TODO check that the userId is valid.
         })) { return; }
+        
+        
 
         res.send({});
     } catch (err) {
@@ -756,6 +761,7 @@ api.post("/users/byId", (req, res) => {
             // TODO check that the userId is valid.
         })) { return; }
 
+        /*
         let bans = [];
         if (parseInt(Math.random() * 2)) {
             let num = parseInt(Math.random() * 3);
@@ -766,11 +772,13 @@ api.post("/users/byId", (req, res) => {
                 }
             }
         }
+        */
+        let currUser = DBInterface.getUser(req.body.userId);
 
         res.send({
             user: {
                 admin: parseInt(Math.random() * 25) == 0,
-                bans: bans,
+                bans: currUser.getBans(),
                 id: req.body.userId
             }
         });
