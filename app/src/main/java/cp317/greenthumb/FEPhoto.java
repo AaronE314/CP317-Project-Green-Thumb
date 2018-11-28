@@ -11,6 +11,16 @@ public class FEPhoto {
     private int[] upvoteids;
     private int[] downvoteids;
 
+    public FEPhoto(int id, int plantid, int userid, char[] image, Date uploadData, int[] upvoteids, int[] downvoteids) {
+        this.id = id;
+        this.plantid = plantid;
+        this.userid = userid;
+        this.image = image;
+        this.uploadData = uploadData;
+        this.upvoteids = upvoteids;
+        this.downvoteids = downvoteids;
+    }
+
     public int getId() {
         return id;
     }

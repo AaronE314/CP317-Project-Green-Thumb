@@ -9,6 +9,14 @@ public class FEPhotoReport {
     private String reportText;
     private Date date;
 
+    public FEPhotoReport(int _id, int _photoid, int _userid, String reportText, Date date) {
+        this._id = _id;
+        this._photoid = _photoid;
+        this._userid = _userid;
+        this.reportText = reportText;
+        this.date = date;
+    }
+
     public int get_id() {
         return _id;
     }
