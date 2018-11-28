@@ -1,7 +1,7 @@
 /**
  * Module: api.js
  * ------------------------------------------------------------------
- * Authors: Nathaniel Carr, Aaron Exley
+ * Authors: Nathaniel Carr, Aaron Exley, Adam Cassidy
  * ------------------------------------------------------------------
  * Last Update: 2018/11/17
  * -------------------------------------------------------------------
@@ -699,6 +699,7 @@ api.post("/mlModel/training/immediate", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Adam Cassidy
  * @desc Add and return the submitted User to the database.
  */
 api.post("/users/add", (req, res) => {
@@ -727,6 +728,7 @@ api.post("/users/add", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Adam Cassidy
  * @desc Add a new ban to the User with the corresponding ID.
  */
 api.post("/users/ban", (req, res) => {
@@ -741,8 +743,13 @@ api.post("/users/ban", (req, res) => {
         })) { return; }
         
         
+        let currUser = DBInterface.getUser(req.body.userId);
+        currUser.ban(req.body.adminId);
+        //adds the last ban in the user's Ban[] to the database.
+        DBInterface.addBan(currUser.getBans()[-1]);
 
-        res.send({});
+        res.send({
+        });
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
@@ -751,6 +758,7 @@ api.post("/users/ban", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Adam Cassidy
  * @desc Return the User with the corresponding ID from the database.
  */
 api.post("/users/byId", (req, res) => {
@@ -761,23 +769,12 @@ api.post("/users/byId", (req, res) => {
             // TODO check that the userId is valid.
         })) { return; }
 
-        /*
-        let bans = [];
-        if (parseInt(Math.random() * 2)) {
-            let num = parseInt(Math.random() * 3);
-            for (let i = 0; i < num; i++) {
-                bans[bans.length] = {
-                    adminId: parseInt(Math.random() * 10000),
-                    expiration: new Date(new Date().getTime() + parseInt(Math.random() * 1000 * 60 * 60 * 24 * 365))
-                }
-            }
-        }
-        */
+        
         let currUser = DBInterface.getUser(req.body.userId);
 
         res.send({
             user: {
-                admin: parseInt(Math.random() * 25) == 0,
+                admin: ,
                 bans: currUser.getBans(),
                 id: req.body.userId
             }
@@ -790,6 +787,7 @@ api.post("/users/byId", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Adam Cassidy
  * @desc Make the User with the corresponding ID an Admin in the database.
  */
 api.post("/users/makeAdmin", (req, res) => {
@@ -802,7 +800,9 @@ api.post("/users/makeAdmin", (req, res) => {
             // TODO check that the adminId belongs to an admin.
             // TODO check that the userId is valid.
         })) { return; }
-
+        
+        DBInterface.addAdmin(new Admin(req.body.adminId, DBInterface.getUser(body.userId).getBans()));
+        
         res.send({});
     } catch (err) {
         res.send(ERROR_CODE.internalError);
@@ -812,6 +812,7 @@ api.post("/users/makeAdmin", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Adam Cassidy
  * @desc Remove the User with the corresponding ID from the database.
  */
 api.post("/users/remove", (req, res) => {
@@ -824,6 +825,8 @@ api.post("/users/remove", (req, res) => {
             // TODO check that the adminId belongs to an admin.
             // TODO check that the userId is valid.
         })) { return; }
+        
+        DBInterface.removeUser(req.body.userId);
 
         res.send({});
     } catch (err) {
