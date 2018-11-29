@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Admin</title>
+        <link rel="icon"  href="icon.png">
+        <link rel="stylesheet" type="text/css" href="AdminStyle.css">
+    </head>
+    
+    <body>
+        <h1 align = "center"><img src = "Logo.png" width = "700px" height= "300px" ></h1>
+        <h2>Admin Profile</h2>
+            <label class="labels">Admin ID:&nbsp;</label>
+            <input type="text"  style="width: auto">
+        <h3>Report</h3>
+            <label class="labels">Choose a report:&nbsp;</label>
+            <select name="reportList" style="width:300px">
+                <option value="FEPhotoReport">Report 1</option>
+                <option value="FEPhotoReport">Report 2</option>
+                <option value="FEPhotoReport">Report 3</option>
+                <option value="FEPhotoReport">Report 4</option>
+                <option value="FEPhotoReport">Report 5</option>
+                <option value="FEPhotoReport">Report 6</option>
+            </select>
+            <br><br>
+            <label class="labels">Report Index:&nbsp;</label>
+            <input type="text" style="width: auto">
+            <br><br>
+        <div class="reportPanel">
+            <div class="reportBox">
+                <input type="text" class="reportText">
+            </div>
+            <div class="userID">
+                <label><b>User ID:&nbsp;</b></label>
+                <input type="text" style="width: auto">
+            
+            </div>
+            <div class="buttonPanel">
+                <button type="button" class="buttons">Aprrove</button>
+                <br><br>
+                <button type="button" class="buttons">Reject</button>
+                <br><br>
+                <button type="button" class="buttons">Ban</button>
+                <br><br>
+                <button type="button" class="buttons">Make Admin</button>
+            </div>
+            <br><br><br><br>
+        </div> 
+    </body>
+</html>

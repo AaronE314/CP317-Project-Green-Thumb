@@ -1,0 +1,52 @@
+.reportText{
+    width: 100%;
+    height: 700px;
+    margin-left: 20%;
+    font-size: 16px;
+}
+
+h2,h3 {
+    font-size: 28px;
+    margin-left: 10px;
+    color: #49b773;
+    border-style: groove;
+    border-color: #49b773;
+}
+
+p{
+    margin-left: 5%;
+}
+
+.labels {
+    font-size: 16px;
+    font-weight:bold;
+    margin-left: 5%;
+}
+
+.reportPanel{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto
+    grid-gap: 0px;
+}
+
+.buttonPanel{
+    margin-left: 40%;
+}
+
+.reportBox {
+    grid-row: 1/3;
+}
+
+.userID{
+    width: auto;
+    margin-left:40%;
+}
+
+.buttons {
+    background-color:#49B773;
+    width: 250px;
+    height: 50px;
+    color: white;
+    
+}
