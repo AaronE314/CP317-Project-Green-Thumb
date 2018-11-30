@@ -659,11 +659,14 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
             let req = new sql.Request();
             req.input('plantId', sql.Int, plantId);
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
+            // Sorts the rows by sum of votes from highest to lowest ranking
             ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
             'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
             'LEFT OUTER JOIN voting v ON v.photo_id = ph.photo_id ' +
             'WHERE ph.plant_id = @plantTopId ' +
+            // Group by in order to make the SUM aggregation work
             'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' + 
+            //Actual sort
             'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
             return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
