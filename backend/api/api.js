@@ -710,6 +710,9 @@ api.post("/users/add", (req, res) => {
         let currUser = new User(req.body.userId);
         DBInterface.addUser(currUser);
 
+        let currUser = new User(req.body.userId);
+        DBInterface.addUser(currUser);
+        
         res.send({
             user: {
                 admin: false,
@@ -734,8 +737,11 @@ api.post("/users/ban", (req, res) => {
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
         })) { return; }
 
-        DBInterface.addBan(new Ban(req.body.userId, req.body.adminId));
-
+        let currUser = DBInterface.getUser(req.body.userId);
+        currUser.ban(req.body.adminId);
+        //adds the last ban in the user's Ban[] to the database.
+        DBInterface.addBan(currUser.getBans()[-1]);
+        
         res.send({});
     } catch (err) {
         res.send(ERROR_CODE.internalError);
@@ -753,23 +759,11 @@ api.post("/users/byId", (req, res) => {
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
         })) { return; }
         
-        /*
-        let bans = [];
-        if (parseInt(Math.random() * 2)) {
-            let num = parseInt(Math.random() * 3);
-            for (let i = 0; i < num; i++) {
-                bans[bans.length] = {
-                    adminId: parseInt(Math.random() * 10000),
-                    expiration: new Date(new Date().getTime() + parseInt(Math.random() * 1000 * 60 * 60 * 24 * 365))
-                }
-            }
-        }
-        */
         let currUser = DBInterface.getUser(req.body.userId);
 
         res.send({
             user: {
-                admin: parseInt(Math.random() * 25) == 0,
+                admin: (currUser instanceof Admin),
                 bans: currUser.getBans(),
                 id: req.body.userId
             }
@@ -791,8 +785,9 @@ api.post("/users/makeAdmin", (req, res) => {
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
         })) { return; }
 
-        let user = DBInterface.getUser(req.body.userId);
-        DBInterface.addAdmin(new Admin(user.getId()))
+        let currUser = DBInterface.getUser(req.body.userId);
+        currUser = new Admin(req.body.userId, DBInterface.getUser(req.body.userId).getBans());
+        DBInterface.addAdmin(currUser);
 
         res.send({});
     } catch (err) {
