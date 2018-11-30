@@ -748,8 +748,7 @@ api.post("/users/ban", (req, res) => {
         //adds the last ban in the user's Ban[] to the database.
         DBInterface.addBan(currUser.getBans()[-1]);
 
-        res.send({
-        });
+        res.send({});
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
@@ -800,11 +799,11 @@ api.post("/users/makeAdmin", (req, res) => {
             // TODO check that the adminId belongs to an admin.
             // TODO check that the userId is valid.
         })) { return; }
-        
+
         let currUser = DBInterface.getUser(req.body.userId);
         currUser = new Admin(req.body.userId, DBInterface.getUser(req.body.userId).getBans());
         DBInterface.addAdmin(currUser);
-        
+      
         res.send({});
     } catch (err) {
         res.send(ERROR_CODE.internalError);
