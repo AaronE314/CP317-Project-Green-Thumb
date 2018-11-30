@@ -1,6 +1,7 @@
 "use strict";
 
-const Ban = require("./Ban.js");
+import Ban from './Ban.js'
+
 const User = require("./User.js");
 
 /**
@@ -11,22 +12,32 @@ class Admin extends User {
     /**
      * @desc Constructor for the Admin class.
      * @author Saje Bailey
-     * @param {Ban[]=} bans The list of Bans issued by Admin.
-     * @param {Number} adminId The ID of the Admin. Integer.
+     * @param {Ban[]} bans The list of Bans issued by Admin.
+     * @param {Number} userId The ID of the Admin. Integer.
      * @constructor
      */
-    constructor(id, bans) {
-        super(id, bans);
-        
-        this.getNextExpiration = getNextExpiration;
+    constructor(userId, bans) {
+        super(userId, bans);
+
+        this.addBan = addBan;
+        this.ban = ban;
         this.isBanned = isBanned;
 
         /**
          * @author Saje Bailey
+         * @returns {Ban[]} The list of Bans issued by Admin.
+         */
+        function addBan(userId, expiration) {
+            this._bans[this._bans.length] = new Ban(userId, expiration);
+        }
+
+        /**
+         * @author Saje Bailey
+         * @param {Number} adminId The ID of the Admin banning the User. Integer.
          * @throws exception, an Admin cannot be banned
          */
-        function getNextExpiration() {
-            throw "Cannot calculate Ban expiration for an Admin.";
+        function ban(adminId) {
+            throw "An Admin cannot be banned.";
         }
 
         /**

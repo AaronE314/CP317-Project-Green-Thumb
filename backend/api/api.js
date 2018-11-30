@@ -1,7 +1,7 @@
 /**
  * Module: api.js
  * ------------------------------------------------------------------
- * Authors: Nathaniel Carr, Aaron Exley
+ * Authors: Nathaniel Carr, Aaron Exley, Adam Cassidy
  * ------------------------------------------------------------------
  * Last Update: 2018/11/17
  * -------------------------------------------------------------------
@@ -87,7 +87,6 @@ const ERROR_MSG = {
     noPos: (param) => { return `Parameter '${param}' may not be positive.`; },
     onlyNeg: (param) => { return `Parameter '${param}' must be negative.`; },
     onlyPos: (param) => { return `Parameter '${param}' must be positive.`; },
-    duplicate: (param) => { return `Parameter '${param}' is already in the database.`; },
 };
 const ERROR_CODE = {
     badRequest: 400,
@@ -699,6 +698,7 @@ api.post("/mlModel/training/immediate", (req, res) => {
 });
 
 /**
+ * @author Nathaniel Carr
  * @author Adam Cassidy
  * @desc Add and return the submitted User to the database.
  */
@@ -706,10 +706,10 @@ api.post("/users/add", (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+            assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
+            // TODO check that no user with the given userId exists.
         })) { return; }
-        let currUser = new User(req.body.userId);
-        DBInterface.addUser(currUser);
-
+        
         let currUser = new User(req.body.userId);
         DBInterface.addUser(currUser);
         
@@ -727,6 +727,7 @@ api.post("/users/add", (req, res) => {
 });
 
 /**
+ * @author Nathaniel Carr
  * @author Adam Cassidy
  * @desc Add a new ban to the User with the corresponding ID.
  */
@@ -735,13 +736,18 @@ api.post("/users/ban", (req, res) => {
         if (!validateParams(req, res, (body) => {
             assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+            assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
+            assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
+            // TODO check that the adminId belongs to an admin.
+            // TODO check that the userId is valid.
         })) { return; }
-
+        
+        
         let currUser = DBInterface.getUser(req.body.userId);
         currUser.ban(req.body.adminId);
         //adds the last ban in the user's Ban[] to the database.
         DBInterface.addBan(currUser.getBans()[-1]);
-        
+
         res.send({});
     } catch (err) {
         res.send(ERROR_CODE.internalError);
@@ -750,6 +756,7 @@ api.post("/users/ban", (req, res) => {
 });
 
 /**
+ * @author Nathaniel Carr
  * @author Adam Cassidy
  * @desc Return the User with the corresponding ID from the database.
  */
@@ -757,7 +764,10 @@ api.post("/users/byId", (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+            assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
+            // TODO check that the userId is valid.
         })) { return; }
+
         
         let currUser = DBInterface.getUser(req.body.userId);
 
@@ -775,6 +785,7 @@ api.post("/users/byId", (req, res) => {
 });
 
 /**
+ * @author Nathaniel Carr
  * @author Adam Cassidy
  * @desc Make the User with the corresponding ID an Admin in the database.
  */
@@ -783,12 +794,16 @@ api.post("/users/makeAdmin", (req, res) => {
         if (!validateParams(req, res, (body) => {
             assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+            assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
+            assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
+            // TODO check that the adminId belongs to an admin.
+            // TODO check that the userId is valid.
         })) { return; }
 
         let currUser = DBInterface.getUser(req.body.userId);
         currUser = new Admin(req.body.userId, DBInterface.getUser(req.body.userId).getBans());
         DBInterface.addAdmin(currUser);
-
+      
         res.send({});
     } catch (err) {
         res.send(ERROR_CODE.internalError);
@@ -797,6 +812,7 @@ api.post("/users/makeAdmin", (req, res) => {
 });
 
 /**
+ * @author Nathaniel Carr
  * @author Adam Cassidy
  * @desc Remove the User with the corresponding ID from the database.
  */
@@ -805,8 +821,12 @@ api.post("/users/remove", (req, res) => {
         if (!validateParams(req, res, (body) => {
             assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+            assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
+            assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
+            // TODO check that the adminId belongs to an admin.
+            // TODO check that the userId is valid.
         })) { return; }
-
+        
         DBInterface.removeUser(req.body.userId);
 
         res.send({});
