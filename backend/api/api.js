@@ -266,8 +266,10 @@ api.post("/photos/remove", (req, res) => {
     }
 });
 
+
 /**
  * @author Nathaniel Carr
+ * @author Scott Peebles
  * @desc Add and return the submitted PhotoReport to the database.
  */
 api.post("/photoReports/add", (req, res) => {
@@ -278,12 +280,11 @@ api.post("/photoReports/add", (req, res) => {
             assert(body.reportText !== undefined, ERROR_MSG.missingParam("reportText"));
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             assert(body.photoId >= 0, ERROR_MSG.noNeg("photoId"));
-            // TODO check that the userId is valid.
-            // TODO check that the photoId is valid.
-        })) { return; }
-
-        res.send({
-            photoReport: {
+            
+        })) { 
+	
+		
+		photoReport: {
                 id: parseInt(Math.random() * 2),
                 adminAction: undefined,
                 adminId: undefined,
@@ -292,6 +293,16 @@ api.post("/photoReports/add", (req, res) => {
                 handleDate: undefined,
                 reportDate: new Date()
             }
+		
+		let report = await DBInterface.addPhotoReport(new Photoreport(photoReport));
+		
+		
+		return; }
+
+        res.send({
+        
+		report: report.toJSON();
+       
         });
     } catch (err) {
         res.send(ERROR_CODE.internalError);
@@ -301,6 +312,7 @@ api.post("/photoReports/add", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Scott Peebles
  * @desc Return the PhotoReport with the corresponding ID from the database.
  */
 api.post("/photoReports/byId", (req, res) => {
@@ -310,43 +322,25 @@ api.post("/photoReports/byId", (req, res) => {
             assert(body.photoReportId !== undefined, ERROR_MSG.missingParam("photoReportId"));
             assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
             assert(body.photoReportId >= 0, ERROR_MSG.noNeg("photoReportId"));
-            // TODO check that the adminId belongs to an admin.
-            // TODO check that the photoReportId is valid.
-        })) { return; }
-
-        if (parseInt(Math.random() * 2)) { // Some reports will not have been handled.
-            res.send({
-                photoReport: {
-                    id: req.body.photoReportId,
-                    adminAction: parseInt(Math.random() * 2),
-                    adminId: parseInt(Math.random() * 10000),
-                    userId: parseInt(Math.random() * 10000),
-                    reportText: STUB_HELPER.randReportText(),
-                    handleDate: new Date(new Date().getTime() - 1),
-                    reportDate: new Date(new Date().getTime() - parseInt(Math.random() * 365 * 24 * 60 * 60 * 1000) - 2),
-                }
-            });
-        } else {
-            res.send({
-                photoReport: {
-                    id: req.body.photoReportId,
-                    adminAction: undefined,
-                    adminId: undefined,
-                    userId: parseInt(Math.random() * 10000),
-                    reportText: STUB_HELPER.randReportText(),
-                    handleDate: undefined,
-                    reportDate: new Date(new Date().getTime() - parseInt(Math.random() * 365 * 24 * 60 * 60 * 1000) - 2),
-                }
-            });
-        }
+            
+        })) {
+			let report = await DBInterface.getPhotoReport(req.body.photoReportID);
+		
+		res.send({
+		report: report.toJSON()});
+		
+	
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
+		
+		return;
     }
 });
 
 /**
  * @author Nathaniel Carr
+ * @author Scott Peebles
  * @desc Handle the PhotoReport with the corresponding ID.
  */
 api.post("/photoReports/handle", (req, res) => {
@@ -358,10 +352,20 @@ api.post("/photoReports/handle", (req, res) => {
             assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
             assert(body.adminAction >= 0, ERROR_MSG.noNeg("adminAction"));
             assert(body.adminAction >= 0 && req.body.adminAction <= 2, ERROR_MSG.invalidParam("adminAction"));
-            // TODO check if adminAction valid properly (right now, just checks if between 0 and 2 - the enum range).
-            // TODO check that adminId belongs to an admin.
-            // TODO check that photoReportId is valid.
-        })) { return; }
+            
+        })) { 
+		
+		let userID = photoReport.getUserID();
+		let expirationDate = undefined;
+		
+		if(body.adminAction == 0){DBInterface.removePhotoReport(req.body.photoReportId);}
+		else if(body.adminAction == 1){DBInterface.removePhoto(photoReport.getPhotoID());}
+		else if (body.adminAction == 2){DBInterface.removePhoto(photoReport.getPhotoID()), Ban(parseInt(Math.random() * 10000), userID, req.body.adminId, expirationDate);
+			
+		
+		
+		
+		return; }
 
         res.send({});
     } catch (err) {
@@ -372,6 +376,7 @@ api.post("/photoReports/handle", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Scott Peebles
  * @desc Return the requested number of PhotoReports (asc. sorted by date) from the database, including options for PhotoReports judged by a specific Admin or unhandled PhotoReports.
  */
 api.post("/photoReports/list/byDate", (req, res) => {
@@ -385,29 +390,24 @@ api.post("/photoReports/list/byDate", (req, res) => {
             assert(body.startIndex >= 0, ERROR_MSG.noNeg("startIndex"));
             assert(body.max > 0, ERROR_MSG.onlyPos("max"));
             assert(!(body.handledBy !== undefined && body.unhandledOnly === true), `Parameter 'unhandledOnly' must be false if parameter 'handledBy' is not undefined.`);
-            // TODO check that adminId belongs to an admin.
+            
         })) { return; }
 
-        req.body.unhandledOnly = req.body.unhandledOnly || false;
-
         let photoReports = [];
-        let maxNumReports = parseInt(Math.random() * 14) + 6;
-        for (let i = req.body.startIndex; i < maxNumReports && photoReports.length < req.body.max; i++) {
-            let handled = !req.body.unhandledOnly && parseInt(Math.random() * 2);
-            photoReports[photoReports.length] = {
-                id: parseInt(Math.random() * 10000),
-                adminAction: handled ? parseInt(Math.random() * 2) : undefined,
-                adminId: handled ? (req.body.handledBy !== undefined ? req.body.handledBy : parseInt(Math.random() * 10000)) : undefined,
-                userId: parseInt(Math.random() * 10000),
-                reportText: STUB_HELPER.randReportText(),
-                handleDate: handled ? new Date(new Date().getTime() - 1) : undefined,
-                reportDate: new Date(new Date().getTime() - parseInt(Math.random() * 365 * 24 * 60 * 60 * 1000) - 2),
+        let jsonPhotoReports = [];
+            if(body.adminId !== undefined){
+				photoReports = await DBInterface.getUnhandledPhotoReportsByDate(req.body.startIndex, req.body.max);
+            }else{
+                photoReports = await DBInterface.getUnhandledPhotoReportsByDate;
             }
-        }
         photoReports.sort((a, b) => { return a.reportDate.getTime() - b.reportDate.getTime(); });
-
+		
+		
+		for(let i = req.body.startIndex; i < req.body.max; i++){
+            jsonPhotoReports[i] = photoReports[i].toJSON();
+        }
         res.send({
-            photoReports: photoReports
+            photoReports: jsonPhotoReports
         });
     } catch (err) {
         res.send(ERROR_CODE.internalError);
@@ -417,6 +417,7 @@ api.post("/photoReports/list/byDate", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Scott Peebles
  * @desc Remove the PhotoReport with the corresponding ID from the database.
  */
 api.post("/photoReports/remove", (req, res) => {
@@ -426,11 +427,12 @@ api.post("/photoReports/remove", (req, res) => {
             assert(body.photoReportId !== undefined, ERROR_MSG.missingParam("photoReportId"));
             assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
             assert(body.photoReportId >= 0, ERROR_MSG.noNeg("photoReportId"));
-            // TODO check that adminId belongs to an admin.
-            // TODO check that photoReportId is valid.
-        })) { return; }
+            
+        })) {
 
-        res.send({});
+		await DBInterface.removePhotoReport(req.body.photoReportId);
+		res.send({});
+		
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
