@@ -8,10 +8,11 @@
 
 // Imports
 var sql = require("mssql");
-var Ban = require("./Ban.js");
-var Photo = require("./Photo.js");
-var PhotoReport = require("./PhotoReport.js");
-var Plant = require("./Plant.js");
+var Ban = require("../Ban.js");
+var Photo = require("../Photo.js");
+var PhotoReport = require("../PhotoReport.js");
+var Plant = require("../Plant.js");
+var Admin = require("../Admin.js");
 
 // Configuration for database
 var config = {
@@ -164,6 +165,50 @@ async function addUser(user) {
             console.log(err);
         });
 }
+
+async function addPlant(plant) {
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('plantName', sql.VarChar, plant.getName());
+            req.input('plantBio', sql.VarChar, plant.getBio());
+            return await req.query("Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ")
+                .then(function (recordset) {
+                    sql.close();
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+/**
+ * @desc Add an Admin to the database
+ * @author Saad Ansari
+ * @param {Admin} Admin an Admin object.
+ * @returns nothing
+*/
+async function addAdmin(Admin) {
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+
+            return await req.query("Insert into [admin] DEFAULT VALUES  ")
+                .then(function (recordset) {
+                    sql.close();
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+
 ///////////////////////////Removal Functions////////////////////////////
 /**
  * @desc Removes the photo from the database
@@ -940,4 +985,13 @@ function updatePlant(plant) {
         .catch(function (err) {
             console.log(err);
         });
+}
+
+module.exports = {
+    addBan, addPhoto, addPhotoReport, addPlant, addUser, addAdmin, 
+    removePhoto, removePhotoReport, removePlant, removeUser,
+    getBan, getPhoto, getPhotoReport, getPlant, getPhotoReportsByAdmin, 
+    getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos, 
+    getTopUserPhotos, getUnhandeledPhotoReportsByDate, getUnhandeledPhotoReportsByPriority, 
+    getUser, updatePlant, updatePhoto, updatePhotoReport
 }
