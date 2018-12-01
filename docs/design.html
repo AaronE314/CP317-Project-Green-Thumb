@@ -177,7 +177,7 @@
                 <td>/photos/list/byDate</td>
                 <td>{ max: int, startIndex: int, {plantId: int}, {userId: int} }</td>
                 <td>{ photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[] }</td>
-                <td>Get the specified number of Photos from the database, sorted by date. If plantId is given, return only Photos of the specified Plant. If userId is given, return only Photos by the specified User.</td>
+                <td>Get the specified number of Photos from the database, sorted by date. Must supply either plantId or userId. If plantId is given, return only Photos of the specified Plant. If userId is given, return only Photos by the specified User.</td>
             </tr>
             <tr>
                 <td>/photos/list/byRating</td>
