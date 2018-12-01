@@ -212,10 +212,10 @@
             </tr>
             <tr>
                 <td>/photoReports/list/byDate</td>
-                <td>{ adminId: int, startIndex: int, max: int, {handledBy: int}, {unhandledOnly: bool = false} }</td>
+                <td>{ adminId: int, startIndex: int, max: int }</td>
                 <td>{ photoReports: { adminAction: int, adminId: int, handleDate: String,id: int, reportDate: String, reportText: String, userId: int }[0..max] }</td>
                 <td>Get the specified number of PhotoReports, sorted in ascending order by date from the
-                    database. Optional: only return unhandled PhotoReports, only return PhotoReports handled by a specified Admin.</td>
+                    database.</td>
             </tr>
             <tr>
                 <td>/photoReports/remove</td>
