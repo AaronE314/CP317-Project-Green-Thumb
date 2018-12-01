@@ -681,6 +681,7 @@ api.post("/users/add", (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+	    assert(Number(body.userId), ERROR_MSG.invalidParam("userId"));
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             // TODO check that no user with the given userId exists.
         })) { return; }
@@ -711,6 +712,8 @@ api.post("/users/ban", (req, res) => {
         if (!validateParams(req, res, (body) => {
             assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+	    assert(Number(body.userId), ERROR_MSG.invalidParam("userId"));
+            assert(Number(body.adminId), ERROR_MSG.invalidParam("adminId"));
             assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             // TODO check that the adminId belongs to an admin.
@@ -739,6 +742,7 @@ api.post("/users/byId", (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+	    assert(Number(body.userId), ERROR_MSG.invalidParam("userId"));
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             // TODO check that the userId is valid.
         })) { return; }
@@ -769,6 +773,8 @@ api.post("/users/makeAdmin", (req, res) => {
         if (!validateParams(req, res, (body) => {
             assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+	    assert(Number(body.userId), ERROR_MSG.invalidParam("userId"));
+            assert(Number(body.adminId), ERROR_MSG.invalidParam("adminId"));
             assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             // TODO check that the adminId belongs to an admin.
@@ -796,6 +802,8 @@ api.post("/users/remove", (req, res) => {
         if (!validateParams(req, res, (body) => {
             assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+	    assert(Number(body.userId), ERROR_MSG.invalidParam("userId"));
+            assert(Number(body.adminId), ERROR_MSG.invalidParam("adminId"));
             assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             // TODO check that the adminId belongs to an admin.
