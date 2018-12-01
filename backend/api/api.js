@@ -128,6 +128,7 @@ function validateParams(req, res, checkFunc) {
 
 /**
  * @author Nathaniel Carr
+ * @author Noah Nichols
  * @desc Add and return the submitted Photo to the database.
  */
 api.post("/photos/add", (req, res) => {
@@ -138,22 +139,14 @@ api.post("/photos/add", (req, res) => {
             assert(body.image !== undefined, ERROR_MSG.missingParam("image"));
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             assert(body.plantId >= 0, ERROR_MSG.noNeg("plantId"));
-            // TODO check that the userId is valid.
-            // TODO check that the plantId is valid.
-            // TODO check that the image is valid.
         })) { return; }
+        let photo = await DBInterface.addPhoto(new Photo(body.id, body.plantId,body.userId,body.image,body.uploadDate,body.upvoteIds, body.downvoteIds));
 
         res.send({
-            photo: {
-                id: parseInt(Math.random() * 10000),
-                plantId: req.body.photoId,
-                userId: req.body.userId,
-                upvoteIds: [],
-                downvoteIds: [],
-                uploadDate: new Date(),
-                image: req.body.image
+            
+            photo: photo.toJSON()
             }
-        });
+        );
     } catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
@@ -162,26 +155,16 @@ api.post("/photos/add", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Noah Nichols
+ * 
  * @desc Return the Photo with the corresponding ID from the database.
  */
 api.post("/photos/byId", (req, res) => {
     try {
-        if (!validateParams(req, res, (body) => {
-            assert(body.photoId !== undefined, ERROR_MSG.missingParam("photoId"));
-            assert(body.photoId >= 0, ERROR_MSG.noNeg("photoId"));
-            // TODO check that the photoId is valid.
-        })) { return; }
-
+        let photo = await DBInterface.getPhoto(req.body.photoId);
         res.send({
-            photo: {
-                id: req.body.photoId,
-                plantId: parseInt(Math.random() * 10000),
-                userId: parseInt(Math.random() * 10000),
-                upvoteIds: STUB_HELPER.randVoteArr(true),
-                downvoteIds: STUB_HELPER.randVoteArr(false),
-                uploadDate: new Date(new Date().getTime() - parseInt(Math.random() * 365 * 24 * 60 * 60 * 1000) - 1),
-                image: STUB_HELPER.randImage()
-            }
+            photo: photo.toJSON()
+            
         });
     } catch (err) {
         res.send(ERROR_CODE.internalError);
@@ -192,6 +175,7 @@ api.post("/photos/byId", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Noah Nichols
  * @desc Return the requested number of Photos (desc. sorted by date) from the database, including options for Photos from a specific User or Photos of a specifid Plant.
  */
 api.post("/photos/list/byDate", (req, res) => {
@@ -201,28 +185,27 @@ api.post("/photos/list/byDate", (req, res) => {
             assert(body.max !== undefined, ERROR_MSG.missingParam("max"));
             assert(body.startIndex >= 0, ERROR_MSG.noNeg("startIndex"));
             assert(body.max > 0, ERROR_MSG.onlyPos("max"));
-            assert(body.plantId === undefined || body.plantId >= 0, ERROR_MSG.noNeg("plantId"));
-            assert(body.userId === undefined || body.userId >= 0, ERROR_MSG.noNeg("userId"));
-            // TODO check that the plantId is valid if given.
-            // TODO check that the userId is valid if given.
+            assert(req.body.userId !== undefined || req.body.plantId !== undefined);
         })) { return; }
-
+        
         let photos = [];
-        for (let i = req.body.startIndex; i < STUB_HELPER.images.length && photos.length < req.body.max; i++) {
-            photos[photos.length] = {
-                id: parseInt(Math.random() * 10000),
-                plantId: req.body.plantId !== undefined ? req.body.plantId : parseInt(Math.random() * 10000),
-                userId: req.body.userId !== undefined ? req.body.userId : parseInt(Math.random() * 10000),
-                upvoteIds: STUB_HELPER.randVoteArr(true),
-                downvoteIds: STUB_HELPER.randVoteArr(false),
-                uploadDate: new Date(new Date().getTime() - parseInt(Math.random() * 365 * 24 * 60 * 60 * 1000) - 1),
-                image: STUB_HELPER.images[(req.body.startIndex + i)]
-            }
-        }
-        photos.sort((a, b) => { return b.uploadDate.getTime() - a.uploadDate.getTime(); });
+        let jsonPhotos = [];
+            if(body.userId !== undefined){
+                photos = await DBInterface.getNewestUserPhotos(req.body.userId, req.body.startIndex, req.body.max);
 
+            }else if(body.plantId !== undefined){
+                photos = await DBInterface.getNewestPlantPhotos(req.body.plantId, req.body.startIndex, req.body.max);
+            }else{
+                photos = await DBInterface.getNewestPlant
+            }
+        
+        
+        photos.sort((a, b) => { return b.uploadDate.getTime() - a.uploadDate.getTime(); });
+        for(let j = req.body.startIndex; j < body.max; j++){
+            jsonPhotos[j] = photos[j].toJSON();
+        }
         res.send({
-            photos: photos
+            photos: jsonPhotos
         });
     } catch (err) {
         res.send(ERROR_CODE.internalError);
@@ -232,6 +215,7 @@ api.post("/photos/list/byDate", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Noah Nichols
  * @desc Return the requested number of Photos (desc. sorted by rating) from the database, including options for Photos from a specific User or Photos of a specifid Plant.
  */
 api.post("/photos/list/byRating", (req, res) => {
@@ -241,28 +225,25 @@ api.post("/photos/list/byRating", (req, res) => {
             assert(body.max !== undefined, ERROR_MSG.missingParam("max"));
             assert(body.startIndex >= 0, ERROR_MSG.noNeg("startIndex"));
             assert(body.max > 0, ERROR_MSG.onlyPos("max"));
-            assert(body.plantId === undefined || body.plantId >= 0, ERROR_MSG.noNeg("plantId"));
-            assert(body.userId === undefined || body.userId >= 0, ERROR_MSG.noNeg("userId"));
-            // TODO check that the plantId is valid if given.
-            // TODO check that the userId is valid if given.
         })) { return; }
 
         let photos = [];
-        for (let i = req.body.startIndex; i < STUB_HELPER.images.length && photos.length < req.body.max; i++) {
-            photos[photos.length] = {
-                id: parseInt(Math.random() * 10000),
-                plantId: req.body.plantId !== undefined ? req.body.plantId : parseInt(Math.random() * 10000),
-                userId: req.body.userId !== undefined ? req.body.userId : parseInt(Math.random() * 10000),
-                upvoteIds: STUB_HELPER.randVoteArr(true),
-                downvoteIds: STUB_HELPER.randVoteArr(false),
-                uploadDate: new Date(new Date().getTime() - parseInt(Math.random() * 365 * 24 * 60 * 60 * 1000) - 1),
-                image: STUB_HELPER.images[(req.body.startIndex + i)]
-            }
+        let jsonPhotos = [];
+        if(body.userId !== undefined){
+            photos = await DBInterface.getTopUserPhotos(req.body.userId, req.body.startIndex, req.body.max);
+        }else if(body.plantId !== undefined){
+            photos = await DBInterface.getTopPlantPhotos(req.body.plantId, req.body.startIndex, req.body.max);
+        }else{
+            photos = await DBInterface.getTopPhotos(req.body.startIndex, req.body.max);
         }
+            
+        
         photos.sort((a, b) => { return (a.upvoteIds.length - a.downvoteIds.length) - (b.upvoteIds.length - b.downvoteIds.length); });
-
+        for(let j = req.body.startindex; j < req.body.max; j++){
+            jsonPhotos[j] = photos[j].toJSON();
+        }
         res.send({
-            photos: photos.sort()
+            photos: jsonPhotos
         });
     } catch (err) {
         res.send(ERROR_CODE.internalError);
@@ -272,20 +253,12 @@ api.post("/photos/list/byRating", (req, res) => {
 
 /**
  * @author Nathaniel Carr
+ * @author Noah Nichols
  * @desc Remove the Photo with the corresponding ID from the database.
  */
 api.post("/photos/remove", (req, res) => {
     try {
-        if (!validateParams(req, res, (body) => {
-            assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
-            assert(body.photoId !== undefined, ERROR_MSG.missingParam("photoId"));
-            assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
-            assert(body.photoId >= 0, ERROR_MSG.noNeg("photoId"));
-            // TODO check that the userId is valid.
-            // TODO check that the plantId is valid.
-            // TODO check that the specified Photo belongs to the specified User.
-        })) { return; }
-
+        await DBInterface.removePhoto(req.body.photoId);
         res.send({});
     } catch (err) {
         res.send(ERROR_CODE.internalError);
