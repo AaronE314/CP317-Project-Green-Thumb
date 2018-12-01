@@ -707,8 +707,47 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
 
 function getTopUserPhotos(userID, startIndex, max) {
     var photos = [];
-
-    return photos;
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('userId', sql.Int, userID);
+            sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
+            ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
+            'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
+            'LEFT OUTER JOIN voting v ON v.photo_id = ph.photo_id ' +
+            'WHERE po.user_id = @userId ' +
+            'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' + 
+            'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
+            return await req.query(sqlQuery).then(function (recordset) {
+                ind = 0
+                while (recordset.recordset[ind] != null) {
+                    photos.push(new Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
+                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                            return recordset;
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
+                    }, async function () {
+                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+                            return recordset;
+                        }).catch(function (err) {
+                            console.log(err);
+                        })
+                    }));
+                    ind = ind + 1;
+                }
+                sql.close();
+                return photos.slice(startIndex, startIndex + max);
+            })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
 }
 
 /**
@@ -721,8 +760,28 @@ function getTopUserPhotos(userID, startIndex, max) {
 
 function getUnhandeledPhotoReportsByPriority(startIndex, max) {
     var photoReports = [];
-
-    return photoReports;
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            sqlQuery = 'SELECT r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id FROM report r' +
+            'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
+            'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY SUM(r.post_id)';
+            return await req.query(sqlQuery).then(function (recordset) {
+                ind = 0
+                while (recordset.recordset[ind] != null) {
+                    photoReports.push(new PhotoReport(recordset.recordset[ind].report_id, recordset.recordset[ind].photo_id, recordset.recordset[ind].user_id, recordset.recordset[ind].report_details, recordset.recordset[ind].report_date));
+                    ind = ind + 1;
+                }
+                sql.close();
+                return photoReports.slice(startIndex, startIndex + max);
+            })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
 }
 
 
@@ -736,11 +795,69 @@ function getUnhandeledPhotoReportsByPriority(startIndex, max) {
 
 function getUnhandeledPhotoReportsByDate(startIndex, max) {
     var photoReports = [];
-    for (i = startIndex; i < max; i++) {
-        photoReports.push(getPhoto(i));
-    }
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            sqlQuery = 'SELECT r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id FROM report r' +
+            'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
+            'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY r.upload_date';
+            return await req.query(sqlQuery).then(function (recordset) {
+                ind = 0
+                while (recordset.recordset[ind] != null) {
+                    photoReports.push(new PhotoReport(recordset.recordset[ind].report_id, recordset.recordset[ind].photo_id, recordset.recordset[ind].user_id, recordset.recordset[ind].report_details, recordset.recordset[ind].report_date));
+                    ind = ind + 1;
+                }
+                sql.close();
+                return photoReports.slice(startIndex, startIndex + max);
+            })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
 
-    return photoReports;
+/**
+ * @desc Returns a User object from the Database
+ * @author Luke Turnbull
+ * @param {Number} userId The primary key of the User table
+ * @returns {user} A User object
+*/
+
+async function getUser(userId) {
+
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+            req.input('userId', sql.Int, userId);
+            return await req.query("SELECT user_id FROM [projectgreenthumb].[dbo].[user] where user.user_id = userId ")
+                .then(function (recordset) {
+                    if (recordset[0] !== null) {
+                        user = new User(recordset.recordset[0].user_id, async function () {
+                            req.input('userId', sql.Int, userId);
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[ban] where ban.user_id = @userId").then(function (recordset) {
+                                return recordset;
+                            }).catch(function (err) {
+                                console.log(err);
+                            })
+                        });
+
+                        sql.close();
+                        return user;
+                    } else {
+                        throw new DBIRecordNotFound("userId");
+                    }
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
 }
 
 ///////////////////////////Update Functions////////////////////////////
