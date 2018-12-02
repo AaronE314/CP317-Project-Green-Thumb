@@ -281,7 +281,7 @@ api.post("/photoReports/add", (req, res) => {
             assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
             assert(body.photoId >= 0, ERROR_MSG.noNeg("photoId"));
             
-        })) { 
+        })) { return; }
 	
 		
 		photoReport: {
@@ -297,7 +297,7 @@ api.post("/photoReports/add", (req, res) => {
 		let report = await DBInterface.addPhotoReport(new Photoreport(photoReport));
 		
 		
-		return; }
+		
 
         res.send({
         
@@ -318,19 +318,17 @@ api.post("/photoReports/add", (req, res) => {
 api.post("/photoReports/byId", (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
-            assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.photoReportId !== undefined, ERROR_MSG.missingParam("photoReportId"));
-            assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
             assert(body.photoReportId >= 0, ERROR_MSG.noNeg("photoReportId"));
             
-        })) {
+        })) { return; }
 			let report = await DBInterface.getPhotoReport(req.body.photoReportID);
 		
 		res.send({
 		report: report.toJSON()});
 		
 	
-    } catch (err) {
+     catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
 		
@@ -346,14 +344,13 @@ api.post("/photoReports/byId", (req, res) => {
 api.post("/photoReports/handle", (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
-            assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.photoReportId !== undefined, ERROR_MSG.missingParam("photoReportId"));
             assert(body.adminAction !== undefined, ERROR_MSG.missingParam("adminAction"));
-            assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
             assert(body.adminAction >= 0, ERROR_MSG.noNeg("adminAction"));
             assert(body.adminAction >= 0 && req.body.adminAction <= 2, ERROR_MSG.invalidParam("adminAction"));
             
-        })) { 
+        })) { return; }
+
 		
 		let userID = photoReport.getUserID();
 		let expirationDate = undefined;
@@ -365,7 +362,7 @@ api.post("/photoReports/handle", (req, res) => {
 		
 		
 		
-		return; }
+		
 
         res.send({});
     } catch (err) {
@@ -382,7 +379,6 @@ api.post("/photoReports/handle", (req, res) => {
 api.post("/photoReports/list/byDate", (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
-            assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.startIndex !== undefined, ERROR_MSG.missingParam("startIndex"));
             assert(body.max !== undefined, ERROR_MSG.missingParam("max"));
             assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
@@ -395,12 +391,10 @@ api.post("/photoReports/list/byDate", (req, res) => {
 
         let photoReports = [];
         let jsonPhotoReports = [];
-            if(body.adminId !== undefined){
-				photoReports = await DBInterface.getUnhandledPhotoReportsByDate(req.body.startIndex, req.body.max);
-            }else{
-                photoReports = await DBInterface.getUnhandledPhotoReportsByDate;
-            }
-        photoReports.sort((a, b) => { return a.reportDate.getTime() - b.reportDate.getTime(); });
+         
+		photoReports = await DBInterface.getUnhandledPhotoReportsByDate(req.body.startIndex, req.body.max);
+            
+        
 		
 		
 		for(let i = req.body.startIndex; i < req.body.max; i++){
@@ -423,22 +417,20 @@ api.post("/photoReports/list/byDate", (req, res) => {
 api.post("/photoReports/remove", (req, res) => {
     try {
         if (!validateParams(req, res, (body) => {
-            assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
             assert(body.photoReportId !== undefined, ERROR_MSG.missingParam("photoReportId"));
-            assert(body.adminId >= 0, ERROR_MSG.noNeg("adminId"));
             assert(body.photoReportId >= 0, ERROR_MSG.noNeg("photoReportId"));
             
-        })) {
+        })) { return ;}
 
 		await DBInterface.removePhotoReport(req.body.photoReportId);
 		res.send({});
 		
-    } catch (err) {
+     catch (err) {
         res.send(ERROR_CODE.internalError);
         console.error(err.message);
     }
 });
-
+	
 /**
  * @author Nathaniel Carr
  * @desc Add and return the submitted Plant to the database.
