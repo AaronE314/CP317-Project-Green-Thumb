@@ -64,7 +64,7 @@ public class Requester {
         in.close();
         httpcon.disconnect();
     }
-    public void getBGPhoto() throws IOException {
+    public String getBGPhoto() throws IOException {
         Random rand = new Random();
         int photoId = rand.nextInt(5)+1;
         //open http connection
@@ -95,11 +95,9 @@ public class Requester {
             response.append(currentLine);
 
         in.close();
-        // convert to jason and build objects
-
-
-        //
         httpcon.disconnect();
+        String url=response.toString();
+        return url;
     }
     // this isn't used in the andriod one
     public void getPhotoReports(int adminId) throws IOException{
