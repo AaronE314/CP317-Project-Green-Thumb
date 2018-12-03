@@ -43,7 +43,7 @@ public class GalleryPhotoAdapter extends BaseAdapter {
         View gridItem;
 
         if (convertView == null) {
-            gridItem = inflater.inflate(R.layout.griditem, new LinearLayout(this.context));
+            gridItem = inflater.inflate(R.layout.gallerygriditem, new LinearLayout(this.context));
             ImageButton imageButton = gridItem.findViewById(R.id.gridItemImage);
             imageButton.setImageBitmap(this.photos[0]); // this.photos[position]);
             imageButton.setOnClickListener(new View.OnClickListener() {
