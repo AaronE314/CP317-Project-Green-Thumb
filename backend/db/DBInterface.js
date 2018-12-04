@@ -40,6 +40,10 @@ DBIRecordNotFound.prototype = Object.create(Error.prototype);
  * @returns nothing
 */
 async function addBan(ban) {
+    let new_Ban = await getBan(ban.getId()).catch(function(err){ throw err});
+    if (new_Ban != null ){
+        throw new DBIDuplicate("Ban");
+    }
     return await sql.connect(config)
         .then(async function () {
 
@@ -70,6 +74,10 @@ async function addBan(ban) {
  * @returns nothing
 */
 async function addPhoto(photo) {
+    let new_photo = await getPhoto(photo.getId()).catch(function(err){ throw err});
+    if (new_photo != null ){
+        throw new DBIDuplicate("Photo");
+    }
     return await sql.connect(config)
         .then(async function () {
 
@@ -78,7 +86,7 @@ async function addPhoto(photo) {
             req.input("image", sql.Binary, photo.getImage());
             req.input("tfrecord", sql.VarChar, photo.getTfRecord());
             req.input("userId", sql.int, photo.getUserId());
-            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, @image , @tfrecord); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));")
+            return await req.query(" insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));")
 
                 .then(function (recordset) {
                     sql.close();
@@ -129,19 +137,19 @@ async function addPhotoReport(pReport) {
  * @returns nothing
 */
 async function addPlant(plant) {
+    let new_plant = await getPlant(plant.getId()).catch(function(err){ throw err});
+    if (new_plant != null ){
+        throw new DBIDuplicate("Plant");
+    }    
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
             req.input('plantName', sql.VarChar, plant.getName());
             req.input('plantBio', sql.VarChar, plant.getBio());
             req.input('plantId', sql.Int,plant.getId() );
-            return await req.query("SELECT * from [projectgreenthumb].[dbo].[plant] where plant_id = @plantId;Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ")
+            return await req.query("Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ")
                 .then(function (recordset) {
-                    if (recordset[0] === null){
                     sql.close();
-                    }else {
-                        throw new DBIDuplicate("Plant");
-                    }
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -158,6 +166,10 @@ async function addPlant(plant) {
  * @returns nothing
 */
 async function addUser(user) {
+    let new_User = await getUser(user.getId()).catch(function(err){ throw err});
+    if (new_User != null ){
+        throw new DBIDuplicate("User");
+    }
     return await sql.connect(config)
         .then(async function () {
 
@@ -165,11 +177,7 @@ async function addUser(user) {
             req.input('userId',sql.Int, user.getId());
             return await req.query("SELECT userID from [projectgreenthumb].[dbo].[user] where user_id = @userId;  Insert into [user] DEFAULT VALUES  ")
                 .then(function (recordset) {
-                    if (recordset[0] === null){
                         sql.close();
-                    }else{
-                        throw new DBIDuplicate("User");
-                    }
                 })
                 .catch(function (err) {
                     console.log(err);
