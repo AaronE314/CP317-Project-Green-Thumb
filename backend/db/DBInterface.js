@@ -566,25 +566,31 @@ async function getNewestPlantPhotos(plantID, startIndex, max) {
                 'WHERE ph.plant_id = @plantId ORDER BY po.upload_date DESC'
             return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
-                while (recordset[ind] != null) {
-                    photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
-                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
-                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
-                            return recordset;
-                        }).catch(function (err) {
-                            console.log(err);
-                        })
-                    }, async function () {
-                        req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
-                        return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
-                            return recordset;
-                        }).catch(function (err) {
-                            console.log(err);
-                        })
-                    }));
-                    ind = ind + 1;
+                if (recordset.recordset[0] == null) {
+                    while (recordset[ind] != null) {
+                        photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
+                            req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                                return recordset;
+                            }).catch(function (err) {
+                                console.log(err);
+                            })
+                        }, async function () {
+                            req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+                                return recordset;
+                            }).catch(function (err) {
+                                console.log(err);
+                            })
+                        }));
+                        ind = ind + 1;
+                    }
+                    sql.close();
+                } else {
+                    sql.close();
+                    throw new DBIRecordNotFound("plant photos");
+
                 }
-                sql.close();
             })
                 .catch(function (err) {
                     console.log(err);
