@@ -40,8 +40,8 @@ DBIRecordNotFound.prototype = Object.create(Error.prototype);
  * @returns nothing
 */
 async function addBan(ban) {
-    let new_Ban = await getBan(ban.getId()).catch(function(err){ throw err});
-    if (new_Ban != null ){
+    let new_Ban = await getBan(ban.getId()).catch(function (err) { throw err });
+    if (new_Ban != null) {
         throw new DBIDuplicate("Ban");
     }
     return await sql.connect(config)
@@ -74,8 +74,8 @@ async function addBan(ban) {
  * @returns nothing
 */
 async function addPhoto(photo) {
-    let new_photo = await getPhoto(photo.getId()).catch(function(err){ throw err});
-    if (new_photo != null ){
+    let new_photo = await getPhoto(photo.getId()).catch(function (err) { throw err });
+    if (new_photo != null) {
         throw new DBIDuplicate("Photo");
     }
     return await sql.connect(config)
@@ -106,10 +106,10 @@ async function addPhoto(photo) {
  * @returns nothing
 */
 async function addPhotoReport(pReport) {
-    let new_photoReport = await getPhotoReport(pReport.getId()).catch(function(err){ throw err});
-    if (new_photoReport != null ){
+    let new_photoReport = await getPhotoReport(pReport.getId()).catch(function (err) { throw err });
+    if (new_photoReport != null) {
         throw new DBIDuplicate("PhotoReport");
-    }    
+    }
     return await sql.connect(config)
         .then(async function () {
             req.input("photoId", sql.Int, pReport.getPhotoId());
@@ -141,16 +141,16 @@ async function addPhotoReport(pReport) {
  * @returns nothing
 */
 async function addPlant(plant) {
-    let new_plant = await getPlant(plant.getId()).catch(function(err){ throw err});
-    if (new_plant != null ){
+    let new_plant = await getPlant(plant.getId()).catch(function (err) { throw err });
+    if (new_plant != null) {
         throw new DBIDuplicate("Plant");
-    }    
+    }
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
             req.input('plantName', sql.VarChar, plant.getName());
             req.input('plantBio', sql.VarChar, plant.getBio());
-            req.input('plantId', sql.Int,plant.getId() );
+            req.input('plantId', sql.Int, plant.getId());
             return await req.query("Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ")
                 .then(function (recordset) {
                     sql.close();
@@ -170,18 +170,18 @@ async function addPlant(plant) {
  * @returns nothing
 */
 async function addUser(user) {
-    let new_User = await getUser(user.getId()).catch(function(err){ throw err});
-    if (new_User != null ){
+    let new_User = await getUser(user.getId()).catch(function (err) { throw err });
+    if (new_User != null) {
         throw new DBIDuplicate("User");
     }
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId',sql.Int, user.getId());
+            req.input('userId', sql.Int, user.getId());
             return await req.query("SELECT userID from [projectgreenthumb].[dbo].[user] where user_id = @userId;  Insert into [user] DEFAULT VALUES  ")
                 .then(function (recordset) {
-                        sql.close();
+                    sql.close();
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -231,7 +231,8 @@ async function removePhoto(photoID) {
         if (err) { console.log(err); }
 
         var request = new sql.Request(); // create Request object
-        var sqlQuery = 'DELETE FROM photo WHERE photo_id = ' + photoID; // Create SQL Query
+        req.input('photoId', sql.Int, photoID);
+        var sqlQuery = 'DELETE FROM photo WHERE photo_id = photoId'; // Create SQL Query
 
         // Query the database and remove photo
         request.query(sqlQuery, function (err, recordset) {
@@ -254,7 +255,8 @@ async function removePhotoReport(photoReportID) {
         if (err) { console.log(err); }
 
         var request = new sql.Request(); // create Request object
-        var sqlQuery = 'DELETE FROM report WHERE report_id = ' + photoReportID; // Create SQL Query
+        req.input('photoReportId', sql.Int, photoReportID);
+        var sqlQuery = 'DELETE FROM report WHERE report_id = photoReportId'; // Create SQL Query
 
         // Query the database and remove photo
         request.query(sqlQuery, function (err, recordset) {
@@ -277,31 +279,32 @@ async function removePlant(plantID) {
         if (err) { console.log(err); }
 
         var request = new sql.Request(); // create Request object
+        req.input('plantId', sql.Int, plantID);
         var sqlQuery = // Create SQL Query
             // Delete all associated reports
             'DELETE FROM report WHERE' +
             '(SELECT pl.plant_id FROM plant pl ' +
             'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
             ' JOIN post po ON ph.photo_id = po.photo_id ' +
-            'JOIN report r ON r.post_id = po.post_id) = ' + plantID + ';' +
+            'JOIN report r ON r.post_id = po.post_id) = plantId;' +
 
             // Delete all associated posts
             'DELETE FROM post WHERE ' +
             '(SELECT pl.plant_id FROM plant pl ' +
             'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
-            'JOIN post po ON ph.photo_id = po.photo_id) = ' + plantID + ';' +
+            'JOIN post po ON ph.photo_id = po.photo_id) = plantId;' +
 
             // Delete all associated photos
-            'DELETE FROM photo WHERE plant_id = ' + plantID + ';' +
+            'DELETE FROM photo WHERE plant_id = plantId;' +
 
             // Delete all assocaited votes
             'DELETE FROM voting WHERE ' +
             '(SELECT pl.[plant_id] FROM plant pl ' +
             'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
-            'JOIN voting v ON v.photo_id = ph.photo_id) = ' + plantID + ';' +
+            'JOIN voting v ON v.photo_id = ph.photo_id) = plantId;' +
 
             // Delete the plant
-            'DELETE FROM plant WHERE plant_id = ' + plantID + ';'
+            'DELETE FROM plant WHERE plant_id = plantId;'
 
         // Query the database and remove plant
         request.query(sqlQuery, function (err, recordset) {
@@ -324,24 +327,25 @@ async function removeUser(UserID) {
         if (err) { console.log(err); }
 
         var request = new sql.Request(); // create Request object
+        req.input('userId', sql.Int, userID);
         var sqlQuery = // Create SQL Query
             // Delete all associated reports
             'DELETE FROM report WHERE ' +
             '(SELECT u.[user_id] FROM[user] u ' +
             'JOIN post po ON u.[user_id] = po.[user_id] ' +
-            'JOIN report r ON r.post_id = po.post_id) = ' + userID + ';' +
+            'JOIN report r ON r.post_id = po.post_id) = userId;' +
 
             // Delete all associated posts
             'DELETE FROM post WHERE ' +
             '(SELECT u.[user_id] FROM[user] u ' +
-            'JOIN post po ON u.[user_id] = po.[user_id]) = ' + userID + ';' +
+            'JOIN post po ON u.[user_id] = po.[user_id]) = userId;' +
 
             // Delete all assocaited votes
             'DELETE FROM voting WHERE ' +
-            '(SELECT[user_id] FROM voting) = ' + userID + ';' +
+            '(SELECT[user_id] FROM voting) = userId;' +
 
             // Delete the user
-            'DELETE FROM[user] WHERE[user_id] = ' + userID + ';'
+            'DELETE FROM[user] WHERE[user_id] = userId;'
 
         // Query the database and remove the user
         request.query(sqlQuery, function (err, recordset) {
@@ -368,11 +372,11 @@ async function getBan(banID) {
             req.input('banId', sql.Int, banID);
             return await req.query("Select * from [projectgreenthumb].[dbo].[plant] where ban_id = @banId ")
                 .then(function (recordset) {
-                    if (recordset.recordset[0] != null ){
+                    if (recordset.recordset[0] != null) {
                         ban = new Ban(recordset.recordset[0].ban_id, recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date);
                         sql.close();
                         return ban;
-                    }else {
+                    } else {
                         throw new DBIRecordNotFound("banId");
                     }
                 })
@@ -434,9 +438,9 @@ async function getPhoto(photoId) {
 
 /**
  * @desc Returns a PhotoReport object from the Database
- * @auther Nicolas Ross
+ * @author Nicolas Ross
  * @param {Number} photoReportId The primary key of the PhotoReport table
- * @ returns {photoReport} A PhotoReport object
+ * @returns {photoReport} A PhotoReport object
  */
 
 async function getPhotoReport(photoReportId) {
@@ -462,9 +466,9 @@ async function getPhotoReport(photoReportId) {
 
 /**
  * @desc [WORK IN PROGRESS] Returns a PhotoReport array from the Database
- * @auther Nicolas Ross
+ * @author Nicolas Ross
  * @param {Number} adminId The primary key of the PhotoReport table
- * @ returns {photoReport} A report array
+ * @returns {photoReport} A report array
  */
 
 async function getPhotoReportsByAdmin(adminId) {
@@ -540,7 +544,7 @@ async function getPlant(plantID) {
 
 }
 /**
- * @desc Returns a number of most recent plant photos
+ * @desc Returns an array of most recent plant photos
  * @author Saad Ansari
  * @param {Number} plantID The primary key of the plant
  * @param {Number} startIndex The starting of the most recent count
@@ -770,12 +774,12 @@ function getTopUserPhotos(userID, startIndex, max) {
             let req = new sql.Request();
             req.input('userId', sql.Int, userID);
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
-            ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
-            'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
-            'LEFT OUTER JOIN voting v ON v.photo_id = ph.photo_id ' +
-            'WHERE po.user_id = @userId ' +
-            'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' + 
-            'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
+                ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
+                'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
+                'LEFT OUTER JOIN voting v ON v.photo_id = ph.photo_id ' +
+                'WHERE po.user_id = @userId ' +
+                'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' +
+                'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
             return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 while (recordset.recordset[ind] != null) {
@@ -822,8 +826,8 @@ function getUnhandeledPhotoReportsByPriority(startIndex, max) {
         .then(async function () {
             let req = new sql.Request();
             sqlQuery = 'SELECT r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id FROM report r' +
-            'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
-            'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY SUM(r.post_id)';
+                'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
+                'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY SUM(r.post_id)';
             return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 while (recordset.recordset[ind] != null) {
@@ -857,8 +861,8 @@ function getUnhandeledPhotoReportsByDate(startIndex, max) {
         .then(async function () {
             let req = new sql.Request();
             sqlQuery = 'SELECT r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id FROM report r' +
-            'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
-            'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY r.upload_date';
+                'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
+                'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY r.upload_date';
             return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 while (recordset.recordset[ind] != null) {
@@ -1001,10 +1005,10 @@ function updatePlant(plant) {
 }
 
 module.exports = {
-    addBan, addPhoto, addPhotoReport, addPlant, addUser, addAdmin, 
+    addBan, addPhoto, addPhotoReport, addPlant, addUser, addAdmin,
     removePhoto, removePhotoReport, removePlant, removeUser,
-    getBan, getPhoto, getPhotoReport, getPlant, getPhotoReportsByAdmin, 
-    getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos, 
-    getTopUserPhotos, getUnhandeledPhotoReportsByDate, getUnhandeledPhotoReportsByPriority, 
+    getBan, getPhoto, getPhotoReport, getPlant, getPhotoReportsByAdmin,
+    getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
+    getTopUserPhotos, getUnhandeledPhotoReportsByDate, getUnhandeledPhotoReportsByPriority,
     getUser, updatePlant, updatePhoto, updatePhotoReport
 }
