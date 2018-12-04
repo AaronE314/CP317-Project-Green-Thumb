@@ -26,6 +26,11 @@ function DBIRecordNotFound(element) {
     const error = new Error(`The ${element} you are looking for is not in our records`);
     return error;
 }
+function DBIDuplicate(element) {
+    const error = new Error(`The ${element} object you are attempting to save already exists.`);
+    return error;
+}
+DBIDuplicate.prototype = Object.create(Error.prototype);
 DBIRecordNotFound.prototype = Object.create(Error.prototype);
 ///////////////////////////Insertion Functions////////////////////////////
 /**
@@ -129,9 +134,14 @@ async function addPlant(plant) {
             let req = new sql.Request();
             req.input('plantName', sql.VarChar, plant.getName());
             req.input('plantBio', sql.VarChar, plant.getBio());
-            return await req.query("Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ")
+            req.input('plantId', sql.Int,plant.getId() );
+            return await req.query("SELECT * from [projectgreenthumb].[dbo].[plant] where plant_id = @plantId;Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ")
                 .then(function (recordset) {
+                    if (recordset[0] === NULL){
                     sql.close();
+                    }else {
+                        throw new DBIDuplicate("Plant");
+                    }
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -152,10 +162,14 @@ async function addUser(user) {
         .then(async function () {
 
             let req = new sql.Request();
-
-            return await req.query("Insert into [user] DEFAULT VALUES  ")
+            req.input('userId',sql.Int, user.getId);
+            return await req.query("SELECT userID from [projectgreenthumb].[dbo].[user] where user_id = @userId;  Insert into [user] DEFAULT VALUES  ")
                 .then(function (recordset) {
-                    sql.close();
+                    if (recordset[0] === NULL){
+                        sql.close();
+                    }else{
+                        throw new DBIDuplicate("User");
+                    }
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -166,24 +180,7 @@ async function addUser(user) {
         });
 }
 
-async function addPlant(plant) {
-    return await sql.connect(config)
-        .then(async function () {
-            let req = new sql.Request();
-            req.input('plantName', sql.VarChar, plant.getName());
-            req.input('plantBio', sql.VarChar, plant.getBio());
-            return await req.query("Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ")
-                .then(function (recordset) {
-                    sql.close();
-                })
-                .catch(function (err) {
-                    console.log(err);
-                });
-        })
-        .catch(function (err) {
-            console.log(err);
-        });
-}
+
 /**
  * @desc Add an Admin to the database
  * @author Saad Ansari
@@ -359,9 +356,13 @@ async function getBan(banID) {
             req.input('banId', sql.Int, banID);
             return await req.query("Select * from [projectgreenthumb].[dbo].[plant] where ban_id = @banId ")
                 .then(function (recordset) {
-                    ban = new Ban(recordset.recordset[0].ban_id, recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date);
-                    sql.close();
-                    return ban;
+                    if (recordset[0] != null ){
+                        ban = new Ban(recordset.recordset[0].ban_id, recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date);
+                        sql.close();
+                        return ban;
+                    }else {
+                        throw new DBIRecordNotFound("banId");
+                    }
                 })
                 .catch(function (err) {
                     console.log(err);
