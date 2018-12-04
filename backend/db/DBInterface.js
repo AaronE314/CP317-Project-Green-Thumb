@@ -106,6 +106,10 @@ async function addPhoto(photo) {
  * @returns nothing
 */
 async function addPhotoReport(pReport) {
+    let new_photoReport = await getPhotoReport(pReport.getId()).catch(function(err){ throw err});
+    if (new_photoReport != null ){
+        throw new DBIDuplicate("PhotoReport");
+    }  
     return await sql.connect(config)
         .then(async function () {
             req.input("photoId", sql.Int, pReport.getPhotoId());
