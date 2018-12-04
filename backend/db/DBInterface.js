@@ -162,7 +162,7 @@ async function addUser(user) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId',sql.Int, user.getId);
+            req.input('userId',sql.Int, user.getId());
             return await req.query("SELECT userID from [projectgreenthumb].[dbo].[user] where user_id = @userId;  Insert into [user] DEFAULT VALUES  ")
                 .then(function (recordset) {
                     if (recordset[0] === NULL){
