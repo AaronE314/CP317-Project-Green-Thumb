@@ -137,7 +137,7 @@ async function addPlant(plant) {
             req.input('plantId', sql.Int,plant.getId() );
             return await req.query("SELECT * from [projectgreenthumb].[dbo].[plant] where plant_id = @plantId;Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ")
                 .then(function (recordset) {
-                    if (recordset[0] === NULL){
+                    if (recordset[0] === null){
                     sql.close();
                     }else {
                         throw new DBIDuplicate("Plant");
@@ -165,7 +165,7 @@ async function addUser(user) {
             req.input('userId',sql.Int, user.getId());
             return await req.query("SELECT userID from [projectgreenthumb].[dbo].[user] where user_id = @userId;  Insert into [user] DEFAULT VALUES  ")
                 .then(function (recordset) {
-                    if (recordset[0] === NULL){
+                    if (recordset[0] === null){
                         sql.close();
                     }else{
                         throw new DBIDuplicate("User");
