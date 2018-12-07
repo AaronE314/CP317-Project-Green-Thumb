@@ -232,7 +232,7 @@ async function removePhoto(photoID) {
 
         var request = new sql.Request(); // create Request object
         req.input('photoId', sql.Int, photoID);
-        var sqlQuery = 'DELETE FROM photo WHERE photo_id = photoId'; // Create SQL Query
+        var sqlQuery = 'DELETE FROM photo WHERE photo_id = @photoId'; // Create SQL Query
 
         // Query the database and remove photo
         request.query(sqlQuery, function (err, recordset) {
@@ -256,7 +256,7 @@ async function removePhotoReport(photoReportID) {
 
         var request = new sql.Request(); // create Request object
         req.input('photoReportId', sql.Int, photoReportID);
-        var sqlQuery = 'DELETE FROM report WHERE report_id = photoReportId'; // Create SQL Query
+        var sqlQuery = 'DELETE FROM report WHERE report_id = @photoReportId'; // Create SQL Query
 
         // Query the database and remove photo
         request.query(sqlQuery, function (err, recordset) {
@@ -286,25 +286,25 @@ async function removePlant(plantID) {
             '(SELECT pl.plant_id FROM plant pl ' +
             'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
             ' JOIN post po ON ph.photo_id = po.photo_id ' +
-            'JOIN report r ON r.post_id = po.post_id) = plantId;' +
+            'JOIN report r ON r.post_id = po.post_id) = @plantId;' +
 
             // Delete all associated posts
             'DELETE FROM post WHERE ' +
             '(SELECT pl.plant_id FROM plant pl ' +
             'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
-            'JOIN post po ON ph.photo_id = po.photo_id) = plantId;' +
+            'JOIN post po ON ph.photo_id = po.photo_id) = @plantId;' +
 
             // Delete all associated photos
-            'DELETE FROM photo WHERE plant_id = plantId;' +
+            'DELETE FROM photo WHERE plant_id = @plantId;' +
 
             // Delete all assocaited votes
             'DELETE FROM voting WHERE ' +
             '(SELECT pl.[plant_id] FROM plant pl ' +
             'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
-            'JOIN voting v ON v.photo_id = ph.photo_id) = plantId;' +
+            'JOIN voting v ON v.photo_id = ph.photo_id) = @plantId;' +
 
             // Delete the plant
-            'DELETE FROM plant WHERE plant_id = plantId;'
+            'DELETE FROM plant WHERE plant_id = @plantId;'
 
         // Query the database and remove plant
         request.query(sqlQuery, function (err, recordset) {
@@ -333,19 +333,19 @@ async function removeUser(UserID) {
             'DELETE FROM report WHERE ' +
             '(SELECT u.[user_id] FROM[user] u ' +
             'JOIN post po ON u.[user_id] = po.[user_id] ' +
-            'JOIN report r ON r.post_id = po.post_id) = userId;' +
+            'JOIN report r ON r.post_id = po.post_id) = @userId;' +
 
             // Delete all associated posts
             'DELETE FROM post WHERE ' +
             '(SELECT u.[user_id] FROM[user] u ' +
-            'JOIN post po ON u.[user_id] = po.[user_id]) = userId;' +
+            'JOIN post po ON u.[user_id] = po.[user_id]) = @userId;' +
 
             // Delete all assocaited votes
             'DELETE FROM voting WHERE ' +
-            '(SELECT[user_id] FROM voting) = userId;' +
+            '(SELECT[user_id] FROM voting) = @userId;' +
 
             // Delete the user
-            'DELETE FROM[user] WHERE[user_id] = userId;'
+            'DELETE FROM[user] WHERE[user_id] = @userId;'
 
         // Query the database and remove the user
         request.query(sqlQuery, function (err, recordset) {
@@ -740,7 +740,7 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
                 ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
                 'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
                 'LEFT OUTER JOIN voting v ON v.photo_id = ph.photo_id ' +
-                'WHERE ph.plant_id = @plantTopId ' +
+                'WHERE ph.plant_id = @plantId ' +
                 'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' +
                 'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
             return await req.query(sqlQuery).then(function (recordset) {
