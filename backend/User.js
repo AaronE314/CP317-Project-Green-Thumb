@@ -58,6 +58,7 @@ class User {
         function nextBanExpirationDate() {
             return new Date(new Date().getTime() + Math.pow(BAN_BASE, this._bans.length + 1)* 24 * 60 * 60 * 1000 );
         }
+        
         /**
 		 * @desc Convert the private attributes of User object to JSON so it can be sent via an API.
 		 * @author Nathaniel Carr

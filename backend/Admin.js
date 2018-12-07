@@ -20,7 +20,7 @@ class Admin extends User {
         super(userId, bans);
 
         this.addBan = addBan;
-        this.ban = ban;
+        this.nextBanExpirationDate = nextBanExpirationDate;
         this.isBanned = isBanned;
 
         /**
@@ -32,12 +32,11 @@ class Admin extends User {
         }
 
         /**
-         * @author Saje Bailey
-         * @param {Number} adminId The ID of the Admin banning the User. Integer.
-         * @throws exception, an Admin cannot be banned
-         */
-        function ban(adminId) {
-            throw "An Admin cannot be banned.";
+        * @author Nathaniel Carr
+        * @returns {Date} Next Ban expiration date.
+        */
+        function nextBanExpirationDate() {
+            return new Date();
         }
 
         /**
