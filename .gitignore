@@ -55,11 +55,13 @@ local.properties
 
 # Node files
 ############################
+package-lock.json
 
 # Dependency directories
 ########################
+node_modules/*
 node_modules/
-jspm_packages/
+jspm_packages/*
 
 # Optional npm cache directory
 .npm
