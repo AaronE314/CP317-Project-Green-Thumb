@@ -28,6 +28,7 @@ class PhotoReport {
 		this.getUserId = getUserId;
 		this.getReportText = getReportText;
 		this.getReportDate = getReportDate;
+		this.setId = setId;
 		this.toJSON = toJSON;
 
 		// PUBLIC method defintions.
@@ -66,6 +67,16 @@ class PhotoReport {
 		function getReportDate() {
 			return _reportDate;
 		}
+		/**
+         * @desc Set the Ban ID. Can only be done once.
+         * @author Nathaniel Carr
+         * @param {Number} id The Ban ID. Integer.
+         */
+        function setId(id) {
+            if (!_id) {
+                _id = id;
+            }
+        }
 		/**
 		 * @desc Convert the private attributes of PhotoReport object to JSON so it can be sent via an API.
 		 * @author Nathaniel Carr
