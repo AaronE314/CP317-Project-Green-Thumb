@@ -11,7 +11,7 @@ class User {
      * @desc Constructor for the User class.
      * @author Saje Bailey
      * @param {Ban[]} bans The list of Bans associated with the User.
-     * @param {Number} userId The ID of the User. Integer.
+     * @param {Number} id The ID of the User. Integer.
      * @constructor
      */
     constructor(id, bans) {
