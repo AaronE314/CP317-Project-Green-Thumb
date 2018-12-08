@@ -371,7 +371,7 @@ async function getBan(banID) {
 
             let req = new sql.Request();
             req.input('banId', sql.Int, banID);
-            return await req.query("Select * from [projectgreenthumb].[dbo].[plant] where ban_id = @banId ")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[ban] where ban_id = @banId ")
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
                         ban = new Ban(recordset.recordset[0].ban_id, recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date);
@@ -517,6 +517,46 @@ async function getPhotoReportsByAdmin(adminId) {
 }
 
 /**
+ * @desc Returns a Admin object from the Database
+ * @author Austin Bursey
+ * @param {Number} adminID The primary key of the Admin table
+ * @returns {admin} A Admin object
+*/
+
+async function getAdmin(adminID) {
+
+    return await sql.connect(config)
+        .then(async function () {
+    
+            let req = new sql.Request();
+            req.input('adminID', sql.Int, adminID);
+            return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[admin] where admin_id = @adminID ")
+                .then(function (recordset) {
+                    if (recordset.recordset[0] !== null) {
+                        user = new Admin(recordset.recordset[0].admin_id, async function () {
+                            req.input('adminID', sql.Int, adminID);
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[ban] where admin_id = @adminID").then(function (recordset) {
+                                return recordset;
+                            }).catch(function (err) {
+                                console.log(err);
+                            })
+                        });
+    
+                        sql.close();
+                        return user;
+                    } else {
+                        throw new DBIRecordNotFound("adminID");
+                    }
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+    }
+/**
  * @desc Returns a Plant object from the Database
  * @author Austin Bursey
  * @param {Number} plantId The primary key of the Plant table
@@ -531,9 +571,13 @@ async function getPlant(plantID) {
             req.input('plantId', sql.Int, plantID);
             return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[plant] where plant_id = @plantId;")
                 .then(function (recordset) {
-                    plant = new Plant(recordset.recordset[0].plant_id, recordset.recordset[0].plant_name, recordset.recordset[0].plant_bio);
-                    sql.close();
-                    return plant;
+                    if(recordset.recordset[0] !=null ){
+                        plant = new Plant(recordset.recordset[0].plant_id, recordset.recordset[0].plant_name, recordset.recordset[0].plant_bio);
+                        sql.close();
+                        return plant;
+                    }else {
+                        throw new DBIRecordNotFound("plantID");
+                    }
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -1026,12 +1070,175 @@ async function updatePlant(plant) {
             console.log(err);
         });
 }
+/**
+ * @desc Returns true if the adminId is in the Admin table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} adminID The primary key of the Admin table
+ * @returns {Boolean} A Boolean object
+*/
+async function isValidAdminId(adminId){
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('adminID', sql.Int, adminID);
+            return await req.query("SELECT admin_id FROM [projectgreenthumb].[dbo].[admin] where admin_id = @adminID ")
+                .then(function (recordset) {
+                    let bool = false;
+                    if (recordset.recordset[0] !== null) {
+                        bool = true; 
+                    } 
+                    return bool;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+    }
+/**
+ * @desc Returns true if the Ban is in the Ban table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} banID The primary key of the Ban table
+ * @returns {Boolean} A Boolean object
+*/
+    async function isValidBanId(banId){
+        return await sql.connect(config)
+            .then(async function () {
+                let req = new sql.Request();
+                req.input('banID', sql.Int, banId);
+                return await req.query("SELECT ban_id FROM [projectgreenthumb].[dbo].[ban] where ban_id = @banID ")
+                    .then(function (recordset) {
+                        let bool = false;
+                        if (recordset.recordset[0] !== null) {
+                            bool = true; 
+                        } 
+                        return bool;
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
+/**
+ * @desc Returns true if the photoId is in the Photo table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} photoID The primary key of the Photo table
+ * @returns {Boolean} A Boolean object
+*/
+async function isValidPhotoId(photoId){
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('photoId', sql.Int, photoId);
+            return await req.query("SELECT photo_id FROM [projectgreenthumb].[dbo].[photo] where photo_id = @photoId ")
+                .then(function (recordset) {
+                    let bool = false;
+                    if (recordset.recordset[0] !== null) {
+                        bool = true; 
+                    } 
+                    return bool;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+/**
+ * @desc Returns true if the plantId is in the Plant table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} plantID The primary key of the plant table
+ * @returns {Boolean} A Boolean object
+*/
+async function isValidPlantId(plantId){
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('plantId', sql.Int, plantId);
+            return await req.query("SELECT plant_id FROM [projectgreenthumb].[dbo].[plant] where plant_id = @plantId ")
+                .then(function (recordset) {
+                    let bool = false;
+                    if (recordset.recordset[0] !== null) {
+                        bool = true; 
+                    } 
+                    return bool;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+/**
+ * @desc Returns true if the userId is in the User table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} userID The primary key of the User table
+ * @returns {Boolean} A Boolean object
+*/
+async function isValidUserId(userId){
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('userId', sql.Int, userId);
+            return await req.query("SELECT user_id FROM [projectgreenthumb].[dbo].[user] where user_id = @userId ")
+                .then(function (recordset) {
+                    let bool = false;
+                    if (recordset.recordset[0] !== null) {
+                        bool = true; 
+                    } 
+                    return bool;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+/**
+ * @desc Returns true if the reportId is in the Report table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} reportID The primary key of the Report table
+ * @returns {Boolean} A Boolean object
+*/
+async function isValidReportId(reportId){
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('reportId', sql.Int, reportId);
+            return await req.query("SELECT report_id FROM [projectgreenthumb].[dbo].[report] where report_id = @reportId ")
+                .then(function (recordset) {
+                    let bool = false;
+                    if (recordset.recordset[0] !== null) {
+                        bool = true; 
+                    } 
+                    return bool;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
 
 module.exports = {
     addBan, addPhoto, addPhotoReport, addPlant, addUser, addAdmin,
     removePhoto, removePhotoReport, removePlant, removeUser,
-    getBan, getPhoto, getPhotoReport, getPlant, getPhotoReportsByAdmin,
+    getBan, getPhoto, getPhotoReport, getPlant, getPhotoReportsByAdmin, getAdmin,
     getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
     getTopUserPhotos, getUnhandeledPhotoReportsByDate, getUnhandeledPhotoReportsByPriority,
-    getUser, updatePlant, updatePhoto, updatePhotoReport
+    getUser, updatePlant, updatePhoto, updatePhotoReport,isValidReportId,isValidUserId,isValidPlantId,
+    isValidPhotoId,isValidBanId,isValidAdminId
 }
