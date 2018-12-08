@@ -517,6 +517,46 @@ async function getPhotoReportsByAdmin(adminId) {
 }
 
 /**
+ * @desc Returns a Admin object from the Database
+ * @author Austin Bursey
+ * @param {Number} adminID The primary key of the Admin table
+ * @returns {admin} A Admin object
+*/
+
+async function getAdmin(adminID) {
+
+    return await sql.connect(config)
+        .then(async function () {
+    
+            let req = new sql.Request();
+            req.input('adminID', sql.Int, adminID);
+            return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[admin] where admin_id = @adminID ")
+                .then(function (recordset) {
+                    if (recordset.recordset[0] !== null) {
+                        user = new Admin(recordset.recordset[0].admin_id, async function () {
+                            req.input('adminID', sql.Int, adminID);
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[ban] where admin_id = @adminID").then(function (recordset) {
+                                return recordset;
+                            }).catch(function (err) {
+                                console.log(err);
+                            })
+                        });
+    
+                        sql.close();
+                        return user;
+                    } else {
+                        throw new DBIRecordNotFound("adminID");
+                    }
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+    }
+/**
  * @desc Returns a Plant object from the Database
  * @author Austin Bursey
  * @param {Number} plantId The primary key of the Plant table
@@ -531,9 +571,13 @@ async function getPlant(plantID) {
             req.input('plantId', sql.Int, plantID);
             return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[plant] where plant_id = @plantId;")
                 .then(function (recordset) {
-                    plant = new Plant(recordset.recordset[0].plant_id, recordset.recordset[0].plant_name, recordset.recordset[0].plant_bio);
-                    sql.close();
-                    return plant;
+                    if(recordset.recordset[0] !=null ){
+                        plant = new Plant(recordset.recordset[0].plant_id, recordset.recordset[0].plant_name, recordset.recordset[0].plant_bio);
+                        sql.close();
+                        return plant;
+                    }else {
+                        throw new DBIRecordNotFound("plantID");
+                    }
                 })
                 .catch(function (err) {
                     console.log(err);
