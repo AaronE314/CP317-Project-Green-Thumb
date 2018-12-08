@@ -1124,11 +1124,121 @@ async function isValidAdminId(adminId){
                 console.log(err);
             });
     }
+/**
+ * @desc Returns true if the photoId is in the Photo table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} photoID The primary key of the Photo table
+ * @returns {Boolean} A Boolean object
+*/
+async function isValidPhotoId(photoId){
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('photoId', sql.Int, photoId);
+            return await req.query("SELECT photo_id FROM [projectgreenthumb].[dbo].[photo] where photo_id = @photoId ")
+                .then(function (recordset) {
+                    let bool = false;
+                    if (recordset.recordset[0] !== null) {
+                        bool = true; 
+                    } 
+                    return bool;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+/**
+ * @desc Returns true if the plantId is in the Plant table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} plantID The primary key of the plant table
+ * @returns {Boolean} A Boolean object
+*/
+async function isValidPlantId(plantId){
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('plantId', sql.Int, plantId);
+            return await req.query("SELECT plant_id FROM [projectgreenthumb].[dbo].[plant] where plant_id = @plantId ")
+                .then(function (recordset) {
+                    let bool = false;
+                    if (recordset.recordset[0] !== null) {
+                        bool = true; 
+                    } 
+                    return bool;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+/**
+ * @desc Returns true if the userId is in the User table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} userID The primary key of the User table
+ * @returns {Boolean} A Boolean object
+*/
+async function isValidUserId(userId){
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('userId', sql.Int, userId);
+            return await req.query("SELECT user_id FROM [projectgreenthumb].[dbo].[user] where user_id = @userId ")
+                .then(function (recordset) {
+                    let bool = false;
+                    if (recordset.recordset[0] !== null) {
+                        bool = true; 
+                    } 
+                    return bool;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+/**
+ * @desc Returns true if the reportId is in the Report table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} reportID The primary key of the Report table
+ * @returns {Boolean} A Boolean object
+*/
+async function isValidReportId(reportId){
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('reportId', sql.Int, reportId);
+            return await req.query("SELECT report_id FROM [projectgreenthumb].[dbo].[report] where report_id = @reportId ")
+                .then(function (recordset) {
+                    let bool = false;
+                    if (recordset.recordset[0] !== null) {
+                        bool = true; 
+                    } 
+                    return bool;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
+
 module.exports = {
     addBan, addPhoto, addPhotoReport, addPlant, addUser, addAdmin,
     removePhoto, removePhotoReport, removePlant, removeUser,
-    getBan, getPhoto, getPhotoReport, getPlant, getPhotoReportsByAdmin,
+    getBan, getPhoto, getPhotoReport, getPlant, getPhotoReportsByAdmin, getAdmin,
     getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
     getTopUserPhotos, getUnhandeledPhotoReportsByDate, getUnhandeledPhotoReportsByPriority,
-    getUser, updatePlant, updatePhoto, updatePhotoReport
+    getUser, updatePlant, updatePhoto, updatePhotoReport,isValidReportId,isValidUserId,isValidPlantId,
+    isValidPhotoId,isValidBanId,isValidAdminId
 }
