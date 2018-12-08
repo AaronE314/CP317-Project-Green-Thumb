@@ -371,7 +371,7 @@ async function getBan(banID) {
 
             let req = new sql.Request();
             req.input('banId', sql.Int, banID);
-            return await req.query("Select * from [projectgreenthumb].[dbo].[plant] where ban_id = @banId ")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[ban] where ban_id = @banId ")
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
                         ban = new Ban(recordset.recordset[0].ban_id, recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date);
@@ -1070,7 +1070,60 @@ async function updatePlant(plant) {
             console.log(err);
         });
 }
-
+/**
+ * @desc Returns true if the adminId is in the Admin table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} adminID The primary key of the Admin table
+ * @returns {Boolean} A Boolean object
+*/
+async function isValidAdminId(adminId){
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('adminID', sql.Int, adminID);
+            return await req.query("SELECT admin_id FROM [projectgreenthumb].[dbo].[admin] where admin_id = @adminID ")
+                .then(function (recordset) {
+                    let bool = false;
+                    if (recordset.recordset[0] !== null) {
+                        bool = true; 
+                    } 
+                    return bool;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+    }
+/**
+ * @desc Returns true if the Ban is in the Ban table from the  database, otherwise false
+ * @author Austin Bursey
+ * @param {Number} banID The primary key of the Ban table
+ * @returns {Boolean} A Boolean object
+*/
+    async function isValidBanId(banId){
+        return await sql.connect(config)
+            .then(async function () {
+                let req = new sql.Request();
+                req.input('banID', sql.Int, banId);
+                return await req.query("SELECT ban_id FROM [projectgreenthumb].[dbo].[ban] where ban_id = @banID ")
+                    .then(function (recordset) {
+                        let bool = false;
+                        if (recordset.recordset[0] !== null) {
+                            bool = true; 
+                        } 
+                        return bool;
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
 module.exports = {
     addBan, addPhoto, addPhotoReport, addPlant, addUser, addAdmin,
     removePhoto, removePhotoReport, removePlant, removeUser,
