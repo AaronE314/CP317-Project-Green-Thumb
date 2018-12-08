@@ -1,7 +1,6 @@
 // Imports
 const http = require('http');
 const url = require('url')
-const dbtest = require('./dbtest');
 const app = require('./app');
 
 // Define port as environment variable, 8080 if not defined
