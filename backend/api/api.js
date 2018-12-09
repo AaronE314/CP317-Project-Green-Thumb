@@ -99,7 +99,7 @@ api.post("/photos/add",
             })) { return; }
 
             res.send({
-                photo: await DBInterface.addPhoto(new Photo(req.body.plantId, req.body.userId, req.body.image)).toJSON()
+                photo: (await DBInterface.addPhoto(new Photo(req.body.plantId, req.body.userId, req.body.image))).toJSON()
             });
 
         } catch (err) {
@@ -122,7 +122,7 @@ api.post("/photos/byId",
             })) { return; }
 
             res.send({
-                photo: await DBInterface.getPhoto(req.body.photoId).toJSON()
+                photo: (await DBInterface.getPhoto(req.body.photoId)).toJSON()
             });
 
         } catch (err) {
@@ -241,7 +241,7 @@ api.post("/photoReports/add",
             })) { return; }
 
             res.send({
-                report: await DBInterface.addPhotoReport(new PhotoReport(body.photoId, body.userId, body.reportText)).toJSON()
+                report: (await DBInterface.addPhotoReport(new PhotoReport(req.body.photoId, req.body.userId, req.body.reportText))).toJSON()
             });
 
         } catch (err) {
@@ -265,7 +265,7 @@ api.post("/photoReports/byId",
             })) { return; }
 
             res.send({
-                report: await DBInterface.getPhotoReport(req.body.photoReportID).toJSON()
+                report: (await DBInterface.getPhotoReport(req.body.photoReportID)).toJSON()
             });
 
         } catch (err) {
