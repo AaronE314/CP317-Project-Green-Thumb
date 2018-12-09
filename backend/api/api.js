@@ -148,7 +148,7 @@ api.post("/photos/list/byDate",
             })) { return; }
 
             let photos = [];
-            if (body.userId !== undefined) {
+            if (req.body.userId !== undefined) {
                 photos = await DBInterface.getNewestUserPhotos(req.body.userId, req.body.startIndex, req.body.max);
             } else {
                 photos = await DBInterface.getNewestPlantPhotos(req.body.plantId, req.body.startIndex, req.body.max);
@@ -185,7 +185,7 @@ api.post("/photos/list/byRating",
             })) { return; }
 
             let photos = [];
-            if (body.userId !== undefined) {
+            if (req.body.userId !== undefined) {
                 photos = await DBInterface.getTopUserPhotos(req.body.userId, req.body.startIndex, req.body.max);
             } else {
                 photos = await DBInterface.getTopPlantPhotos(req.body.plantId, req.body.startIndex, req.body.max);
@@ -291,9 +291,9 @@ api.post("/photoReports/handle",
                 assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
             })) { return; }
 
-            if (body.adminAction === ADMIN_ACTION.Accept) {
+            if (req.body.adminAction === ADMIN_ACTION.Accept) {
                 await DBInterface.removePhoto(photoReport.getPhotoID());
-            } else if (body.adminAction === ADMIN_ACTION.AcceptBan) {
+            } else if (req.body.adminAction === ADMIN_ACTION.AcceptBan) {
                 let photo = await DBInterface.getPhoto(req.body.photoReportId);
                 let user = await DBInterface.getUser(photo.getUserId());
                 await DBInterface.addBan(new Ban(user.getId(), req.body.adminId, user.nextBanExpirationDate()));
@@ -385,7 +385,7 @@ api.post("/plants/add",
                 assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
             })) { return; }
 
-            let plant = await DBInterface.addPlant(new Plant(body.name, body.bio));
+            let plant = await DBInterface.addPlant(new Plant(req.body.name, req.body.bio));
             let photos = [];
 
             res.send({
