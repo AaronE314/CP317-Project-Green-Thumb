@@ -201,6 +201,7 @@ async function addUser(user) {
  * @returns nothing
 */
 async function addAdmin(Admin) {
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
@@ -227,6 +228,7 @@ async function addAdmin(Admin) {
  * @returns nothing
 */
 async function removePhoto(photoID) {
+    sql.close() // CLose any existing connections
     // Connect to database
     sql.connect(config, function (err) {
         if (err) { console.log(err); }
@@ -251,6 +253,7 @@ async function removePhoto(photoID) {
  * @returns nothing
 */
 async function removePhotoReport(photoReportID) {
+    sql.close() // CLose any existing connections
     // Connect to database
     sql.connect(config, function (err) {
         if (err) { console.log(err); }
@@ -262,7 +265,6 @@ async function removePhotoReport(photoReportID) {
         // Query the database and remove photo
         request.query(sqlQuery, function (err, recordset) {
             if (err) { console.log(err); }
-
             sql.close(); //Close connection
         });
     });
@@ -275,10 +277,10 @@ async function removePhotoReport(photoReportID) {
  * @returns nothing
 */
 async function removePlant(plantID) {
+    sql.close() // CLose any existing connections
     // Connect to database
     sql.connect(config, function (err) {
         if (err) { console.log(err); }
-
         var request = new sql.Request(); // create Request object
         req.input('plantId', sql.Int, plantID);
         var sqlQuery = // Create SQL Query
@@ -323,10 +325,10 @@ async function removePlant(plantID) {
  * @returns nothing
 */
 async function removeUser(UserID) {
+    sql.close() // CLose any existing connections
     // Connect to database
     sql.connect(config, function (err) {
         if (err) { console.log(err); }
-
         var request = new sql.Request(); // create Request object
         req.input('userId', sql.Int, userID);
         var sqlQuery = // Create SQL Query
@@ -572,7 +574,7 @@ async function getPlant(plantID) {
             return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[plant] where plant_id = @plantId;")
                 .then(function (recordset) {
                     if(recordset.recordset[0] !=null ){
-                        plant = new Plant(recordset.recordset[0].plant_id, recordset.recordset[0].plant_name, recordset.recordset[0].plant_bio);
+                        plant = new Plant(recordset.recordset[0].plant_name, recordset.recordset[0].plant_bio, recordset.recordset[0].plant_id);
                         sql.close();
                         return plant;
                     }else {
@@ -599,6 +601,7 @@ async function getPlant(plantID) {
 
 async function getNewestPlantPhotos(plantID, startIndex, max) {
     photos = [];
+    sql.close() // CLose any existing connections
     await sql.connect(config)
         .then(async function () {
 
@@ -658,6 +661,7 @@ async function getNewestPlantPhotos(plantID, startIndex, max) {
 
 async function getNewestUserPhotos(userID, startIndex, max) {
     photos = [];
+    sql.close() // CLose any existing connections
     await sql.connect(config)
         .then(async function () {
 
@@ -715,6 +719,7 @@ async function getNewestUserPhotos(userID, startIndex, max) {
 
 async function getTopPhotos(startIndex, max) {
     photos = [];
+    sql.close() // CLose any existing connections
     await sql.connect(config)
         .then(async function () {
 
@@ -776,6 +781,7 @@ async function getTopPhotos(startIndex, max) {
 
 async function getTopPlantPhotos(plantID, startIndex, max) {
     photos = [];
+    sql.close() // CLose any existing connections
     await sql.connect(config)
         .then(async function () {
 
