@@ -116,11 +116,11 @@ async function addPhotoReport(pReport) {
     sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
+            let req = new sql.Request();
             req.input("photoId", sql.Int, pReport.getPhotoId());
             req.input("rDate", sql.Date, pReport.getReportDate());
             req.input("rText", sql.VarChar, pReport.getReportText());
             req.input("userId", sql.Int, pReport.getUserId());
-            let req = new sql.Request();
             return await req.query("Insert into [report] (post_id, report_date , report_details) " +
                 "Values((SELECT post_id from [post] where user_id = @userID AND photo_id = phoroID)" +
                 ", @reportDate , @reportDetails); Insert into [admin_report] (report_id , admin_id , admin_action) " +
@@ -1103,7 +1103,7 @@ async function isValidAdminId(adminId) {
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
-            req.input('adminID', sql.Int, adminID);
+            req.input('adminID', sql.Int, adminId);
             return await req.query("SELECT admin_id FROM [projectgreenthumb].[dbo].[admin] where admin_id = @adminID ")
                 .then(function (recordset) {
                     let bool = false;
