@@ -23,8 +23,8 @@ class Photo {
         let _image = image;
         let _id = id //can be undefined because the id is optional;
         let _uploadDate = uploadDate !== undefined ? new Date(uploadDate) : new Date();
-        let _upvoteIds = upvoteIds !== undefined ? upvoteIds.sort((a, b) => { return a - b; }) : [];
-        let _downvoteIds = downvoteIds !== undefined ? downvoteIds.sort((a, b) => { return a - b; }) : [];
+        let _upvoteIds = upvoteIds; //!== undefined ? upvoteIds.sort((a, b) => { return a - b; }) : [];
+        let _downvoteIds = downvoteIds; //!== undefined ? downvoteIds.sort((a, b) => { return a - b; }) : [];
 
         // PUBLIC methods.
         this.getId = getId;
