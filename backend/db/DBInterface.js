@@ -45,6 +45,7 @@ async function addBan(ban) {
     if (new_Ban != null) {
         throw new DBIDuplicate("Ban");
     }
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
@@ -79,6 +80,7 @@ async function addPhoto(photo) {
     if (new_photo != null) {
         throw new DBIDuplicate("Photo");
     }
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
@@ -111,6 +113,7 @@ async function addPhotoReport(pReport) {
     if (new_photoReport != null) {
         throw new DBIDuplicate("PhotoReport");
     }
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             req.input("photoId", sql.Int, pReport.getPhotoId());
@@ -146,6 +149,7 @@ async function addPlant(plant) {
     if (new_plant != null) {
         throw new DBIDuplicate("Plant");
     }
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -175,6 +179,7 @@ async function addUser(user) {
     if (new_User != null) {
         throw new DBIDuplicate("User");
     }
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
@@ -368,6 +373,7 @@ async function removeUser(UserID) {
 */
 
 async function getBan(banID) {
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
@@ -400,6 +406,7 @@ async function getBan(banID) {
 
 async function getPhoto(photoId) {
 
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
@@ -447,6 +454,7 @@ async function getPhoto(photoId) {
  */
 
 async function getPhotoReport(photoReportId) {
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
@@ -476,6 +484,7 @@ async function getPhotoReport(photoReportId) {
 
 async function getPhotoReportsByAdmin(adminId) {
     reports = [];
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
@@ -526,10 +535,10 @@ async function getPhotoReportsByAdmin(adminId) {
 */
 
 async function getAdmin(adminID) {
-
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
-    
+
             let req = new sql.Request();
             req.input('adminID', sql.Int, adminID);
             return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[admin] where admin_id = @adminID ")
@@ -543,7 +552,7 @@ async function getAdmin(adminID) {
                                 console.log(err);
                             })
                         });
-    
+
                         sql.close();
                         return user;
                     } else {
@@ -557,7 +566,7 @@ async function getAdmin(adminID) {
         .catch(function (err) {
             console.log(err);
         });
-    }
+}
 /**
  * @desc Returns a Plant object from the Database
  * @author Austin Bursey
@@ -566,6 +575,7 @@ async function getAdmin(adminID) {
 */
 
 async function getPlant(plantID) {
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
@@ -573,11 +583,11 @@ async function getPlant(plantID) {
             req.input('plantId', sql.Int, plantID);
             return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[plant] where plant_id = @plantId;")
                 .then(function (recordset) {
-                    if(recordset.recordset[0] !=null ){
+                    if (recordset.recordset[0] != null) {
                         plant = new Plant(recordset.recordset[0].plant_name, recordset.recordset[0].plant_bio, recordset.recordset[0].plant_id);
                         sql.close();
                         return plant;
-                    }else {
+                    } else {
                         throw new DBIRecordNotFound("plantID");
                     }
                 })
@@ -841,6 +851,7 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
 
 async function getTopUserPhotos(userID, startIndex, max) {
     var photos = [];
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -894,6 +905,7 @@ async function getTopUserPhotos(userID, startIndex, max) {
 
 async function getUnhandeledPhotoReportsByPriority(startIndex, max) {
     var photoReports = [];
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -929,6 +941,7 @@ async function getUnhandeledPhotoReportsByPriority(startIndex, max) {
 
 async function getUnhandeledPhotoReportsByDate(startIndex, max) {
     var photoReports = [];
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -961,7 +974,7 @@ async function getUnhandeledPhotoReportsByDate(startIndex, max) {
 */
 
 async function getUser(userId) {
-
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
@@ -1004,6 +1017,7 @@ async function getUser(userId) {
 */
 
 async function updatePhoto(photo) {
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1031,6 +1045,7 @@ async function updatePhoto(photo) {
  * @returns nothing
 */
 async function updatePhotoReport(pReport) {
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             req.input("reportId", sql.Int, pReport.getId());
@@ -1058,6 +1073,7 @@ async function updatePhotoReport(pReport) {
  * @returns nothing
 */
 async function updatePlant(plant) {
+    sql.close() // CLose any existing connections    
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1082,7 +1098,8 @@ async function updatePlant(plant) {
  * @param {Number} adminID The primary key of the Admin table
  * @returns {Boolean} A Boolean object
 */
-async function isValidAdminId(adminId){
+async function isValidAdminId(adminId) {
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1091,8 +1108,8 @@ async function isValidAdminId(adminId){
                 .then(function (recordset) {
                     let bool = false;
                     if (recordset.recordset[0] !== null) {
-                        bool = true; 
-                    } 
+                        bool = true;
+                    }
                     return bool;
                 })
                 .catch(function (err) {
@@ -1102,41 +1119,43 @@ async function isValidAdminId(adminId){
         .catch(function (err) {
             console.log(err);
         });
-    }
+}
 /**
  * @desc Returns true if the Ban is in the Ban table from the  database, otherwise false
  * @author Austin Bursey
  * @param {Number} banID The primary key of the Ban table
  * @returns {Boolean} A Boolean object
 */
-    async function isValidBanId(banId){
-        return await sql.connect(config)
-            .then(async function () {
-                let req = new sql.Request();
-                req.input('banID', sql.Int, banId);
-                return await req.query("SELECT ban_id FROM [projectgreenthumb].[dbo].[ban] where ban_id = @banID ")
-                    .then(function (recordset) {
-                        let bool = false;
-                        if (recordset.recordset[0] !== null) {
-                            bool = true; 
-                        } 
-                        return bool;
-                    })
-                    .catch(function (err) {
-                        console.log(err);
-                    });
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-    }
+async function isValidBanId(banId) {
+    sql.close() // CLose any existing connections
+    return await sql.connect(config)
+        .then(async function () {
+            let req = new sql.Request();
+            req.input('banID', sql.Int, banId);
+            return await req.query("SELECT ban_id FROM [projectgreenthumb].[dbo].[ban] where ban_id = @banID ")
+                .then(function (recordset) {
+                    let bool = false;
+                    if (recordset.recordset[0] !== null) {
+                        bool = true;
+                    }
+                    return bool;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
+}
 /**
  * @desc Returns true if the photoId is in the Photo table from the  database, otherwise false
  * @author Austin Bursey
  * @param {Number} photoID The primary key of the Photo table
  * @returns {Boolean} A Boolean object
 */
-async function isValidPhotoId(photoId){
+async function isValidPhotoId(photoId) {
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1145,8 +1164,8 @@ async function isValidPhotoId(photoId){
                 .then(function (recordset) {
                     let bool = false;
                     if (recordset.recordset[0] !== null) {
-                        bool = true; 
-                    } 
+                        bool = true;
+                    }
                     return bool;
                 })
                 .catch(function (err) {
@@ -1163,7 +1182,8 @@ async function isValidPhotoId(photoId){
  * @param {Number} plantID The primary key of the plant table
  * @returns {Boolean} A Boolean object
 */
-async function isValidPlantId(plantId){
+async function isValidPlantId(plantId) {
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1172,8 +1192,8 @@ async function isValidPlantId(plantId){
                 .then(function (recordset) {
                     let bool = false;
                     if (recordset.recordset[0] !== null) {
-                        bool = true; 
-                    } 
+                        bool = true;
+                    }
                     return bool;
                 })
                 .catch(function (err) {
@@ -1190,7 +1210,8 @@ async function isValidPlantId(plantId){
  * @param {Number} userID The primary key of the User table
  * @returns {Boolean} A Boolean object
 */
-async function isValidUserId(userId){
+async function isValidUserId(userId) {
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1199,8 +1220,8 @@ async function isValidUserId(userId){
                 .then(function (recordset) {
                     let bool = false;
                     if (recordset.recordset[0] !== null) {
-                        bool = true; 
-                    } 
+                        bool = true;
+                    }
                     return bool;
                 })
                 .catch(function (err) {
@@ -1217,7 +1238,8 @@ async function isValidUserId(userId){
  * @param {Number} reportID The primary key of the Report table
  * @returns {Boolean} A Boolean object
 */
-async function isValidReportId(reportId){
+async function isValidReportId(reportId) {
+    sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1226,8 +1248,8 @@ async function isValidReportId(reportId){
                 .then(function (recordset) {
                     let bool = false;
                     if (recordset.recordset[0] !== null) {
-                        bool = true; 
-                    } 
+                        bool = true;
+                    }
                     return bool;
                 })
                 .catch(function (err) {
@@ -1245,6 +1267,6 @@ module.exports = {
     getBan, getPhoto, getPhotoReport, getPlant, getPhotoReportsByAdmin, getAdmin,
     getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
     getTopUserPhotos, getUnhandeledPhotoReportsByDate, getUnhandeledPhotoReportsByPriority,
-    getUser, updatePlant, updatePhoto, updatePhotoReport,isValidReportId,isValidUserId,isValidPlantId,
-    isValidPhotoId,isValidBanId,isValidAdminId
+    getUser, updatePlant, updatePhoto, updatePhotoReport, isValidReportId, isValidUserId, isValidPlantId,
+    isValidPhotoId, isValidBanId, isValidAdminId
 }
