@@ -7,9 +7,9 @@ class Plant {
     /**
      * @desc The constructor for the Plant class.
      * @author Nicolas Ross
+     * @param {string} name
+     * @param {string} bio  
      * @param {Number=} id 
-     * @param {string} name 
-     * @param {string} bio 
      * @constructor
      */
     constructor(name, bio, id) {
