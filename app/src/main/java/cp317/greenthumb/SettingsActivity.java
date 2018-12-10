@@ -1,6 +1,5 @@
 package cp317.greenthumb;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +37,8 @@ public class SettingsActivity extends AppCompatActivity {
         fontScaleSlider = findViewById(R.id.fontScaleSlider);
         previewLabel = findViewById(R.id.changeFont);
         logOutButton = findViewById(R.id.logOutButton);
+        prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
+        System.out.println("prefs.getAll() = " + prefs.getAll());
 
         // Log out button listener
         logOutButton.setOnClickListener(new View.OnClickListener() {
@@ -54,15 +55,13 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        // Prefs are SharedPreferences
-        prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
-
-        // Set the max and min for the slider
+        // Set the max for the slider
         fontScaleSlider.setMax(max);
 
         // Set the slider to the current text size
         float textSize = prefs.getFloat("fontsize", MODE_PRIVATE);
         textSize = (textSize-(textSize/7))/3;   // I don't know why, but this works
+        System.out.println("textSize = " + textSize);
         fontScaleSlider.setProgress((int)(textSize-10));
 
         // Set the text size of preview label
@@ -88,6 +87,10 @@ public class SettingsActivity extends AppCompatActivity {
                 SharedPreferences.Editor ed = prefs.edit();
                 ed.putFloat("fontsize", previewLabel.getTextSize());
                 ed.commit();
+
+                // Sets global variable 'text_size' to wherever the slider is put
+                globalVars.text_size = prefs.getFloat("fontsize", MODE_PRIVATE);
+                System.out.println("prefs at end of scaling = " + prefs.getFloat("fontsize", MODE_PRIVATE));
             }
         });
     }
