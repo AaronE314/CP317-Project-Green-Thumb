@@ -91,4 +91,8 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="action_back_to_home">Back to home</string>
+    <string name="action_search">Go</string>
+    <string name="search_box_hint" translatable="false">Search  (i.e. Jasmine)</string>
+    <string name="search_results_text">Rusults:</string>
 </resources>
