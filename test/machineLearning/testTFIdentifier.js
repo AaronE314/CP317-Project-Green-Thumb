@@ -1,7 +1,7 @@
 
 
 let assert = require('assert');
-let identifier = require('../../backend/machineLearning/TFIdentifier.js')
+let identifier = require('../../backend/machineLearning/MLIdentifier.js');
 
 describe('Testing TFIdentifier', () => {
     
