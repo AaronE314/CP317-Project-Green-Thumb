@@ -4,7 +4,7 @@ const Admin = require("../../backend/Admin");
 
 describe("Admin Tests", () => {
 
-    it("nextBanExpirationDate() should return a date",
+    it("nextBanExpirationDate() should return a Date.",
         /**
          * @author Adam Cassidy
          */
@@ -12,7 +12,7 @@ describe("Admin Tests", () => {
             assert((new Admin(1)).nextBanExpirationDate() instanceof Date);
         });
 
-    it("isBanned() should return false",
+    it("isBanned() should return false.",
         /**
          * @author Adam Cassidy
          */
