@@ -123,17 +123,7 @@ class MLIdentifier {
 
         let item = newItem.split(":");
 
-        let schedObj = {
-            id: id,
-            repeat: item[0],
-            startDate: [item[1], item[2], item[3]], // [ YYYY, MO, DD ]
-            hr: item[4],
-            min: item[5],
-            duration: item[6],
-            sched: false
-        };
-
-        let sched = require('node-schedule');
+        let schedule = require('node-schedule');
         // node-cron syntax
         // # ┌────────────── second (optional)
         // # │ ┌──────────── minute
@@ -148,13 +138,24 @@ class MLIdentifier {
         // Date syntax
         // Date(YYYY, MM, DD, HH, MM, SS, NS)
         let schedDate = new Date(item[1], item[2], item[3], item[4], item[5], 0);
-        let schedStr = schedObj.repeat == 0 ? schedDate : schedObj.min + " " + schedObj.hr + " * * " + schedDate.getDay();
+        //let schedStr = item[0] == 0 ? schedDate : item[5] + " " + item[4] + " * * " + schedDate.getDay();
+        let schedStr = item[5] + " " + item[4] + " * * " + schedDate.getDay();
 
-        schedObj.sched = sched.scheduleJob(schedStr, MLIdentifier.retrain.bind(Number(schedObj.duration)));
+        let job = schedule.scheduleJob(schedStr, MLIdentifier.retrain.bind(Number(item[6])));
+
+        let schedObj = {
+          id: id,
+          repeat: item[0],
+          startDate: [item[1], item[2], item[3]], // [ YYYY, MO, DD ]
+          hr: item[4],
+          min: item[5],
+          duration: item[6],
+          sched: job
+        };
 
         _scheduledItems.push(schedObj);
 
-        return (schedObj.id)
+        return schedObj.id;
     }
 
     /**
@@ -171,12 +172,13 @@ class MLIdentifier {
         let pos = _scheduledItems.findIndex(item => item.id === idGiven);
 
         if (pos != -1) {
-            let removedItem = _scheduledItems.splice(pos, 1);
+            let removedItem = _scheduledItems.splice(pos, 1)[0];
             removedItem.sched.cancel();
 
             let dat = new Date(removedItem.startDate[0], removedItem.startDate[1], removedItem.startDate[2], removedItem.hr, removedItem.min, 0, 0);
             let d = dat.getDay();
-            confirmation = ('Training ID: ' + removedItem.id + ', next scheduled for ' + days[d] + ' @ ' + removedItem.hr + ':' + removedItem.min + ', was cancelled and removed from all future schedules.');
+            confirmation = ('Training ID: ' + removedItem.id + ', next scheduled for ' + DAYS[d] + ' @ ' + removedItem.hr + ':' + removedItem.min + ', was cancelled and removed from all future schedules.');
+            console.log(confirmation);
         }
 
         return confirmation

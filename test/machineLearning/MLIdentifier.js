@@ -61,7 +61,7 @@ describe('Testing MLIdentifier', () => {
 
         let confirmation = MLIdentifier.cancelScheduledTrain(id);
 
-        assert(confirmation === true, "didn't cancel");
+        assert(confirmation === "Training ID: 1, next scheduled for Monday @ 15:00, was cancelled and removed from all future schedules.", "didn't cancel");
 
         assert(lengthAfter > MLIdentifier._scheduledItems.length, "removed from list");
     });
