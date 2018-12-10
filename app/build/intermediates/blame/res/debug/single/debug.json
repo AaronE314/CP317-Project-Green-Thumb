@@ -84,16 +84,16 @@
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-hdpi-v4/abc_text_select_handle_middle_mtrl_light.png"
     },
     {
-        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
-        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/res/drawable-xhdpi-v4/common_google_signin_btn_icon_dark_normal_background.9.png"
+        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_list_longpressed_holo.9.png.flat",
+        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-mdpi-v4/abc_list_longpressed_holo.9.png"
     },
     {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-v21_notification_action_background.xml.flat",
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/3784ff8e22cfca76f2246d09d72148ef/res/drawable-v21/notification_action_background.xml"
     },
     {
-        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_list_longpressed_holo.9.png.flat",
-        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-mdpi-v4/abc_list_longpressed_holo.9.png"
+        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
+        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/res/drawable-xhdpi-v4/common_google_signin_btn_icon_dark_normal_background.9.png"
     },
     {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
@@ -144,12 +144,12 @@
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-xhdpi-v4/abc_tab_indicator_mtrl_alpha.9.png"
     },
     {
-        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/color_mtrl_bottom_nav_colored_item_tint.xml.flat",
-        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/c6a0509268f0e8a4da89ee85a93648c0/res/color/mtrl_bottom_nav_colored_item_tint.xml"
-    },
-    {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_list_selector_disabled_holo_light.9.png.flat",
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-xhdpi-v4/abc_list_selector_disabled_holo_light.9.png"
+    },
+    {
+        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/color_mtrl_bottom_nav_colored_item_tint.xml.flat",
+        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/c6a0509268f0e8a4da89ee85a93648c0/res/color/mtrl_bottom_nav_colored_item_tint.xml"
     },
     {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/layout_select_dialog_multichoice_material.xml.flat",
@@ -172,12 +172,12 @@
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/res/drawable-hdpi-v4/common_google_signin_btn_text_dark_normal_background.9.png"
     },
     {
-        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-ldrtl-hdpi-v17_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
-        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-ldrtl-hdpi-v17/abc_ic_menu_copy_mtrl_am_alpha.png"
-    },
-    {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_notification_bg_normal_pressed.9.png.flat",
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/3784ff8e22cfca76f2246d09d72148ef/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-ldrtl-hdpi-v17_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
+        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-ldrtl-hdpi-v17/abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_text_select_handle_right_mtrl_light.png.flat",
@@ -244,12 +244,12 @@
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/a1382266f744910d7719b47ef4d358e8/res/layout/notification_template_big_media_narrow_custom.xml"
     },
     {
-        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_spinner_mtrl_am_alpha.9.png.flat",
-        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-hdpi-v4/abc_spinner_mtrl_am_alpha.9.png"
-    },
-    {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable_abc_item_background_holo_light.xml.flat",
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable/abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_spinner_mtrl_am_alpha.9.png.flat",
+        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-hdpi-v4/abc_spinner_mtrl_am_alpha.9.png"
     },
     {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable_design_snackbar_background.xml.flat",
@@ -284,12 +284,12 @@
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-hdpi-v4/abc_scrubber_track_mtrl_alpha.9.png"
     },
     {
-        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_tab_indicator_mtrl_alpha.9.png.flat",
-        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-mdpi-v4/abc_tab_indicator_mtrl_alpha.9.png"
-    },
-    {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-mdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png"
+    },
+    {
+        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_tab_indicator_mtrl_alpha.9.png.flat",
+        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/e4321065168c5a7919b0c358d9edb89d/res/drawable-mdpi-v4/abc_tab_indicator_mtrl_alpha.9.png"
     },
     {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_common_google_signin_btn_text_dark_normal_background.9.png.flat",
@@ -440,16 +440,16 @@
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/c6a0509268f0e8a4da89ee85a93648c0/res/drawable-mdpi-v4/design_ic_visibility_off.png"
     },
     {
-        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_design_ic_visibility.png.flat",
-        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/c6a0509268f0e8a4da89ee85a93648c0/res/drawable-hdpi-v4/design_ic_visibility.png"
+        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable_common_google_signin_btn_icon_dark.xml.flat",
+        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/res/drawable/common_google_signin_btn_icon_dark.xml"
     },
     {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_googleg_standard_color_18.png.flat",
         "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/res/drawable-xhdpi-v4/googleg_standard_color_18.png"
     },
     {
-        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable_common_google_signin_btn_icon_dark.xml.flat",
-        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/161c7365a553734dee114f1f50bed4bb/res/drawable/common_google_signin_btn_icon_dark.xml"
+        "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_design_ic_visibility.png.flat",
+        "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/c6a0509268f0e8a4da89ee85a93648c0/res/drawable-hdpi-v4/design_ic_visibility.png"
     },
     {
         "merged": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable_ic_mtrl_chip_checked_black.xml.flat",
