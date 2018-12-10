@@ -9,7 +9,7 @@ describe("Plant Tests", () => {
          * @author Noah Nichols
          */
         () => {
-            let plant =new Plant("Devil's Lettuce", "If a tree falls in the forest, is it really a forest?", 1);
+            let plant = new Plant("Devil's Lettuce", "If a tree falls in the forest, is it really a forest?", 1);
             assert.equal(plant.getId(), 1);
         });
 
@@ -18,7 +18,7 @@ describe("Plant Tests", () => {
          * @author Noah Nichols
          */
         () => {
-            let plant =new Plant("Devil's Lettuce", "If a tree falls in the forest, is it really a forest?", 1);
+            let plant = new Plant("Devil's Lettuce", "If a tree falls in the forest, is it really a forest?", 1);
             assert.equal(plant.getName(), "Devil's Lettuce");
         });
 
@@ -27,7 +27,7 @@ describe("Plant Tests", () => {
          * @author Noah Nichols
          */
         () => {
-            let plant =new Plant("Devil's Lettuce", "If a tree falls in the forest, is it really a forest?", 1);
+            let plant = new Plant("Devil's Lettuce", "If a tree falls in the forest, is it really a forest?", 1);
             assert.equal(plant.getBio(), "If a tree falls in the forest, is it really a forest?");
         });
 
@@ -36,7 +36,7 @@ describe("Plant Tests", () => {
          * @author Noah Nichols
          */
         () => {
-            let plant =new Plant("Devil's Lettuce", "If a tree falls in the forest, is it really a forest?", 1);
+            let plant = new Plant("Devil's Lettuce", "If a tree falls in the forest, is it really a forest?", 1);
             let toJSON = plant.toJSON();
             assert.notDeepStrictEqual(plant, toJSON);
             assert.equal(toJSON.id, 1);

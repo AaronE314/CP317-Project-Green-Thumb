@@ -576,29 +576,6 @@ api.post("/plants/update",
         }
     });
 
-api.post("/mlModel/training/immediate",
-    /**
-     * @author Nathaniel Carr
-     * @desc Retrain the machine learning model immediately.
-     */
-    async (req, res) => {
-        try {
-            if (!await validateParams(req, res, async (body) => {
-                assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
-
-                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
-            })) { return; }
-
-            MLTrainer.retrain();
-
-            res.send({});
-
-        } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
-        }
-    });
-
 api.post("/users/add",
     /**
      * @author Nathaniel Carr

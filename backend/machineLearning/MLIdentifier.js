@@ -150,7 +150,7 @@ class MLIdentifier {
         let schedDate = new Date(item[1], item[2], item[3], item[4], item[5], 0);
         let schedStr = schedObj.repeat == 0 ? schedDate : schedObj.min + " " + schedObj.hr + " * * " + schedDate.getDay();
 
-        schedObj.sched = sched.scheduleJob(schedStr, MLIdentifier.retrain(x).bind(Number(schedObj.duration)));
+        schedObj.sched = sched.scheduleJob(schedStr, MLIdentifier.retrain.bind(Number(schedObj.duration)));
 
         _scheduledItems.push(schedObj);
 
