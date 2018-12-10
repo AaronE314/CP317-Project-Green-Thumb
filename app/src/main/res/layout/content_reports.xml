@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ReportsActivity"
+    tools:showIn="@layout/activity_reports">
 
 </android.support.constraint.ConstraintLayout>

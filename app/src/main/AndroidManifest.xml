@@ -14,28 +14,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MangerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ScanActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".SplashScreenActivity" />
         <activity
-            android:name=".SearchActivity"
-            android:label="@string/title_activity_search"
+            android:name=".MainMenuActivity"
+            android:label="@string/title_activity_main_menu" />
+        <activity
+            android:name=".ReportsActivity"
+            android:label="@string/title_activity_reports"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DescriptionActivity" />
-        <activity android:name=".ReportsActivity" />
+        <activity
+            android:name=".ScanActivity"
+            android:label="@string/title_activity_scan" />
+        <activity android:name=".SearchActivity" />
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:exported="true" />
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:label="@string/title_activity_splash_screen" />
+        <activity android:name=".PlantDescriptionActivity" />
+        <activity android:name=".GalleryActivity"></activity>
         <activity android:name=".MainMenuActivity"></activity>
     </application>
 

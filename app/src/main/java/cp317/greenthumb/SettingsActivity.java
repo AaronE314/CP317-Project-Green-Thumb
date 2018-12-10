@@ -1,5 +1,4 @@
 package cp317.greenthumb;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import android.content.SharedPreferences;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import android.widget.Toast;
-
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -29,7 +27,6 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Connect this page to the layout page activity_settings.xml
         setContentView(R.layout.activity_settings);
 
@@ -55,7 +52,12 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+
         // Set the max for the slider
+        // Prefs are SharedPreferences
+        prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
+
+        // Set the max and min for the slider
         fontScaleSlider.setMax(max);
 
         // Set the slider to the current text size
