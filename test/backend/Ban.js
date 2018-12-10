@@ -4,7 +4,7 @@ const Ban = require("../../backend/Ban");
 
 describe("Ban Tests", () => {
 
-    it("getId() should return the banId",
+    it("getId() should return the private banId attribute.",
         /**
          * @author Noah Nichols
          */
@@ -13,7 +13,7 @@ describe("Ban Tests", () => {
             assert.equal(ban.getId(), 21);
         });
 
-    it("getUserId() should return the userId of the banned User",
+    it("getUserId() should return the userId of the banned User.",
         /**
          * @author Noah Nichols
          */
@@ -22,7 +22,7 @@ describe("Ban Tests", () => {
             assert.equal(ban.getUserId(), 1);
         });
 
-    it("getAdminId() should return the adminId of the Admin who banned the User",
+    it("getAdminId() should return the adminId of the Admin who banned the User.",
         /**
          * @author Noah Nichols
          */
@@ -31,7 +31,7 @@ describe("Ban Tests", () => {
             assert.equal(ban.getAdminId(), 2);
         });
 
-    it("getExpirationDate() should return the date when the Ban expires",
+    it("getExpirationDate() should return the date when the Ban expires.",
         /**
          * @author Noah Nichols
          */
@@ -40,7 +40,7 @@ describe("Ban Tests", () => {
             assert(!(ban.getExpirationtDate < new Date(0)) && !(ban.getExpirationDate > new Date(0)));
         });
 
-    it("toJSON() should produce an object containing a copy of the attributes of the Ban object",
+    it("toJSON() should produce an object containing a copy of the attributes of the Ban object.",
         /**
          * @author Noah Nichols
          */
