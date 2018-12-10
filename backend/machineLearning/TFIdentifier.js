@@ -36,13 +36,15 @@ class TFIdentifier {
    * for any given photo id.
    */
   static gatherImages() {
+    
+    const db = require('../db/DBInterface.js');
     var id = 1;
     var plants = [];
-    var picture = getPhoto(i);
+    var picture = db.getPhoto(i);
     while (picture != null) {
       plants.push(picture);
       i++;
-      picture = getPhoto(i);
+      picture = db.getPhoto(i);
     }
     return plants;
   }
@@ -188,11 +190,11 @@ class TFIdentifier {
 
   /**
    * @author John Dunphy
-   *
+   * @deprecated
    * Add description ...
    */
   static _loadNewModel() {
-
+      //unused
   }
 
   /**
@@ -203,6 +205,7 @@ class TFIdentifier {
    * @param {Base64 ByteString} image the image to predict, as a byte image
    *
    * @returns the image converted to a tensor of shape [1, width, height,3]
+   * @deprecated
    */
   static _preProcessImage(image) {
 
