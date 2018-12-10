@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LoginApp</string>
+    <color name="green">#006400</color>
+    <color name="darkgreen">#32CD32</color>
+</resources>
