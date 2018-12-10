@@ -1,5 +1,3 @@
-const MODEL_URL = 'path/to/tensorflowjs_model.pb';
-const WEIGHTS_URL = 'path/to/weights_manifest.json';
 const TEMP_ENCODED_LOC = "temp/encodedImage";
 let scheduledItems = [];
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -51,7 +49,6 @@ class TFIdentifier {
 
   /**
    * @author Aaron Exley
-   * @async
    *
    * Used to identify which flowers are in the given image
    *
@@ -102,7 +99,6 @@ class TFIdentifier {
 
     train.trainModel(duration);
 
-    return
   }
 
   /**
@@ -188,14 +184,14 @@ class TFIdentifier {
     return confirmation
   }
 
-  /**
-   * @author John Dunphy
-   * @deprecated
-   * Add description ...
-   */
-  static _loadNewModel() {
-      //unused
-  }
+  // /**
+  //  * @author John Dunphy
+  //  * @deprecated
+  //  * Add description ...
+  //  */
+  // static _loadNewModel() {
+  //     //unused
+  // }
 
   /**
    * @author Aaron Exley

@@ -1,7 +1,7 @@
 
 
 let assert = require('assert');
-let identifier = require('../../backend/machineLearning/TFIdentifier.jd')
+let identifier = require('../../backend/machineLearning/TFIdentifier.js')
 
 describe('Testing TFIdentifier', () => {
     
@@ -9,8 +9,6 @@ describe('Testing TFIdentifier', () => {
         let results = identifier.gatherImages();
 
         //find some way to test this is correct
-
-
     });
 
     it('should return object containing prediction', async () => {
@@ -41,7 +39,7 @@ describe('Testing TFIdentifier', () => {
                 }
             }
 
-            let accuracy = total / (photo.length * 10);
+            let accuracy = correct / (photo.length * 10);
 
             assert(accuracy > 0.8, `Predict isn't at least 80% accurate for plants with id ${i}`);
 
@@ -66,8 +64,4 @@ describe('Testing TFIdentifier', () => {
 
         assert(lengthAfter > identifier.scheduledItems.length, "removed from list");
     });
-
-    // it('should a confirmation that its been canceled', () => {
-    // });
-
 });
