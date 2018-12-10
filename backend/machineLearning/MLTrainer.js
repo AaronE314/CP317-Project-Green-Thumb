@@ -11,7 +11,7 @@
 const { spawn } = require('child_process');
 const MODEL_URL = 'model';
 const TRAIN_CONFIG = 'training/ssd_mobilenet_v1_coco_2017_11_17.config';
-class TFTrainer {
+class MLTrainer {
 
     /**
      * @author Joseph Myc
