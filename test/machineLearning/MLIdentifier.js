@@ -3,7 +3,7 @@
 let assert = require('assert');
 let MLIdentifier = require('../../backend/machineLearning/MLIdentifier.js');
 
-describe('Testing TFIdentifier', () => {
+describe('Testing MLIdentifier', () => {
     
     // it('should return array of plants', () => {
     //     let results = MLIdentifier.gatherImages();
