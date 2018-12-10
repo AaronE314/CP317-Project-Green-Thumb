@@ -113,27 +113,33 @@ async function addPhoto(photo) {
  * @param {PhotoReport} pReport a PhotoReport object.
  * @returns nothing
 */
-async function getPhotoReport(photoReportId) {
+async function addPhotoReport(pReport) {
+    let new_photoReport = await getPhotoReport(pReport.getId()).catch(function (err) { throw err });
+    if (new_photoReport != null) {
+        throw new DBIDuplicate("PhotoReport");
+    }
     sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
-
             let req = new sql.Request();
-            req.input('photoReportId', sql.Int, photoReportId);
-            return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[report] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.post_id = report.post_id) where report.report_id = @photoReportId;")
+            req.input("photoId", sql.Int, pReport.getPhotoId());
+            req.input("rDate", sql.Date, pReport.getReportDate());
+            req.input("rText", sql.VarChar, pReport.getReportText());
+            req.input("userId", sql.Int, pReport.getUserId());
+            return await req.query("Insert into [report] (post_id, report_date , report_details) " +
+                "Values((SELECT post_id from [post] where user_id = @userID AND photo_id = phoroID)" +
+                ", @reportDate , @reportDetails); Insert into [admin_report] (report_id , admin_id , admin_action) " +
+                "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY(), @photoReport, @admin_Action)")
+
                 .then(function (recordset) {
-                    if(recordset.recordset[0]!== null ){
-                        report = new PhotoReport(recordset.recordset[0].photo_id, recordset.recordset[0].user_id, recordset.recordset[0].report_details, recordset.recordset[0].report_id, recordset.recordset[0].report_date);
-                        sql.close();
-                        return report;
-                    }else {
-                        throw new DBIRecordNotFound("PhotoReport");
-                    }
-                }).catch(function (err) {
+                    sql.close();
+
+                })
+                .catch(function (err) {
                     throw err;
                 });
-
-        }).catch(function (err) {
+        })
+        .catch(function (err) {
             throw err;
         });
 }
@@ -459,12 +465,15 @@ async function getPhotoReport(photoReportId) {
 
             let req = new sql.Request();
             req.input('photoReportId', sql.Int, photoReportId);
-            return await req.query("SELECT * FROM " + dbName + "[report] INNER JOIN " + dbName + "[post] ON (post.post_id = report.post_id) where report.report_id = @photoReportId;")
+            return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[report] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.post_id = report.post_id) where report.report_id = @photoReportId;")
                 .then(function (recordset) {
-                    report = new PhotoReport(recordset.recordset[0].photo_id, recordset.recordset[0].user_id, recordset.recordset[0].report_details, recordset.recordset[0].report_id, recordset.recordset[0].report_date);
-                    sql.close();
-                    return report;
-
+                    if(recordset.recordset[0]!== null ){
+                        report = new PhotoReport(recordset.recordset[0].photo_id, recordset.recordset[0].user_id, recordset.recordset[0].report_details, recordset.recordset[0].report_id, recordset.recordset[0].report_date);
+                        sql.close();
+                        return report;
+                    }else {
+                        throw new DBIRecordNotFound("PhotoReport");
+                    }
                 }).catch(function (err) {
                     throw err;
                 });
