@@ -452,31 +452,33 @@ api.post("/plants/byImage",
 
             let results = [];
             for (let i = 0; i < TFResults.numResults; i++) {
-                let plant = await DBInterface.getPlant(TFResults.classes[i]);
-                let photos = await DBInterface.getTopPlantPhotos(TFResults.classes[i], 0, req.body.maxPhotos);
-                for (let j = 0; j < photos.length; j++) {
-                    photos[j] = photos[j].toJSON();
-                }
-
-                // TODO: Verify that req.body.image has a height and width property
-                let min_y = TFResults.boxes[i * 4] * req.body.image.height;
-                let min_x = TFResults.boxes[i * 4 + 1] * req.body.image.width
-                let max_y = TFResults.boxes[i * 4 + 2] * req.body.image.height;
-                let max_x = TFResults.boxes[i * 4 + 3] * req.body.image.width;
-
-                results.push({
-                    plant: plant,
-                    photos: photos,
-                    score: TFResults.scores[i],
-                    topLeft: {
-                        x: min_x,
-                        y: min_y
-                    },
-                    bottomRight: {
-                        x: max_x,
-                        y: max_y
+                if (TFResults.scores[i] >= 0.3) {
+                    let plant = await DBInterface.getPlant(TFResults.classes[i]);
+                    let photos = await DBInterface.getTopPlantPhotos(TFResults.classes[i], 0, req.body.maxPhotos);
+                    for (let j = 0; j < photos.length; j++) {
+                        photos[j] = photos[j].toJSON();
                     }
-                });
+
+                    // TODO: Verify that req.body.image has a height and width property
+                    let min_y = TFResults.boxes[i * 4] * req.body.image.height;
+                    let min_x = TFResults.boxes[i * 4 + 1] * req.body.image.width
+                    let max_y = TFResults.boxes[i * 4 + 2] * req.body.image.height;
+                    let max_x = TFResults.boxes[i * 4 + 3] * req.body.image.width;
+
+                    results.push({
+                        plant: plant,
+                        photos: photos,
+                        score: TFResults.scores[i],
+                        topLeft: {
+                            x: min_x,
+                            y: min_y
+                        },
+                        bottomRight: {
+                            x: max_x,
+                            y: max_y
+                        }
+                    });
+                }
             }
 
             res.send({ results: results });
