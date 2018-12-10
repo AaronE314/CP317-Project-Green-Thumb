@@ -58,7 +58,7 @@ async function addBan(ban) {
 
                 .then(function (recordset) {
 
-                    ban = new Ban(recordset.recordset[0].ban_id, recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date);
+                    ban = new Ban(recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date, recordset.recordset[0].ban_id);
                     sql.close();
                     return ban;
                 })
@@ -203,10 +203,10 @@ async function addUser(user) {
 /**
  * @desc Add an Admin to the database
  * @author Saad Ansari
- * @param {Admin} Admin an Admin object.
+ * @param {Admin} admin an Admin object.
  * @returns nothing
 */
-async function addAdmin(Admin) {
+async function addAdmin(admin) {
     sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
@@ -416,7 +416,7 @@ async function getPhoto(photoId) {
             return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;            ")
                 .then(function (recordset) {
                     if (recordset.recordset[0] !== null) {
-                        photo = new Photo(recordset.recordset[0].photo_id, recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].upload_date, async function () {
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image,recordset.recordset[0].photo_id, recordset.recordset[0].upload_date,  async function () {
                             req.input('photoId', sql.Int, photoId);
                             return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = @photoId and vote = 1 ").then(function (recordset) {
                                 return recordset.recordset;
@@ -463,7 +463,7 @@ async function getPhotoReport(photoReportId) {
             req.input('photoReportId', sql.Int, photoReportId);
             return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[report] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.post_id = report.post_id) where report.report_id = @photoReportId;")
                 .then(function (recordset) {
-                    report = new PhotoReport(recordset.recordset[0].report_id, recordset.recordset[0].photo_id, recordset.recordset[0].user_id, recordset.recordset[0].report_details, recordset.recordset[0].report_date);
+                    report = new PhotoReport(recordset.recordset[0].photo_id, recordset.recordset[0].user_id, recordset.recordset[0].report_details, recordset.recordset[0].report_id, recordset.recordset[0].report_date);
                     sql.close();
                     return report;
 
@@ -867,7 +867,7 @@ async function getTopUserPhotos(userID, startIndex, max) {
             return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 while (recordset.recordset[ind] != null) {
-                    photos.push(new Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
+                    photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, async function () {
                         req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
                         return await req.query("Select [user_id] from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
                             return recordset;
@@ -916,7 +916,7 @@ async function getUnhandeledPhotoReportsByPriority(startIndex, max) {
             return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 while (recordset.recordset[ind] != null) {
-                    photoReports.push(new PhotoReport(recordset.recordset[ind].report_id, recordset.recordset[ind].photo_id, recordset.recordset[ind].user_id, recordset.recordset[ind].report_details, recordset.recordset[ind].report_date));
+                    photoReports.push(new PhotoReport(recordset.recordset[ind].photo_id, recordset.recordset[ind].user_id, recordset.recordset[ind].report_details, recordset.recordset[ind].report_id, recordset.recordset[ind].report_date));
                     ind = ind + 1;
                 }
                 sql.close();
@@ -952,7 +952,7 @@ async function getUnhandeledPhotoReportsByDate(startIndex, max) {
             return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 while (recordset.recordset[ind] != null) {
-                    photoReports.push(new PhotoReport(recordset.recordset[ind].report_id, recordset.recordset[ind].photo_id, recordset.recordset[ind].user_id, recordset.recordset[ind].report_details, recordset.recordset[ind].report_date));
+                    photoReports.push(new PhotoReport(recordset.recordset[ind].photo_id, recordset.recordset[ind].user_id, recordset.recordset[ind].report_details, recordset.recordset[ind].report_id, recordset.recordset[ind].report_date));
                     ind = ind + 1;
                 }
                 sql.close();
