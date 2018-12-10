@@ -9,8 +9,7 @@ describe("Admin Tests", () => {
          * @author Adam Cassidy
          */
         () => {
-            let date = new Date();
-            assert.equal(Admin.nextBanExpirationDate(), date);
+            assert((new Admin(1, [])).nextBanExpirationDate() instanceof Date);
         });
 
     it("isBanned() should return false",
@@ -18,6 +17,6 @@ describe("Admin Tests", () => {
          * @author Adam Cassidy
          */
         () => {
-            assert.equal(Admin.isBanned(), false);
+            assert.equal((new Date(1, [])).isBanned(), false);
         });
 });
