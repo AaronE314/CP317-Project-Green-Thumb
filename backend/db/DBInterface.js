@@ -94,7 +94,8 @@ async function addPhoto(photo) {
             req.input("image", sql.Binary, photo.getImage());
             req.input("tfrecord", sql.VarChar, photo.getTfRecord());
             req.input("userId", sql.int, photo.getUserId());
-            return await req.query(" insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));")
+            return await req.query("insert into [photo] (plant_id, image, tf_record) values (1,convert(binary,'1010101'), 0)"+
+           " insert into [post] (user_id , photo_id) values (1, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));")
 
                 .then(function (recordset) {
                     sql.close();
@@ -384,7 +385,9 @@ async function getBan(banID) {
 
             let req = new sql.Request();
             req.input('banId', sql.Int, banID);
+
             return await req.query("Select * from " + dbName + "[ban] where ban_id = @banId")
+
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
                         ban = new Ban(recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date, recordset.recordset[0].ban_id);
@@ -549,11 +552,14 @@ async function getAdmin(adminID) {
 
             let req = new sql.Request();
             req.input('adminID', sql.Int, adminID);
+
             return await req.query("SELECT * FROM " + dbName + "[admin] where admin_id = @adminID ")
+
                 .then(function (recordset) {
                     if (recordset.recordset[0] !== null) {
                         user = new Admin(recordset.recordset[0].admin_id, async function () {
                             req.input('adminID', sql.Int, adminID);
+
                             return await req.query("Select user_id from " + dbName + "[ban] where admin_id = @adminID").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
@@ -696,14 +702,18 @@ async function getNewestUserPhotos(userID, startIndex, max) {
                     while (recordset[ind] != null) {
                         photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+
                             return await req.query("Select user_id from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+
                                 return recordset;
                             }).catch(function (err) {
                                 throw err;
                             })
                         }, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+
                             return await req.query("Select user_id from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+
                                 return recordset;
                             }).catch(function (err) {
                                 throw err;
@@ -759,13 +769,16 @@ async function getTopPhotos(startIndex, max) {
                         photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
                             return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+
                                 return recordset;
                             }).catch(function (err) {
                                 throw err;
                             })
                         }, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
+
                             return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+
                                 return recordset;
                             }).catch(function (err) {
                                 throw err;
@@ -804,7 +817,7 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('plantId', sql.Int, plantId);
+            req.input('plantId', sql.Int, plantID);
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
                 ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
                 'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
