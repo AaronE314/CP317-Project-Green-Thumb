@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import java.util.Set;
+import android.content.Intent;
+
 /*test
 
  */
@@ -14,7 +17,9 @@ import android.widget.ImageButton;
 public class MainMenuActivity extends AppCompatActivity {
     private ImageButton settingsButton,scanButton,scanAlbumButton,searchButton;
 
+
     @Override
+<<<<<<< HEAD
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
@@ -29,6 +34,7 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
+        /* Can't implement until scan view done. Might have to scrap.
         //Scan Page
         scanAlbumButton = findViewById(R.id.scanAlbumButton);
         scanAlbumButton.setOnClickListener(new View.OnClickListener(){
@@ -36,6 +42,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 openAlbumScan();
             }
         });
+        */
 
         //Settings Page
         settingsButton = findViewById(R.id.settingsButton);
@@ -59,10 +66,12 @@ public class MainMenuActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    /* Can't implement until scan view done. Will be done later if at all.
     public void openAlbumScan() {
         Intent i = new Intent(this, ScanActivity.class);
         startActivity(i);
     }
+    */
 
     public void openSettings() {
         Intent i = new Intent(this, SettingsActivity.class);
