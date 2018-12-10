@@ -170,8 +170,8 @@ class Photo {
             let result = -1;
 
             while (first <= last && !found) {
-                let compResult = comp(arr[mid], item);
                 mid = Math.floor((first + last) / 2);
+                let compResult = comp(arr[mid], item);
                 if (compResult == 0) {
                     found = true;
                     result = mid;
