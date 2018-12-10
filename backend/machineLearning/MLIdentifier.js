@@ -3,7 +3,7 @@ let scheduledItems = [];
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 /**
- * @module: TFIdentifier.js
+ * @module: MLIdentifier.js
  * ------------------------------------------------------------------
  * @author Aaron Exley
  * @author Justin Harrott
@@ -21,7 +21,7 @@ const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satur
  * @requires NPM:child_process @link {https://www.npmjs.com/package/child_process}
  * @requires NPM:fs @link {https://www.npmjs.com/package/fs}
  */
-class TFIdentifier {
+class MLIdentifier {
 
   /**
    * @author John Dunphy
@@ -73,7 +73,7 @@ class TFIdentifier {
 
     fs.writeFileSync(TEMP_ENCODED_LOC, image);
 
-    const data = child_process.execSync(`python TFExecutor.py ${TEMP_ENCODED_LOC}`);
+    const data = child_process.execSync(`python MLExecutor.py ${TEMP_ENCODED_LOC}`);
 
     const output = JSON.parse("[" + data.toString() + "]");
 
@@ -88,12 +88,12 @@ class TFIdentifier {
   /**
    * @author Justin Harrott
    *
-   * calls trainModel function from TFTrainer.js
+   * calls trainModel function from MLTrainer.js
    *
    * @param {Number} duration length of training period in hours; default 8 hours
    */
   static retrain(duration) {
-    let train = require('./TFTrainer.js');
+    let train = require('./MLTrainer.js');
 
     train.trainModel(duration);
 

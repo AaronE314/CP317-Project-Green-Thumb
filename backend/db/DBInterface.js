@@ -9,12 +9,13 @@
 
 // Imports
 var sql = require("mssql");
-var Ban = require("./Ban.js");
-var Photo = require("./Photo.js");
-var PhotoReport = require("./PhotoReport.js");
-var Plant = require("./Plant.js");
-var Admin = require("./Admin.js");
-var User = require("./User.js");
+
+var Admin = require("../Admin.js");
+var Ban = require("../Ban.js");
+var Photo = require("../Photo.js");
+var PhotoReport = require("../PhotoReport.js");
+var Plant = require("../Plant.js");
+var User = require("../User.js");
 
 // Configuration for database
 var config = {
