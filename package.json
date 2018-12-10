@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "mssql": "^4.3.0",
+    "node-schedule": "^1.3.1"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha"
+  }
+}

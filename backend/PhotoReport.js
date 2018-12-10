@@ -7,19 +7,19 @@ class PhotoReport {
 	/**
 	 * @desc The PhotoReport class constructor.
 	 * @author Scott Peebles
-	 * @param {Number} id The PhotoReport ID. Integer.
+	 * @param {Number=} id The PhotoReport ID. Integer.
 	 * @param {Number} photoId The ID of the reported Photo. Integer.
 	 * @param {Number} userId The ID of the User who made the PhotoReport. Integer.
 	 * @param {String} reportText The text of the PhotoReport.
 	 * @param {*=} reportDate The Date when the PhotoReport was created.
 	 * @constructor
 	 */
-	constructor(id, photoId, userId, reportText, reportDate) {
+	constructor(photoId, userId, reportText, id, reportDate) {
 		// PRIVATE attributes.
-		let _id = id;
 		let _photoId = photoId;
 		let _userId = userId;
 		let _reportText = reportText;
+		let _id = id; // Fine if initially undefined.
 		let _reportDate = reportDate !== undefined ? new Date(reportDate) : new Date();
 
 		// PUBLIC methods.
@@ -28,6 +28,7 @@ class PhotoReport {
 		this.getUserId = getUserId;
 		this.getReportText = getReportText;
 		this.getReportDate = getReportDate;
+		this.setId = setId;
 		this.toJSON = toJSON;
 
 		// PUBLIC method defintions.
@@ -66,6 +67,16 @@ class PhotoReport {
 		function getReportDate() {
 			return _reportDate;
 		}
+		/**
+         * @desc Set the Ban ID. Can only be done once.
+         * @author Nathaniel Carr
+         * @param {Number} id The Ban ID. Integer.
+         */
+        function setId(id) {
+            if (!_id) {
+                _id = id;
+            }
+        }
 		/**
 		 * @desc Convert the private attributes of PhotoReport object to JSON so it can be sent via an API.
 		 * @author Nathaniel Carr

@@ -7,13 +7,14 @@ class Plant {
     /**
      * @desc The constructor for the Plant class.
      * @author Nicolas Ross
-     * @param {string} name 
-     * @param {string} bio 
+     * @param {string} name
+     * @param {string} bio  
+     * @param {Number=} id 
      * @constructor
      */
-    constructor(id, name, bio) {
+    constructor(name, bio, id) {
         // PRIVATE attributes.
-        let _id = id;
+        let _id = id; // May be undefined -- that's fine. This argument is optional.
         let _name = name;
         let _bio = bio;
 
@@ -21,6 +22,7 @@ class Plant {
         this.getId = getId;
         this.getName = getName;
         this.getBio = getBio;
+        this.setId = setId;
         this.setBio = setBio;
         this.toJSON = toJSON;
 
@@ -42,6 +44,16 @@ class Plant {
          */
         function getBio() {
             return _bio;
+        }
+        /**
+         * @desc Set the Plant ID. Can only be done once.
+         * @author Nathaniel Carr
+         * @param {Number} id The Plant ID. Integer.
+         */
+        function setId(id) {
+            if (!_id) {
+                _id = id;
+            }
         }
         /**
          * @param {String} newBio The Plant's new biography.

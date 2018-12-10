@@ -11,7 +11,7 @@ class User {
      * @desc Constructor for the User class.
      * @author Saje Bailey
      * @param {Ban[]} bans The list of Bans associated with the User.
-     * @param {Number} userId The ID of the User. Integer.
+     * @param {Number} id The ID of the User. Integer.
      * @constructor
      */
     constructor(id, bans) {
@@ -22,8 +22,8 @@ class User {
         // PUBLIC methods.
         this.getBans = getBans;
         this.getId = getId;
-        this.ban = ban;
         this.isBanned = isBanned;
+        this.nextBanExpirationDate = nextBanExpirationDate;
         this.toJSON = toJSON;
 
         // PUBLIC method definitions.
@@ -41,18 +41,7 @@ class User {
         function getId() {
             return this._id;
         }
-        /**
-         * @author Saje Bailey
-         * @param {Number} adminId The ID of the Admin banning the User. Integer.
-         */
-        function ban(adminId) {
-            let expiration = new Date();
-            expiration.setDate(expiration.getDate() + Math.pow(BAN_BASE, (this._bans.length)));
 
-            // call function in the DB Interface with appropreate constructor arguments
-            // this call to Ban constructor is temporary for testing
-            this._bans[this._bans.length] = new Ban(Math.floor(Math.random() * 10000), this._id, adminId, expiration);
-        }
         /**
          * @author Saje Bailey
          * @author Nathaniel Carr
@@ -61,6 +50,15 @@ class User {
         function isBanned() {
             return (this._bans.length > 0) && (new Date().getTime() < new Date(this._bans[this._bans.length - 1].getExpirationDate()).getTime());
         }
+
+        /**
+         * @author Nathaniel Carr
+         * @returns {Date} Next Ban expiration date.
+         */
+        function nextBanExpirationDate() {
+            return new Date(new Date().getTime() + Math.pow(BAN_BASE, this._bans.length + 1)* 24 * 60 * 60 * 1000 );
+        }
+        
         /**
 		 * @desc Convert the private attributes of User object to JSON so it can be sent via an API.
 		 * @author Nathaniel Carr

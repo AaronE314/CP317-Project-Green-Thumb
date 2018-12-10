@@ -7,7 +7,7 @@ class Photo {
     /**
      * @desc The Photo class constructor.
      * @author Adam Cassidy
-     * @param {Number} id The ID of the Photo. Integer.
+     * @param {Number=} id The ID of the Photo. Integer.
      * @param {Number} plantId The ID of the corresponding Plant. Integer.
      * @param {Number} userId The ID of the User who uploaded this Photo. Integer.
      * @param {*[]} image The byte array for the image.
@@ -16,15 +16,15 @@ class Photo {
      * @param {Number[]=} downvoteIds The IDs of the Users who have downvoted on this Photo. Sorted in ascending order. Integer.
      * @constructor
      */
-    constructor(id, plantId, userId, image, uploadDate, upvoteIds, downvoteIds) {
+    constructor(plantId, userId, image, id, uploadDate, upvoteIds, downvoteIds) {
         // PRIVATE attributes.
-        let _id = id //can be undefined because the id is optional;
         let _plantId = plantId;
         let _userId = userId;
         let _image = image;
+        let _id = id //can be undefined because the id is optional;
         let _uploadDate = uploadDate !== undefined ? new Date(uploadDate) : new Date();
-        let _upvoteIds = upvoteIds !== undefined ? upvoteIds.sort((a, b) => { return a - b; }) : [];
-        let _downvoteIds = downvoteIds !== undefined ? downvoteIds.sort((a, b) => { return a - b; }) : [];
+        let _upvoteIds = upvoteIds; //!== undefined ? upvoteIds.sort((a, b) => { return a - b; }) : [];
+        let _downvoteIds = downvoteIds; //!== undefined ? downvoteIds.sort((a, b) => { return a - b; }) : [];
 
         // PUBLIC methods.
         this.getId = getId;
@@ -170,8 +170,8 @@ class Photo {
             let result = -1;
 
             while (first <= last && !found) {
-                let compResult = comp(arr[mid], item);
                 mid = Math.floor((first + last) / 2);
+                let compResult = comp(arr[mid], item);
                 if (compResult == 0) {
                     found = true;
                     result = mid;
