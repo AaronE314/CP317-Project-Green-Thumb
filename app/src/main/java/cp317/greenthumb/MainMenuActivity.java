@@ -29,6 +29,7 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
+        /* Can't implement until scan view done. Might have to scrap.
         //Scan Page
         scanAlbumButton = findViewById(R.id.scanAlbumButton);
         scanAlbumButton.setOnClickListener(new View.OnClickListener(){
@@ -36,6 +37,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 openAlbumScan();
             }
         });
+        */
 
         //Settings Page
         settingsButton = findViewById(R.id.settingsButton);
@@ -59,10 +61,12 @@ public class MainMenuActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    /* Can't implement until scan view done. Will be done later if at all.
     public void openAlbumScan() {
         Intent i = new Intent(this, ScanActivity.class);
         startActivity(i);
     }
+    */
 
     public void openSettings() {
         Intent i = new Intent(this, SettingsActivity.class);
