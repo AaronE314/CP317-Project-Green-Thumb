@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import java.util.Set;
+import android.content.Intent;
+
 /*test
 
  */
@@ -14,7 +17,9 @@ import android.widget.ImageButton;
 public class MainMenuActivity extends AppCompatActivity {
     private ImageButton settingsButton,scanButton,scanAlbumButton,searchButton;
 
+
     @Override
+<<<<<<< HEAD
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);

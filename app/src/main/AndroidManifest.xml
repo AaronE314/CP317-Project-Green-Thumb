@@ -36,6 +36,7 @@
             android:label="@string/title_activity_splash_screen" />
         <activity android:name=".PlantDescriptionActivity" />
         <activity android:name=".GalleryActivity"></activity>
+        <activity android:name=".MainMenuActivity"></activity>
     </application>
 
 </manifest>
