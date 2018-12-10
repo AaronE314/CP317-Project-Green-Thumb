@@ -425,14 +425,14 @@ async function getPhoto(photoId) {
                     if (recordset.recordset[0] !== null) {
                         photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image,recordset.recordset[0].photo_id, recordset.recordset[0].upload_date,  async function () {
                             req.input('photoId', sql.Int, photoId);
-                            return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                            return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 1 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
                             }).catch(function (err) {
                                 throw err;
                             })
                         }, async function () {
                             req.input('photoId', sql.Int, photoId);
-                            return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 0").then(function (recordset) {
+                            return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 0 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
                             }).catch(function (err) {
                                 throw err;
