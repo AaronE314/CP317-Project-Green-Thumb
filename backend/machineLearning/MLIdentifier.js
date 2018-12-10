@@ -168,10 +168,10 @@ class MLIdentifier {
      */
     static cancelScheduledTrain(idGiven) {
         let confirmation = -1;
-        let pos = schedItems.findIndex(item => item.id === idGiven);
+        let pos = _scheduledItems.findIndex(item => item.id === idGiven);
 
         if (pos != -1) {
-            let removedItem = scheduledTraining.splice(pos, 1);
+            let removedItem = _scheduledItems.splice(pos, 1);
             removedItem.sched.cancel();
 
             let dat = new Date(removedItem.startDate[0], removedItem.startDate[1], removedItem.startDate[2], removedItem.hr, removedItem.min, 0, 0);
