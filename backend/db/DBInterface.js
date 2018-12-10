@@ -1,19 +1,20 @@
 /**
  * @desc The Database Interface, used for all interaction with the GreenThumb Database
  * @author Saad Ansari
- * @author Luke Turnbull
+ * @author Saje Bailey
  * @author Austin Bursey
  * @author Nicolas Ross
+ * @author Luke Turnbull
  */
 
 // Imports
 var sql = require("mssql");
-var Ban = require("../Ban.js");
-var Photo = require("../Photo.js");
-var PhotoReport = require("../PhotoReport.js");
-var Plant = require("../Plant.js");
-var Admin = require("../Admin.js");
-var User = require("../User.js");
+var Ban = require("./Ban.js");
+var Photo = require("./Photo.js");
+var PhotoReport = require("./PhotoReport.js");
+var Plant = require("./Plant.js");
+var Admin = require("./Admin.js");
+var User = require("./User.js");
 
 // Configuration for database
 var config = {
@@ -37,7 +38,7 @@ DBIRecordNotFound.prototype = Object.create(Error.prototype);
 /**
  * @desc Add the ban to the database
  * @author Austin Bursey
- * @param {Number} Ban a Ban object.
+ * @param {Ban} ban a Ban object.
  * @returns nothing
 */
 async function addBan(ban) {
@@ -72,7 +73,7 @@ async function addBan(ban) {
 /**
  * @desc Add a Photo to the database
  * @author Austin Bursey
- * @param {Number} Photo a Photo object.
+ * @param {Photo} photo a Photo object.
  * @returns nothing
 */
 async function addPhoto(photo) {
@@ -105,7 +106,7 @@ async function addPhoto(photo) {
 /**
  * @desc Add a PhotoReport to the database
  * @author Austin Bursey
- * @param {Number} pReport a PhotoReport object.
+ * @param {PhotoReport} pReport a PhotoReport object.
  * @returns nothing
 */
 async function addPhotoReport(pReport) {
@@ -141,7 +142,7 @@ async function addPhotoReport(pReport) {
 /**
  * @desc Add a Plant to the database
  * @author Austin Bursey
- * @param {Number} plant a Plant object.
+ * @param {Plant} plant a Plant object.
  * @returns nothing
 */
 async function addPlant(plant) {
@@ -171,7 +172,7 @@ async function addPlant(plant) {
 /**
  * @desc Add a User to the database
  * @author Austin Bursey
- * @param {Number} User a User object.
+ * @param {User} user a User object.
  * @returns nothing
 */
 async function addUser(user) {
@@ -368,8 +369,8 @@ async function removeUser(UserID) {
 /**
  * @desc Returns a Ban object from the Database
  * @author Austin Bursey
- * @param {Int} BanId The primary key of the Ban table
- * @returns {result} A Ban object
+ * @param {Number} BanId The primary key of the Ban table
+ * @returns {Ban} result A Ban object
 */
 
 async function getBan(banID) {
@@ -379,10 +380,10 @@ async function getBan(banID) {
 
             let req = new sql.Request();
             req.input('banId', sql.Int, banID);
-            return await req.query("Select * from [projectgreenthumb].[dbo].[ban] where ban_id = @banId ")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[ban] where ban_id = @banId")
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
-                        ban = new Ban(recordset.recordset[0].ban_id, recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date);
+                        ban = new Ban(recordset.recordset[0].user_id, recordset.recordset[0].admin_id, recordset.recordset[0].expiration_date, recordset.recordset[0].ban_id);
                         sql.close();
                         return ban;
                     } else {
@@ -401,7 +402,7 @@ async function getBan(banID) {
  * @desc Returns a Photo object from the Database
  * @author Austin Bursey
  * @param {Number} photoId The primary key of the Photo table
- * @returns {photo} A Photo object
+ * @returns {Photo} A Photo object
 */
 
 async function getPhoto(photoId) {
@@ -450,7 +451,7 @@ async function getPhoto(photoId) {
  * @desc Returns a PhotoReport object from the Database
  * @author Nicolas Ross
  * @param {Number} photoReportId The primary key of the PhotoReport table
- * @returns {photoReport} A PhotoReport object
+ * @returns {PhotoReport} A PhotoReport object
  */
 
 async function getPhotoReport(photoReportId) {
@@ -479,7 +480,7 @@ async function getPhotoReport(photoReportId) {
  * @desc [WORK IN PROGRESS] Returns a PhotoReport array from the Database
  * @author Nicolas Ross
  * @param {Number} adminId The primary key of the PhotoReport table
- * @returns {photoReport} A report array
+ * @returns {PhotoReport[]} A report array
  */
 
 async function getPhotoReportsByAdmin(adminId) {
@@ -531,7 +532,7 @@ async function getPhotoReportsByAdmin(adminId) {
  * @desc Returns a Admin object from the Database
  * @author Austin Bursey
  * @param {Number} adminID The primary key of the Admin table
- * @returns {admin} A Admin object
+ * @returns {Admin} A Admin object
 */
 
 async function getAdmin(adminID) {
@@ -571,7 +572,7 @@ async function getAdmin(adminID) {
  * @desc Returns a Plant object from the Database
  * @author Austin Bursey
  * @param {Number} plantId The primary key of the Plant table
- * @returns {plant} A Plant object
+ * @returns {Plant} A Plant object
 */
 
 async function getPlant(plantID) {
@@ -970,7 +971,7 @@ async function getUnhandeledPhotoReportsByDate(startIndex, max) {
  * @desc Returns a User object from the Database
  * @author Luke Turnbull
  * @param {Number} userId The primary key of the User table
- * @returns {user} A User object
+ * @returns {User} A User object
 */
 
 async function getUser(userId) {
@@ -1012,7 +1013,7 @@ async function getUser(userId) {
 /**
  * @desc Updates a photo object in database
  * @author Luke Turnbull
- * @param {Number} Photo 
+ * @param {Photo} Photo 
  * @returns nothing
 */
 
@@ -1041,7 +1042,7 @@ async function updatePhoto(photo) {
 /**
  * @desc Update a Photo Report object in database
  * @author Luke Turnbull
- * @param {Number} PhotoReport
+ * @param {PhotoReport} pReport
  * @returns nothing
 */
 async function updatePhotoReport(pReport) {
@@ -1069,7 +1070,7 @@ async function updatePhotoReport(pReport) {
 /**
  * @desc Update a Plant object in database
  * @author Luke Turnbull
- * @param {Number} Plant
+ * @param {Plant} plant
  * @returns nothing
 */
 async function updatePlant(plant) {
