@@ -18,8 +18,6 @@ const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satur
  * and to call the retraining when needed.
  * -------------------------------------------------------------------
  * @requires NPM:node-schedule @link{https://www.npmjs.com/package/node-schedule}
- * @requires NPM:tensorflow/tfjs @link{https://www.npmjs.com/package/@tensorflow/tfjs-node}
- * @requires NPM:canvas @link {https://www.npmjs.com/package/canvas}
  * @requires NPM:child_process @link {https://www.npmjs.com/package/child_process}
  * @requires NPM:fs @link {https://www.npmjs.com/package/fs}
  */
@@ -193,32 +191,32 @@ class TFIdentifier {
   //     //unused
   // }
 
-  /**
-   * @author Aaron Exley
-   *
-   * This function is to convert the byte image into the appropriate tensor to
-   * be used to predict.
-   * @param {Base64 ByteString} image the image to predict, as a byte image
-   *
-   * @returns the image converted to a tensor of shape [1, width, height,3]
-   * @deprecated
-   */
-  static _preProcessImage(image) {
+  // /**
+  //  * @author Aaron Exley
+  //  *
+  //  * This function is to convert the byte image into the appropriate tensor to
+  //  * be used to predict.
+  //  * @param {Base64 ByteString} image the image to predict, as a byte image
+  //  *
+  //  * @returns the image converted to a tensor of shape [1, width, height,3]
+  //  * @deprecated
+  //  */
+  // static _preProcessImage(image) {
 
-    const canvas = require('canvas');
+  //   const canvas = require('canvas');
 
-    // const blob = new Blob([image], {type: "image/jpeg"});
-    // const url = URL.createObjectURL(blob);
+  //   // const blob = new Blob([image], {type: "image/jpeg"});
+  //   // const url = URL.createObjectURL(blob);
 
-    // const tmpCanvas = canvas.createCanvas();
+  //   // const tmpCanvas = canvas.createCanvas();
 
-    const img = new canvas.image();
-    img.src = image;
+  //   const img = new canvas.image();
+  //   img.src = image;
 
-    let imageT = tf.fromPixels(image);
-    let imageT = imageT.expandDims(0);
+  //   let imageT = tf.fromPixels(image);
+  //   let imageT = imageT.expandDims(0);
 
-    return imageT
-  }
+  //   return imageT
+  // }
 
 }
