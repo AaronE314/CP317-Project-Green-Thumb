@@ -1003,12 +1003,12 @@ async function getUser(userId) {
 
             let req = new sql.Request();
             req.input('userId', sql.Int, userId);
-            return await req.query("SELECT user_id FROM " + dbName + "[user] where user.user_id = userId ")
+            return await req.query("SELECT [user_id] FROM " + dbName + "[user] where user.user_id = @userId ")
                 .then(function (recordset) {
                     if (recordset.recordset[0] !== null) {
                         user = new User(recordset.recordset[0].user_id, async function () {
                             req.input('userId', sql.Int, userId);
-                            return await req.query("Select user_id from " + dbName + "[ban] where ban.user_id = @userId").then(function (recordset) {
+                            return await req.query("Select [user_id] from " + dbName + "[ban] where ban.[user_id] = @userId").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
                                 console.log(err);
