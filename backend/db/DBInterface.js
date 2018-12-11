@@ -29,11 +29,11 @@ var config = {
 };
 ///////////////////////////Error Functions////////////////////////////
 function DBIRecordNotFound(element) {
-    const error = new Error(`The ${element} you are looking for is not in our records`);
+    const error = new Error(`The ${element} you are looking for cannot be found in our records`);
     return error;
 }
 function DBIDuplicate(element) {
-    const error = new Error(`The ${element} object you are attempting to save already exists.`);
+    const error = new Error(`The ${element} object(s) you are attempting to save already exist(s).`);
     return error;
 }
 DBIDuplicate.prototype = Object.create(Error.prototype);
@@ -1003,12 +1003,12 @@ async function getUser(userId) {
 
             let req = new sql.Request();
             req.input('userId', sql.Int, userId);
-            return await req.query("SELECT user_id FROM " + dbName + "[user] where user.user_id = userId ")
+            return await req.query("SELECT [user_id] FROM " + dbName + "[user] where user.user_id = @userId ")
                 .then(function (recordset) {
                     if (recordset.recordset[0] !== null) {
                         user = new User(recordset.recordset[0].user_id, async function () {
                             req.input('userId', sql.Int, userId);
-                            return await req.query("Select user_id from " + dbName + "[ban] where ban.user_id = @userId").then(function (recordset) {
+                            return await req.query("Select [user_id] from " + dbName + "[ban] where ban.[user_id] = @userId").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
                                 console.log(err);
