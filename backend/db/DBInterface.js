@@ -115,10 +115,10 @@ async function photo_report_exists(photoReport){
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('plantId', sql.Int, photoReport.getUserId());
-            req.input('img',sql.Int, photoReport.getImage());
+            req.input('userId', sql.Int, photoReport.getUserId());
+            req.input('post',sql.Int, photoReport.getImage());
             req.input('date',sql.Date, photoReport.getReportDate())
-            return await req.query("Select * from " + dbName + "[report] where post_id = @planId AND report_date = @img")
+            return await req.query("Select * from " + dbName + "[report] where post_id = @postId AND report_date = @date and user_id = @userId")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -276,10 +276,10 @@ async function addPhotoReport(pReport) {
             req.input("rDate", sql.Date, pReport.getReportDate());
             req.input("rText", sql.VarChar, pReport.getReportText());
             req.input("userId", sql.Int, pReport.getUserId());
-            return await req.query("Insert into [projectgreenthumb].[dbo].[report] (post_id, report_date , report_details) " +
-                "Values((SELECT post_id from [post] where user_id = @userId AND photo_id = photoId)" +
+            return await req.query("Insert into [projectgreenthumb].[dbo].[report] (post_id, report_date , report_details, user_id) " +
+                "Values((SELECT post_id from [post] where photo_id = photoId)" +
                 ", @reportDate , @reportDetails); Insert into [admin_report] (report_id , admin_id , admin_action) " +
-                "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY(), @photoReport, @admin_Action);Select * from [projectgreenthumb].[dbo].[report] INNER JOIN [post] ON [post].post_id = [report].post_id  where report_id = SCOPE_IDENTITY() ")
+                "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY(), @photoReport, @admin_Action, @userId);Select * from [projectgreenthumb].[dbo].[report] INNER JOIN [post] ON [post].post_id = [report].post_id  where report_id = SCOPE_IDENTITY() ")
 
                 .then(function (rset) {
                     let report = new PhotoReport(rset.recordset[0].photo_id ,rset.recordset[0].user_id , rset.recordset[0].report_details,rset.recordset[0].report_id ,rset.recordset[0].report_date  );
