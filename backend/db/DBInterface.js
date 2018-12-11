@@ -38,16 +38,143 @@ function DBIDuplicate(element) {
 }
 DBIDuplicate.prototype = Object.create(Error.prototype);
 DBIRecordNotFound.prototype = Object.create(Error.prototype);
+///////////////////////////Helper Functions////////////////////////////
+/**
+ * @desc Checks if the ban exists under another ID
+ * @author Austin Bursey
+ * @param {Ban} ban a Ban object.
+ * @returns true if the object exists , otherwise false 
+*/
+async function ban_exists(ban){
+    sql.close() // CLose any existing connections
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+            req.input('userId', sql.Int, ban.getUserId());
+            req.input('adminId',sql.Int, ban.getAdminId());
+            req.input('exp', sql.Date, ban.getExpirationDate());
+            return await req.query("Select * from " + dbName + "[ban] where user_id = @userId AND admin_id = @adminId AND expiration_date = @exp")
+
+                .then(function (recordset) {
+                    if (recordset.recordset[0] != null) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .catch(function (err) {
+                    throw err;
+                });
+        })
+        .catch(function (err) {
+            throw err;
+        });
+}
+/**
+ * @desc Checks if the photo exists under another ID
+ * @author Austin Bursey
+ * @param {Photo} photo a Photo object.
+ * @returns True if the object exists , otherwise false
+*/
+async function photo_exists(photo){
+    sql.close() // CLose any existing connections
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+            req.input('plantId', sql.Int, photo.getUserId());
+            req.input('img',sql.Int, photo.getImage());
+            return await req.query("Select * from " + dbName + "[photo] where plant_id = @planId AND image = @img")
+
+                .then(function (recordset) {
+                    if (recordset.recordset[0] != null) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .catch(function (err) {
+                    throw err;
+                });
+        })
+        .catch(function (err) {
+            throw err;
+        });
+}
+
+/**
+ * @desc WORK IN PROGRESS Checks if the photo exists under another ID
+ * @author Austin Bursey
+ * @param {photoReport} photoReport a PhotoReport object.
+ * @returns True if the object exists , otherwise false
+*/
+async function photo_report_exists(photoReport){
+    sql.close() // CLose any existing connections
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+            req.input('plantId', sql.Int, photoReport.getUserId());
+            req.input('img',sql.Int, photoReport.getImage());
+            req.input('date',sql.Date, photoReport.getReportDate())
+            return await req.query("Select * from " + dbName + "[report] where post_id = @planId AND report_date = @img")
+
+                .then(function (recordset) {
+                    if (recordset.recordset[0] != null) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .catch(function (err) {
+                    throw err;
+                });
+        })
+        .catch(function (err) {
+            throw err;
+        });
+}
+/**
+ * @desc Checks if the plant exists under another ID
+ * @author Austin Bursey
+ * @param {plant} a Plant object.
+ * @returns True if the object exists , otherwise false
+*/
+async function plant_exists(plant){
+    sql.close() // CLose any existing connections
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+            req.input('plantName', sql.VarChar, plant.getName());
+            return await req.query("Select * from " + dbName + "[photo] where plant_name= @plantName")
+
+                .then(function (recordset) {
+                    if (recordset.recordset[0] != null) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .catch(function (err) {
+                    throw err;
+                });
+        })
+        .catch(function (err) {
+            throw err;
+        });
+}
 ///////////////////////////Insertion Functions////////////////////////////
 /**
  * @desc Add the ban to the database
  * @author Austin Bursey
  * @param {Ban} ban a Ban object.
- * @returns nothing
+ * @returns Ban Object with ID initialized
 */
 async function addBan(ban) {
-    let new_Ban = await isValidBanId(ban.getId()).catch(function (err) { throw err });
-    if (new_Ban != false) {
+    let new_Ban = await ban_exists(ban);
+    if (new_Ban == true) {
         throw new DBIDuplicate("Ban");
     }
     sql.close() // CLose any existing connections
@@ -82,9 +209,9 @@ async function addBan(ban) {
 */
 async function addPhoto(photo) {
     if (photo.getId() !== undefined) {
-        let new_photo = await isValidPhotoId(photo.getId()).catch(function (err) { throw err });
+        let new_photo = await photo_exists(photo);
 
-        if (new_photo != false) {
+        if (new_photo ==true) {
             throw new DBIDuplicate("Photo");
         }
     }
@@ -137,8 +264,8 @@ async function addPhoto(photo) {
  * @returns nothing
 */
 async function addPhotoReport(pReport) {
-    let new_photoReport = await isValidReportId(pReport.getId()).catch(function (err) { throw err });
-    if (new_photoReport != false) {
+    let new_photoReport = await photo_report_exists(pReport);
+    if (new_photoReport == true) {
         throw new DBIDuplicate("PhotoReport");
     }
     sql.close() // CLose any existing connections
@@ -175,8 +302,8 @@ async function addPhotoReport(pReport) {
  * @returns nothing
 */
 async function addPlant(plant) {
-    let new_plant = await isValidPlantId(plant.getId()).catch(function (err) { throw err });
-    if (new_plant != false) {
+    let new_plant = await plant_exists(plant);
+    if (new_plant == true) {
         throw new DBIDuplicate("Plant");
     }
     sql.close() // CLose any existing connections
@@ -207,8 +334,8 @@ async function addPlant(plant) {
  * @returns nothing
 */
 async function addUser(user) {
-    let new_User = await isValidUserId(user.getId()).catch(function (err) { throw err });
-    if (new_User != false) {
+    let new_User = await user_exists(user);
+    if (new_User == true) {
         throw new DBIDuplicate("User");
     }
     sql.close() // CLose any existing connections
@@ -669,7 +796,7 @@ async function getPlantByQuery(query) {
                 .then(function (recordset) {
                     ind = 0;
                     if (recordset.recordset[0] != null) {
-                        while (recordset[ind] != null) {
+                        while (recordset.recordset[ind] != null) {
                             plants.push(new Plant(recordset.recordset[ind].plant_name, recordset.recordset[ind].plant_bio, recordset.recordset[ind].plant_id));
                             ind = ind + 1;
                         }
