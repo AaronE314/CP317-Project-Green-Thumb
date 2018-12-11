@@ -630,7 +630,7 @@ async function getPhotoReport(photoReportId) {
 
             let req = new sql.Request();
             req.input('photoReportId', sql.Int, photoReportId);
-            return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[report] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.post_id = report.post_id) where report.report_id = @photoReportId;")
+            return await req.query("SELECT [report].user_id, photo_id, report_details, report_id , report_date FROM [projectgreenthumb].[dbo].[report] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.post_id = report.post_id) where report.report_id = @photoReportId;")
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
                         report = new PhotoReport(recordset.recordset[0].photo_id, recordset.recordset[0].user_id, recordset.recordset[0].report_details, recordset.recordset[0].report_id, recordset.recordset[0].report_date);
