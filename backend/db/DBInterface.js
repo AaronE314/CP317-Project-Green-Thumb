@@ -46,8 +46,8 @@ DBIRecordNotFound.prototype = Object.create(Error.prototype);
  * @returns nothing
 */
 async function addBan(ban) {
-    let new_Ban = await getBan(ban.getId()).catch(function (err) { throw err });
-    if (new_Ban != null) {
+    let new_Ban = await isValidBanId(ban.getId()).catch(function (err) { throw err });
+    if (new_Ban != false) {
         throw new DBIDuplicate("Ban");
     }
     sql.close() // CLose any existing connections
@@ -137,8 +137,8 @@ async function addPhoto(photo) {
  * @returns nothing
 */
 async function addPhotoReport(pReport) {
-    let new_photoReport = await getPhotoReport(pReport.getId()).catch(function (err) { throw err });
-    if (new_photoReport != null) {
+    let new_photoReport = await isValidReportId(pReport.getId()).catch(function (err) { throw err });
+    if (new_photoReport != false) {
         throw new DBIDuplicate("PhotoReport");
     }
     sql.close() // CLose any existing connections
@@ -173,8 +173,8 @@ async function addPhotoReport(pReport) {
  * @returns nothing
 */
 async function addPlant(plant) {
-    let new_plant = await getPlant(plant.getId()).catch(function (err) { throw err });
-    if (new_plant != null) {
+    let new_plant = await isValidPlantId(plant.getId()).catch(function (err) { throw err });
+    if (new_plant != false) {
         throw new DBIDuplicate("Plant");
     }
     sql.close() // CLose any existing connections
@@ -203,8 +203,8 @@ async function addPlant(plant) {
  * @returns nothing
 */
 async function addUser(user) {
-    let new_User = await getUser(user.getId()).catch(function (err) { throw err });
-    if (new_User != null) {
+    let new_User = await isValidUserId(user.getId()).catch(function (err) { throw err });
+    if (new_User != false) {
         throw new DBIDuplicate("User");
     }
     sql.close() // CLose any existing connections
