@@ -707,7 +707,7 @@ async function getPlant(plantID) {
  * @returns {Plant[]} An array of plants Plant object
 */
 
-async function getPlantbyQuery(query) {
+async function getPlantByQuery(query) {
     plants = [];
     sql.close() // CLose any existing connections
     return await sql.connect(config)
