@@ -267,7 +267,7 @@ async function removePhoto(photoID) {
         if (err) { throw err; }
 
         var request = new sql.Request(); // create Request object
-        req.input('photoId', sql.Int, photoID);
+        request.input('photoId', sql.Int, photoID);
         var sqlQuery = 'DELETE FROM photo WHERE photo_id = @photoId'; // Create SQL Query
 
         // Query the database and remove photo
@@ -292,7 +292,7 @@ async function removePhotoReport(photoReportID) {
         if (err) { throw err; }
 
         var request = new sql.Request(); // create Request object
-        req.input('photoReportId', sql.Int, photoReportID);
+        request.input('photoReportId', sql.Int, photoReportID);
         var sqlQuery = 'DELETE FROM report WHERE report_id = @photoReportId'; // Create SQL Query
 
         // Query the database and remove photo
@@ -315,7 +315,7 @@ async function removePlant(plantID) {
     sql.connect(config, function (err) {
         if (err) { throw err; }
         var request = new sql.Request(); // create Request object
-        req.input('plantId', sql.Int, plantID);
+        request.input('plantId', sql.Int, plantID);
         var sqlQuery = // Create SQL Query
             // Delete all associated reports
             'DELETE FROM report WHERE' +
@@ -363,7 +363,7 @@ async function removeUser(UserID) {
     sql.connect(config, function (err) {
         if (err) { throw err; }
         var request = new sql.Request(); // create Request object
-        req.input('userId', sql.Int, userID);
+        request.input('userId', sql.Int, userID);
         var sqlQuery = // Create SQL Query
             // Delete all associated reports
             'DELETE FROM report WHERE ' +
