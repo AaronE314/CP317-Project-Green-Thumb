@@ -10,11 +10,12 @@ var Plant = require("../Plant.js");
 var Admin = require("../Admin.js");
 var DBInterface = require("./DBInterface.js");
 
-async()=>{
-    let pr = new Photo(4, 1 , "10101010", new Date("1998-09-08"));
+(async()=>{
+    let pr = new Photo(5, 6 , "10101010");
 
     let ban = await DBInterface.addPhoto(pr);
-}
+    //console.log(ban.toJSON());
+})();
 /*
 async ()=>{
     let pr = new PhotoReport(10,);
