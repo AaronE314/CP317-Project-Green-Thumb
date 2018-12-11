@@ -104,14 +104,14 @@ async function addPhoto(photo) {
                             return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 1 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                               throw err;
                             })
                         }, async function () {
                             req.input('photoId', sql.Int, photoId);
                             return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 0 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                               throw err;
                             })
                         });
 
