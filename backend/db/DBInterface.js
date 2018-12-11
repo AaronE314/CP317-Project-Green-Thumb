@@ -702,9 +702,9 @@ async function getPlant(plantID) {
 
 /**
  * @desc Returns a Plant object from the Database
- * @author Austin Bursey
- * @param {Number} plantId The primary key of the Plant table
- * @returns {Plant} A Plant object
+ * @author Saad Ansari
+ * @param {String} query The search string
+ * @returns {Plant[]} An array of plants Plant object
 */
 
 async function getPlantbyQuery(query) {
@@ -721,14 +721,14 @@ async function getPlantbyQuery(query) {
                     if (recordset.recordset[0] != null) {
                         while (recordset[ind] != null) {
                             plants.push(new Plant(recordset.recordset[ind].plant_name, recordset.recordset[ind].plant_bio, recordset.recordset[ind].plant_id));
-                        ind = ind + 1;
-                        }    
-                            sql.close();
-                            return plants;
-                        } else {
-                            throw new DBIRecordNotFound("NO RESULTS");
+                            ind = ind + 1;
                         }
-                    })
+                        sql.close();
+                        return plants;
+                    } else {
+                        throw new DBIRecordNotFound("NO RESULTS");
+                    }
+                })
                 .catch(function (err) {
                     throw err;
                 });
