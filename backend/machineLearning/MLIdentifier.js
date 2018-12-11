@@ -1,4 +1,5 @@
-const TEMP_ENCODED_LOC = "backend/machineLearning/tmp/encodedImage";
+const TEMP_ENCODED_LOC = "tmp/encodedImage";
+const FOLDER_PATH = "backend/machineLearning";
 let _scheduledItems = [];
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -72,10 +73,12 @@ class MLIdentifier {
         const fs = require('fs');
         const path = require('path');
 
-        let filePath = path.resolve(__dirname, TEMP_ENCODED_LOC);
-        fs.writeFileSync(path.resolve(filePath, image));
+        let tmpFilePath = `${FOLDER_PATH}/${TEMP_ENCODED_LOC}`;
+        let executorPath = `${FOLDER_PATH}/MLExecutor.py`;
 
-        const data = child_process.execSync(`python MLExecutor.py ${filePath}`);
+        fs.writeFileSync(tmpFilePath, image);
+
+        const data = child_process.execSync(`python ${executorPath} ${tmpFilePath}`);
 
         const output = JSON.parse("[" + data.toString() + "]");
 
