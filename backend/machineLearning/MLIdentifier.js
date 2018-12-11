@@ -70,10 +70,12 @@ class MLIdentifier {
 
         const child_process = require("child_process");
         const fs = require('fs');
+        const path = require('path');
 
-        fs.writeFileSync(TEMP_ENCODED_LOC, image);
+        let filePath = path.resolve(__dirname, TEMP_ENCODED_LOC);
+        fs.writeFileSync(path.resolve(filePath, image));
 
-        const data = child_process.execSync(`python MLExecutor.py ${TEMP_ENCODED_LOC}`);
+        const data = child_process.execSync(`python MLExecutor.py ${filePath}`);
 
         const output = JSON.parse("[" + data.toString() + "]");
 
@@ -225,3 +227,5 @@ class MLIdentifier {
 
 MLIdentifier._scheduledItems = _scheduledItems;
 module.exports = MLIdentifier;
+
+MLIdentifier.predict();
