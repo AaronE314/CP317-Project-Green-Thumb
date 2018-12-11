@@ -1,4 +1,4 @@
-const TEMP_ENCODED_LOC = "./tmp/encodedImage";
+const TEMP_ENCODED_LOC = "backend/machineLearning/tmp/encodedImage";
 let _scheduledItems = [];
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
