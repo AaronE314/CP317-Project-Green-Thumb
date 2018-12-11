@@ -96,8 +96,8 @@ async function addPhoto(photo) {
             req.input("plantId", sql.Int, photo.getPlantId());
             req.input("image_ref", sql.VarChar, photo.getImage());
             req.input("userId", sql.Int, photo.getUserId());
-            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(binary,@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));" + 
-            "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM " + dbName + "[photo] INNER JOIN " + dbName + "[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
+            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(binary,@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));" +
+                "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM " + dbName + "[photo] INNER JOIN " + dbName + "[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -155,8 +155,8 @@ async function addPhoto(photo) {
             req.input("plantId", sql.Int, photo.getPlantId());
             req.input("image_ref", sql.VarChar, photo.getImage());
             req.input("userId", sql.Int, photo.getUserId());
-            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(binary,@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));" + 
-            "SELECT PHOTO.photo_id, plant_id, [image] , tf_record , post_id , [user_id] , upload_date FROM [photo] INNER JOIN [post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();")
+            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(binary,@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));" +
+                "SELECT PHOTO.photo_id, plant_id, [image] , tf_record , post_id , [user_id] , upload_date FROM [photo] INNER JOIN [post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -700,6 +700,44 @@ async function getPlant(plantID) {
 
 }
 
+/**
+ * @desc Returns a Plant object from the Database
+ * @author Austin Bursey
+ * @param {Number} plantId The primary key of the Plant table
+ * @returns {Plant} A Plant object
+*/
+
+async function getPlantbyQuery(query) {
+    plants = [];
+    sql.close() // CLose any existing connections
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+            req.input('query', sql.NVarChar(40), query);
+            return await req.query("SELECT * FROM [plant] WHERE plant_name LIKE ('%' + @query + '%') OR plant_bio LIKE ('%' + @query + '%')")
+                .then(function (recordset) {
+                    ind = 0;
+                    if (recordset.recordset[0] != null) {
+                        while (recordset[ind] != null) {
+                            plants.push(new Plant(recordset.recordset[ind].plant_name, recordset.recordset[ind].plant_bio, recordset.recordset[ind].plant_id));
+                        ind = ind + 1;
+                        }    
+                            sql.close();
+                            return plants;
+                        } else {
+                            throw new DBIRecordNotFound("NO RESULTS");
+                        }
+                    })
+                .catch(function (err) {
+                    throw err;
+                });
+        })
+        .catch(function (err) {
+            throw err;
+        });
+
+}
 
 
 /**
