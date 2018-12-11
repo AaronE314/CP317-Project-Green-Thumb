@@ -51,8 +51,8 @@ async function ban_exists(ban){
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId', sql.Int, ban.getUserId());
-            req.input('adminId',sql.Int, ban.getAdminId());
+            req.input('userId', sql.VarChar, ban.getUserId());
+            req.input('adminId',sql.VarChar, ban.getAdminId());
             req.input('exp', sql.Date, ban.getExpirationDate());
             return await req.query("Select * from " + dbName + "[ban] where user_id = @userId AND admin_id = @adminId AND expiration_date = @exp")
 
@@ -115,7 +115,7 @@ async function photo_report_exists(photoReport){
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId', sql.Int, photoReport.getUserId());
+            req.input('userId', sql.VarChar, photoReport.getUserId());
             req.input('post',sql.Int, photoReport.getImage());
             req.input('date',sql.Date, photoReport.getReportDate())
             return await req.query("Select * from " + dbName + "[report] where post_id = @postId AND report_date = @date and user_id = @userId")
@@ -165,6 +165,36 @@ async function plant_exists(plant){
             throw err;
         });
 }
+/**
+ * @desc Checks if the User exists under another ID
+ * @author Austin Bursey
+ * @param {plant} a User object.
+ * @returns True if the object exists , otherwise false
+*/
+async function user_exists(User){
+    sql.close() // CLose any existing connections
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+            req.input('userId', sql.VarChar, user.getId());
+            return await req.query("Select * from " + dbName + "[user] where user_id= @userId")
+
+                .then(function (recordset) {
+                    if (recordset.recordset[0] != null) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .catch(function (err) {
+                    throw err;
+                });
+        })
+        .catch(function (err) {
+            throw err;
+        });
+}
 ///////////////////////////Insertion Functions////////////////////////////
 /**
  * @desc Add the ban to the database
@@ -182,8 +212,8 @@ async function addBan(ban) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId', sql.Int, ban.getUserId());
-            req.input('adminId', sql.Int, ban.getAdminId());
+            req.input('userId', sql.VarChar, ban.getUserId());
+            req.input('adminId', sql.VarChar, ban.getAdminId());
             req.input('expiration', sql.DateTime, ban.getExpirationDate());
             return await req.query("Insert into [projectgreenthumb].[dbo].[ban] (user_id, admin_id, expiration_date) Values (@userId, @adminId, @expiration);Select * from [projectgreenthumb].[dbo].[ban] where ban_id = SCOPE_IDENTITY()")
 
@@ -221,7 +251,7 @@ async function addPhoto(photo) {
             let req = new sql.Request();
             req.input("plantId", sql.Int, photo.getPlantId());
             req.input("image_ref", sql.VarChar, photo.getImage());
-            req.input("userId", sql.Int, photo.getUserId());
+            req.input("userId", sql.VarChar, photo.getUserId());
             return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(binary,@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));" +
                 "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM " + dbName + "[photo] INNER JOIN " + dbName + "[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();")
                 .then(function (recordset) {
@@ -275,7 +305,7 @@ async function addPhotoReport(pReport) {
             req.input("photoId", sql.Int, pReport.getPhotoId());
             req.input("rDate", sql.Date, pReport.getReportDate());
             req.input("rText", sql.VarChar, pReport.getReportText());
-            req.input("userId", sql.Int, pReport.getUserId());
+            req.input("userId", sql.VarChar, pReport.getUserId());
             return await req.query("Insert into [projectgreenthumb].[dbo].[report] (post_id, report_date , report_details, user_id) " +
                 "Values((SELECT post_id from [post] where photo_id = photoId)" +
                 ", @reportDate , @reportDetails); Insert into [admin_report] (report_id , admin_id , admin_action) " +
@@ -343,7 +373,7 @@ async function addUser(user) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId', sql.Int, user.getId());
+            req.input('userId', sql.VarChar, user.getId());
             return await req.query("  Insert into [user] DEFAULT VALUES ;Select * from [user] where user_id = SCOPE_IDENTITY()")
                 .then(function (rset) {
                     let user = new User(rset.recordset[0].user_id, async function(){
@@ -502,7 +532,7 @@ async function removeUser(UserID) {
     sql.connect(config, function (err) {
         if (err) { throw err; }
         var request = new sql.Request(); // create Request object
-        request.input('userId', sql.Int, userID);
+        request.input('userId', sql.VarChar, userID);
         var sqlQuery = // Create SQL Query
             // Delete all associated reports
             'DELETE FROM report WHERE ' +
@@ -662,7 +692,7 @@ async function getPhotoReportsByAdmin(adminId) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('adminId', sql.Int, adminId);
+            req.input('adminId', sql.VarChar, adminId);
             return await req.query("SELECT * FROM " + dbName + "[admin_report] INNER JOIN " + dbName + "[report] ON (report.report_id = admin_report.report_id) where admin_report.admin_id = @adminId;")
                 .then(function (recordset) {
                     ind = 0;
@@ -713,7 +743,7 @@ async function getAdmin(adminID) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('adminID', sql.Int, adminID);
+            req.input('adminID', sql.VarChar, adminID);
 
             return await req.query("SELECT * FROM " + dbName + "[admin] where admin_id = @adminID ")
 
@@ -893,7 +923,7 @@ async function getNewestUserPhotos(userID, startIndex, max) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId', sql.Int, userId);
+            req.input('userId', sql.VarChar, userId);
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
                 'FROM photo ph ' +
@@ -1079,7 +1109,7 @@ async function getTopUserPhotos(userID, startIndex, max) {
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
-            req.input('userId', sql.Int, userID);
+            req.input('userId', sql.VarChar, userID);
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
                 ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
                 'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
@@ -1203,7 +1233,7 @@ async function getUser(userId) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId', sql.Int, userId);
+            req.input('userId', sql.VarChar, userId);
             return await req.query("SELECT [user_id] FROM [user] where [user].[user_id] = @userId ")
                 .then(function (recordset) {
                     if (recordset.recordset[0] != undefined) {
@@ -1327,7 +1357,7 @@ async function isValidAdminId(adminId) {
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
-            req.input('adminID', sql.Int, adminId);
+            req.input('adminID', sql.VarChar, adminId);
             return await req.query("SELECT admin_id FROM " + dbName + "[admin] where admin_id = @adminID ")
                 .then(function (recordset) {
                     let bool = false;
@@ -1439,7 +1469,7 @@ async function isValidUserId(userId) {
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
-            req.input('userId', sql.Int, userId);
+            req.input('userId', sql.VarBinary, userId);
             return await req.query("SELECT user_id FROM " + dbName + "[user] where user_id = @userId ")
                 .then(function (recordset) {
                     let bool = false;
