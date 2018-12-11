@@ -261,7 +261,7 @@ api.post("/photoReports/byId",
             if (!await validateParams(req, res, async (body) => {
                 assert(body.photoReportId !== undefined, ERROR_MSG.missingParam("photoReportId"));
 
-                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
+                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
             res.send({
@@ -288,7 +288,7 @@ api.post("/photoReports/handle",
                 assert(body.adminAction !== undefined, ERROR_MSG.missingParam("adminAction"));
                 assert(ADMIN_ACTION[body.adminAction] !== undefined, ERROR_MSG.invalidParam("adminAction"));
 
-                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
+                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
             if (req.body.adminAction === ADMIN_ACTION.Accept) {
@@ -324,7 +324,7 @@ api.post("/photoReports/list/byDate",
                 assert(body.startIndex >= 0, ERROR_MSG.noNeg("startIndex"));
                 assert(body.max > 0, ERROR_MSG.onlyPos("max"));
 
-                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
+                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
             let photoReports = await DBInterface.getUnhandledPhotoReportsByDate(req.body.startIndex, req.body.max);
@@ -355,7 +355,7 @@ api.post("/photoReports/remove",
                 assert(body.photoReportId !== undefined, ERROR_MSG.missingParam("photoReportId"));
                 assert(body.photoReportId >= 0, ERROR_MSG.noNeg("photoReportId"));
 
-                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
+                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
             await DBInterface.removePhotoReport(req.body.photoReportId);
@@ -382,7 +382,7 @@ api.post("/plants/add",
                 assert(body.name !== "", ERROR_MSG.missingText("name"));
                 assert(body.bio !== "", ERROR_MSG.missingText("bio"));
 
-                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
+                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
             let plant = await DBInterface.addPlant(new Plant(req.body.name, req.body.bio));
@@ -536,7 +536,7 @@ api.post("/plants/remove",
                 assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
                 assert(body.plantId !== undefined, ERROR_MSG.missingParam("plantId"));
 
-                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
+                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
             await DBInterface.removePlant(req.body.plantId);
@@ -562,7 +562,7 @@ api.post("/plants/update",
                 assert(body.bio !== undefined, ERROR_MSG.missingParam("bio"));
                 assert(body.bio !== "", ERROR_MSG.missingText("bio"));
 
-                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
+                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
             let plant = await DBInterface.getPlant(req.body.plantId);
@@ -613,7 +613,7 @@ api.post("/users/ban",
                 assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
                 assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
 
-                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
+                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
             let user = DBInterface.getUser(req.body.userId);
@@ -663,7 +663,7 @@ api.post("/users/makeAdmin",
                 assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
                 assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
 
-                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
+                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
             let user = DBInterface.getUser(req.body.userId);
@@ -689,7 +689,7 @@ api.post("/users/remove",
                 assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
                 assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
 
-                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized);
+                assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
             await DBInterface.removeUser(req.body.userId);
