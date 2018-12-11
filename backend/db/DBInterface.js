@@ -81,9 +81,9 @@ async function addBan(ban) {
  * @returns nothing
 */
 async function addPhoto(photo) {
-    if(photo.getId() !== undefined){
+    if (photo.getId() !== undefined) {
         let new_photo = await isValidPhotoId(photo.getId()).catch(function (err) { throw err });
-        
+
         if (new_photo != false) {
             throw new DBIDuplicate("Photo");
         }
@@ -91,15 +91,38 @@ async function addPhoto(photo) {
     sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
-            
+
             let req = new sql.Request();
             req.input("plantId", sql.Int, photo.getPlantId());
             req.input("image_ref", sql.VarChar, photo.getImage());
             req.input("userId", sql.Int, photo.getUserId());
-            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(binary,@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));")
+            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(binary,@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));" + 
+            "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM " + dbName + "[photo] INNER JOIN " + dbName + "[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
 
                 .then(function (recordset) {
-                    sql.close();
+                    if (recordset.recordset[0] != null) {
+                        console.log(recordset.recordset[0]);
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
+                            req.input('photoId', sql.Int, photoId);
+                            return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 1 order by user_id").then(function (recordset) {
+                                return recordset.recordset;
+                            }).catch(function (err) {
+                                console.log(err);
+                            })
+                        }, async function () {
+                            req.input('photoId', sql.Int, photoId);
+                            return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 0 order by user_id").then(function (recordset) {
+                                return recordset.recordset;
+                            }).catch(function (err) {
+                                console.log(err);
+                            })
+                        });
+
+                        sql.close();
+                        return photo;
+                    } else {
+                        throw new DBIRecordNotFound("photoId");
+                    }
                 })
                 .catch(function (err) {
                     console.log(err);
@@ -425,7 +448,7 @@ async function getPhoto(photoId) {
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
                         console.log(recordset.recordset[0]);
-                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image,recordset.recordset[0].photo_id, recordset.recordset[0].upload_date,  async function () {
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
                             req.input('photoId', sql.Int, photoId);
                             return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 1 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
@@ -472,11 +495,11 @@ async function getPhotoReport(photoReportId) {
             req.input('photoReportId', sql.Int, photoReportId);
             return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[report] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.post_id = report.post_id) where report.report_id = @photoReportId;")
                 .then(function (recordset) {
-                    if(recordset.recordset[0]!== null ){
+                    if (recordset.recordset[0] !== null) {
                         report = new PhotoReport(recordset.recordset[0].photo_id, recordset.recordset[0].user_id, recordset.recordset[0].report_details, recordset.recordset[0].report_id, recordset.recordset[0].report_date);
                         sql.close();
                         return report;
-                    }else {
+                    } else {
                         throw new DBIRecordNotFound("PhotoReport");
                     }
                 }).catch(function (err) {
@@ -616,6 +639,9 @@ async function getPlant(plantID) {
         });
 
 }
+
+
+
 /**
  * @desc Returns an array of most recent plant photos
  * @author Saad Ansari
@@ -1291,5 +1317,5 @@ module.exports = {
     getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
     getTopUserPhotos, getUnhandeledPhotoReportsByDate, getUnhandeledPhotoReportsByPriority,
     getUser, updatePlant, updatePhoto, updatePhotoReport, isValidReportId, isValidUserId, isValidPlantId,
-    isValidPhotoId, isValidBanId, isValidAdminId
+    isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery
 }
