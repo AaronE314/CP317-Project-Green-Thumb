@@ -173,9 +173,11 @@ async function addPhotoReport(pReport) {
  * @returns nothing
 */
 async function addPlant(plant) {
-    let new_plant = await getPlant(plant.getId()).catch(function (err) { throw err });
-    if (new_plant != null) {
-        throw new DBIDuplicate("Plant");
+    if (plant.getId() != null) {
+        let new_plant = await getPlant(plant.getId()).catch(function (err) { throw err });
+        if (new_plant != null) {
+            throw new DBIDuplicate("Plant");
+        }
     }
     sql.close() // CLose any existing connections
     return await sql.connect(config)
