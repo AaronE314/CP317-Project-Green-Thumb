@@ -664,7 +664,7 @@ async function getPlantByQuery(query) {
                         sql.close();
                         return plants;
                     } else {
-                        throw new DBIRecordNotFound("NO RESULTS");
+                        throw new DBIRecordNotFound("query");
                     }
                 })
                 .catch(function (err) {
@@ -853,7 +853,7 @@ async function getTopPhotos(startIndex, max) {
                     sql.close();
                 } else {
                     sql.close();
-                    throw new DBIRecordNotFound("photos");
+                    throw new DBIRecordNotFound("photo_id");
                 }
             })
                 .catch(function (err) {
