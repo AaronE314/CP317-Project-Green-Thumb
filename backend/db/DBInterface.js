@@ -58,7 +58,7 @@ async function addBan(ban) {
             req.input('userId', sql.Int, ban.getUserId());
             req.input('adminId', sql.Int, ban.getAdminId());
             req.input('expiration', sql.DateTime, ban.getExpirationDate());
-            return await req.query("Insert into [ban] (userId, adminId, expiration) Values (@userId, @adminId, @expiration)")
+            return await req.query("Insert into [projectgreenthumb].[dbo].[ban] (user_id, admin_id, expiration) Values (@userId, @adminId, @expiration)")
 
                 .then(function (recordset) {
 
@@ -81,21 +81,22 @@ async function addBan(ban) {
  * @returns nothing
 */
 async function addPhoto(photo) {
-    let new_photo = await getPhoto(photo.getId()).catch(function (err) { throw err });
-    if (new_photo != null) {
-        throw new DBIDuplicate("Photo");
+    if(photo.getId() !== undefined){
+        let new_photo = await isValidPhotoId(photo.getId()).catch(function (err) { throw err });
+        
+        if (new_photo != false) {
+            throw new DBIDuplicate("Photo");
+        }
     }
     sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
-
+            
             let req = new sql.Request();
             req.input("plantId", sql.Int, photo.getPlantId());
-            req.input("image", sql.Binary, photo.getImage());
-            req.input("tfrecord", sql.VarChar, photo.getTfRecord());
-            req.input("userId", sql.int, photo.getUserId());
-            return await req.query("insert into [photo] (plant_id, image, tf_record) values (1,convert(binary,'1010101'), 0)"+
-           " insert into [post] (user_id , photo_id) values (1, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));")
+            req.input("image_ref", sql.VarChar, photo.getImage());
+            req.input("userId", sql.Int, photo.getUserId());
+            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(binary,@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));")
 
                 .then(function (recordset) {
                     sql.close();
@@ -127,7 +128,7 @@ async function addPhotoReport(pReport) {
             req.input("rDate", sql.Date, pReport.getReportDate());
             req.input("rText", sql.VarChar, pReport.getReportText());
             req.input("userId", sql.Int, pReport.getUserId());
-            return await req.query("Insert into [report] (post_id, report_date , report_details) " +
+            return await req.query("Insert into [projectgreenthumb].[dbo].[report] (post_id, report_date , report_details) " +
                 "Values((SELECT post_id from [post] where user_id = @userID AND photo_id = phoroID)" +
                 ", @reportDate , @reportDetails); Insert into [admin_report] (report_id , admin_id , admin_action) " +
                 "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY(), @photoReport, @admin_Action)")
@@ -162,7 +163,7 @@ async function addPlant(plant) {
             req.input('plantName', sql.VarChar, plant.getName());
             req.input('plantBio', sql.VarChar, plant.getBio());
             req.input('plantId', sql.Int, plant.getId());
-            return await req.query("Insert into [plant](plant_name , plant_bio) Values (@plantName, @plantBio) ")
+            return await req.query("Insert into [projectgreenthumb].[dbo].[plant](plant_name , plant_bio) Values (@plantName, @plantBio) ")
                 .then(function (recordset) {
                     sql.close();
                 })
@@ -191,7 +192,7 @@ async function addUser(user) {
 
             let req = new sql.Request();
             req.input('userId', sql.Int, user.getId());
-            return await req.query("SELECT userID from " + dbName + "[user] where user_id = @userId;  Insert into [user] DEFAULT VALUES  ")
+            return await req.query("  Insert into [user] DEFAULT VALUES  ")
                 .then(function (recordset) {
                     sql.close();
                 })
@@ -218,7 +219,7 @@ async function addAdmin(admin) {
 
             let req = new sql.Request();
 
-            return await req.query("Insert into [admin] DEFAULT VALUES  ")
+            return await req.query("Insert into [projectgreenthumb].[dbo].[admin] DEFAULT VALUES  ")
                 .then(function (recordset) {
                     sql.close();
                 })
@@ -413,16 +414,17 @@ async function getBan(banID) {
 */
 
 async function getPhoto(photoId) {
-
+    console.log(photoId);
     sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
             req.input('photoId', sql.Int, photoId);
-            return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM " + dbName + "[photo] INNER JOIN " + dbName + "[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;            ")
+            return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM " + dbName + "[photo] INNER JOIN " + dbName + "[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
                 .then(function (recordset) {
-                    if (recordset.recordset[0] !== null) {
+                    if (recordset.recordset[0] != null) {
+                        console.log(recordset.recordset[0]);
                         photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image,recordset.recordset[0].photo_id, recordset.recordset[0].upload_date,  async function () {
                             req.input('photoId', sql.Int, photoId);
                             return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 1 order by user_id").then(function (recordset) {
