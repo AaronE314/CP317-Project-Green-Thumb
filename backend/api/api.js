@@ -77,8 +77,8 @@ async function validateParams(req, res, checkFunc) {
         if (err instanceof (assert.AssertionError)) { // If an internal error, don't say it was a bad request.
             res.send(ERROR_CODE.badRequest, err.message ? { message: err.message } : null);
         } else {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
         return false;
     }
@@ -103,8 +103,8 @@ api.post("/photos/add",
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -126,8 +126,8 @@ api.post("/photos/byId",
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -163,8 +163,8 @@ api.post("/photos/list/byDate",
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -200,8 +200,8 @@ api.post("/photos/list/byRating",
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -221,8 +221,8 @@ api.post("/photos/remove",
             res.send({});
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -245,8 +245,8 @@ api.post("/photoReports/add",
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -269,8 +269,8 @@ api.post("/photoReports/byId",
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -304,8 +304,8 @@ api.post("/photoReports/handle",
             res.send({});
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -338,8 +338,8 @@ api.post("/photoReports/list/byDate",
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -363,8 +363,8 @@ api.post("/photoReports/remove",
             res.send({});
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -394,8 +394,8 @@ api.post("/plants/add",
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -425,8 +425,8 @@ api.post("/plants/byId",
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -484,8 +484,8 @@ api.post("/plants/byImage",
             res.send({ results: results });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -504,7 +504,7 @@ api.post("/plants/byQuery",
 
             req.body.maxPhotos = req.body.maxPhotos !== undefined ? req.body.maxPhotos : DEFAULTS.plantsMaxPhotos;
 
-            let plants = await DBInterface.getPlantsByQuery(req.body.query);
+            let plants = await DBInterface.getPlantByQuery(req.body.query);
             let results = [];
             for (let i = 0; i < plants.length; i++) {
                 let photos = await DBInterface.getTopPlantPhotos(plants[i].getId(), 0, req.body.maxPhotos);
@@ -520,8 +520,8 @@ api.post("/plants/byQuery",
             return results;
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -544,8 +544,8 @@ api.post("/plants/remove",
             res.send({});
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -573,8 +573,8 @@ api.post("/plants/update",
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -596,8 +596,8 @@ api.post("/users/add",
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -622,8 +622,8 @@ api.post("/users/ban",
             res.send({});
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -639,13 +639,15 @@ api.post("/users/byId",
                 assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
             })) { return; }
 
+            let user = await DBInterface.getUser(req.body.userId);
+
             res.send({
-                user: await DBInterface.getUser(req.body.userId)
+                user: user
             });
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -670,8 +672,8 @@ api.post("/users/makeAdmin",
             res.send({});
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
@@ -695,8 +697,8 @@ api.post("/users/remove",
             res.send({});
 
         } catch (err) {
-            res.send(ERROR_CODE.internalError, err.message);
-            console.error(err.message);
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
         }
     });
 
