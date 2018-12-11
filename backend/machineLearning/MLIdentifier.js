@@ -75,6 +75,8 @@ class MLIdentifier {
 
         let tmpFilePath = `${FOLDER_PATH}/${TEMP_ENCODED_LOC}`;
         let executorPath = `${FOLDER_PATH}/MLExecutor.py`;
+        // let tmpFilePath = path.join(__dirname, TEMP_ENCODED_LOC);
+        // let executorPath = path.join(__dirname, "MLExecutor.py");
 
         fs.writeFileSync(tmpFilePath, image);
 
@@ -230,5 +232,3 @@ class MLIdentifier {
 
 MLIdentifier._scheduledItems = _scheduledItems;
 module.exports = MLIdentifier;
-
-MLIdentifier.predict();
