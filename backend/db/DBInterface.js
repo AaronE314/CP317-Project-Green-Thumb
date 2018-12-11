@@ -67,11 +67,11 @@ async function addBan(ban) {
                     return ban;
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -81,9 +81,9 @@ async function addBan(ban) {
  * @returns nothing
 */
 async function addPhoto(photo) {
-    if(photo.getId() !== undefined){
+    if (photo.getId() !== undefined) {
         let new_photo = await isValidPhotoId(photo.getId()).catch(function (err) { throw err });
-        
+
         if (new_photo != false) {
             throw new DBIDuplicate("Photo");
         }
@@ -91,7 +91,7 @@ async function addPhoto(photo) {
     sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
-            
+
             let req = new sql.Request();
             req.input("plantId", sql.Int, photo.getPlantId());
             req.input("image_ref", sql.VarChar, photo.getImage());
@@ -102,11 +102,11 @@ async function addPhoto(photo) {
                     sql.close();
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -138,11 +138,11 @@ async function addPhotoReport(pReport) {
 
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -168,11 +168,11 @@ async function addPlant(plant) {
                     sql.close();
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -197,11 +197,11 @@ async function addUser(user) {
                     sql.close();
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 
@@ -224,11 +224,11 @@ async function addAdmin(admin) {
                     sql.close();
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 
@@ -243,7 +243,7 @@ async function removePhoto(photoID) {
     sql.close() // CLose any existing connections
     // Connect to database
     sql.connect(config, function (err) {
-        if (err) { console.log(err); }
+        if (err) { throw err; }
 
         var request = new sql.Request(); // create Request object
         req.input('photoId', sql.Int, photoID);
@@ -251,7 +251,7 @@ async function removePhoto(photoID) {
 
         // Query the database and remove photo
         request.query(sqlQuery, function (err, recordset) {
-            if (err) { console.log(err); }
+            if (err) { throw err; }
 
             sql.close(); //Close connection
         });
@@ -268,7 +268,7 @@ async function removePhotoReport(photoReportID) {
     sql.close() // CLose any existing connections
     // Connect to database
     sql.connect(config, function (err) {
-        if (err) { console.log(err); }
+        if (err) { throw err; }
 
         var request = new sql.Request(); // create Request object
         req.input('photoReportId', sql.Int, photoReportID);
@@ -276,7 +276,7 @@ async function removePhotoReport(photoReportID) {
 
         // Query the database and remove photo
         request.query(sqlQuery, function (err, recordset) {
-            if (err) { console.log(err); }
+            if (err) { throw err; }
             sql.close(); //Close connection
         });
     });
@@ -292,7 +292,7 @@ async function removePlant(plantID) {
     sql.close() // CLose any existing connections
     // Connect to database
     sql.connect(config, function (err) {
-        if (err) { console.log(err); }
+        if (err) { throw err; }
         var request = new sql.Request(); // create Request object
         req.input('plantId', sql.Int, plantID);
         var sqlQuery = // Create SQL Query
@@ -323,7 +323,7 @@ async function removePlant(plantID) {
 
         // Query the database and remove plant
         request.query(sqlQuery, function (err, recordset) {
-            if (err) { console.log(err); }
+            if (err) { throw err; }
 
             sql.close(); //Close connection
         });
@@ -340,7 +340,7 @@ async function removeUser(UserID) {
     sql.close() // CLose any existing connections
     // Connect to database
     sql.connect(config, function (err) {
-        if (err) { console.log(err); }
+        if (err) { throw err; }
         var request = new sql.Request(); // create Request object
         req.input('userId', sql.Int, userID);
         var sqlQuery = // Create SQL Query
@@ -364,7 +364,7 @@ async function removeUser(UserID) {
 
         // Query the database and remove the user
         request.query(sqlQuery, function (err, recordset) {
-            if (err) { console.log(err); }
+            if (err) { throw err; }
 
             sql.close(); //Close connection
         });
@@ -399,11 +399,11 @@ async function getBan(banID) {
                     }
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -425,19 +425,19 @@ async function getPhoto(photoId) {
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
                         console.log(recordset.recordset[0]);
-                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image,recordset.recordset[0].photo_id, recordset.recordset[0].upload_date,  async function () {
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
                             req.input('photoId', sql.Int, photoId);
                             return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 1 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         }, async function () {
                             req.input('photoId', sql.Int, photoId);
                             return await req.query("Select user_id from " + dbName + "[voting] where photo_id = @photoId and vote = 0 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         });
 
@@ -448,11 +448,11 @@ async function getPhoto(photoId) {
                     }
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 
@@ -472,19 +472,19 @@ async function getPhotoReport(photoReportId) {
             req.input('photoReportId', sql.Int, photoReportId);
             return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[report] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.post_id = report.post_id) where report.report_id = @photoReportId;")
                 .then(function (recordset) {
-                    if(recordset.recordset[0]!== null ){
+                    if (recordset.recordset[0] !== null) {
                         report = new PhotoReport(recordset.recordset[0].photo_id, recordset.recordset[0].user_id, recordset.recordset[0].report_details, recordset.recordset[0].report_id, recordset.recordset[0].report_date);
                         sql.close();
                         return report;
-                    }else {
+                    } else {
                         throw new DBIRecordNotFound("PhotoReport");
                     }
                 }).catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
 
         }).catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 
@@ -513,7 +513,7 @@ async function getPhotoReportsByAdmin(adminId) {
                                 return recordset;
 
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         }, async function () {
                             req.input('postId', sql.Int, recordset[ind].post_id);
@@ -521,7 +521,7 @@ async function getPhotoReportsByAdmin(adminId) {
                                 return recordset;
 
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
 
                         }, recordset.recordset[ind].report_details, recordset.recordset[ind].report_date));
@@ -530,11 +530,11 @@ async function getPhotoReportsByAdmin(adminId) {
                     sql.close();
 
                 }).catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
 
         }).catch(function (err) {
-            console.log(err);
+            throw err;
         });
 
     return reports;
@@ -558,14 +558,14 @@ async function getAdmin(adminID) {
             return await req.query("SELECT * FROM " + dbName + "[admin] where admin_id = @adminID ")
 
                 .then(function (recordset) {
-                    if (recordset.recordset[0] !== null) {
+                    if (recordset.recordset[0] != undefined) {
                         user = new Admin(recordset.recordset[0].admin_id, async function () {
                             req.input('adminID', sql.Int, adminID);
 
                             return await req.query("Select user_id from " + dbName + "[ban] where admin_id = @adminID").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         });
 
@@ -576,11 +576,11 @@ async function getAdmin(adminID) {
                     }
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -608,11 +608,11 @@ async function getPlant(plantID) {
                     }
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 
 }
@@ -647,14 +647,14 @@ async function getNewestPlantPhotos(plantID, startIndex, max) {
                             return await req.query("Select user_id from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         }, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
                             return await req.query("Select user_id from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         }));
                         ind = ind + 1;
@@ -667,11 +667,11 @@ async function getNewestPlantPhotos(plantID, startIndex, max) {
                 }
             })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
     return photos.slice(startIndex, startIndex + max);
 }
@@ -709,7 +709,7 @@ async function getNewestUserPhotos(userID, startIndex, max) {
 
                                 return recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         }, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
@@ -718,7 +718,7 @@ async function getNewestUserPhotos(userID, startIndex, max) {
 
                                 return recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         }));
                         ind = ind + 1;
@@ -730,11 +730,11 @@ async function getNewestUserPhotos(userID, startIndex, max) {
                 }
             })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
     return photos.slice(startIndex, startIndex + max);
 }
@@ -774,7 +774,7 @@ async function getTopPhotos(startIndex, max) {
 
                                 return recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         }, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
@@ -783,7 +783,7 @@ async function getTopPhotos(startIndex, max) {
 
                                 return recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         }));
                         ind = ind + 1;
@@ -795,11 +795,11 @@ async function getTopPhotos(startIndex, max) {
                 }
             })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
     return photos.slice(startIndex, startIndex + max);
 }
@@ -836,14 +836,14 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
                             return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         }, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
                             return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         }));
                         ind = ind + 1;
@@ -851,15 +851,15 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
                     sql.close();
                 } else {
                     sql.close();
-                    throw new DBIRecordNotFound("photos");
+                    return [];
                 }
             })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
     return photos.slice(startIndex, startIndex + max);
 }
@@ -894,14 +894,14 @@ async function getTopUserPhotos(userID, startIndex, max) {
                         return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
                             return recordset;
                         }).catch(function (err) {
-                            console.log(err);
+                            throw err;
                         })
                     }, async function () {
                         req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
                         return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
                             return recordset;
                         }).catch(function (err) {
-                            console.log(err);
+                            throw err;
                         })
                     }));
                     ind = ind + 1;
@@ -910,11 +910,11 @@ async function getTopUserPhotos(userID, startIndex, max) {
                 return photos.slice(startIndex, startIndex + max);
             })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 
@@ -945,11 +945,11 @@ async function getUnhandeledPhotoReportsByPriority(startIndex, max) {
                 return photoReports.slice(startIndex, startIndex + max);
             })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 
@@ -981,11 +981,11 @@ async function getUnhandeledPhotoReportsByDate(startIndex, max) {
                 return photoReports.slice(startIndex, startIndex + max);
             })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 
@@ -1005,13 +1005,13 @@ async function getUser(userId) {
             req.input('userId', sql.Int, userId);
             return await req.query("SELECT [user_id] FROM [user] where [user].[user_id] = @userId ")
                 .then(function (recordset) {
-                    if (recordset.recordset[0] !== null) {
+                    if (recordset.recordset[0] != undefined) {
                         user = new User(recordset.recordset[0].user_id, async function () {
                             req.input('userId', sql.Int, userId);
                             return await req.query("Select [user_id] from [ban] where ban.[user_id] = @userId").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
-                                console.log(err);
+                                throw err;
                             })
                         });
 
@@ -1022,11 +1022,11 @@ async function getUser(userId) {
                     }
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 
@@ -1053,11 +1053,11 @@ async function updatePhoto(photo) {
                     sql.close();
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 
@@ -1081,11 +1081,11 @@ async function updatePhotoReport(pReport) {
 
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 
@@ -1108,11 +1108,11 @@ async function updatePlant(plant) {
                     sql.close();
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -1130,17 +1130,17 @@ async function isValidAdminId(adminId) {
             return await req.query("SELECT admin_id FROM " + dbName + "[admin] where admin_id = @adminID ")
                 .then(function (recordset) {
                     let bool = false;
-                    if (recordset.recordset[0] !== null) {
+                    if (recordset.recordset[0] != undefined) {
                         bool = true;
                     }
                     return bool;
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -1158,17 +1158,17 @@ async function isValidBanId(banId) {
             return await req.query("SELECT ban_id FROM " + dbName + "[ban] where ban_id = @banID ")
                 .then(function (recordset) {
                     let bool = false;
-                    if (recordset.recordset[0] !== null) {
+                    if (recordset.recordset[0] != undefined) {
                         bool = true;
                     }
                     return bool;
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -1186,17 +1186,17 @@ async function isValidPhotoId(photoId) {
             return await req.query("SELECT photo_id FROM " + dbName + "[photo] where photo_id = @photoId ")
                 .then(function (recordset) {
                     let bool = false;
-                    if (recordset.recordset[0] !== null) {
+                    if (recordset.recordset[0] != undefined) {
                         bool = true;
                     }
                     return bool;
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -1214,17 +1214,17 @@ async function isValidPlantId(plantId) {
             return await req.query("SELECT plant_id FROM " + dbName + "[plant] where plant_id = @plantId ")
                 .then(function (recordset) {
                     let bool = false;
-                    if (recordset.recordset[0] !== null) {
+                    if (recordset.recordset[0] != undefined) {
                         bool = true;
                     }
                     return bool;
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -1242,17 +1242,17 @@ async function isValidUserId(userId) {
             return await req.query("SELECT user_id FROM " + dbName + "[user] where user_id = @userId ")
                 .then(function (recordset) {
                     let bool = false;
-                    if (recordset.recordset[0] !== null) {
+                    if (recordset.recordset[0] != undefined) {
                         bool = true;
                     }
                     return bool;
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 /**
@@ -1270,17 +1270,17 @@ async function isValidReportId(reportId) {
             return await req.query("SELECT report_id FROM " + dbName + "[report] where report_id = @reportId ")
                 .then(function (recordset) {
                     let bool = false;
-                    if (recordset.recordset[0] !== null) {
+                    if (recordset.recordset[0] != undefined) {
                         bool = true;
                     }
                     return bool;
                 })
                 .catch(function (err) {
-                    console.log(err);
+                    throw err;
                 });
         })
         .catch(function (err) {
-            console.log(err);
+            throw err;
         });
 }
 
