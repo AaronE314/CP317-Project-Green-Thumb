@@ -521,7 +521,7 @@ api.post("/plants/byQuery",
                 })
             }
 
-            return results;
+            res.send({ results: results });
 
         } catch (err) {
             res.send(ERROR_CODE.internalError, { message: err.message });
