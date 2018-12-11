@@ -442,6 +442,10 @@ api.post("/plants/byImage",
         try {
             if (!await validateParams(req, res, async (body) => {
                 assert(body.image !== undefined, ERROR_MSG.missingParam("image"));
+                assert(body.height !== undefined, ERROR_MSG.missingParam("height"));
+                assert(body.width !== undefined, ERROR_MSG.missingParam("width"));
+                assert(body.height > 0, ERROR_MSG.noNeg("height"));
+                assert(body.width > 0, ERROR_MSG.noNeg("width"));
                 assert(body.maxPhotos === undefined || body.maxPhotos >= 0), ERROR_MSG.noNeg("maxPhotos");
                 // TODO check that image is valid base-64.
             })) { return; }
@@ -451,7 +455,7 @@ api.post("/plants/byImage",
             let TFResults = MLIdentifier.predict(req.body.image);
 
             let results = [];
-            for (let i = 0; i < TFResults.numResults; i++) {
+            for (let i = 0; i < TFResults.count; i++) {
                 if (TFResults.scores[i] >= 0.3) {
                     let plant = await DBInterface.getPlant(TFResults.classes[i]);
                     let photos = await DBInterface.getTopPlantPhotos(TFResults.classes[i], 0, req.body.maxPhotos);
@@ -460,10 +464,10 @@ api.post("/plants/byImage",
                     }
 
                     // TODO: Verify that req.body.image has a height and width property
-                    let min_y = TFResults.boxes[i * 4] * req.body.image.height;
-                    let min_x = TFResults.boxes[i * 4 + 1] * req.body.image.width
-                    let max_y = TFResults.boxes[i * 4 + 2] * req.body.image.height;
-                    let max_x = TFResults.boxes[i * 4 + 3] * req.body.image.width;
+                    let min_y = TFResults.boxes[i][0] * req.body.height;
+                    let min_x = TFResults.boxes[i][1] * req.body.width
+                    let max_y = TFResults.boxes[i][2] * req.body.height;
+                    let max_x = TFResults.boxes[i][3] * req.body.width;
 
                     results.push({
                         plant: plant,
