@@ -29,11 +29,11 @@ var config = {
 };
 ///////////////////////////Error Functions////////////////////////////
 function DBIRecordNotFound(element) {
-    const error = new Error(`The ${element} you are looking for is not in our records`);
+    const error = new Error(`The ${element} you are looking for cannot be found in our records`);
     return error;
 }
 function DBIDuplicate(element) {
-    const error = new Error(`The ${element} object you are attempting to save already exists.`);
+    const error = new Error(`The ${element} object(s) you are attempting to save already exist(s).`);
     return error;
 }
 DBIDuplicate.prototype = Object.create(Error.prototype);
