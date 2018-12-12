@@ -1005,7 +1005,7 @@ async function getPlantByQuery(query) {
  * @param {Number} max The maximum number of Photos to return.
  * @returns {Photo[]} The most recent Photos uploaded of the specified Plant.
 */
-async function getNewestPlantPhotos(plantID, startIndex, max) {
+async function getNewestPlantPhotos(plantId, startIndex, max) {
     photos = [];
     sql.close() // Close any existing connections.
     await sql.connect(config)
@@ -1057,7 +1057,7 @@ async function getNewestUserPhotos(userId, startIndex, max) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId', sql.VarChar, userID);
+            req.input('userId', sql.VarChar, userId);
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
                 'FROM photo ph ' +
