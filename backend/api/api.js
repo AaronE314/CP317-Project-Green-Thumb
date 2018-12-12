@@ -29,6 +29,7 @@ const assert = require("assert");
 const API_PORT = 2500;
 const DEFAULTS = Object.freeze({
     plantsMaxPhotos: 3,
+    maxPlantsByQuery: 5
 });
 const ERROR_MSG = Object.freeze({
     missingParam: (param) => { return `Missing required '${param}' parameter in request body.`; },
@@ -449,7 +450,6 @@ api.post("/plants/byId",
         }
     });
 
-
 api.post("/plants/byImage",
     /**
      * @author Nathaniel Carr
@@ -523,13 +523,15 @@ api.post("/plants/byQuery",
                 assert(body.query !== undefined, ERROR_MSG.missingParam("query"));
                 assert(body.query !== "", ERROR_MSG.missingText("query"));
                 assert(body.maxPhotos === undefined || body.maxPhotos >= 0), ERROR_MSG.noNeg("maxPhotos");
+                assert(body.maxPlants === undefined || body.maxPlants >= 0), ERROR_MSG.noNeg("maxPlants");
             })) { return; }
 
             req.body.maxPhotos = req.body.maxPhotos !== undefined ? req.body.maxPhotos : DEFAULTS.plantsMaxPhotos;
+            req.body.maxPlants = req.body.maxPlants !== undefined ? req.body.maxPlants : DEFAULTS.maxPlantsByQuery;
 
             let plants = await DBInterface.getPlantByQuery(req.body.query);
             let results = [];
-            for (let i = 0; i < plants.length; i++) {
+            for (let i = 0; i < plants.length && i < req.body.maxPlants; i++) {
                 let photos = await DBInterface.getTopPlantPhotos(plants[i].getId(), 0, req.body.maxPhotos);
                 for (let j = 0; j < photos.length; j++) {
                     photos[i] = photos[i].toJSON();
