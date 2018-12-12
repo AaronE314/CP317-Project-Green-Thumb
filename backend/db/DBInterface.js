@@ -702,7 +702,7 @@ async function removePlant(plantID) {
  * @author Saad Ansari
  * @param {Number} UserID The primary key of the User.
 */
-async function removeUser(UserID) {
+async function removeUser(UserId) {
     sql.close() // Close any existing connections.
     // Connect to database.
     sql.connect(config, function (err) {
