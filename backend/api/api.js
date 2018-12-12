@@ -670,7 +670,7 @@ api.post("/users/makeAdmin",
                 assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
-            let user = DBInterface.getUser(req.body.userId);
+            let user = await DBInterface.getUser(req.body.userId);
             await DBInterface.addAdmin(new Admin(user.getId(), user.getBans()));
 
             res.send({});

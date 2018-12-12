@@ -1062,7 +1062,7 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
-                        photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
+                        photos.push(new Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
                             return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
                                 return recordset;
