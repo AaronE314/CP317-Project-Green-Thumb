@@ -289,15 +289,14 @@ async function add_vote(photoId, userId, direction) {
  * @param {photoId} photoId a plantId Int.
  * @param {userId} userId a userId Int.
 */
-async function remove_vote(photoId, userId) {
+async function remove_vote(vote_id) {
     sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('photoId', sql.Int, photoId);
-            req.input('userId', sql.Int, userId);
-            return await req.query("DELETE FROM voting WHERE [user_id] = @userId AND [photo_id] = @photoId")
+            req.input('voteId', sql.Int, vote_Id);
+            return await req.query("DELETE FROM voting WHERE [vote_id] = @voteId")
         })
         .catch(function (err) {
             throw err;
@@ -323,6 +322,63 @@ async function change_vote_direction(voteId, direction) {
             throw err;
         });
 }
+
+/**
+ * @desc Finds and returns a single vote
+ * @author Saad Ansari
+ * @param {userId} userId a userId Int.
+ * @param {photoId} photoId a photoId Int.
+*/
+async function get_vote(photoId, userId) {
+    sql.close() // CLose any existing connections
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+            req.input('photoId', sql.Int, photoId);
+            req.input('userId', sql.Int, userId);
+            req.input('direction', sql.Int, direction);
+            return await req.query("SELECT vote_id FROM voting WHERE [user_id] = @userId AND [photo_id] = @photoId AND vote = @direction")
+        })
+        .then(function (recordset) {
+            if (recordset.recordset[0] != undefined) {
+                return recordset.recordset[0].vote_id;
+            } else {
+                return null;
+            }
+        })
+        .catch(function (err) {
+            throw err;
+        });
+}
+
+/**
+ * @desc Manages the votes 
+ * @author Saad Ansari
+ * @param {userId} userId a userId Int.
+ * @param {photoId} photoId a photoId Int.
+ * @param {direction} direction the direction of the vote.
+*/
+async function vote(photoId, userId, direction) {
+
+    opp_direction = 0;
+    if (direction = 0) {
+        opp_direction = 1;
+    }
+
+    current_vote = await get_vote(photoId, userId, direction); // If cancelling out existing vote
+    if (current_vote != null) {
+        await remove_vote(current_vote);
+    }
+    else {
+        add_vote(photoId, userId, direction); // Adding the new vote if doesnt already exist
+        opp_vote = await get_vote(photoId, userId, opp_direction); // Remove the opposite vote if it exists
+        if (opp_vote != null) {
+            await remove_vote(opp_vote);
+        }
+    }
+}
+
 
 ///////////////////////////Insertion Functions////////////////////////////
 /**
