@@ -34,10 +34,7 @@ class Photo {
         this.getUploadDate = getUploadDate;
         this.getUpvoteIds = getUpvoteIds;
         this.getDownvoteIds = getDownvoteIds;
-        this.userUpvoted = userUpvoted;
-        this.userDownvoted = userDownvoted;
         this.getVoteSum = getVoteSum;
-        this.vote = vote;
         this.toJSON = toJSON;
         this.setId = setId;
 
@@ -92,24 +89,6 @@ class Photo {
             return _downvoteIds;
         }
         /**
-         * @desc Determine whether or not a User with a specified ID upvoted on this Photo.
-         * @author Adam Cassidy
-         * @param {Number} userId The ID of the User in question. Integer.
-         * @returns {Boolean} True iff the User upvoted.
-         */
-        function userUpvoted(userId) {
-            return binaryIndexOf(_upvoteIds, userId, (a, b) => { return a - b; }) > -1;
-        }
-        /**
-         * @desc Determine whether or not a User with a specified ID downvoted on this Photo.
-         * @author Adam Cassidy
-         * @param {Number} userId The ID of the User in question. Integer.
-         * @returns {Boolean} True iff the User downvoted.
-         */
-        function userDownvoted(userId) {
-            return binaryIndexOf(_downvoteIds, userId, (a, b) => { return a - b; }) > -1;
-        }
-        /**
          * @desc Determine overall total of upvotes and downvotes (one upvote is +1, one downvote is -1).
          * @author Nathaniel Carr
          * @author Adam Cassidy
@@ -117,73 +96,6 @@ class Photo {
          */
         function getVoteSum() {
             return _upvoteIds.length - _downvoteIds.length;
-        }
-        /**
-         * @desc Add a User's ID to the upvoteIds or downvoteIds (based on up param) if it does not already exist in the array in question, and remove it if it does. There will be at most one instance of userId in either upvoteIds or downvoteIds at the end.
-         * @author Nathaniel Carr
-         * @author Adam Cassidy
-         * @param {Number} userId The User's ID. Integer.
-         * @param {Boolean} up Whether to upvote or downvote.
-         */
-        function vote(userId, up) {
-            // Find index of userId in upvoteIds if it exists.
-            let index = binaryIndexOf(_upvoteIds, userId, (a, b) => { return a - b; });
-            if (index > -1) {
-                // Splice userId out of upvoteIds.
-                _upvoteIds.splice(index, 1);
-            } else if (up) {
-                // Splice userId into appropriate index in upvoteIds.
-                _upvoteIds.splice(
-                    binaryIndexOf(_upvoteIds, userId, (a, b) => { return a - b; }, true), 0, userId);
-            }
-
-            // Find index of userId in downvoteIds if it exists.
-            index = binaryIndexOf(_downvoteIds, userId, (a, b) => { return a - b; });
-            if (index > -1) {
-                // Splice userId out of downvoteIds.
-                _downvoteIds.splice(index, 1);
-            } else if (!up) {
-                // Splice userId into appropriate index in downvoteIds.
-                _downvoteIds.splice(binaryIndexOf(_downvoteIds, userId, (a, b) => { return a - b; }, true), 0, userId);
-            }
-        }
-
-        // PRIVATE method definitions.
-        /**
-         * @desc Returns index of item if item is found in arr. Else, returns -1 by default or the index of the next-least item in arr (based on closestLT).
-         * @author Nathaniel Carr
-         * @author Adam Cassidy
-         * @template T
-         * @param {T[]} arr Array to search.
-         * @param {T} item Item to search for.
-         * @param {*} comp Function that compares a to b, each of type T. Returns < 0 if a < b, 0 if a == b, > 0 if a > b.
-         * @param {Boolean=} [closestLT=false] If closestLT set, return index of closest T in arr to item such that the closest T is less than item. If closestLT is false, return -1 if item is not found. Default: false.
-         * @returns {Number} Return index of item if item is found in arr. If closestLT set, return index of closest T in arr to item such that the closest T is less than item. If closestLT is false, return -1 if item is not found.
-         */
-        function binaryIndexOf(arr, item, comp, closestLT) {
-            closestLT |= false;
-
-            let first = 0;
-            let mid;
-            let last = arr.length - 1;
-            let found = false;
-            let result = -1;
-
-            while (first <= last && !found) {
-                mid = Math.floor((first + last) / 2);
-                let compResult = comp(arr[mid], item);
-                if (compResult == 0) {
-                    found = true;
-                    result = mid;
-                }
-                else if (compResult > 0) {
-                    last = mid - 1;
-                }
-                else {
-                    first = mid + 1;
-                }
-            }
-            return closestLT ? first : result;
         }
         /**
          * @desc Convert the private attributes of Photo object to JSON so it can be sent via an API.

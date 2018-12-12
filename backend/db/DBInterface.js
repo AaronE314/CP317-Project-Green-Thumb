@@ -226,10 +226,10 @@ async function create_bans(userId) {
         });
 }
 /**
- * @desc make an array of bans object
+ * @desc make an array of votesbased on 'direction' 0 for downvotes. 1 for upvotes.
  * @author Austin Bursey
  * @param {userId} userId a userId Int.
- * @returns {Bans} an array of ban  objects
+ * @returns {Votes} an array of votes  objects
 */
 async function create_votes(photoId, direction) {
     let votes = [];
@@ -328,8 +328,9 @@ async function change_vote_direction(voteId, direction) {
 /**
  * @desc Add a Ban to the database.
  * @author Austin Bursey
- * @param {Ban} ban The new Ban object.
-*/
+ * @param {ban}  The new Ban object.
+ * @return {ban} The orginal ban object with an initialized Id 
+*/ 
 async function addBan(ban) {
     let new_Ban = await ban_exists(ban);
     if (new_Ban == true) {
@@ -363,6 +364,7 @@ async function addBan(ban) {
  * @desc Add a Photo to the database.
  * @author Austin Bursey
  * @param {Photo} photo The new Photo object.
+ * @return {photo} The orginal Photo object with an initialized Id 
 */
 async function addPhoto(photo) {
     if (photo.getId() !== undefined) {
@@ -418,6 +420,7 @@ async function addPhoto(photo) {
  * @desc Add a PhotoReport to the database.
  * @author Austin Bursey
  * @param {PhotoReport} photoReport The new PhotoReport.
+ * @return {report} The orginal PhotoReport object with an initialized Id 
 */
 async function addPhotoReport(photoReport) {
     let new_photoReport = await photo_report_exists(photoReport);
@@ -455,6 +458,7 @@ async function addPhotoReport(photoReport) {
  * @desc Add a Plant to the database.
  * @author Austin Bursey
  * @param {Plant} plant The new Plant.
+ * @return {plant} The orginal Plant object with an initialized Id 
 */
 async function addPlant(plant) {
     let new_plant = await plant_exists(plant);
@@ -486,6 +490,7 @@ async function addPlant(plant) {
  * @desc Add a User to the database
  * @author Austin Bursey
  * @param {User} user a User object.
+ * @return {user} The orginal user object with an initialized Id 
 */
 async function addUser(user) {
     let new_User = await user_exists(user);
@@ -969,7 +974,7 @@ async function getNewestPlantPhotos(plantID, startIndex, max) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
-                        photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
+                        photos.push(new Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
                             return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
                                 return recordset;
@@ -1028,7 +1033,7 @@ async function getNewestUserPhotos(userID, startIndex, max) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
-                        photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
+                        photos.push(new Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
 
                             return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
@@ -1092,7 +1097,7 @@ async function getTopPhotos(startIndex, max) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
-                        photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
+                        photos.push(new Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
                             return await req.query("Select [user_id] from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
 
