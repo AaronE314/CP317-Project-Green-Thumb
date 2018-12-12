@@ -1050,7 +1050,7 @@ async function getNewestPlantPhotos(plantID, startIndex, max) {
  * @param {Number} max The maximum number of Photos to return.
  * @returns {Photo[]} The most recent Photos uploaded by the specified User.
 */
-async function getNewestUserPhotos(userID, startIndex, max) {
+async function getNewestUserPhotos(userId, startIndex, max) {
     photos = [];
     sql.close() // Close any existing connections.
     await sql.connect(config)
