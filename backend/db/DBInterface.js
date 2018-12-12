@@ -708,22 +708,19 @@ async function removeUser(UserId) {
     sql.connect(config, function (err) {
         if (err) { throw err; }
         let request = new sql.Request(); // create Request object
-        request.input('userId', sql.VarChar, userID);
+        request.input('userId', sql.VarChar, userId);
         let sqlQuery = // Create SQL Query.
             // Delete all associated reports.
             'DELETE FROM report WHERE ' +
-            '(SELECT u.[user_id] FROM[user] u ' +
-            'JOIN post po ON u.[user_id] = po.[user_id] ' +
-            'JOIN report r ON r.post_id = po.post_id) = @userId;' +
+            'user_id = @userId;' +
 
             // Delete all associated posts.
             'DELETE FROM post WHERE ' +
-            '(SELECT u.[user_id] FROM[user] u ' +
-            'JOIN post po ON u.[user_id] = po.[user_id]) = @userId;' +
+            'user_id = @userId;' +
 
             // Delete all assocaited votes.
             'DELETE FROM voting WHERE ' +
-            '(SELECT[user_id] FROM voting) = @userId;' +
+            'user_id = @userId;' +
 
             // Delete the user.
             'DELETE FROM[user] WHERE[user_id] = @userId;'
