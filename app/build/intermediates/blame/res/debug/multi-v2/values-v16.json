@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Stefan\\StudioProjects\\CP317-Project-Green-Thumb\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
+            "outputFile": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Stefan\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\4ad5fb1ad6569c39cb9be2cafa0957a1\\res\\values-v16\\values-v16.xml",
+                    "source": "/home/tim/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/f1624d003a3cece3d8cb93c0cc7ec092/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Stefan\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\50ba7d4e23319cc7546d2a1f28ba66cf\\res\\values-v16\\values-v16.xml",
+                    "source": "/home/tim/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/f63578afb9e43714ab9aff88da81f865/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
