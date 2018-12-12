@@ -719,6 +719,10 @@ async function removeUser(userId) {
         request.input('userId', sql.VarChar, userId);
         let sqlQuery = // Create SQL Query.
             // Delete all associated reports.
+            'DELETE FROM ban WHERE ' +
+            'user_id = @userId;' +
+
+            // Delete all associated reports.
             'DELETE FROM report WHERE ' +
             'user_id = @userId;' +
 
