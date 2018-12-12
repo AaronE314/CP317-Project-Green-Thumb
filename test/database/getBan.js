@@ -1,5 +1,5 @@
-
-const assert = require('assert');
+const chai = require('chai');
+const assert = chai.assert;
 const DBInterface = require("../../backend/db/DBInterface.js");
 const Ban = require("../../backend/Ban.js");
 
@@ -16,10 +16,10 @@ describe('getBan Database Tests', async function() {
         assert.equal(b.getExpirationDate().getTime(), ban.getExpirationDate().getTime());
 
     });
-    it('should throw error for Ban with ID == 4', async function() {
+    it('should throw error for Ban with ID == 30', async function() {
         assert.throws(async function() { 
-            await DBInterface.getBan(4)
-        }, Error);
+            await DBInterface.getBan(30)
+        });
     });
 });
 
