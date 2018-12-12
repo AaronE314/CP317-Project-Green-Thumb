@@ -87,12 +87,12 @@
             <p>For an up-to-date list of relevant definitions, acronyms, and abbreviations, please refer to the
                 GreenThumb Software Requirements Specifications.
 
-        </p>
+            </p>
 
-        <h3><a id="References">1.5 References</a></h3>
-        <p>
-            All references can be found in the SRS documentation.
-        </p>
+            <h3><a id="References">1.5 References</a></h3>
+            <p>
+                All references can be found in the SRS documentation.
+            </p>
 
     </div>
 
@@ -163,27 +163,35 @@
             </tr>
             <tr>
                 <td>/photos/add</td>
-                <td>{ image: Image, plantId: int, userId: int }</td>
-                <td>{ photo: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int } }</td>
+                <td>{ image: Base64 ByteString, plantId: int, userId: int }</td>
+                <td>{ photoId: int }</td>
                 <td>Add a new Photo of the specified Plant to the database.</td>
             </tr>
             <tr>
                 <td>/photos/byId</td>
                 <td>{ photoId: int }</td>
-                <td>{ photo: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int } }</td>
+                <td>{ photo: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds:
+                    int[], userId: String } }</td>
                 <td>Return the Photo with the matching ID.</td>
             </tr>
             <tr>
                 <td>/photos/list/byDate</td>
                 <td>{ max: int, startIndex: int, {plantId: int}, {userId: int} }</td>
-                <td>{ photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[] }</td>
-                <td>Get the specified number of Photos from the database, sorted by date. Must supply either plantId or userId. If plantId is given, return only Photos of the specified Plant. If userId is given, return only Photos by the specified User.</td>
+                <td>{ photo: { downvoteIds: String[], id: int, image: String, plantId: int, uploadDate: String,
+                    upvoteIds:
+                    String[], userId: String }[] }</td>
+                <td>Get the specified number of Photos from the database, sorted by date. Must supply either plantId or
+                    userId. If plantId is given, return only Photos of the specified Plant. If userId is given, return
+                    only Photos by the specified User.</td>
             </tr>
             <tr>
                 <td>/photos/list/byRating</td>
                 <td>{ max: int, startIndex: int, {plantId: int}, {userId: int }</td>
-                <td>{ photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[] }</td>
-                <td>Get the specified number of Photos from the database, sorted by votes. If plantId is given, return only Photos of the specified Plant. If userId is given, return only Photos by the specified User.</td>
+                <td>{ photo: { downvoteIds: String[], id: int, image: String, plantId: int, uploadDate: String,
+                    upvoteIds:
+                    String[], userId: String }[] }</td>
+                <td>Get the specified number of Photos from the database, sorted by votes. If plantId is given, return
+                    only Photos of the specified Plant. If userId is given, return only Photos by the specified User.</td>
             </tr>
             <tr>
                 <td>/photos/remove</td>
@@ -192,15 +200,22 @@
                 <td>Remove the Photo with the matching ID from the database.</td>
             </tr>
             <tr>
+                <td>/photos/vote</td>
+                <td>{ photoId: int, up: bool, userId: int }</td>
+                <td>{ }</td>
+                <td>Applies a vote from the specified User on the specified Photo.</td>
+            </tr>
+            <tr>
                 <td>/photoReports/add</td>
                 <td>{ photoId: int, reportText: String, userId: int }</td>
-                <td>{ photoReport: { adminAction: int, adminId: int, handleDate: String,id: int, reportDate: String, reportText: String, userId: int }  }</td>
+                <td>{ photoReportId: int }</td>
                 <td>Add a new PhotoReport of the specified Photo to the database.</td>
             </tr>
             <tr>
                 <td>/photoReports/byId</td>
                 <td>{ adminId: int, photoReportId: int }</td>
-                <td>{ photoReport: { adminAction: int, adminId: int, handleDate: String,id: int, reportDate: String, reportText: String, userId: int } }</td>
+                <td>{ photoReport: { adminAction: int, adminId: int, handleDate: String, id: int, reportDate: String,
+                    reportText: String, userId: int } }</td>
                 <td>Return the PhotoReport with the matching ID.</td>
             </tr>
             <tr>
@@ -213,7 +228,8 @@
             <tr>
                 <td>/photoReports/list/byDate</td>
                 <td>{ adminId: int, startIndex: int, max: int }</td>
-                <td>{ photoReports: { adminAction: int, adminId: int, handleDate: String,id: int, reportDate: String, reportText: String, userId: int }[0..max] }</td>
+                <td>{ photoReports: { adminAction: int, adminId: int, handleDate: String, id: int, reportDate: String,
+                    reportText: String, userId: int }[] }</td>
                 <td>Get the specified number of PhotoReports, sorted in ascending order by date from the
                     database.</td>
             </tr>
@@ -226,25 +242,28 @@
             <tr>
                 <td>/plants/add</td>
                 <td>{ adminId: int, name: String, bio: String }</td>
-                <td>{ plant: { bio: String, id: int, name: String}, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[0..maxPhotos] }</td>
+                <td>{ plantId: int }</td>
                 <td>Add a new Plant to the database.</td>
             </tr>
             <tr>
                 <td>/plants/byId</td>
                 <td>{ plantId: int, {maxPhotos: int} }</td>
-                <td>{ plant: { bio: String, id: int, name: String}, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[0..maxPhotos] }</td>
+                <td>{ plant: { bio: String, id: int, name: String}, photos: { downvoteIds: String[], id: int, image:
+                    Base64 ByteString,
+                    plantId: int, uploadDate: String, upvoteIds: String[], userId: int }[] }</td>
                 <td>Return the Plant with the matching ID.</td>
             </tr>
             <tr>
                 <td>/plants/byImage</td>
                 <td>{ image: Image, {maxPhotos: int} }</td>
-                <td>{ results: { plant: { bio: String, id: int, name: String }, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[], score: float, topLeft: { x: float, y: float }, bottomRight: { x: float, y: float } }[] }</td>
+                <td>{ results: { plant: { bio: String, id: int, name: String}, photos: { downvoteIds: String[], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: String[], userId: String }[], score: float,
+                    topLeft: { x: float, y: float }, bottomRight: { x: float, y: float } }[] }</td>
                 <td>Identify and return a Plant by a ML analysis of the image.</td>
             </tr>
             <tr>
                 <td>/plants/byQuery</td>
                 <td>{ query: String, {maxPhotos: int} }</td>
-                <td>{ results: { plant: { bio: String, id: int, name: String }, photos: { downvoteIds: [], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: int[], userId: int }[] }[] }</td>
+                <td>{ results: { plant: { bio: String, id: int, name: String}, photos: { downvoteIds: String[], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: String[], userId: String }[] }[] }</td>
                 <td>Identify and return a Plant by a text query.</td>
             </tr>
             <tr>
@@ -260,15 +279,9 @@
                 <td>Update the bio of the Plant with the matching ID.</td>
             </tr>
             <tr>
-                <td>/mlModel/training/immediate</td>
-                <td>{ adminId: int }</td>
-                <td>{ }</td>
-                <td>Retrain the machine learning model immediately.</td>
-            </tr>
-            <tr>
                 <td>/users/add</td>
                 <td>{ userId: int }</td>
-                <td>{ user: { admin: bool, bans: { adminId: int, date: String}[] }, id: int } }</td>
+                <td>{ userId: int }</td>
                 <td>Add a new User to the database.</td>
             </tr>
             <tr>
@@ -280,7 +293,7 @@
             <tr>
                 <td>/users/byId</td>
                 <td>{ userId: int }</td>
-                <td>{ user: { admin: bool, bans: { adminId: int, date: String}[] }, id: int } }</td>
+                <td>{ user: { bans: { adminId: int, date: String}[] }, id: String } }</td>
                 <td>Return the User with the matching ID.</td>
             </tr>
             <tr>
@@ -492,7 +505,7 @@
                 </ul>
             </li>
             <li>
-                <b>Version 1.1  (2018/11/07)</b>
+                <b>Version 1.1 (2018/11/07)</b>
                 <ul>
                     <li>
                         Adam Cassidy:
@@ -501,9 +514,9 @@
                         </ul>
                     </li>
                 </ul>
-             </li>
+            </li>
             <li>
-                <b>Version 1.2  (2018/11/12)</b>
+                <b>Version 1.2 (2018/11/12)</b>
                 <ul>
                     <li>
                         Adam Cassidy:
@@ -512,9 +525,9 @@
                         </ul>
                     </li>
                 </ul>
-             </li>
+            </li>
             <li>
-                <b>Version 1.2  (2018/11/13)</b>
+                <b>Version 1.2 (2018/11/13)</b>
                 <ul>
                     <li>
                         Adam Cassidy:
