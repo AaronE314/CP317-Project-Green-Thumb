@@ -103,7 +103,7 @@ async function photo_exists(photo) {
 /**
  * @desc Checks if the Photo exists under another ID.
  * @author Austin Bursey
- * @param {photoReport} photoReport A PhotoReport object.
+ * @param {PhotoReport} photoReport A PhotoReport object.
  * @returns True iff the object exists.
 */
 async function photo_report_exists(photoReport) {
@@ -113,9 +113,10 @@ async function photo_report_exists(photoReport) {
 
             let req = new sql.Request();
             req.input('userId', sql.VarChar, photoReport.getUserId());
-            req.input('post', sql.Int, photoReport.getImage());
-            req.input('date', sql.Date, photoReport.getReportDate())
-            return await req.query("Select * from [projectgreenthumb].[dbo].[report] where post_id = @postId AND report_date = @date and user_id = @userId")
+            req.input('photo', sql.Int, photoReport.getPhotoId());
+            req.input('date', sql.Date, photoReport.getReportDate());
+            return await req.query("Select * from report r JOIN post p ON p.post_id = r.post_id " + 
+            "WHERE report_date = @date and [user_id] = @userId AND p.photo_id = @photo")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
