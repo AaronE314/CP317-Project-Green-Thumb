@@ -81,7 +81,7 @@ async function photo_exists(photo) {
 
             let req = new sql.Request();
             req.input('plantId', sql.Int, photo.getPlantId());
-            req.input('img',sql.Int, photo.getImage());
+            req.input('img', sql.Int, photo.getImage());
             return await req.query("Select * from " + dbName + "[photo] where plant_id = @plantId AND image = @img")
 
                 .then(function (recordset) {
@@ -198,7 +198,7 @@ async function user_exists(user) {
  * @param {userId} userId a userId Int.
  * @returns {Bans} an array of ban  objects
 */
-async function create_bans(userId){
+async function create_bans(userId) {
     let bans = [];
     sql.close() // CLose any existing connections
     return await sql.connect(config)
@@ -209,10 +209,10 @@ async function create_bans(userId){
             return await req.query("Select * from " + dbName + "[ban] where user_id = @userId")
 
                 .then(function (recordset) {
-                    let i = 0; 
-                   
-                    while (recordset.recordset[i] != null){
-                        bans.push(new Ban(recordset.recordset[i].user_id,recordset.recordset[i].admin_id,recordset.recordset[i].expiration_date,recordset.recordset[i].ban_id));
+                    let i = 0;
+
+                    while (recordset.recordset[i] != null) {
+                        bans.push(new Ban(recordset.recordset[i].user_id, recordset.recordset[i].admin_id, recordset.recordset[i].expiration_date, recordset.recordset[i].ban_id));
                         i++;
                     }
                     return bans;
@@ -231,7 +231,7 @@ async function create_bans(userId){
  * @param {userId} userId a userId Int.
  * @returns {Bans} an array of ban  objects
 */
-async function create_votes(photoId, direction){
+async function create_votes(photoId, direction) {
     let votes = [];
     sql.close() // CLose any existing connections
     return await sql.connect(config)
@@ -239,13 +239,13 @@ async function create_votes(photoId, direction){
 
             let req = new sql.Request();
             req.input('photoId', sql.Int, photoId);
-            req.input('direction', sql.Int, direction );
+            req.input('direction', sql.Int, direction);
             return await req.query("Select * from " + dbName + "[voting] where photo_id = @photoId and vote = @direction")
 
                 .then(function (recordset) {
-                    let i = 0; 
-                   
-                    while (recordset.recordset[i] != null){
+                    let i = 0;
+
+                    while (recordset.recordset[i] != null) {
                         votes.push(recordset.recordset[i].user_id);
                         i++;
                     }
@@ -259,6 +259,71 @@ async function create_votes(photoId, direction){
             throw err;
         });
 }
+
+/**
+ * @desc Adds a vote to the database
+ * @author Saad Ansari
+ * @param {photoId} photoId a plantId Int.
+ * @param {userId} userId a userId Int.
+ * @param {direction} direction of the vote Int.
+*/
+async function add_vote(photoId, userId, direction) {
+    sql.close() // CLose any existing connections
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+            req.input('photoId', sql.Int, photoId);
+            req.input('userId', sql.Int, userId);
+            req.input('direction', sql.Int, direction);
+            return await req.query("INSERT INTO voting ([user_id], [photo_id], vote) VALUES (@userId, @photoId, @direction)")
+        })
+        .catch(function (err) {
+            throw err;
+        });
+}
+
+/**
+ * @desc removes a vote from the database
+ * @author Saad Ansari
+ * @param {photoId} photoId a plantId Int.
+ * @param {userId} userId a userId Int.
+*/
+async function remove_vote(photoId, userId) {
+    sql.close() // CLose any existing connections
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+            req.input('photoId', sql.Int, photoId);
+            req.input('userId', sql.Int, userId);
+            return await req.query("DELETE FROM voting WHERE [user_id] = @userId AND [photo_id] = @photoId")
+        })
+        .catch(function (err) {
+            throw err;
+        });
+}
+
+/**
+ * @desc Change the direction of a vote
+ * @author Saad Ansari
+ * @param {voteId} voteId a voteId Int.
+*/
+async function change_vote_direction(voteId, direction) {
+    sql.close() // CLose any existing connections
+    return await sql.connect(config)
+        .then(async function () {
+
+            let req = new sql.Request();
+            req.input('voteId', sql.Int, voteId);
+            req.input('direction', sql.Int, direction);
+            return await req.query("UPDATE voting SET vote = @direction  WHERE [vote_id] = @voteId")
+        })
+        .catch(function (err) {
+            throw err;
+        });
+}
+
 ///////////////////////////Insertion Functions////////////////////////////
 /**
  * @desc Add a Ban to the database.
@@ -325,7 +390,7 @@ async function addPhoto(photo) {
                             }).catch(function (err) {
                                 throw err;
                             })
-                        } ,  async function () {
+                        }, async function () {
 
                             return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id =SCOPE_IDENTITY() and vote = 0 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
@@ -667,7 +732,7 @@ async function getPhoto(photoId) {
                 .then(async function (recordset) {
                     if (recordset.recordset[0] != null) {
                         console.log(recordset.recordset[0]);
-                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, await create_votes(photoId, 1),await create_votes(photoId, 0) );
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, await create_votes(photoId, 1), await create_votes(photoId, 0));
 
                         sql.close();
                         return photo;
@@ -1262,7 +1327,7 @@ async function getUser(userId) {
             return await req.query("SELECT [user_id] FROM [user] where [user].[user_id] = @userId ")
                 .then(async function (recordset) {
                     if (recordset.recordset[0] != undefined) {
-                        user = new User(recordset.recordset[0].user_id, await create_bans(userId) );
+                        user = new User(recordset.recordset[0].user_id, await create_bans(userId));
 
                         sql.close();
                         return user;
@@ -1536,5 +1601,5 @@ module.exports = {
     getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
     getTopUserPhotos, getUnhandeledPhotoReportsByDate, getUnhandeledPhotoReportsByPriority,
     getUser, updatePlant, updatePhoto, updatePhotoReport, isValidReportId, isValidUserId, isValidPlantId,
-    isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery
+    isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery, create_votes, add_vote
 }
