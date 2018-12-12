@@ -13,9 +13,10 @@ var User = require("../User.js");
 
 (async()=>{
     try{
-    let firstBan = new Ban(20,4 , new Date());
-    let ban = await DBInterface.addBan(firstBan);
-    console.log(ban.toJSON());
+    let firstBan = new User("1234543");
+    let user= await DBInterface.getUser('22');
+    console.log(user.toJSON());
+
     }catch(error){
         console.log(error);
     }
