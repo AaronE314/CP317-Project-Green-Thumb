@@ -86,7 +86,7 @@ async function photo_exists(photo) {
             let req = new sql.Request();
             req.input('plantId', sql.Int, photo.getPlantId());
             req.input('img', sql.Int, photo.getImage());
-            return await req.query("Select * from " + dbName + "[photo] where plant_id = @plantId AND image = @img")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[photo] where plant_id = @plantId AND image = @img")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -151,7 +151,7 @@ async function plant_exists(plant) {
 
             let req = new sql.Request();
             req.input('plantName', sql.VarChar, plant.getName());
-            return await req.query("Select * from [projectgreenthumb].[dbo].[photo] where plant_name= @plantName")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[plant] where plant_name= @plantName")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -214,7 +214,7 @@ async function create_bans(userId) {
 
             let req = new sql.Request();
             req.input('userId', sql.VarChar, userId);
-            return await req.query("Select * from " + dbName + "[ban] where user_id = @userId")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[ban] where user_id = @userId")
 
                 .then(function (recordset) {
                     let i = 0;
@@ -223,7 +223,7 @@ async function create_bans(userId) {
                         bans.push(new Ban(recordset.recordset[i].user_id, recordset.recordset[i].admin_id, recordset.recordset[i].expiration_date, recordset.recordset[i].ban_id));
                         i++;
                     }
-                    return bans;
+                    return votes;
                 })
                 .catch(function (err) {
                     throw err;
@@ -249,7 +249,7 @@ async function create_votes(photoId, direction) {
             let req = new sql.Request();
             req.input('photoId', sql.Int, photoId);
             req.input('direction', sql.Int, direction);
-            return await req.query("Select * from " + dbName + "[voting] where photo_id = @photoId and vote = @direction")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[voting] where photo_id = @photoId and vote = @direction")
 
                 .then(function (recordset) {
                     let i = 0;
@@ -258,7 +258,7 @@ async function create_votes(photoId, direction) {
                         votes.push(recordset.recordset[i].user_id);
                         i++;
                     }
-                    return bans;
+                    return votes;
                 })
                 .catch(function (err) {
                     throw err;
@@ -444,12 +444,12 @@ async function addPhoto(photo) {
             let req = new sql.Request();
             req.input("plantId", sql.Int, photo.getPlantId());
             req.input("image_ref", sql.VarChar, photo.getImage());
-            req.input("userId", sql.VarChar, photo.getuserId());
-            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(binary,@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));" +
+            req.input("userId", sql.VarChar, photo.getUserId());
+            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(VarBinary(max),@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));" +
                 "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();")
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
-                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image.toString('base64'), recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
 
                             return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = SCOPE_IDENTITY() and vote = 1 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
@@ -536,10 +536,9 @@ async function addPlant(plant) {
             let req = new sql.Request();
             req.input('plantName', sql.VarChar, plant.getName());
             req.input('plantBio', sql.VarChar, plant.getBio());
-            req.input('plantId', sql.Int, plant.getId());
-            return await req.query("Insert into [projectgreenthumb].[dbo].[plant](plant_name , plant_bio) Values (@plantName, @plantBio);Select * from [projectgreenthumb].[dbo].[plant] where plant_id = SCOPE_IDENTITY()")
+            return await req.query("Insert into [plant] (plant_name, plant_bio) Values (@plantName, @plantBio); Select * from [projectgreenthumb].[dbo].[plant] where plant_id = SCOPE_IDENTITY()")
                 .then(function (rset) {
-                    let plant = new Plant(rset.recordset[0].plant_name, rset.recordset[0].plant_bio, rset.recordset[0].plant_id);
+                    let plant= new Plant(rset.recordset[0].plant_name, rset.recordset[0].plant_bio, rset.recordset[0].plant_id);
                     sql.close();
                     return plant;
                 })
@@ -732,7 +731,7 @@ async function removeUser(userId) {
             'user_id = @userId;' +
 
             // Delete the user.
-            'DELETE FROM[user] WHERE[user_id] = @userId;'
+            'DELETE FROM[user] WHERE [user_id] = @userId;'
 
         // Query the database and remove the specified User.
         request.query(sqlQuery, function (err, recordset) {
@@ -791,11 +790,11 @@ async function getPhoto(photoId) {
 
             let req = new sql.Request();
             req.input('photoId', sql.Int, photoId);
-            return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM " + dbName + "[photo] INNER JOIN " + dbName + "[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
+            return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
                 .then(async function (recordset) {
                     if (recordset.recordset[0] != null) {
                         console.log(recordset.recordset[0]);
-                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, await create_votes(photoId, 1), await create_votes(photoId, 0));
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image.toString('base64'), recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, await create_votes(photoId, 1), await create_votes(photoId, 0));
 
                         sql.close();
                         return photo;
@@ -1032,7 +1031,7 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
-                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
+                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
                     sql.close();
@@ -1075,9 +1074,9 @@ async function getNewestUserPhotos(userId, startIndex, max) {
                 'WHERE po.[user_id] = @userId ORDER BY po.upload_date DESC'
             return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
-                if (recordset.recordset[0] == null) {
+                if (recordset.recordset[0] != null) {
                     while (recordset[ind] != null) {
-                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
+                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
                     sql.close();
@@ -1122,7 +1121,7 @@ async function getTopPhotos(startIndex, max) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
-                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
+                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
                     sql.close();
@@ -1168,7 +1167,7 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
                         // ???
-                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
+                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
                     sql.close();
@@ -1212,7 +1211,7 @@ async function getTopUserPhotos(userId, startIndex, max) {
                 ind = 0
                 while (recordset.recordset[ind] != null) {
                     // ???
-                    photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
+                    photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
                     ind = ind + 1;
                 }
                 sql.close();
