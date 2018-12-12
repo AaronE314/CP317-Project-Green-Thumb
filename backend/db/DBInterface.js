@@ -80,15 +80,9 @@ async function photo_exists(photo) {
         .then(async function () {
 
             let req = new sql.Request();
-<<<<<<< HEAD
-            req.input('plantId', sql.Int, photo.getPlantId());
-            req.input('img',sql.Int, photo.getImage());
-            return await req.query("Select * from " + dbName + "[photo] where plant_id = @plantId AND image = @img")
-=======
             req.input('plantId', sql.Int, photo.getUserId());
             req.input('img', sql.Int, photo.getImage());
             return await req.query("Select * from [projectgreenthumb].[dbo].[photo] where plant_id = @planId AND image = @img")
->>>>>>> b2b35153bbeef35419a86c442c65fb4286564828
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -232,10 +226,10 @@ async function create_bans(userId){
         });
 }
 /**
- * @desc make an array of bans object
+ * @desc make an array of votesbased on 'direction' 0 for downvotes. 1 for upvotes.
  * @author Austin Bursey
  * @param {userId} userId a userId Int.
- * @returns {Bans} an array of ban  objects
+ * @returns {Votes} an array of votes  objects
 */
 async function create_votes(photoId, direction){
     let votes = [];
@@ -269,8 +263,9 @@ async function create_votes(photoId, direction){
 /**
  * @desc Add a Ban to the database.
  * @author Austin Bursey
- * @param {Ban} ban The new Ban object.
-*/
+ * @param {ban}  The new Ban object.
+ * @return {ban} The orginal ban object with an initialized Id 
+*/ 
 async function addBan(ban) {
     let new_Ban = await ban_exists(ban);
     if (new_Ban == true) {
@@ -304,6 +299,7 @@ async function addBan(ban) {
  * @desc Add a Photo to the database.
  * @author Austin Bursey
  * @param {Photo} photo The new Photo object.
+ * @return {photo} The orginal Photo object with an initialized Id 
 */
 async function addPhoto(photo) {
     if (photo.getId() !== undefined) {
@@ -359,6 +355,7 @@ async function addPhoto(photo) {
  * @desc Add a PhotoReport to the database.
  * @author Austin Bursey
  * @param {PhotoReport} photoReport The new PhotoReport.
+ * @return {report} The orginal PhotoReport object with an initialized Id 
 */
 async function addPhotoReport(photoReport) {
     let new_photoReport = await photo_report_exists(photoReport);
@@ -396,6 +393,7 @@ async function addPhotoReport(photoReport) {
  * @desc Add a Plant to the database.
  * @author Austin Bursey
  * @param {Plant} plant The new Plant.
+ * @return {plant} The orginal Plant object with an initialized Id 
 */
 async function addPlant(plant) {
     let new_plant = await plant_exists(plant);
@@ -427,6 +425,7 @@ async function addPlant(plant) {
  * @desc Add a User to the database
  * @author Austin Bursey
  * @param {User} user a User object.
+ * @return {user} The orginal user object with an initialized Id 
 */
 async function addUser(user) {
     let new_User = await user_exists(user);
@@ -669,33 +668,11 @@ async function getPhoto(photoId) {
 
             let req = new sql.Request();
             req.input('photoId', sql.Int, photoId);
-<<<<<<< HEAD
             return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM " + dbName + "[photo] INNER JOIN " + dbName + "[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
                 .then(async function (recordset) {
                     if (recordset.recordset[0] != null) {
                         console.log(recordset.recordset[0]);
                         photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, await create_votes(photoId, 1),await create_votes(photoId, 0) );
-=======
-            return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
-                .then(function (recordset) {
-                    if (recordset.recordset[0] != null) {
-                        console.log(recordset.recordset[0]);
-                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
-                            req.input('photoId', sql.Int, photoId);
-                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = @photoId and vote = 1 order by user_id").then(function (recordset) {
-                                return recordset.recordset;
-                            }).catch(function (err) {
-                                throw err;
-                            })
-                        }, async function () {
-                            req.input('photoId', sql.Int, photoId);
-                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = @photoId and vote = 0 order by user_id").then(function (recordset) {
-                                return recordset.recordset;
-                            }).catch(function (err) {
-                                throw err;
-                            })
-                        });
->>>>>>> b2b35153bbeef35419a86c442c65fb4286564828
 
                         sql.close();
                         return photo;
@@ -1290,19 +1267,7 @@ async function getUser(userId) {
             return await req.query("SELECT [user_id] FROM [user] where [user].[user_id] = @userId ")
                 .then(async function (recordset) {
                     if (recordset.recordset[0] != undefined) {
-<<<<<<< HEAD
                         user = new User(recordset.recordset[0].user_id, await create_bans(userId) );
-=======
-                        // ???
-                        user = new User(recordset.recordset[0].user_id, async function () {
-                            req.input('userId', sql.Int, userId);
-                            return await req.query("Select [user_id] from [ban] where ban.[user_id] = @userId").then(function (recordset) {
-                                return recordset;
-                            }).catch(function (err) {
-                                throw err;
-                            })
-                        });
->>>>>>> b2b35153bbeef35419a86c442c65fb4286564828
 
                         sql.close();
                         return user;
