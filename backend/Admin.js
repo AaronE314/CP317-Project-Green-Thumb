@@ -12,7 +12,7 @@ class Admin extends User {
      * @desc Constructor for the Admin class.
      * @author Saje Bailey
      * @param {Ban[]=} bans The list of Bans issued by Admin.
-     * @param {Number} id The ID of the Admin. Integer.
+     * @param {String} id The ID of the Admin.
      * @constructor
      */
     constructor(id, bans) {

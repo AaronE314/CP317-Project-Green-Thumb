@@ -116,7 +116,7 @@ async function photo_report_exists(photoReport) {
             req.input('photo', sql.Int, photoReport.getPhotoId());
             req.input('date', sql.Date, photoReport.getReportDate());
             return await req.query("Select * from report r JOIN post p ON p.post_id = r.post_id " + 
-            "WHERE report_date = @date and [user_id] = @userId AND p.photo_id = @photo")
+            "WHERE report_date = @date and p.[user_id] = @userId AND p.photo_id = @photo")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -571,7 +571,7 @@ async function addUser(user) {
         .catch(function (err) {
             throw err;
         });
-    return user
+    return user;
 }
 
 
@@ -579,10 +579,11 @@ async function addUser(user) {
  * @desc Add an Admin to the database.
  * @author Saad Ansari
  * @param {Admin} admin An Admin object.
+ * @return {admin} original admin object with ID initialized
 */
 async function addAdmin(admin) {
     sql.close() // Close any existing connections.
-    return await sql.connect(config)
+    await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
@@ -598,6 +599,7 @@ async function addAdmin(admin) {
         .catch(function (err) {
             throw err;
         });
+    return admin; 
 }
 
 ///////////////////////////Removal Functions////////////////////////////
@@ -700,7 +702,7 @@ async function removePlant(plantID) {
  * @author Saad Ansari
  * @param {Number} UserID The primary key of the User.
 */
-async function removeUser(UserID) {
+async function removeUser(UserId) {
     sql.close() // Close any existing connections.
     // Connect to database.
     sql.connect(config, function (err) {
