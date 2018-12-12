@@ -8,20 +8,17 @@
  */
 
 // Imports
-var sql = require("mssql");
+const sql = require("mssql");
 
-var Admin = require("../Admin.js");
-var Ban = require("../Ban.js");
-var Photo = require("../Photo.js");
-var PhotoReport = require("../PhotoReport.js");
-var Plant = require("../Plant.js");
-var User = require("../User.js");
-
-// Constants
-const dbName = "[projectgreenthumb].[dbo].";
+const Admin = require("../Admin.js");
+const Ban = require("../Ban.js");
+const Photo = require("../Photo.js");
+const PhotoReport = require("../PhotoReport.js");
+const Plant = require("../Plant.js");
+const User = require("../User.js");
 
 // Configuration for database
-var config = {
+const config = {
     user: 'greenthumbadmin',
     password: 'thumbgreen',
     server: 'greenthumbdb.cn0ybdo6z84o.us-east-2.rds.amazonaws.com',
@@ -40,21 +37,21 @@ DBIDuplicate.prototype = Object.create(Error.prototype);
 DBIRecordNotFound.prototype = Object.create(Error.prototype);
 ///////////////////////////Helper Functions////////////////////////////
 /**
- * @desc Checks if the ban exists under another ID
+ * @desc Checks if the Ban exists under another ID.
  * @author Austin Bursey
  * @param {Ban} ban a Ban object.
- * @returns true if the object exists , otherwise false 
+ * @returns true iff the object exists. 
 */
-async function ban_exists(ban){
-    sql.close() // CLose any existing connections
+async function ban_exists(ban) {
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
             req.input('userId', sql.VarChar, ban.getUserId());
-            req.input('adminId',sql.VarChar, ban.getAdminId());
+            req.input('adminId', sql.VarChar, ban.getAdminId());
             req.input('exp', sql.Date, ban.getExpirationDate());
-            return await req.query("Select * from " + dbName + "[ban] where user_id = @userId AND admin_id = @adminId AND expiration_date = @exp")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[ban] where user_id = @userId AND admin_id = @adminId AND expiration_date = @exp")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -72,20 +69,26 @@ async function ban_exists(ban){
         });
 }
 /**
- * @desc Checks if the photo exists under another ID
+ * @desc Checks if the Photo exists under another ID.
  * @author Austin Bursey
- * @param {Photo} photo a Photo object.
- * @returns True if the object exists , otherwise false
+ * @param {Photo} photo A Photo.
+ * @returns True iff the object exists.
 */
-async function photo_exists(photo){
-    sql.close() // CLose any existing connections
+async function photo_exists(photo) {
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
+<<<<<<< HEAD
             req.input('plantId', sql.Int, photo.getPlantId());
             req.input('img',sql.Int, photo.getImage());
             return await req.query("Select * from " + dbName + "[photo] where plant_id = @plantId AND image = @img")
+=======
+            req.input('plantId', sql.Int, photo.getUserId());
+            req.input('img', sql.Int, photo.getImage());
+            return await req.query("Select * from [projectgreenthumb].[dbo].[photo] where plant_id = @planId AND image = @img")
+>>>>>>> b2b35153bbeef35419a86c442c65fb4286564828
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -104,21 +107,21 @@ async function photo_exists(photo){
 }
 
 /**
- * @desc WORK IN PROGRESS Checks if the photo exists under another ID
+ * @desc Checks if the Photo exists under another ID.
  * @author Austin Bursey
- * @param {photoReport} photoReport a PhotoReport object.
- * @returns True if the object exists , otherwise false
+ * @param {photoReport} photoReport A PhotoReport object.
+ * @returns True iff the object exists.
 */
-async function photo_report_exists(photoReport){
-    sql.close() // CLose any existing connections
+async function photo_report_exists(photoReport) {
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
             req.input('userId', sql.VarChar, photoReport.getUserId());
-            req.input('post',sql.Int, photoReport.getImage());
-            req.input('date',sql.Date, photoReport.getReportDate())
-            return await req.query("Select * from " + dbName + "[report] where post_id = @postId AND report_date = @date and user_id = @userId")
+            req.input('post', sql.Int, photoReport.getImage());
+            req.input('date', sql.Date, photoReport.getReportDate())
+            return await req.query("Select * from [projectgreenthumb].[dbo].[report] where post_id = @postId AND report_date = @date and user_id = @userId")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -136,19 +139,19 @@ async function photo_report_exists(photoReport){
         });
 }
 /**
- * @desc Checks if the plant exists under another ID
+ * @desc Checks if the Plant exists under another ID.
  * @author Austin Bursey
- * @param {plant} a Plant object.
- * @returns True if the object exists , otherwise false
+ * @param {Plant} plant The Plant.
+ * @returns True iff the object exists.
 */
-async function plant_exists(plant){
-    sql.close() // CLose any existing connections
+async function plant_exists(plant) {
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
             req.input('plantName', sql.VarChar, plant.getName());
-            return await req.query("Select * from " + dbName + "[photo] where plant_name= @plantName")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[photo] where plant_name= @plantName")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -166,19 +169,19 @@ async function plant_exists(plant){
         });
 }
 /**
- * @desc Checks if the User exists under another ID
+ * @desc Checks if the User exists under another ID.
  * @author Austin Bursey
- * @param {plant} a User object.
- * @returns True if the object exists , otherwise false
+ * @param {plant} user The User.
+ * @returns True iff the object exists.
 */
-async function user_exists(User){
-    sql.close() // CLose any existing connections
+async function user_exists(user) {
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
             req.input('userId', sql.VarChar, user.getId());
-            return await req.query("Select * from " + dbName + "[user] where user_id= @userId")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[user] where user_id= @userId")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -264,17 +267,16 @@ async function create_votes(photoId, direction){
 }
 ///////////////////////////Insertion Functions////////////////////////////
 /**
- * @desc Add the ban to the database
+ * @desc Add a Ban to the database.
  * @author Austin Bursey
- * @param {Ban} ban a Ban object.
- * @returns Ban Object with ID initialized
+ * @param {Ban} ban The new Ban object.
 */
 async function addBan(ban) {
     let new_Ban = await ban_exists(ban);
     if (new_Ban == true) {
         throw new DBIDuplicate("Ban");
     }
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
@@ -299,20 +301,19 @@ async function addBan(ban) {
         });
 }
 /**
- * @desc Add a Photo to the database
+ * @desc Add a Photo to the database.
  * @author Austin Bursey
- * @param {Photo} photo a Photo object.
- * @returns nothing
+ * @param {Photo} photo The new Photo object.
 */
 async function addPhoto(photo) {
     if (photo.getId() !== undefined) {
         let new_photo = await photo_exists(photo);
 
-        if (new_photo ==true) {
+        if (new_photo == true) {
             throw new DBIDuplicate("Photo");
         }
     }
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -320,22 +321,22 @@ async function addPhoto(photo) {
             req.input("image_ref", sql.VarChar, photo.getImage());
             req.input("userId", sql.VarChar, photo.getUserId());
             return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(binary,@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));" +
-                "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM " + dbName + "[photo] INNER JOIN " + dbName + "[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();")
+                "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();")
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
                         photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
 
-                            return await req.query("Select user_id from " + dbName + "[voting] where photo_id = SCOPE_IDENTITY() and vote = 1 order by user_id").then(function (recordset) {
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = SCOPE_IDENTITY() and vote = 1 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
                             }).catch(function (err) {
-                               throw err;
+                                throw err;
                             })
                         } ,  async function () {
 
-                            return await req.query("Select user_id from " + dbName + "[voting] where photo_id =SCOPE_IDENTITY() and vote = 0 order by user_id").then(function (recordset) {
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id =SCOPE_IDENTITY() and vote = 0 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
                             }).catch(function (err) {
-                               throw err;
+                                throw err;
                             })
                         });
 
@@ -355,31 +356,30 @@ async function addPhoto(photo) {
 }
 
 /**
- * @desc Add a PhotoReport to the database
+ * @desc Add a PhotoReport to the database.
  * @author Austin Bursey
- * @param {PhotoReport} pReport a PhotoReport object.
- * @returns nothing
+ * @param {PhotoReport} photoReport The new PhotoReport.
 */
-async function addPhotoReport(pReport) {
-    let new_photoReport = await photo_report_exists(pReport);
+async function addPhotoReport(photoReport) {
+    let new_photoReport = await photo_report_exists(photoReport);
     if (new_photoReport == true) {
         throw new DBIDuplicate("PhotoReport");
     }
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
-            req.input("photoId", sql.Int, pReport.getPhotoId());
-            req.input("rDate", sql.Date, pReport.getReportDate());
-            req.input("rText", sql.VarChar, pReport.getReportText());
-            req.input("userId", sql.VarChar, pReport.getUserId());
+            req.input("photoId", sql.Int, photoReport.getPhotoId());
+            req.input("rDate", sql.Date, photoReport.getReportDate());
+            req.input("rText", sql.VarChar, photoReport.getReportText());
+            req.input("userId", sql.VarChar, photoReport.getUserId());
             return await req.query("Insert into [projectgreenthumb].[dbo].[report] (post_id, report_date , report_details, user_id) " +
                 "Values((SELECT post_id from [post] where photo_id = photoId)" +
                 ", @reportDate , @reportDetails); Insert into [admin_report] (report_id , admin_id , admin_action) " +
                 "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY(), @photoReport, @admin_Action, @userId);Select * from [projectgreenthumb].[dbo].[report] INNER JOIN [post] ON [post].post_id = [report].post_id  where report_id = SCOPE_IDENTITY() ")
 
                 .then(function (rset) {
-                    let report = new PhotoReport(rset.recordset[0].photo_id ,rset.recordset[0].user_id , rset.recordset[0].report_details,rset.recordset[0].report_id ,rset.recordset[0].report_date  );
+                    let report = new PhotoReport(rset.recordset[0].photo_id, rset.recordset[0].user_id, rset.recordset[0].report_details, rset.recordset[0].report_id, rset.recordset[0].report_date);
                     sql.close();
                     return report;
 
@@ -393,17 +393,16 @@ async function addPhotoReport(pReport) {
         });
 }
 /**
- * @desc Add a Plant to the database
+ * @desc Add a Plant to the database.
  * @author Austin Bursey
- * @param {Plant} plant a Plant object.
- * @returns nothing
+ * @param {Plant} plant The new Plant.
 */
 async function addPlant(plant) {
     let new_plant = await plant_exists(plant);
     if (new_plant == true) {
         throw new DBIDuplicate("Plant");
     }
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -412,7 +411,7 @@ async function addPlant(plant) {
             req.input('plantId', sql.Int, plant.getId());
             return await req.query("Insert into [projectgreenthumb].[dbo].[plant](plant_name , plant_bio) Values (@plantName, @plantBio);Select * from [projectgreenthumb].[dbo].[plant] where plant_id = SCOPE_IDENTITY()")
                 .then(function (rset) {
-                    let plant = new Plant(rset.recordset[0].plant_name, rset.recordset[0].plant_bio,rset.recordset[0].plant_id );
+                    let plant = new Plant(rset.recordset[0].plant_name, rset.recordset[0].plant_bio, rset.recordset[0].plant_id);
                     sql.close();
                     return plant;
                 })
@@ -428,14 +427,13 @@ async function addPlant(plant) {
  * @desc Add a User to the database
  * @author Austin Bursey
  * @param {User} user a User object.
- * @returns nothing
 */
 async function addUser(user) {
     let new_User = await user_exists(user);
     if (new_User == true) {
         throw new DBIDuplicate("User");
     }
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
@@ -443,10 +441,10 @@ async function addUser(user) {
             req.input('userId', sql.VarChar, user.getId());
             return await req.query("  Insert into [user] values(@userId); Select * from [user] where user_id = SCOPE_IDENTITY()")
                 .then(function (rset) {
-                    let user = new User(rset.recordset[0].user_id, async function(){
-                        return await req.query("Select * from [ban] where user_id = SCOPE_IDENTITY() ").then(function(recordset){
+                    let user = new User(rset.recordset[0].user_id, async function () {
+                        return await req.query("Select * from [ban] where user_id = SCOPE_IDENTITY() ").then(function (recordset) {
                             return recordset;
-                        }).catch(function(err){
+                        }).catch(function (err) {
                             throw err
                         });
                     })();
@@ -464,13 +462,12 @@ async function addUser(user) {
 
 
 /**
- * @desc Add an Admin to the database
+ * @desc Add an Admin to the database.
  * @author Saad Ansari
- * @param {Admin} admin an Admin object.
- * @returns nothing
+ * @param {Admin} admin An Admin object.
 */
 async function addAdmin(admin) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
@@ -491,22 +488,21 @@ async function addAdmin(admin) {
 
 ///////////////////////////Removal Functions////////////////////////////
 /**
- * @desc Removes the photo from the database
+ * @desc Removes the Photo from the database.
  * @author Saad Ansari
- * @param {Number} photoID The primary key of the photo
- * @returns nothing
+ * @param {Number} photoID The primary key of the Photo.
 */
 async function removePhoto(photoID) {
-    sql.close() // CLose any existing connections
-    // Connect to database
+    sql.close() // Close any existing connections.
+    // Connect to database.
     sql.connect(config, function (err) {
         if (err) { throw err; }
 
-        var request = new sql.Request(); // create Request object
+        let request = new sql.Request(); // Create Request object.
         request.input('photoId', sql.Int, photoID);
-        var sqlQuery = 'DELETE FROM photo WHERE photo_id = @photoId'; // Create SQL Query
+        let sqlQuery = 'DELETE FROM photo WHERE photo_id = @photoId'; // Create SQL Query.
 
-        // Query the database and remove photo
+        // Query the database and remove Photo.
         request.query(sqlQuery, function (err, recordset) {
             if (err) { throw err; }
 
@@ -516,135 +512,131 @@ async function removePhoto(photoID) {
 }
 
 /**
- * @desc Removes the report from the database
+ * @desc Removes the report from the database.
  * @author Saad Ansari
- * @param {Number} photoReportID The primary key of the photoReport
- * @returns nothing
+ * @param {Number} photoReportID The primary key of the PhotoReport.
 */
 async function removePhotoReport(photoReportID) {
-    sql.close() // CLose any existing connections
-    // Connect to database
+    sql.close() // Close any existing connections.
+    // Connect to database.
     sql.connect(config, function (err) {
         if (err) { throw err; }
 
-        var request = new sql.Request(); // create Request object
+        let request = new sql.Request(); // Create Request object.
         request.input('photoReportId', sql.Int, photoReportID);
-        var sqlQuery = 'DELETE FROM report WHERE report_id = @photoReportId'; // Create SQL Query
+        let sqlQuery = 'DELETE FROM report WHERE report_id = @photoReportId'; // Create SQL Query
 
-        // Query the database and remove photo
+        // Query the database and remove photo.
         request.query(sqlQuery, function (err, recordset) {
             if (err) { throw err; }
-            sql.close(); //Close connection
+            sql.close(); // Close connection.
         });
     });
 }
 
 /**
- * @desc Removes the plant and associated records from the database
+ * @desc Removes the Plant and associated records from the database.
  * @author Saad Ansari
- * @param {Number} plantID The primary key of the plant
- * @returns nothing
+ * @param {Number} plantID The primary key of the Plant.
 */
 async function removePlant(plantID) {
-    sql.close() // CLose any existing connections
-    // Connect to database
+    sql.close() // Close any existing connections.
+    // Connect to database.
     sql.connect(config, function (err) {
         if (err) { throw err; }
-        var request = new sql.Request(); // create Request object
+        let request = new sql.Request(); // Create Request object.
         request.input('plantId', sql.Int, plantID);
-        var sqlQuery = // Create SQL Query
-            // Delete all associated reports
+        let sqlQuery = // Create SQL Query.
+            // Delete all associated reports.
             'DELETE FROM report WHERE' +
             '(SELECT pl.plant_id FROM plant pl ' +
             'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
             ' JOIN post po ON ph.photo_id = po.photo_id ' +
             'JOIN report r ON r.post_id = po.post_id) = @plantId;' +
 
-            // Delete all associated posts
+            // Delete all associated posts.
             'DELETE FROM post WHERE ' +
             '(SELECT pl.plant_id FROM plant pl ' +
             'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
             'JOIN post po ON ph.photo_id = po.photo_id) = @plantId;' +
 
-            // Delete all associated photos
+            // Delete all associated photos.
             'DELETE FROM photo WHERE plant_id = @plantId;' +
 
-            // Delete all assocaited votes
+            // Delete all assocaited votes.
             'DELETE FROM voting WHERE ' +
             '(SELECT pl.[plant_id] FROM plant pl ' +
             'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
             'JOIN voting v ON v.photo_id = ph.photo_id) = @plantId;' +
 
-            // Delete the plant
+            // Delete the plant.
             'DELETE FROM plant WHERE plant_id = @plantId;'
 
-        // Query the database and remove plant
+        // Query the database and remove the Plant.
         request.query(sqlQuery, function (err, recordset) {
             if (err) { throw err; }
 
-            sql.close(); //Close connection
+            sql.close(); // Close connection.
         });
     });
 }
 
 /**
- * @desc Removes the user from the database
+ * @desc Removes the specified User from the database.
  * @author Saad Ansari
- * @param {Number} UserID The primary key of the user
- * @returns nothing
+ * @param {Number} UserID The primary key of the User.
 */
 async function removeUser(UserID) {
-    sql.close() // CLose any existing connections
-    // Connect to database
+    sql.close() // Close any existing connections.
+    // Connect to database.
     sql.connect(config, function (err) {
         if (err) { throw err; }
-        var request = new sql.Request(); // create Request object
+        let request = new sql.Request(); // create Request object
         request.input('userId', sql.VarChar, userID);
-        var sqlQuery = // Create SQL Query
-            // Delete all associated reports
+        let sqlQuery = // Create SQL Query.
+            // Delete all associated reports.
             'DELETE FROM report WHERE ' +
             '(SELECT u.[user_id] FROM[user] u ' +
             'JOIN post po ON u.[user_id] = po.[user_id] ' +
             'JOIN report r ON r.post_id = po.post_id) = @userId;' +
 
-            // Delete all associated posts
+            // Delete all associated posts.
             'DELETE FROM post WHERE ' +
             '(SELECT u.[user_id] FROM[user] u ' +
             'JOIN post po ON u.[user_id] = po.[user_id]) = @userId;' +
 
-            // Delete all assocaited votes
+            // Delete all assocaited votes.
             'DELETE FROM voting WHERE ' +
             '(SELECT[user_id] FROM voting) = @userId;' +
 
-            // Delete the user
+            // Delete the user.
             'DELETE FROM[user] WHERE[user_id] = @userId;'
 
-        // Query the database and remove the user
+        // Query the database and remove the specified User.
         request.query(sqlQuery, function (err, recordset) {
             if (err) { throw err; }
 
-            sql.close(); //Close connection
+            sql.close(); // Close connection.
         });
     });
 }
 
 ///////////////////////////Retrieval Functions////////////////////////////
 /**
- * @desc Returns a Ban object from the Database
+ * @desc Returns the Ban with the specified ID.
  * @author Austin Bursey
- * @param {Number} BanId The primary key of the Ban table
- * @returns {Ban} result A Ban object
+ * @param {Number} BanId The primary key of the Ban table.
+ * @returns {Ban} The Ban with the specified ID.
 */
-
 async function getBan(banID) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
             req.input('banId', sql.Int, banID);
 
-            return await req.query("Select * from " + dbName + "[ban] where ban_id = @banId")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[ban] where ban_id = @banId")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -664,25 +656,46 @@ async function getBan(banID) {
         });
 }
 /**
- * @desc Returns a Photo object from the Database
+ * @desc Returns the Photo with the specified ID.
  * @author Austin Bursey
  * @param {Number} photoId The primary key of the Photo table
  * @returns {Photo} A Photo object
 */
-
 async function getPhoto(photoId) {
     console.log(photoId);
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
             req.input('photoId', sql.Int, photoId);
+<<<<<<< HEAD
             return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM " + dbName + "[photo] INNER JOIN " + dbName + "[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
                 .then(async function (recordset) {
                     if (recordset.recordset[0] != null) {
                         console.log(recordset.recordset[0]);
                         photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, await create_votes(photoId, 1),await create_votes(photoId, 0) );
+=======
+            return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
+                .then(function (recordset) {
+                    if (recordset.recordset[0] != null) {
+                        console.log(recordset.recordset[0]);
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
+                            req.input('photoId', sql.Int, photoId);
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = @photoId and vote = 1 order by user_id").then(function (recordset) {
+                                return recordset.recordset;
+                            }).catch(function (err) {
+                                throw err;
+                            })
+                        }, async function () {
+                            req.input('photoId', sql.Int, photoId);
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = @photoId and vote = 0 order by user_id").then(function (recordset) {
+                                return recordset.recordset;
+                            }).catch(function (err) {
+                                throw err;
+                            })
+                        });
+>>>>>>> b2b35153bbeef35419a86c442c65fb4286564828
 
                         sql.close();
                         return photo;
@@ -702,12 +715,11 @@ async function getPhoto(photoId) {
 /**
  * @desc Returns a PhotoReport object from the Database
  * @author Nicolas Ross
- * @param {Number} photoReportId The primary key of the PhotoReport table
- * @returns {PhotoReport} A PhotoReport object
+ * @param {Number} photoReportId The primary key of the PhotoReport table.
+ * @returns {PhotoReport} The PhotoReport with the specified ID.
  */
-
 async function getPhotoReport(photoReportId) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
@@ -732,27 +744,26 @@ async function getPhotoReport(photoReportId) {
 }
 
 /**
- * @desc [WORK IN PROGRESS] Returns a PhotoReport array from the Database
+ * @desc Returns the PhotoReports handled by the specified Admin.
  * @author Nicolas Ross
- * @param {Number} adminId The primary key of the PhotoReport table
- * @returns {PhotoReport[]} A report array
+ * @param {Number} adminId The primary key of the Admin table.
+ * @returns {PhotoReport[]} The PhotoReports handled by the specified Admin.
  */
-
 async function getPhotoReportsByAdmin(adminId) {
     reports = [];
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
             req.input('adminId', sql.VarChar, adminId);
-            return await req.query("SELECT * FROM " + dbName + "[admin_report] INNER JOIN " + dbName + "[report] ON (report.report_id = admin_report.report_id) where admin_report.admin_id = @adminId;")
+            return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[admin_report] INNER JOIN [projectgreenthumb].[dbo].[report] ON (report.report_id = admin_report.report_id) where admin_report.admin_id = @adminId;")
                 .then(function (recordset) {
                     ind = 0;
                     while (recordset[ind] != null) {
                         reports.push(PhotoReport(recordset.recordset[ind].report_id, async function () {
                             req.input('postId', sql.Int, recordset[ind].post_id);
-                            return await req.query("SELECT photo_id FROM " + dbName + "[post] where post.post_id = @postId").then(function (recordset) {
+                            return await req.query("SELECT photo_id FROM [projectgreenthumb].[dbo].[post] where post.post_id = @postId").then(function (recordset) {
                                 return recordset;
 
                             }).catch(function (err) {
@@ -760,7 +771,7 @@ async function getPhotoReportsByAdmin(adminId) {
                             })
                         }, async function () {
                             req.input('postId', sql.Int, recordset[ind].post_id);
-                            return await req.query("SELECT user_id FROM " + dbName + "[post] where post.post_id = @postId").then(function (recordset) {
+                            return await req.query("SELECT user_id FROM [projectgreenthumb].[dbo].[post] where post.post_id = @postId").then(function (recordset) {
                                 return recordset;
 
                             }).catch(function (err) {
@@ -784,28 +795,27 @@ async function getPhotoReportsByAdmin(adminId) {
 }
 
 /**
- * @desc Returns a Admin object from the Database
+ * @desc Returns the Admin with the specified ID.
  * @author Austin Bursey
- * @param {Number} adminID The primary key of the Admin table
- * @returns {Admin} A Admin object
+ * @param {Number} adminID The primary key of the Admin table.
+ * @returns {Admin} The Admin with the specified ID.
 */
-
 async function getAdmin(adminID) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
             req.input('adminID', sql.VarChar, adminID);
 
-            return await req.query("SELECT * FROM " + dbName + "[admin] where admin_id = @adminID ")
+            return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[admin] where admin_id = @adminID ")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != undefined) {
                         user = new Admin(recordset.recordset[0].admin_id, async function () {
                             req.input('adminID', sql.Int, adminID);
 
-                            return await req.query("Select * from " + dbName + "[ban] where admin_id = @adminID").then(function (recordset) {
+                            return await req.query("Select * from [projectgreenthumb].[dbo].[ban] where admin_id = @adminID").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
                                 throw err;
@@ -827,20 +837,19 @@ async function getAdmin(adminID) {
         });
 }
 /**
- * @desc Returns a Plant object from the Database
+ * @desc Returns the Plant with the specified ID.
  * @author Austin Bursey
- * @param {Number} plantId The primary key of the Plant table
- * @returns {Plant} A Plant object
+ * @param {Number} plantId The primary key of the Plant table.
+ * @returns {Plant} The Plant with the specified ID.
 */
-
 async function getPlant(plantID) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
             req.input('plantId', sql.Int, plantID);
-            return await req.query("SELECT * FROM " + dbName + "[plant] where plant_id = @plantId;")
+            return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[plant] where plant_id = @plantId;")
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
                         plant = new Plant(recordset.recordset[0].plant_name, recordset.recordset[0].plant_bio, recordset.recordset[0].plant_id);
@@ -861,15 +870,14 @@ async function getPlant(plantID) {
 }
 
 /**
- * @desc Returns a Plant object from the Database
+ * @desc Returns all Plants that contain the specified query string.
  * @author Saad Ansari
- * @param {String} query The search string
- * @returns {Plant[]} An array of plants Plant object
+ * @param {String} query The query string.
+ * @returns {Plant[]} The matching Plants.
 */
-
 async function getPlantByQuery(query) {
     plants = [];
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
@@ -899,19 +907,17 @@ async function getPlantByQuery(query) {
 
 }
 
-
 /**
  * @desc Returns an array of most recent plant photos
  * @author Saad Ansari
- * @param {Number} plantID The primary key of the plant
- * @param {Number} startIndex The starting of the most recent count
- * @param {Number} max The maximum number of photos to return
- * @returns {Photo[]} An array of photo objects
+ * @param {Number} plantID The primary key of the Plant.
+ * @param {Number} startIndex The index at which to start.
+ * @param {Number} max The maximum number of Photos to return.
+ * @returns {Photo[]} The most recent Photos uploaded of the specified Plant.
 */
-
 async function getNewestPlantPhotos(plantID, startIndex, max) {
     photos = [];
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     await sql.connect(config)
         .then(async function () {
 
@@ -928,14 +934,14 @@ async function getNewestPlantPhotos(plantID, startIndex, max) {
                     while (recordset[ind] != null) {
                         photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
-                            return await req.query("Select user_id from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
                                 throw err;
                             })
                         }, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
-                            return await req.query("Select user_id from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
                                 throw err;
@@ -961,17 +967,16 @@ async function getNewestPlantPhotos(plantID, startIndex, max) {
 }
 
 /**
- * @desc Returns a number of most recent photos uploaded by a user
+ * @desc Returns a number of most recent Photos uploaded by the specified User.
  * @author Saad Ansari
- * @param {Number} userID The primary key of the user
- * @param {Number} startIndex The starting of the most recent count
- * @param {Number} max The maximum number of photos to return
- * @returns {Photo[]} An array of photo objects
+ * @param {Number} userID The primary key of the User.
+ * @param {Number} startIndex The index at which to start.
+ * @param {Number} max The maximum number of Photos to return.
+ * @returns {Photo[]} The most recent Photos uploaded by the specified User.
 */
-
 async function getNewestUserPhotos(userID, startIndex, max) {
     photos = [];
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     await sql.connect(config)
         .then(async function () {
 
@@ -989,7 +994,7 @@ async function getNewestUserPhotos(userID, startIndex, max) {
                         photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
 
-                            return await req.query("Select user_id from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
 
                                 return recordset;
                             }).catch(function (err) {
@@ -998,7 +1003,7 @@ async function getNewestUserPhotos(userID, startIndex, max) {
                         }, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
 
-                            return await req.query("Select user_id from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
 
                                 return recordset;
                             }).catch(function (err) {
@@ -1024,22 +1029,20 @@ async function getNewestUserPhotos(userID, startIndex, max) {
 }
 
 /**
- * @desc Returns a number of the highest rated photos in the database
+ * @desc Returns an array of the top rated Photos.
  * @author Saad Ansari
- * @param {Number} startIndex The starting of the most recent count
- * @param {Number} max The maximum number of photos to return
- * @returns {Photo[]} An array of photo objects
+ * @param {Number} startIndex The index at which to start.
+ * @param {Number} max The maximum number of Photos to return.
+ * @returns {Photo[]} An array of Photos with the highest rating.
 */
 
 async function getTopPhotos(startIndex, max) {
     photos = [];
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
-            // Potentially req.input('startindex', sql.Int, startIndex);
-            // Potentially req.input('count', sql.Int, max);
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
                 ', SUM(v.vote) FROM photo ph ' +
@@ -1054,7 +1057,7 @@ async function getTopPhotos(startIndex, max) {
                     while (recordset[ind] != null) {
                         photos.push(Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
-                            return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                            return await req.query("Select [user_id] from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
 
                                 return recordset;
                             }).catch(function (err) {
@@ -1063,7 +1066,7 @@ async function getTopPhotos(startIndex, max) {
                         }, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
 
-                            return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+                            return await req.query("Select [user_id] from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
 
                                 return recordset;
                             }).catch(function (err) {
@@ -1089,16 +1092,15 @@ async function getTopPhotos(startIndex, max) {
 }
 
 /**
- * @desc Returns an array of the top rated photos of a specific plant
+ * @desc Returns an array of the top rated Photos of the specified Plant.
  * @author Saad Ansari
- * @param {Number} startIndex The starting of the top count
- * @param {Number} max The maximum number of photos to return
- * @returns {Photo[]} An array of photo objects
+ * @param {Number} startIndex The index at which to start.
+ * @param {Number} max The maximum number of Photos to return.
+ * @returns {Photo[]} An array of Photos of the specified Plant.
 */
-
 async function getTopPlantPhotos(plantID, startIndex, max) {
     photos = [];
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     await sql.connect(config)
         .then(async function () {
 
@@ -1115,16 +1117,17 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
+                        // ???
                         photos.push(new Photo(recordset.recordset[ind].photo_id, recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].upload_date, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
-                            return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                            return await req.query("Select [user_id] from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
                                 throw err;
                             })
                         }, async function () {
                             req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
-                            return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+                            return await req.query("Select [user_id] from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
                                 return recordset;
                             }).catch(function (err) {
                                 throw err;
@@ -1149,16 +1152,15 @@ async function getTopPlantPhotos(plantID, startIndex, max) {
 }
 
 /**
- * @desc Returns an array of the top rated photos of a specific user
+ * @desc Returns an array of the top rated Photos from the specified User.
  * @author Luke Turnbull
- * @param {Number} startIndex The starting of the top count
- * @param {Number} max The maximum number of photos to return
- * @returns {Photo[]} An array of photo objects
+ * @param {Number} startIndex The index at which to start.
+ * @param {Number} max The maximum number of Photos to return.
+ * @returns {Photo[]} An array of Photos from the specified User.
 */
-
 async function getTopUserPhotos(userID, startIndex, max) {
-    var photos = [];
-    sql.close() // CLose any existing connections
+    let photos = [];
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1173,16 +1175,17 @@ async function getTopUserPhotos(userID, startIndex, max) {
             return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 while (recordset.recordset[ind] != null) {
+                    // ???
                     photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, async function () {
                         req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
-                        return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
+                        return await req.query("Select [user_id] from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 1 ").then(function (recordset) {
                             return recordset;
                         }).catch(function (err) {
                             throw err;
                         })
                     }, async function () {
                         req.input('photoId', sql.Int, recordset.recordset[ind].photo_id);
-                        return await req.query("Select [user_id] from " + dbName + "[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
+                        return await req.query("Select [user_id] from [projectgreenthumb].[dbo].[voting] where voting.photo_id = @photoId and vote = 0").then(function (recordset) {
                             return recordset;
                         }).catch(function (err) {
                             throw err;
@@ -1203,16 +1206,15 @@ async function getTopUserPhotos(userID, startIndex, max) {
 }
 
 /**
- * @desc Returns an array of photo reports by priority
+ * @desc Returns an array of PhotoReports, ordered by priority (number of times a Photo was reported).
  * @author Luke Turnbull
- * @param {Number} startIndex The starting of the top count
- * @param {Number} max The maximum number of photoReports to return
- * @returns {Photo[]} An array of photoReport objects
+ * @param {Number} startIndex The index at which to start.
+ * @param {Number} max The maximum number of PhotoReports to return.
+ * @returns {Photo[]} Array of unhandled PhotoReports.
 */
-
 async function getUnhandeledPhotoReportsByPriority(startIndex, max) {
-    var photoReports = [];
-    sql.close() // CLose any existing connections
+    let photoReports = [];
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1220,7 +1222,7 @@ async function getUnhandeledPhotoReportsByPriority(startIndex, max) {
                 'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
                 'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY SUM(r.post_id)';
             return await req.query(sqlQuery).then(function (recordset) {
-                ind = 0
+                ind = 0;
                 while (recordset.recordset[ind] != null) {
                     photoReports.push(new PhotoReport(recordset.recordset[ind].photo_id, recordset.recordset[ind].user_id, recordset.recordset[ind].report_details, recordset.recordset[ind].report_id, recordset.recordset[ind].report_date));
                     ind = ind + 1;
@@ -1239,16 +1241,15 @@ async function getUnhandeledPhotoReportsByPriority(startIndex, max) {
 
 
 /**
- * @desc Returns an array of photo reports by Date
+ * @desc Returns an array of oldest unhandled PhotoReport.
  * @author Luke Turnbull
- * @param {Number} startIndex The starting of the top count
- * @param {Number} max The maximum number of photoReports to return
- * @returns {Photo[]} An array of photoReport objects
+ * @param {Number} startIndex The index at which to start.
+ * @param {Number} max The maximum number of PhotoReports to return.
+ * @returns {Photo[]} Array of unhandled PhotoReports.
 */
-
 async function getUnhandeledPhotoReportsByDate(startIndex, max) {
-    var photoReports = [];
-    sql.close() // CLose any existing connections
+    let photoReports = [];
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1256,7 +1257,7 @@ async function getUnhandeledPhotoReportsByDate(startIndex, max) {
                 'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
                 'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY r.upload_date';
             return await req.query(sqlQuery).then(function (recordset) {
-                ind = 0
+                ind = 0;
                 while (recordset.recordset[ind] != null) {
                     photoReports.push(new PhotoReport(recordset.recordset[ind].photo_id, recordset.recordset[ind].user_id, recordset.recordset[ind].report_details, recordset.recordset[ind].report_id, recordset.recordset[ind].report_date));
                     ind = ind + 1;
@@ -1274,14 +1275,13 @@ async function getUnhandeledPhotoReportsByDate(startIndex, max) {
 }
 
 /**
- * @desc Returns a User object from the Database
+ * @desc Returns the requested User object from the DB.
  * @author Luke Turnbull
- * @param {Number} userId The primary key of the User table
- * @returns {User} A User object
+ * @param {Number} userId The primary key of the User table.
+ * @returns {User} The requested User.
 */
-
 async function getUser(userId) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
 
@@ -1290,7 +1290,19 @@ async function getUser(userId) {
             return await req.query("SELECT [user_id] FROM [user] where [user].[user_id] = @userId ")
                 .then(async function (recordset) {
                     if (recordset.recordset[0] != undefined) {
+<<<<<<< HEAD
                         user = new User(recordset.recordset[0].user_id, await create_bans(userId) );
+=======
+                        // ???
+                        user = new User(recordset.recordset[0].user_id, async function () {
+                            req.input('userId', sql.Int, userId);
+                            return await req.query("Select [user_id] from [ban] where ban.[user_id] = @userId").then(function (recordset) {
+                                return recordset;
+                            }).catch(function (err) {
+                                throw err;
+                            })
+                        });
+>>>>>>> b2b35153bbeef35419a86c442c65fb4286564828
 
                         sql.close();
                         return user;
@@ -1310,14 +1322,12 @@ async function getUser(userId) {
 ///////////////////////////Update Functions////////////////////////////
 
 /**
- * @desc Updates a photo object in database
+ * @desc Updates a Photo object in the DB.
  * @author Luke Turnbull
- * @param {Photo} Photo 
- * @returns nothing
+ * @param {Photo} photo The Photo to be updated.
 */
-
 async function updatePhoto(photo) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1339,18 +1349,17 @@ async function updatePhoto(photo) {
 }
 
 /**
- * @desc Update a Photo Report object in database
+ * @desc Update a PhotoReport object in the DB.
  * @author Luke Turnbull
- * @param {PhotoReport} pReport
- * @returns nothing
+ * @param {PhotoReport} photoReport The PhotoReport to be updated.
 */
-async function updatePhotoReport(pReport) {
-    sql.close() // CLose any existing connections
+async function updatePhotoReport(photoReport) {
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
-            req.input("reportId", sql.Int, pReport.getId());
-            req.input("rDate", sql.Date, pReport.getReportDate());
-            req.input("rText", sql.VarChar, pReport.getReportText());
+            req.input("reportId", sql.Int, photoReport.getId());
+            req.input("rDate", sql.Date, photoReport.getReportDate());
+            req.input("rText", sql.VarChar, photoReport.getReportText());
             let req = new sql.Request();
             return await req.query("UPDATE [report] SET report_date = @rDate, report_details = @rText WHERE report_id = @reportId")
                 .then(function (recordset) {
@@ -1367,13 +1376,12 @@ async function updatePhotoReport(pReport) {
 }
 
 /**
- * @desc Update a Plant object in database
+ * @desc Update a Plant object in the DB.
  * @author Luke Turnbull
- * @param {Plant} plant
- * @returns nothing
+ * @param {Plant} plant The Plant to be updated.
 */
 async function updatePlant(plant) {
-    sql.close() // CLose any existing connections    
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
@@ -1393,18 +1401,18 @@ async function updatePlant(plant) {
         });
 }
 /**
- * @desc Returns true if the adminId is in the Admin table from the  database, otherwise false
+ * @desc Returns true iff the adminId can be found in the Admin table of the DB.
  * @author Austin Bursey
- * @param {Number} adminID The primary key of the Admin table
- * @returns {Boolean} A Boolean object
+ * @param {Number} adminID The primary key of the Admin table. Integer.
+ * @returns {Boolean} True iff the adminId can be found in the Admin table of the DB.
 */
 async function isValidAdminId(adminId) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
             req.input('adminID', sql.VarChar, adminId);
-            return await req.query("SELECT admin_id FROM " + dbName + "[admin] where admin_id = @adminID ")
+            return await req.query("SELECT admin_id FROM [projectgreenthumb].[dbo].[admin] where admin_id = @adminID ")
                 .then(function (recordset) {
                     let bool = false;
                     if (recordset.recordset[0] != undefined) {
@@ -1421,18 +1429,18 @@ async function isValidAdminId(adminId) {
         });
 }
 /**
- * @desc Returns true if the Ban is in the Ban table from the  database, otherwise false
+ * @desc Returns true iff the banId can be found in the Ban table of the DB.
  * @author Austin Bursey
- * @param {Number} banID The primary key of the Ban table
- * @returns {Boolean} A Boolean object
+ * @param {Number} banID The primary key of the Ban table. Integer.
+ * @returns {Boolean} True iff the banId can be found in the Ban table of the DB.
 */
 async function isValidBanId(banId) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
             req.input('banID', sql.Int, banId);
-            return await req.query("SELECT ban_id FROM " + dbName + "[ban] where ban_id = @banID ")
+            return await req.query("SELECT ban_id FROM [projectgreenthumb].[dbo].[ban] where ban_id = @banID ")
                 .then(function (recordset) {
                     let bool = false;
                     if (recordset.recordset[0] != undefined) {
@@ -1449,18 +1457,18 @@ async function isValidBanId(banId) {
         });
 }
 /**
- * @desc Returns true if the photoId is in the Photo table from the  database, otherwise false
+ * @desc Returns true iff the photoId can be found in the Photo table of the DB.
  * @author Austin Bursey
- * @param {Number} photoID The primary key of the Photo table
- * @returns {Boolean} A Boolean object
+ * @param {Number} photoID The primary key of the Photo table. Integer.
+ * @returns {Boolean} True iff the photoId can be found in the Photo table of the DB.
 */
 async function isValidPhotoId(photoId) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
             req.input('photoId', sql.Int, photoId);
-            return await req.query("SELECT photo_id FROM " + dbName + "[photo] where photo_id = @photoId ")
+            return await req.query("SELECT photo_id FROM [projectgreenthumb].[dbo].[photo] where photo_id = @photoId ")
                 .then(function (recordset) {
                     let bool = false;
                     if (recordset.recordset[0] != undefined) {
@@ -1477,18 +1485,18 @@ async function isValidPhotoId(photoId) {
         });
 }
 /**
- * @desc Returns true if the plantId is in the Plant table from the  database, otherwise false
+ * @desc Returns true iff the plantId can be found in the Plant table of the DB.
  * @author Austin Bursey
- * @param {Number} plantID The primary key of the plant table
- * @returns {Boolean} A Boolean object
+ * @param {Number} plantID The primary key of the Plant table. Integer.
+ * @returns {Boolean} True iff the plantId can be found in the Plant table of the DB.
 */
 async function isValidPlantId(plantId) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
             req.input('plantId', sql.Int, plantId);
-            return await req.query("SELECT plant_id FROM " + dbName + "[plant] where plant_id = @plantId ")
+            return await req.query("SELECT plant_id FROM [projectgreenthumb].[dbo].[plant] where plant_id = @plantId ")
                 .then(function (recordset) {
                     let bool = false;
                     if (recordset.recordset[0] != undefined) {
@@ -1505,18 +1513,18 @@ async function isValidPlantId(plantId) {
         });
 }
 /**
- * @desc Returns true if the userId is in the User table from the  database, otherwise false
+ * @desc Returns true iff the userId can be found in the User table of the DB.
  * @author Austin Bursey
- * @param {Number} userID The primary key of the User table
- * @returns {Boolean} A Boolean object
+ * @param {Number} userID The primary key of the User table. Integer.
+ * @returns {Boolean} True iff the userId can be found in the User table of the DB.
 */
 async function isValidUserId(userId) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
             req.input('userId', sql.VarBinary, userId);
-            return await req.query("SELECT user_id FROM " + dbName + "[user] where user_id = @userId ")
+            return await req.query("SELECT user_id FROM [projectgreenthumb].[dbo].[user] where user_id = @userId ")
                 .then(function (recordset) {
                     let bool = false;
                     if (recordset.recordset[0] != undefined) {
@@ -1533,18 +1541,18 @@ async function isValidUserId(userId) {
         });
 }
 /**
- * @desc Returns true if the reportId is in the Report table from the  database, otherwise false
+ * @desc Returns true iff the reportId can be found in the Report table of the DB.
  * @author Austin Bursey
- * @param {Number} reportID The primary key of the Report table
- * @returns {Boolean} A Boolean object
+ * @param {Number} reportID The primary key of the Report table. Integer.
+ * @returns {Boolean} True iff the reportId can be found in the Report table of the DB.
 */
 async function isValidReportId(reportId) {
-    sql.close() // CLose any existing connections
+    sql.close() // Close any existing connections
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
             req.input('reportId', sql.Int, reportId);
-            return await req.query("SELECT report_id FROM " + dbName + "[report] where report_id = @reportId ")
+            return await req.query("SELECT report_id FROM [projectgreenthumb].[dbo].[report] where report_id = @reportId ")
                 .then(function (recordset) {
                     let bool = false;
                     if (recordset.recordset[0] != undefined) {
