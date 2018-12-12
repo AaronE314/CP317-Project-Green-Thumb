@@ -46,53 +46,50 @@
     <h3><a id="Entity_Objects"></a>2.1 Entity Objects</h3>
     <ul>
         <li>
-            <b>Admin</b> - A special type of User that is able to strike/ban other Users, add/update/remove Plants, and handle PhotoReports.
+            <b>Admin</b> - A special type of User which has certain privledges. They can ban other Users; add, update, and remove Plants; and handle PhotoReports.
         </li>
         <li>
-            <b>Photo</b> - A photograph of a Plant subject to upvotes/downvotes by Users.
+            <b>Photo</b> - A photograph of a Plant subject to upvotes and downvotes.
         </li>
         <li>
             <b>PhotoReport</b> - A User-submitted report of a Photo to be handled by an Admin.
         </li>
         <li>
-            <b>Plant</b> - The details for one species of plant, including a name, bio, and region, as well as a set of photographs of the species.
+            <b>Plant</b> - The details for one species of plant including a name and biography.
         </li>
         <li>
-            <b>User</b> - A user of GreenThumb that has signed in with their Google account. They can post Photos to Plants, and upvote/downvote the Photos of other Users.
+            <b>User</b> - A user of GreenThumb that has signed in with their Google account. They can post Photos and vote on the Photos posted by other Users.
         </li>
     </ul>
 
     <h3><a id="Boundary_Objects"></a>2.2 Boundary Objects</h3>
     <ul>
         <li>
-           <b>AdminView</b> - A <i>web</i> page wherein Admins can perform administrative actions.
+           <b>LoginActivity</b> - A welcome screen shown to a user who has never opened GreenThumb before. Provides a choice between logging in with the user's Google account or continuing as a guest.
                     </li>
                     <li>
-                        <b>FirstStartUpView</b> - A welcome screen shown to a user who has never opened GreenThumb before. Provides a choice between logging in with the user's Google account or continuing as a guest.
+                        <b>GalleryActivity</b> - A screen containing multiple photos of a species of plant.
                     </li>
                     <li>
-                        <b>GalleryView</b> - A screen containing multiple photos of a species of plant.
+                        <b>MainMenuActivity</b> - The primary screen from which the user can navigate to the other screens.
                     </li>
                     <li>
-                        <b>HomeView</b> - The primary screen from which the user can navigate to the other screens.
+                        <b>ReportsActivity</b> - A screen for reporting a photo.
                     </li>
                     <li>
-                        <b>PhotoReportView</b> - A screen for reporting a photo.
+                        <b>PlantBioActivity</b> - A screen containing information on the selected plant.
                     </li>
                     <li>
-                        <b>PlantView</b> - A screen containing information on the selected plant.
+                         <b>ScanActivity</b> - A screen wherein the user can take and send to the server photos of their plants for identification.
                     </li>
                     <li>
-                         <b>ScanView</b> - A screen wherein the user can take and send to the server photos of their plants for identification.
+                        <b>SearchActivity</b> - A search screen to browse plants by name.
                     </li>
                     <li>
-                        <b>SearchView</b> - A search screen to browse plants by name.
+                        <b>SettingsActivity</b> - A settings screen wherein a guest can log in if they change their mind.
                     </li>
                     <li>
-                        <b>SettingView</b> - A settings screen wherein a guest can log in if they change their mind.
-                    </li>
-                    <li>
-                         <b>StartUpView</b> - A welcome screen shown to a user who has opened GreenThumb before. A splash screen displayed while the HomeView is loading.
+                         <b>SplashScreenActivity</b> - A welcome screen shown to a user who has opened GreenThumb before. A splash screen displayed while the HomeView is loading.
                     </li>
                 </ul>
 
