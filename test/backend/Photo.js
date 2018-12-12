@@ -67,24 +67,6 @@ describe("Photo Tests", () => {
             assert(JSON.stringify(photo.getDownvoteIds()) == JSON.stringify([6]));
         });
 
-    it("userUpvoted(userId) should return true iff the user ID upvoted on this Photo.",
-        /**
-         * @author Scott Peebles
-         */
-        () => {
-            let photo = new Photo(1, 2, "", 4, new Date(0), [5], [6]);
-            assert(photo.userUpvoted(5));
-        });
-
-    it("userDownvoted(userId) should return true iff user ID downvoted on this Photo.",
-        /**
-         * @author Scott Peebles
-         */
-        () => {
-            let photo = new Photo(1, 2, "", 4, new Date(0), [5], [6]);
-            assert(photo.userDownvoted(6));
-        });
-
     it("getVoteSum() should return overall total of upvotes and downvotes.",
         /**
          * @author Scott Peebles
@@ -92,16 +74,6 @@ describe("Photo Tests", () => {
         () => {
             let photo = new Photo(1, 2, "", 4, new Date(0), [5], [6]);
             assert.equal(photo.getVoteSum(), 0);
-        });
-
-    it("vote(userId, up) should add a user's ID to the upvoteIds or downvoteIds.",
-        /**
-         * @author Scott Peebles
-         */
-        () => {
-            let photo = new Photo(1, 2, "", 4, new Date(0), [5], [6]);
-            photo.vote(3, true);
-            assert(JSON.stringify(photo.getUpvoteIds()), JSON.stringify([3, 5]));
         });
 
     it("toJSON() should produce an object containing a copy of the private attributes of the Photo.",
