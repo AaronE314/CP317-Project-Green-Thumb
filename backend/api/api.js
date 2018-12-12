@@ -613,7 +613,7 @@ api.post("/users/add",
         try {
             if (!await validateParams(req, res, async (body) => {
                 assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
-                assert(body.userId >= 0, ERROR_MSG.noNeg("userId"));
+                assert(body.userId !== "", ERROR_MSG.missingText("userId"));
             })) { return; }
 
             res.send({
@@ -641,7 +641,7 @@ api.post("/users/ban",
                 assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
-            let user = DBInterface.getUser(req.body.userId);
+            let user = await DBInterface.getUser(req.body.userId);
             await DBInterface.addBan(new Ban(user.getId(), req.body.adminId, user.nextBanExpirationDate()));
 
             res.send({});

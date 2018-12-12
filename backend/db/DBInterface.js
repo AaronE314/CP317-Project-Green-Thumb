@@ -82,7 +82,7 @@ async function photo_exists(photo) {
             let req = new sql.Request();
             req.input('plantId', sql.Int, photo.getPlantId());
             req.input('img', sql.Int, photo.getImage());
-            return await req.query("Select * from " + dbName + "[photo] where plant_id = @plantId AND image = @img")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[photo] where plant_id = @plantId AND image = @img")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -206,7 +206,7 @@ async function create_bans(userId) {
 
             let req = new sql.Request();
             req.input('userId', sql.VarChar, userId);
-            return await req.query("Select * from " + dbName + "[ban] where user_id = @userId")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[ban] where user_id = @userId")
 
                 .then(function (recordset) {
                     let i = 0;
@@ -240,7 +240,7 @@ async function create_votes(photoId, direction) {
             let req = new sql.Request();
             req.input('photoId', sql.Int, photoId);
             req.input('direction', sql.Int, direction);
-            return await req.query("Select * from " + dbName + "[voting] where photo_id = @photoId and vote = @direction")
+            return await req.query("Select * from [projectgreenthumb].[dbo].[voting] where photo_id = @photoId and vote = @direction")
 
                 .then(function (recordset) {
                     let i = 0;
@@ -789,7 +789,7 @@ async function getPhoto(photoId) {
 
             let req = new sql.Request();
             req.input('photoId', sql.Int, photoId);
-            return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM " + dbName + "[photo] INNER JOIN " + dbName + "[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
+            return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
                 .then(async function (recordset) {
                     if (recordset.recordset[0] != null) {
                         console.log(recordset.recordset[0]);
