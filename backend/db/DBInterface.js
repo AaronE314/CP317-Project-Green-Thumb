@@ -712,18 +712,15 @@ async function removeUser(userId) {
         let sqlQuery = // Create SQL Query.
             // Delete all associated reports.
             'DELETE FROM report WHERE ' +
-            '(SELECT u.[user_id] FROM[user] u ' +
-            'JOIN post po ON u.[user_id] = po.[user_id] ' +
-            'JOIN report r ON r.post_id = po.post_id) = @userId;' +
+            'user_id = @userId;' +
 
             // Delete all associated posts.
             'DELETE FROM post WHERE ' +
-            '(SELECT u.[user_id] FROM[user] u ' +
-            'JOIN post po ON u.[user_id] = po.[user_id]) = @userId;' +
+            'user_id = @userId;' +
 
             // Delete all assocaited votes.
             'DELETE FROM voting WHERE ' +
-            '(SELECT[user_id] FROM voting) = @userId;' +
+            'user_id = @userId;' +
 
             // Delete the user.
             'DELETE FROM[user] WHERE[user_id] = @userId;'
@@ -1229,7 +1226,7 @@ async function getTopUserPhotos(userID, startIndex, max) {
  * @param {Number} max The maximum number of PhotoReports to return.
  * @returns {Photo[]} Array of unhandled PhotoReports.
 */
-async function getUnhandeledPhotoReportsByPriority(startIndex, max) {
+async function getUnhandledPhotoReportsByPriority(startIndex, max) {
     let photoReports = [];
     sql.close() // Close any existing connections.
     return await sql.connect(config)
@@ -1264,7 +1261,7 @@ async function getUnhandeledPhotoReportsByPriority(startIndex, max) {
  * @param {Number} max The maximum number of PhotoReports to return.
  * @returns {Photo[]} Array of unhandled PhotoReports.
 */
-async function getUnhandeledPhotoReportsByDate(startIndex, max) {
+async function getUnhandledPhotoReportsByDate(startIndex, max) {
     let photoReports = [];
     sql.close() // Close any existing connections.
     return await sql.connect(config)
@@ -1579,7 +1576,7 @@ module.exports = {
     removePhoto, removePhotoReport, removePlant, removeUser,
     getBan, getPhoto, getPhotoReport, getPlant, getPhotoReportsByAdmin, getAdmin,
     getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
-    getTopUserPhotos, getUnhandeledPhotoReportsByDate, getUnhandeledPhotoReportsByPriority,
+    getTopUserPhotos, getUnhandledPhotoReportsByDate, getUnhandledPhotoReportsByPriority,
     getUser, updatePlant, updatePhoto, updatePhotoReport, isValidReportId, isValidUserId, isValidPlantId,
     isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery, create_votes, add_vote
 }
