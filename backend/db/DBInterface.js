@@ -571,7 +571,7 @@ async function addUser(user) {
         .catch(function (err) {
             throw err;
         });
-    return user
+    return user;
 }
 
 
