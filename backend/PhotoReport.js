@@ -9,7 +9,7 @@ class PhotoReport {
 	 * @author Scott Peebles
 	 * @param {Number=} id The PhotoReport ID. Integer.
 	 * @param {Number} photoId The ID of the reported Photo. Integer.
-	 * @param {Number} userId The ID of the User who made the PhotoReport. Integer.
+	 * @param {String} userId The ID of the User who made the PhotoReport.
 	 * @param {String} reportText The text of the PhotoReport.
 	 * @param {*=} reportDate The Date when the PhotoReport was created.
 	 * @constructor

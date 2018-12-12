@@ -116,7 +116,7 @@ async function photo_report_exists(photoReport) {
             req.input('photo', sql.Int, photoReport.getPhotoId());
             req.input('date', sql.Date, photoReport.getReportDate());
             return await req.query("Select * from report r JOIN post p ON p.post_id = r.post_id " + 
-            "WHERE report_date = @date and [user_id] = @userId AND p.photo_id = @photo")
+            "WHERE report_date = @date and p.[user_id] = @userId AND p.photo_id = @photo")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {

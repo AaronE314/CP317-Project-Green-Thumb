@@ -7,8 +7,8 @@ class Ban {
     /**
      * @desc The Ban class Constructor.
      * @author Nathaniel Carr
-     * @param {Number} userId The ID of the banned User. Integer.
-     * @param {Number} adminId The ID of the Admin who banned the User. Integer.
+     * @param {String} userId The ID of the banned User.
+     * @param {String} adminId The ID of the Admin who banned the User.
      * @param {*} expirationDate The Date when the Ban expires.
      * @param {Number=} id The Ban ID. Integer.
      * @constructor

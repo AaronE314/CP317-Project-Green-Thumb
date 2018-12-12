@@ -9,7 +9,7 @@ class Photo {
      * @author Adam Cassidy
      * @param {Number=} id The ID of the Photo. Integer.
      * @param {Number} plantId The ID of the corresponding Plant. Integer.
-     * @param {Number} userId The ID of the User who uploaded this Photo. Integer.
+     * @param {String} userId The ID of the User who uploaded this Photo.
      * @param {*[]} image The byte array for the image.
      * @param {*=} uploadDate The Date on which the Photo was uploaded. Today if undefined.
      * @param {Number[]=} upvoteIds The IDs of the Users who have upvoted on this Photo. Sorted in ascending order. Integer.
