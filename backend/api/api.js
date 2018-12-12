@@ -99,7 +99,7 @@ api.post("/photos/add",
             })) { return; }
 
             res.send({
-                photo: (await DBInterface.addPhoto(new Photo(req.body.plantId, req.body.userId, req.body.image))).toJSON()
+                photoId: (await DBInterface.addPhoto(new Photo(req.body.plantId, req.body.userId, req.body.image))).getId()
             });
 
         } catch (err) {
@@ -262,7 +262,7 @@ api.post("/photoReports/add",
             })) { return; }
 
             res.send({
-                report: (await DBInterface.addPhotoReport(new PhotoReport(req.body.photoId, req.body.userId, req.body.reportText))).toJSON()
+                photoReportId: (await DBInterface.addPhotoReport(new PhotoReport(req.body.photoId, req.body.userId, req.body.reportText))).getId()
             });
 
         } catch (err) {
@@ -406,12 +406,8 @@ api.post("/plants/add",
                 assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
-            let plant = await DBInterface.addPlant(new Plant(req.body.name, req.body.bio));
-            let photos = [];
-
             res.send({
-                plant: plant.toJSON(),
-                photos: photos
+                plantId: await DBInterface.addPlant(new Plant(req.body.name, req.body.bio)).getId()
             });
 
         } catch (err) {
@@ -617,7 +613,7 @@ api.post("/users/add",
             })) { return; }
 
             res.send({
-                user: await DBInterface.addUser(new User(req.body.userId))
+                userId: (await DBInterface.addUser(new User(req.body.userId))).getId()
             });
 
         } catch (err) {
