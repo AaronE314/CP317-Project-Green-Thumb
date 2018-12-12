@@ -13,8 +13,8 @@ var User = require("../User.js");
 
 (async()=>{
     try{
-    let firstBan = new User("1234543");
-    let user= await DBInterface.getUser('22');
+    let firstBan = new User("BenMark4");
+    let user= await DBInterface.addUser(firstBan);
     console.log(user.toJSON());
 
     }catch(error){
