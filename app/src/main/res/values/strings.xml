@@ -95,4 +95,5 @@
     <string name="action_search">Go</string>
     <string name="search_box_hint" translatable="false">Search  (i.e. Jasmine)</string>
     <string name="search_results_text">Rusults:</string>
+    <string name="title_activity_plant_bio">PlantBioActivity</string>
 </resources>

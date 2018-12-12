@@ -880,6 +880,10 @@
         "source": "/home/tim/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/14888427f36bc2648e90abbff15f714a/res/drawable-xhdpi-v4/abc_ic_star_half_black_16dp.png"
     },
     {
+        "merged": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/layout_activity_plant_bio.xml.flat",
+        "source": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/src/main/res/layout/activity_plant_bio.xml"
+    },
+    {
         "merged": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/color_mtrl_btn_bg_color_selector.xml.flat",
         "source": "/home/tim/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/a7c54eae43e7f755dfd615ae3ad760c5/res/color/mtrl_btn_bg_color_selector.xml"
     },
@@ -1814,6 +1818,10 @@
     {
         "merged": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_ic_star_half_black_48dp.png.flat",
         "source": "/home/tim/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/14888427f36bc2648e90abbff15f714a/res/drawable-xxhdpi-v4/abc_ic_star_half_black_48dp.png"
+    },
+    {
+        "merged": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/layout_content_plant_bio.xml.flat",
+        "source": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/src/main/res/layout/content_plant_bio.xml"
     },
     {
         "merged": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_ic_star_black_48dp.png.flat",
