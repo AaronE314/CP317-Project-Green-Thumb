@@ -1226,7 +1226,7 @@ async function getTopUserPhotos(userID, startIndex, max) {
  * @param {Number} max The maximum number of PhotoReports to return.
  * @returns {Photo[]} Array of unhandled PhotoReports.
 */
-async function getUnhandeledPhotoReportsByPriority(startIndex, max) {
+async function getUnhandledPhotoReportsByPriority(startIndex, max) {
     let photoReports = [];
     sql.close() // Close any existing connections.
     return await sql.connect(config)
@@ -1261,7 +1261,7 @@ async function getUnhandeledPhotoReportsByPriority(startIndex, max) {
  * @param {Number} max The maximum number of PhotoReports to return.
  * @returns {Photo[]} Array of unhandled PhotoReports.
 */
-async function getUnhandeledPhotoReportsByDate(startIndex, max) {
+async function getUnhandledPhotoReportsByDate(startIndex, max) {
     let photoReports = [];
     sql.close() // Close any existing connections.
     return await sql.connect(config)
@@ -1576,7 +1576,7 @@ module.exports = {
     removePhoto, removePhotoReport, removePlant, removeUser,
     getBan, getPhoto, getPhotoReport, getPlant, getPhotoReportsByAdmin, getAdmin,
     getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
-    getTopUserPhotos, getUnhandeledPhotoReportsByDate, getUnhandeledPhotoReportsByPriority,
+    getTopUserPhotos, getUnhandledPhotoReportsByDate, getUnhandledPhotoReportsByPriority,
     getUser, updatePlant, updatePhoto, updatePhotoReport, isValidReportId, isValidUserId, isValidPlantId,
     isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery, create_votes, add_vote
 }
