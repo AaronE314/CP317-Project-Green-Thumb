@@ -215,6 +215,8 @@ api.post("/photos/remove",
         try {
             if (!await validateParams(req, res, async (body) => {
                 assert(body.photoId !== undefined, ERROR_MSG.missingParam("photoId"));
+
+                assert(await DBInterface.getPhoto(body.photoId).getUserId() === body.userId || await DBInterface.isValidAdminId(body.userId), ERROR_MSG.unauthorized());
             })) { return; }
 
             await DBInterface.removePhoto(req.body.photoId);
