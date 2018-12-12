@@ -226,6 +226,27 @@ api.post("/photos/remove",
         }
     });
 
+api.post("/photos/vote",
+    /**
+     * @author Nathaniel Carr
+     * @desc Vote on the Photo with the corresponding ID from the database.
+     */
+    async (req, res) => {
+        try {
+            if (!await validateParams(req, res, async (body) => {
+                assert(body.photoId !== undefined, ERROR_MSG.missingParam("photoId"));
+                assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+            })) { return; }
+
+            await DBInterface.vote(req.body.photoId, req.body.userId, req.body.up);
+            res.send({});
+
+        } catch (err) {
+            res.send(ERROR_CODE.internalError, { message: err.message });
+            console.error(err);
+        }
+    });
+
 api.post("/photoReports/add",
     /**
      * @author Nathaniel Carr
