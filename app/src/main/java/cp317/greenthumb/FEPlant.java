@@ -1,3 +1,4 @@
+
 package cp317.greenthumb;
 
 public class FEPlant {
@@ -5,11 +6,11 @@ public class FEPlant {
     private String _name;
     private String _bio;
 
-     FEPlant(int id, String name, String bio) {
-         this._id = id;
-         this._name = name;
-         this._bio = bio;
-     }
+    FEPlant(int id, String name, String bio) {
+        this._id = id;
+        this._name = name;
+        this._bio = bio;
+    }
 
     public int get_id() {
         return _id;

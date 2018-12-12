@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.content.SharedPreferences;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+//import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -18,7 +18,7 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView previewLabel;
     private SharedPreferences prefs;
     private Button logOutButton;
-    private GoogleSignInClient mGoogleSignInClient;
+   // private GoogleSignInClient mGoogleSignInClient;
 
     // Seekbar specs
     int max = 10;
@@ -41,7 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
         logOutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
-                    mGoogleSignInClient.signOut();
+                  //  mGoogleSignInClient.signOut();
                     // Display successful sign-out on screen
                     Toast.makeText(getApplicationContext(), "Signed Out", Toast.LENGTH_LONG).show();
                 }
@@ -91,7 +91,7 @@ public class SettingsActivity extends AppCompatActivity {
                 ed.commit();
 
                 // Sets global variable 'text_size' to wherever the slider is put
-                globalVars.text_size = prefs.getFloat("fontsize", MODE_PRIVATE);
+                //globalVars.text_size = prefs.getFloat("fontsize", MODE_PRIVATE);
                 System.out.println("prefs at end of scaling = " + prefs.getFloat("fontsize", MODE_PRIVATE));
             }
         });

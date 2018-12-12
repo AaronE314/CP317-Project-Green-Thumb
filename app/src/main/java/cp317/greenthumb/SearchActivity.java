@@ -76,8 +76,7 @@ public class SearchActivity extends AppCompatActivity {
 
     public void gotoPlant(long plantID){
 
-        Intent i = new Intent(this, PlantDescriptionActivity.class);
-        startActivity(i);
+        //Intent i = new Intent(this, PlantDescriptionActivity.class);
+       // startActivity(i);
     }
 }
-

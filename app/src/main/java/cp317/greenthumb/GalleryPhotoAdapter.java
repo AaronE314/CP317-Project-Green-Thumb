@@ -59,4 +59,3 @@ public class GalleryPhotoAdapter extends BaseAdapter {
         return gridItem;
     }
 }
-

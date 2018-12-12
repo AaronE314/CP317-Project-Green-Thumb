@@ -11,7 +11,6 @@ import java.util.Set;
 import android.content.Intent;
 
 /*test
-
  */
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -19,7 +18,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
 
     @Override
-<<<<<<< HEAD
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);

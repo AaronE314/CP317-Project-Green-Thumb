@@ -21,53 +21,29 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="cp317.greenthumb.MangerActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="cp317.greenthumb.ScanActivity" />
         <activity
             android:name="cp317.greenthumb.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name="cp317.greenthumb.SplashScreenActivity" />
         <activity
-            android:name="cp317.greenthumb.SearchActivity"
-            android:label="@string/title_activity_search"
+            android:name="cp317.greenthumb.MainMenuActivity"
+            android:label="@string/title_activity_main_menu" />
+        <activity
+            android:name="cp317.greenthumb.ReportsActivity"
+            android:label="@string/title_activity_reports"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="cp317.greenthumb.DescriptionActivity" />
-        <activity android:name="cp317.greenthumb.ReportsActivity" />
+        <activity
+            android:name="cp317.greenthumb.ScanActivity"
+            android:label="@string/title_activity_scan" />
+        <activity android:name="cp317.greenthumb.SearchActivity" />
         <activity
             android:name="cp317.greenthumb.SettingsActivity"
-            android:exported="true"
             android:label="@string/title_activity_settings" />
-        <activity android:name="cp317.greenthumb.MainMenuActivity" />
         <activity
-            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
-            android:excludeFromRecents="true"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--
-            Service handling Google Sign-In user revocation. For apps that do not integrate with
-            Google Sign-In, this service will never be started.
-        -->
-        <service
-            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
-            android:exported="true"
-            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
-
-        <activity
-            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:name="cp317.greenthumb.SplashScreenActivity"
+            android:label="@string/title_activity_splash_screen" />
+        <activity android:name="cp317.greenthumb.PlantDescriptionActivity" />
+        <activity android:name="cp317.greenthumb.GalleryActivity" />
     </application>
 
 </manifest>

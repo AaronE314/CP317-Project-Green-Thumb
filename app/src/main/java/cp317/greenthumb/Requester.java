@@ -55,7 +55,7 @@ public class Requester {
 
         while ((currentLine = in.readLine()) != null)
             response.append(currentLine);
-        FEUser user = new FEUser();
+        FEUser user = new FEUser(userId,0);
 
 
         //Map<String,Object> map = user.readValue(json, Map.class);
@@ -311,7 +311,7 @@ public class Requester {
         //format"".getBytes("UTF-8");
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-       // image.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        // image.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
         String output ="{ image:"+encoded+", plantId:"+plantId+", userId:"+userId+"}";
@@ -337,7 +337,7 @@ public class Requester {
     //no known endoint for this
     public void votePhoto(int userId, int photoId, Boolean up)throws IOException{
         //open http connection
-        HttpURLConnection httpcon = (HttpURLConnection) ((new URL(apiBaseUrl+"/photoReports/add").openConnection()));
+        HttpURLConnection httpcon = (HttpURLConnection) ((new URL(apiBaseUrl+"/photos/vote").openConnection()));
         httpcon.setDoOutput(true);
         httpcon.setRequestProperty("Content-Type", "application/json");
         httpcon.setRequestProperty("Accept", "application/json");
@@ -347,7 +347,9 @@ public class Requester {
          * Output user credentials over HTTP Output Stream
          */
         //need to fix format of this
-        byte[] outputBytes = "{ photoId: int, reportText: String, userId: int }".getBytes("UTF-8");
+        String output ="{ userId:"+userId+", plantId:"+photoId+", Boolean:"+up+"}";
+        //send output
+        byte[] outputBytes = output.getBytes("UTF-8");
 
         OutputStream os = httpcon.getOutputStream();
 
@@ -367,5 +369,3 @@ public class Requester {
         httpcon.disconnect();
     }
 }
-
-
