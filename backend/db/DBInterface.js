@@ -250,7 +250,7 @@ async function create_votes(photoId, direction) {
                         votes.push(recordset.recordset[i].user_id);
                         i++;
                     }
-                    return bans;
+                    return votes;
                 })
                 .catch(function (err) {
                     throw err;
@@ -702,13 +702,13 @@ async function removePlant(plantID) {
  * @author Saad Ansari
  * @param {Number} UserID The primary key of the User.
 */
-async function removeUser(UserId) {
+async function removeUser(userId) {
     sql.close() // Close any existing connections.
     // Connect to database.
     sql.connect(config, function (err) {
         if (err) { throw err; }
         let request = new sql.Request(); // create Request object
-        request.input('userId', sql.VarChar, userID);
+        request.input('userId', sql.VarChar, userId);
         let sqlQuery = // Create SQL Query.
             // Delete all associated reports.
             'DELETE FROM report WHERE ' +
@@ -789,7 +789,7 @@ async function getPhoto(photoId) {
                 .then(async function (recordset) {
                     if (recordset.recordset[0] != null) {
                         console.log(recordset.recordset[0]);
-                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image, recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, await create_votes(photoId, 1), await create_votes(photoId, 0));
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image.toString('base64'), recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, await create_votes(photoId, 1), await create_votes(photoId, 0));
 
                         sql.close();
                         return photo;
