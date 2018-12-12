@@ -579,10 +579,11 @@ async function addUser(user) {
  * @desc Add an Admin to the database.
  * @author Saad Ansari
  * @param {Admin} admin An Admin object.
+ * @return {admin} original admin object with ID initialized
 */
 async function addAdmin(admin) {
     sql.close() // Close any existing connections.
-    return await sql.connect(config)
+    await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
@@ -598,6 +599,7 @@ async function addAdmin(admin) {
         .catch(function (err) {
             throw err;
         });
+    return admin; 
 }
 
 ///////////////////////////Removal Functions////////////////////////////
