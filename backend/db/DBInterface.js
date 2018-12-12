@@ -103,7 +103,7 @@ async function photo_exists(photo) {
 /**
  * @desc Checks if the Photo exists under another ID.
  * @author Austin Bursey
- * @param {photoReport} photoReport A PhotoReport object.
+ * @param {PhotoReport} photoReport A PhotoReport object.
  * @returns True iff the object exists.
 */
 async function photo_report_exists(photoReport) {
@@ -113,9 +113,10 @@ async function photo_report_exists(photoReport) {
 
             let req = new sql.Request();
             req.input('userId', sql.VarChar, photoReport.getUserId());
-            req.input('post', sql.Int, photoReport.getImage());
-            req.input('date', sql.Date, photoReport.getReportDate())
-            return await req.query("Select * from [projectgreenthumb].[dbo].[report] where post_id = @postId AND report_date = @date and user_id = @userId")
+            req.input('photo', sql.Int, photoReport.getPhotoId());
+            req.input('date', sql.Date, photoReport.getReportDate());
+            return await req.query("Select * from report r JOIN post p ON p.post_id = r.post_id " + 
+            "WHERE report_date = @date and [user_id] = @userId AND p.photo_id = @photo")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -174,8 +175,8 @@ async function user_exists(user) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId', sql.VarChar, user.getId());
-            return await req.query("Select * from [projectgreenthumb].[dbo].[user] where user_id= @userId")
+            req.input('userId', sql.VarChar, user.getId() );
+            return await req.query("Select * from [projectgreenthumb].[dbo].[user] where user_id LIKE  @userId")
 
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -554,22 +555,14 @@ async function addUser(user) {
         throw new DBIDuplicate("User");
     }
     sql.close() // Close any existing connections.
-    return await sql.connect(config)
+     await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
             req.input('userId', sql.VarChar, user.getId());
-            return await req.query("  Insert into [user] values(@userId); Select * from [user] where user_id = SCOPE_IDENTITY()")
-                .then(function (rset) {
-                    let user = new User(rset.recordset[0].user_id, async function () {
-                        return await req.query("Select * from [ban] where user_id = SCOPE_IDENTITY() ").then(function (recordset) {
-                            return recordset;
-                        }).catch(function (err) {
-                            throw err
-                        });
-                    })();
-                    sql.close();
-                    return user;
+            return await req.query("  Insert into [user] values(@userId); ")
+                .then(async function (rset) {
+                sql.close();
                 })
                 .catch(function (err) {
                     throw err;
@@ -578,6 +571,7 @@ async function addUser(user) {
         .catch(function (err) {
             throw err;
         });
+    return user
 }
 
 
