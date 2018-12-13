@@ -15,13 +15,14 @@ public class SettingsActivity extends AppCompatActivity {
 
     // private Button logInButton, backButton, logOutButton;
     private SeekBar fontScaleSlider;
-    private TextView previewLabel;
+    private TextView previewLabel, aboutText, fontSliderLabel;
     private SharedPreferences prefs;
-    private Button logOutButton;
+    private Button logOutButton, logInButton, backButton;
     private GoogleSignInClient mGoogleSignInClient;
 
     // Seekbar specs
     int max = 10;
+    int fontProgress;
 
 
     @Override
@@ -34,8 +35,11 @@ public class SettingsActivity extends AppCompatActivity {
         fontScaleSlider = findViewById(R.id.fontScaleSlider);
         previewLabel = findViewById(R.id.changeFont);
         logOutButton = findViewById(R.id.logOutButton);
-        prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
-        System.out.println("prefs.getAll() = " + prefs.getAll());
+        logInButton = findViewById(R.id.logInButton);
+        aboutText = findViewById(R.id.aboutText);
+        fontSliderLabel = findViewById(R.id.fontSliderLabel);
+        backButton = findViewById(R.id.backButton);
+       // prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
 
         // Log out button listener
         logOutButton.setOnClickListener(new View.OnClickListener() {
@@ -53,21 +57,28 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
 
-        // Set the max for the slider
         // Prefs are SharedPreferences
-        prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
+       // prefs = getSharedPreferences("fontsize", MODE_PRIVATE);
 
         // Set the max and min for the slider
         fontScaleSlider.setMax(max);
 
         // Set the slider to the current text size
-        float textSize = prefs.getFloat("fontsize", MODE_PRIVATE);
+     /*   float textSize = prefs.getFloat("fontsize", MODE_PRIVATE);
         textSize = (textSize-(textSize/7))/3;   // I don't know why, but this works
-        System.out.println("textSize = " + textSize);
-        fontScaleSlider.setProgress((int)(textSize-10));
+        fontScaleSlider.setProgress((int)(textSize-10));*/
+
+        fontScaleSlider.setProgress((int)globalVars.text_size-10);
+
+        // Set the labels to the font size selected
+        logOutButton.setTextSize((int)globalVars.text_size);
+        logInButton.setTextSize((int)globalVars.text_size);
+        fontSliderLabel.setTextSize((int)globalVars.text_size);
+        aboutText.setTextSize((int)globalVars.text_size);
+        backButton.setTextSize((int)globalVars.text_size);
 
         // Set the text size of preview label
-        previewLabel.setTextSize(textSize);
+        previewLabel.setTextSize((int)globalVars.text_size);
 
         // Slider override functions
         fontScaleSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -80,6 +91,7 @@ public class SettingsActivity extends AppCompatActivity {
                                           boolean fromUser){
                 // Set previewLabel to the current size based on the slider
                 previewLabel.setTextSize(progress+10);
+                fontProgress = progress;
             }
 
             @Override
@@ -91,8 +103,17 @@ public class SettingsActivity extends AppCompatActivity {
                 ed.commit();
 
                 // Sets global variable 'text_size' to wherever the slider is put
-                globalVars.text_size = prefs.getFloat("fontsize", MODE_PRIVATE);
-                System.out.println("prefs at end of scaling = " + prefs.getFloat("fontsize", MODE_PRIVATE));
+                globalVars.text_size = fontProgress+10;
+                System.out.println("Font Size = " + globalVars.text_size);
+
+                // Set the labels to the font size selected
+                logOutButton.setTextSize(fontProgress+10);
+                logInButton.setTextSize(fontProgress+10);
+                fontSliderLabel.setTextSize(fontProgress+10);
+                aboutText.setTextSize(fontProgress+10);
+                backButton.setTextSize(fontProgress+10);
+
+
             }
         });
     }

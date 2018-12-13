@@ -63,25 +63,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fontScaleSlider" />
 
-        <EditText
+        <TextView
             android:id="@+id/aboutText"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="60dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="60dp"
-            android:layout_marginBottom="23dp"
+            android:layout_marginBottom="10dp"
             android:ems="10"
-            android:inputType="textMultiLine"
             android:text="GreenThumb makes it easy to identify plants, any time, any place"
             app:layout_constraintBottom_toTopOf="@+id/fontSliderLabel"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backButton" />
 
         <SeekBar
             android:id="@+id/fontScaleSlider"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="354dp"
+            android:layout_height="59dp"
             android:layout_marginStart="13dp"
             android:layout_marginEnd="13dp"
             android:layout_marginBottom="82dp"
@@ -91,14 +92,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fontSliderLabel" />
 
-        <EditText
+        <TextView
             android:id="@+id/fontSliderLabel"
             android:layout_width="150dp"
             android:layout_height="0dp"
             android:layout_marginTop="204dp"
-            android:layout_marginBottom="76dp"
+            android:layout_marginBottom="90dp"
             android:ems="10"
-            android:inputType="textPersonName"
             android:text="Font Size"
             app:layout_constraintBottom_toTopOf="@+id/changeFont"
             app:layout_constraintStart_toStartOf="@+id/fontScaleSlider"
@@ -106,3 +106,10 @@
 
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>
+
+
+
+
+
+
+
