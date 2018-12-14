@@ -450,11 +450,11 @@ async function addPhoto(photo) {
             req.input("image_ref", sql.VarChar, photo.getImage());
             req.input("userId", sql.VarChar, photo.getUserId());
             req.input("uploadDate",sql.DateTime, photo.getUploadDate());
-            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(VarBinary(max),@image_ref) , 0); insert into [post] (user_id , photo_id,upload_date) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()),@uploadDate);" +
+            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, @image_ref , 0); insert into [post] (user_id , photo_id,upload_date) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()),@uploadDate);" +
                 "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();")
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
-                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image.toString('base64'), recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0], recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
 
                             return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = SCOPE_IDENTITY() and vote = 1 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
