@@ -58,7 +58,7 @@ const express = require("express");
 const api = express();
 
 // Use middleware to properly parse incoming requests.
-api.use(express.json());
+api.use(express.json({limit: "25mb"}));
 api.use(express.urlencoded({ extended: true }));
 
 /**
