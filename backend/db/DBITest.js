@@ -13,8 +13,8 @@ var User = require("../User.js");
 
 (async()=>{
     try{
-    let firstBan = new Plant("BenMark4", "IronMan ");
-    let user= await DBInterface.addPlant(firstBan);
+    let firstBan = new Photo(22,"1234",'ImageHereP');
+    let user= await DBInterface.addPhoto(firstBan);
     console.log(user.toJSON());
 
     }catch(error){
