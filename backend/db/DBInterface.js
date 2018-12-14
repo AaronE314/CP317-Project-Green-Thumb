@@ -498,7 +498,7 @@ async function addPhotoReport(photoReport) {
                 "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY(), @photoReport, @admin_Action, @userId);Select * from [projectgreenthumb].[dbo].[report] INNER JOIN [post] ON [post].post_id = [report].post_id  where report_id = SCOPE_IDENTITY() ")
 
                 .then(function (rset) {
-                    let report = new PhotoReport(rset.recordset[0].photo_id, rset.recordset[0].user_id, rset.recordset[0].report_details, rset.recordset[0].report_id, rset.recordset[0].report_date);
+                    photoReport.setId(rset.recordset[0].report_id);
                     sql.close();
                     return report;
 
@@ -531,7 +531,7 @@ async function addPlant(plant) {
             req.input('plantBio', sql.VarChar, plant.getBio());
             return await req.query("Insert into [plant] (plant_name, plant_bio) Values (@plantName, @plantBio); Select * from [projectgreenthumb].[dbo].[plant] where plant_id = SCOPE_IDENTITY()")
                 .then(function (rset) {
-                    let plant= new Plant(rset.recordset[0].plant_name, rset.recordset[0].plant_bio, rset.recordset[0].plant_id);
+                    plant.setId(rset.recordset[0].plant_id);
                     sql.close();
                     return plant;
                 })
