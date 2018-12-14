@@ -1332,8 +1332,7 @@ async function getUser(userId) {
  * @param {Photo} photo The Photo to be updated.
 */
 async function updatePhoto(photo) {
-    let new_photo = await isValidPhotoId(photo.getId());
-    if (new_photo == true) {
+    if (!(await isValidPhotoId(photo.getId()))) {
         throw new DBIRecordNotFound("Photo");
     }
     sql.close() // Close any existing connections.
@@ -1363,21 +1362,19 @@ async function updatePhoto(photo) {
  * @param {PhotoReport} photoReport The PhotoReport to be updated.
 */
 async function updatePhotoReport(photoReport) {
-    let new_photoReport = await isValidReportId(photoReport.getId());
-    if (new_photoReport == true) {
+    if (!(await isValidReportId(photoReport.getId()))) {
         throw new DBIRecordNotFound("PhotoReport");
     }
     sql.close() // Close any existing connections.
-    return await sql.connect(config)
+    await sql.connect(config)
         .then(async function () {
             req.input("reportId", sql.Int, photoReport.getId());
             req.input("rDate", sql.Date, photoReport.getReportDate());
             req.input("rText", sql.VarChar, photoReport.getReportText());
             let req = new sql.Request();
-            return await req.query("UPDATE [report] SET report_date = @rDate, report_details = @rText WHERE report_id = @reportId")
+            await req.query("UPDATE [report] SET report_date = @rDate, report_details = @rText WHERE report_id = @reportId")
                 .then(function (recordset) {
                     sql.close();
-
                 })
                 .catch(function (err) {
                     throw err;
@@ -1394,18 +1391,17 @@ async function updatePhotoReport(photoReport) {
  * @param {Plant} plant The Plant to be updated.
 */
 async function updatePlant(plant) {
-    let new_plant = await isValidPlantId(plant.getId());
-    if (new_plant == true) {
+    if (!(await isValidPlantId(plant.getId()))) {
         throw new DBIRecordNotFound("plant");
     }
     sql.close() // Close any existing connections.
-    return await sql.connect(config)
+    await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
             req.input('plantId', sql.VarChar, plant.getId());
             req.input('plantName', sql.VarChar, plant.getName());
             req.input('plantBio', sql.VarChar, plant.getBio());
-            return await req.query("UPDATE [plant] SET [plant_name] = @plantName, plant_bio = @plantBio WHERE plant_id = @plantId ")
+            await req.query("UPDATE [plant] SET [plant_name] = @plantName, plant_bio = @plantBio WHERE plant_id = @plantId ")
                 .then(function (recordset) {
                     sql.close();
                 })
