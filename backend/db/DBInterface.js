@@ -1154,12 +1154,12 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
             let req = new sql.Request();
             req.input('plantId', sql.Int, plantId);
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
-                ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
-                'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
-                'LEFT OUTER JOIN voting v ON v.photo_id = ph.photo_id ' +
+                ', po.[user_id], po.upload_date, SUM(v.vote) as votes FROM [projectgreenthumb].[dbo].[photo] as ph ' +
+                'LEFT OUTER JOIN [projectgreenthumb].[dbo].[post] as po ON po.photo_id = ph.photo_id ' +
+                'LEFT OUTER JOIN [projectgreenthumb].[dbo].[voting] as v ON v.photo_id = ph.photo_id ' +
                 'WHERE ph.plant_id = @plantId ' +
                 'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' +
-                'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
+                'po.[user_id], po.upload_date ORDER BY votes DESC'
             return await req.query(sqlQuery).then(async function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
