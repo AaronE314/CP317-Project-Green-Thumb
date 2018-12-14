@@ -217,7 +217,7 @@ api.post("/photos/remove",
             if (!await validateParams(req, res, async (body) => {
                 assert(body.photoId !== undefined, ERROR_MSG.missingParam("photoId"));
 
-                assert(await DBInterface.getPhoto(body.photoId).getUserId() === body.userId || await DBInterface.isValidAdminId(body.userId), ERROR_MSG.unauthorized());
+                assert((await DBInterface.getPhoto(body.photoId)).getUserId() === body.userId || await DBInterface.isValidAdminId(body.userId), ERROR_MSG.unauthorized());
             })) { return; }
 
             await DBInterface.removePhoto(req.body.photoId);
@@ -410,7 +410,7 @@ api.post("/plants/add",
             })) { return; }
 
             res.send({
-                plantId: await DBInterface.addPlant(new Plant(req.body.name, req.body.bio)).getId()
+                plantId: (await DBInterface.addPlant(new Plant(req.body.name, req.body.bio))).getId()
             });
 
         } catch (err) {
@@ -466,7 +466,6 @@ api.post("/plants/byImage",
                 assert(body.height > 0, ERROR_MSG.noNeg("height"));
                 assert(body.width > 0, ERROR_MSG.noNeg("width"));
                 assert(body.maxPhotos === undefined || body.maxPhotos >= 0), ERROR_MSG.noNeg("maxPhotos");
-                // TODO check that image is valid base-64.
             })) { return; }
 
             req.body.maxPhotos = req.body.maxPhotos !== undefined ? req.body.maxPhotos : DEFAULTS.plantsMaxPhotos;
@@ -482,7 +481,6 @@ api.post("/plants/byImage",
                         photos[j] = photos[j].toJSON();
                     }
 
-                    // TODO: Verify that req.body.image has a height and width property
                     let min_y = TFResults.boxes[i][0] * req.body.height;
                     let min_x = TFResults.boxes[i][1] * req.body.width
                     let max_y = TFResults.boxes[i][2] * req.body.height;
