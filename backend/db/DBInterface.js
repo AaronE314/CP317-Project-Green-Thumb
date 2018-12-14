@@ -450,8 +450,9 @@ async function addPhoto(photo) {
             req.input("image_ref", sql.VarChar, photo.getImage());
             req.input("userId", sql.VarChar, photo.getUserId());
             req.input("uploadDate",sql.DateTime, photo.getUploadDate());
-            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, @image_ref , 0); insert into [post] (user_id , photo_id,upload_date) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()),@uploadDate);" +
-                "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();")
+            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, @image_ref , 0);"
+            +"SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();" 
+            +" insert into [post] (user_id , photo_id,upload_date) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()),@uploadDate);" )
                 .then(await function (recordset) {
                     if (recordset.recordset[0] != null) {
                         photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0], recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
