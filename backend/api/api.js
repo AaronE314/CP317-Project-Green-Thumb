@@ -615,10 +615,9 @@ api.post("/plants/update",
 
             let plant = await DBInterface.getPlant(req.body.plantId);
             plant.setBio(req.body.bio);
+            await DBInterface.updatePlant(plant);
 
-            res.send({
-                plant: await DBInterface.updatePlant(plant)
-            });
+            res.send({ });
 
         } catch (err) {
             res.send(ERROR_CODE.internalError, { message: err.message });
