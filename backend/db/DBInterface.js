@@ -85,7 +85,7 @@ async function photo_exists(photo) {
 
             let req = new sql.Request();
             req.input('plantId', sql.Int, photo.getPlantId());
-            req.input('img', sql.Int, photo.getImage());
+            req.input('img', sql.VarChar, photo.getImage());
             return await req.query("Select * from [projectgreenthumb].[dbo].[photo] where plant_id = @plantId AND image = @img")
 
                 .then(function (recordset) {
@@ -455,7 +455,7 @@ async function addPhoto(photo) {
             +" insert into [post] (user_id , photo_id,upload_date) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()),@uploadDate);" )
                 .then(await function (recordset) {
                     if (recordset.recordset[0] != null) {
-                        photo.setId();
+                        photo.setId(recordset.recordset[0].user_id);
 
                         sql.close();
                         return photo;
