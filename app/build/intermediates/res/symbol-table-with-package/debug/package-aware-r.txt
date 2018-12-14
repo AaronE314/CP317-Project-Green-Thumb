@@ -1084,6 +1084,7 @@ drawable scan_album_icon
 drawable scan_camera_icon
 drawable search_icon
 drawable settings_icon
+drawable temp_bio_image
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT

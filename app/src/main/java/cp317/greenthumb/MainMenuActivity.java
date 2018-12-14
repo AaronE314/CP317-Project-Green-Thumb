@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import java.io.IOException;
 import java.util.Set;
 import android.content.Intent;
 
@@ -32,7 +34,7 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        /* Can't implement until scan view done. Might have to scrap.
+        /*Can't implement until scan view done. Might have to scrap.
         //Scan Page
         scanAlbumButton = findViewById(R.id.scanAlbumButton);
         scanAlbumButton.setOnClickListener(new View.OnClickListener(){
@@ -46,7 +48,12 @@ public class MainMenuActivity extends AppCompatActivity {
         settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                openSettings();
+                //openSettings();
+                try {
+                    Requester.createUser(1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         //Search Page

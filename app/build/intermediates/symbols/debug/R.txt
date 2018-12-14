@@ -1083,8 +1083,9 @@ int drawable scan_album_icon 0x7f080093
 int drawable scan_camera_icon 0x7f080094
 int drawable search_icon 0x7f080095
 int drawable settings_icon 0x7f080096
-int drawable tooltip_frame_dark 0x7f080097
-int drawable tooltip_frame_light 0x7f080098
+int drawable temp_bio_image 0x7f080097
+int drawable tooltip_frame_dark 0x7f080098
+int drawable tooltip_frame_light 0x7f080099
 int id ALT 0x7f090000
 int id CTRL 0x7f090001
 int id FUNCTION 0x7f090002

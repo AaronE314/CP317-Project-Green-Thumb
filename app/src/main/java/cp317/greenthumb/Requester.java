@@ -23,12 +23,12 @@ public interface RequesterCalls{
 */
 public class Requester {
     //
-    String apiBaseUrl="http://";
+    static String apiBaseUrl="http://04456f4e.ngrok.io/";
     //HttpClient client = HttpClients.createDefault();
 
 
     // calls
-    public void createUser(int userId) throws IOException {
+    public static void createUser(int userId) throws IOException {
         //open http connection
         HttpURLConnection httpcon = (HttpURLConnection) ((new URL(apiBaseUrl+"/user/add").openConnection()));
         httpcon.setDoOutput(true);
