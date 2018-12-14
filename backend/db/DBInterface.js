@@ -445,7 +445,8 @@ async function addPhoto(photo) {
             req.input("plantId", sql.Int, photo.getPlantId());
             req.input("image_ref", sql.VarChar, photo.getImage());
             req.input("userId", sql.VarChar, photo.getUserId());
-            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(VarBinary(max),@image_ref) , 0); insert into [post] (user_id , photo_id) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()));" +
+            req.input("uploadDate",sql.DateTime, photo.getUploadDate());
+            return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, convert(VarBinary(max),@image_ref) , 0); insert into [post] (user_id , photo_id,upload_date) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()),@uploadDate);" +
                 "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();")
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
@@ -1037,7 +1038,9 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
                         photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
+                    
                     sql.close();
+                    return photos;
                 } else {
                     sql.close();
                     throw new DBIRecordNotFound("plant photos");
@@ -1083,6 +1086,7 @@ async function getNewestUserPhotos(userId, startIndex, max) {
                         ind = ind + 1;
                     }
                     sql.close();
+                    return photos;
                 } else {
                     sql.close();
                     throw new DBIRecordNotFound("user photos");
@@ -1173,6 +1177,7 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
                         photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
+                    return photos;
                     sql.close();
                 } else {
                     sql.close();
