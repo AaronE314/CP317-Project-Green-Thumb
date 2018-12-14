@@ -2168,6 +2168,10 @@
         "source": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/src/main/res/drawable/scan_album_icon.png"
     },
     {
+        "merged": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/xml_file_paths.xml.flat",
+        "source": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/src/main/res/xml/file_paths.xml"
+    },
+    {
         "merged": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
         "source": "/home/tim/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/f1624d003a3cece3d8cb93c0cc7ec092/res/drawable-mdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
     },

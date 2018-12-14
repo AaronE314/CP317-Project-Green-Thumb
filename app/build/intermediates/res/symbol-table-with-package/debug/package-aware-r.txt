@@ -1093,6 +1093,7 @@ id FUNCTION
 id META
 id SHIFT
 id SYM
+id ScanImageView
 id aboutText
 id action0
 id action_bar
@@ -2118,6 +2119,7 @@ styleable Toolbar android_gravity android_minHeight buttonGravity collapseConten
 styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_layout android_inflatedId
+xml file_paths
 xml pref_data_sync
 xml pref_general
 xml pref_headers

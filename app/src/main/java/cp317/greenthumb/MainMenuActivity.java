@@ -1,6 +1,10 @@
 package cp317.greenthumb;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +27,10 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+        }
 
         //Initialize Buttons
 
@@ -48,12 +56,8 @@ public class MainMenuActivity extends AppCompatActivity {
         settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                //openSettings();
-                try {
-                    Requester.createUser(1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                openSettings();
+
             }
         });
         //Search Page
