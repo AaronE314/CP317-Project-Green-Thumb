@@ -174,7 +174,7 @@
             </tr>
             <tr>
                 <td>/photos/add</td>
-                <td>{ image: Base64 ByteString, plantId: int, userId: int }</td>
+                <td>{ image: Base64 ByteString, plantId: int, userId: String }</td>
                 <td>{ photoId: int }</td>
                 <td>Add a new Photo of the specified Plant to the database.</td>
             </tr>
@@ -187,8 +187,8 @@
             </tr>
             <tr>
                 <td>/photos/list/byDate</td>
-                <td>{ max: int, startIndex: int, {plantId: int}, {userId: int} }</td>
-                <td>{ photo: { downvoteIds: String[], id: int, image: String, plantId: int, uploadDate: String,
+                <td>{ max: int, startIndex: int, {plantId: int}, {userId: String} }</td>
+                <td>{ photos: { downvoteIds: String[], id: int, image: String, plantId: int, uploadDate: String,
                     upvoteIds:
                     String[], userId: String }[] }</td>
                 <td>Get the specified number of Photos from the database, sorted by date. Must supply either plantId or
@@ -197,8 +197,8 @@
             </tr>
             <tr>
                 <td>/photos/list/byRating</td>
-                <td>{ max: int, startIndex: int, {plantId: int}, {userId: int }</td>
-                <td>{ photo: { downvoteIds: String[], id: int, image: String, plantId: int, uploadDate: String,
+                <td>{ max: int, startIndex: int, {plantId: int}, {userId: String }</td>
+                <td>{ photos: { downvoteIds: String[], id: int, image: String, plantId: int, uploadDate: String,
                     upvoteIds:
                     String[], userId: String }[] }</td>
                 <td>Get the specified number of Photos from the database, sorted by votes. If plantId is given, return
@@ -206,53 +206,53 @@
             </tr>
             <tr>
                 <td>/photos/remove</td>
-                <td>{ photoId: int, userId: int }</td>
+                <td>{ photoId: int, userId: String }</td>
                 <td>{ }</td>
                 <td>Remove the Photo with the matching ID from the database.</td>
             </tr>
             <tr>
                 <td>/photos/vote</td>
-                <td>{ photoId: int, up: bool, userId: int }</td>
+                <td>{ photoId: int, up: bool, userId: String }</td>
                 <td>{ }</td>
                 <td>Applies a vote from the specified User on the specified Photo.</td>
             </tr>
             <tr>
                 <td>/photoReports/add</td>
-                <td>{ photoId: int, reportText: String, userId: int }</td>
+                <td>{ photoId: int, reportText: String, userId: String }</td>
                 <td>{ photoReportId: int }</td>
                 <td>Add a new PhotoReport of the specified Photo to the database.</td>
             </tr>
             <tr>
                 <td>/photoReports/byId</td>
-                <td>{ adminId: int, photoReportId: int }</td>
-                <td>{ photoReport: { adminAction: int, adminId: int, handleDate: String, id: int, reportDate: String,
-                    reportText: String, userId: int } }</td>
+                <td>{ adminId: String, photoReportId: int }</td>
+                <td>{ photoReport: { adminAction: int, adminId: String, handleDate: String, id: int, reportDate: String,
+                    reportText: String, userId: String } }</td>
                 <td>Return the PhotoReport with the matching ID.</td>
             </tr>
             <tr>
                 <td>/photoReports/handle</td>
-                <td>{ adminAction: int, adminId: int, photoReportId: int }</td>
+                <td>{ adminAction: int, adminId: String, photoReportId: int }</td>
                 <td>{ }</td>
                 <td>Handle the reported Photo by accepting or rejecting the PhotoReport and specifying whether or not
                     to ban the User that uploaded the offending Photo.</td>
             </tr>
             <tr>
                 <td>/photoReports/list/byDate</td>
-                <td>{ adminId: int, startIndex: int, max: int }</td>
-                <td>{ photoReports: { adminAction: int, adminId: int, handleDate: String, id: int, reportDate: String,
-                    reportText: String, userId: int }[] }</td>
+                <td>{ adminId: String, startIndex: int, max: int }</td>
+                <td>{ photoReports: { adminAction: int, adminId: String, handleDate: String, id: int, reportDate: String,
+                    reportText: String, userId: String }[] }</td>
                 <td>Get the specified number of PhotoReports, sorted in ascending order by date from the
                     database.</td>
             </tr>
             <tr>
                 <td>/photoReports/remove</td>
-                <td>{ adminId: int, photoReportId: int }</td>
+                <td>{ adminId: String, photoReportId: int }</td>
                 <td>{ }</td>
                 <td>Remove the PhotoReport with the matching ID from the database.</td>
             </tr>
             <tr>
                 <td>/plants/add</td>
-                <td>{ adminId: int, name: String, bio: String }</td>
+                <td>{ adminId: String, name: String, bio: String }</td>
                 <td>{ plantId: int }</td>
                 <td>Add a new Plant to the database.</td>
             </tr>
@@ -261,61 +261,61 @@
                 <td>{ plantId: int, {maxPhotos: int} }</td>
                 <td>{ plant: { bio: String, id: int, name: String}, photos: { downvoteIds: String[], id: int, image:
                     Base64 ByteString,
-                    plantId: int, uploadDate: String, upvoteIds: String[], userId: int }[] }</td>
+                    plantId: int, uploadDate: String, upvoteIds: String[], userId: String }[] }</td>
                 <td>Return the Plant with the matching ID.</td>
             </tr>
             <tr>
                 <td>/plants/byImage</td>
                 <td>{ image: Image, {maxPhotos: int} }</td>
-                <td>{ results: { plant: { bio: String, id: int, name: String}, photos: { downvoteIds: String[], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: String[], userId: String }[], score: float,
-                    topLeft: { x: float, y: float }, bottomRight: { x: float, y: float } }[] }</td>
+                <td>{ results: { plant: { bio: String, id: int, name: String}, photos: { downvoteIds: String[], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: String[], userId: String }[], scores: float[],
+                    boxes: { topLeft: { x: float, y: float }, bottomRight: { x: float, y: float } }[] }[] }</td>
                 <td>Identify and return a Plant by a ML analysis of the image.</td>
             </tr>
             <tr>
                 <td>/plants/byQuery</td>
-                <td>{ query: String, {maxPhotos: int} }</td>
+                <td>{ query: String, {maxPhotos: int}, {maxPlants: int} }</td>
                 <td>{ results: { plant: { bio: String, id: int, name: String}, photos: { downvoteIds: String[], id: int, image: String, plantId: int, uploadDate: String, upvoteIds: String[], userId: String }[] }[] }</td>
                 <td>Identify and return a Plant by a text query.</td>
             </tr>
             <tr>
                 <td>/plants/remove</td>
-                <td>{ adminId: int, plantId: int }</td>
+                <td>{ adminId: String, plantId: int }</td>
                 <td>{ }</td>
                 <td>Remove the Plant with the matching ID from the database.</td>
             </tr>
             <tr>
                 <td>/plants/update</td>
-                <td>{ adminId: int, plantId: id, bio: String }</td>
+                <td>{ adminId: String, plantId: id, bio: String }</td>
                 <td>{ }</td>
                 <td>Update the bio of the Plant with the matching ID.</td>
             </tr>
             <tr>
                 <td>/users/add</td>
-                <td>{ userId: int }</td>
-                <td>{ userId: int }</td>
+                <td>{ userId: String }</td>
+                <td>{ userId: String }</td>
                 <td>Add a new User to the database.</td>
             </tr>
             <tr>
                 <td>/users/ban</td>
-                <td>{ adminId: int, userId: int }</td>
+                <td>{ adminId: String, userId: String }</td>
                 <td>{ }</td>
                 <td>Ban the User with the matching ID.</td>
             </tr>
             <tr>
                 <td>/users/byId</td>
-                <td>{ userId: int }</td>
-                <td>{ user: { bans: { adminId: int, date: String}[] }, id: String } }</td>
+                <td>{ userId: String }</td>
+                <td>{ user: { bans: { adminId: String, date: String}[] }, id: String } }</td>
                 <td>Return the User with the matching ID.</td>
             </tr>
             <tr>
                 <td>/users/makeAdmin</td>
-                <td>{ adminId: int, userId: int }</td>
+                <td>{ adminId: String, userId: String }</td>
                 <td>{ }</td>
                 <td>Make the User with the matching ID an admin.</td>
             </tr>
             <tr>
                 <td>/users/remove</td>
-                <td>{ adminId: int, userId: int }</td>
+                <td>{ adminId: String, userId: String }</td>
                 <td>{ }</td>
                 <td>Remove the User with the matching ID from the database.</td>
             </tr>
