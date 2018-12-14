@@ -1007,7 +1007,7 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
 
             let req = new sql.Request();
             req.input('plantId', sql.Int, plantId);
-            sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
+            let sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
                 'FROM [photo] ph ' +
                 'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
@@ -1054,7 +1054,7 @@ async function getNewestUserPhotos(userId, startIndex, max) {
 
             let req = new sql.Request();
             req.input('userId', sql.VarChar, userId);
-            sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
+            let sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
                 'FROM [projectgreenthumb].[dbo].[photo] as ph ' +
                 'LEFT OUTER JOIN [projectgreenthumb].[dbo].[post] as po ON po.photo_id = ph.photo_id ' +
@@ -1097,7 +1097,7 @@ async function getTopPhotos(startIndex, max) {
         .then(async function () {
 
             let req = new sql.Request();
-            sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
+            let sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
                 ', SUM(v.vote) FROM [projectgreenthumb].[dbo].[photo] ph ' +
                 'LEFT OUTER JOIN [projectgreenthumb].[dbo].[post] as po ON po.photo_id = ph.photo_id ' +
@@ -1143,7 +1143,7 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
 
             let req = new sql.Request();
             req.input('plantId', sql.Int, plantId);
-            sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
+            let sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
                 ', po.[user_id], po.upload_date, SUM(v.vote) as votes FROM [projectgreenthumb].[dbo].[photo] as ph ' +
                 'LEFT OUTER JOIN [projectgreenthumb].[dbo].[post] as po ON po.photo_id = ph.photo_id ' +
                 'LEFT OUTER JOIN [projectgreenthumb].[dbo].[voting] as v ON v.photo_id = ph.photo_id ' +
@@ -1188,7 +1188,7 @@ async function getTopUserPhotos(userId, startIndex, max) {
         .then(async function () {
             let req = new sql.Request();
             req.input('userId', sql.VarChar, userId);
-            sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
+            let sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
                 ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
                 'LEFT OUTER JOIN [projectgreenthumb].[dbo].[post] po ON po.photo_id = ph.photo_id ' +
                 'LEFT OUTER JOIN [projectgreenthumb].[dbo].[voting] v ON v.photo_id = ph.photo_id ' +
@@ -1226,7 +1226,7 @@ async function getUnhandledPhotoReportsByPriority(startIndex, max) {
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
-            sqlQuery = 'SELECT r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id FROM report r' +
+            let sqlQuery = 'SELECT r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id FROM report r' +
                 'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
                 'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY SUM(r.post_id)';
             return await req.query(sqlQuery).then(function (recordset) {
@@ -1260,7 +1260,7 @@ async function getUnhandledPhotoReportsByDate(startIndex, max) {
     return await sql.connect(config)
         .then(async function () {
             let req = new sql.Request();
-            sqlQuery = 'SELECT r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id FROM report r' +
+            let sqlQuery = 'SELECT r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id FROM report r' +
                 'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
                 'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY r.upload_date';
             return await req.query(sqlQuery).then(function (recordset) {
