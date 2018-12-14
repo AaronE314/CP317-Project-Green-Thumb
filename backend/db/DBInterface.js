@@ -51,7 +51,7 @@ async function ban_exists(ban) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId', sql.VarChar, ban.getuserId());
+            req.input('userId', sql.VarChar, ban.getUserId());
             req.input('adminId', sql.VarChar, ban.getAdminId());
             req.input('exp', sql.Date, ban.getExpirationDate());
             return await req.query("Select * from [projectgreenthumb].[dbo].[ban] where user_id = @userId AND admin_id = @adminId AND expiration_date = @exp")
@@ -409,7 +409,7 @@ async function addBan(ban) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId', sql.VarChar, ban.getuserId());
+            req.input('userId', sql.VarChar, ban.getUserId());
             req.input('adminId', sql.VarChar, ban.getAdminId());
             req.input('expiration', sql.DateTime, ban.getExpirationDate());
             return await req.query("Insert into [projectgreenthumb].[dbo].[ban] (user_id, admin_id, expiration_date) Values (@userId, @adminId, @expiration);Select * from [projectgreenthumb].[dbo].[ban] where ban_id = SCOPE_IDENTITY()")
@@ -491,7 +491,7 @@ async function addPhotoReport(photoReport) {
             req.input("photoId", sql.Int, photoReport.getPhotoId());
             req.input("rDate", sql.Date, photoReport.getReportDate());
             req.input("rText", sql.VarChar, photoReport.getReportText());
-            req.input("userId", sql.VarChar, photoReport.getuserId());
+            req.input("userId", sql.VarChar, photoReport.getUserId());
             return await req.query("Insert into [projectgreenthumb].[dbo].[report] (post_id, report_date , report_details, user_id) " +
                 "Values((SELECT post_id from [post] where photo_id = photoId)" +
                 ", @reportDate , @reportDetails); Insert into [admin_report] (report_id , admin_id , admin_action) " +
