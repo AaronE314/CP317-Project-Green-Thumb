@@ -493,14 +493,13 @@ async function addPhotoReport(photoReport) {
             req.input("rText", sql.VarChar, photoReport.getReportText());
             req.input("userId", sql.VarChar, photoReport.getUserId());
             return await req.query("Insert into [projectgreenthumb].[dbo].[report] (post_id, report_date , report_details, user_id) " +
-                "Values((SELECT post_id from [post] where photo_id = photoId)" +
-                ", @rDate , @rText, @userId); Insert into [admin_report] (report_id ) " +
-                "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY()) ); Select * from [projectgreenthumb].[dbo].[report] INNER JOIN [post] ON [post].post_id = [report].post_id  where report_id = SCOPE_IDENTITY() ")
-
+                "Values((SELECT post_id from [post] where photo_id = @photoId)" +
+                ", @rDate , @rText, @userId) Select report_id from [projectgreenthumb].[dbo].[report] where report_id = SCOPE_IDENTITY(); Insert into [admin_report] (report_id,admin_id) " +
+                "Values ((SELECT report_id from [report] where report_id = SCOPE_IDENTITY()), (SELECT TOP 1 admin_id FROM [projectgreenthumb].[dbo].[admin] ORDER BY newid()));")
                 .then(function (rset) {
                     photoReport.setId(rset.recordset[0].report_id);
                     sql.close();
-                    return report;
+                    return photoReport;
 
                 })
                 .catch(function (err) {
