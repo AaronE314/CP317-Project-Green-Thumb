@@ -1035,7 +1035,7 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
                 ind = 0
                 if (recordset.recordset[0] != null) {
                     while (recordset[ind] != null) {
-                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
+                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
                     
@@ -1082,7 +1082,7 @@ async function getNewestUserPhotos(userId, startIndex, max) {
                 ind = 0
                 if (recordset.recordset[0] != null) {
                     while (recordset[ind] != null) {
-                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
+                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
                     sql.close();
@@ -1128,7 +1128,7 @@ async function getTopPhotos(startIndex, max) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
-                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
+                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
                     sql.close();
@@ -1174,7 +1174,7 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
                         // ???
-                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
+                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
                     return photos;
@@ -1219,7 +1219,7 @@ async function getTopUserPhotos(userId, startIndex, max) {
                 ind = 0
                 while (recordset.recordset[ind] != null) {
                     // ???
-                    photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, create_votes(recordset.recordset[ind].photo_id,1),create_votes(recordset.recordset[ind].photo_id,0)));
+                    photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
                     ind = ind + 1;
                 }
                 sql.close();
