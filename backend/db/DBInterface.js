@@ -237,7 +237,7 @@ async function create_bans(userId) {
 /**
  * @desc if upvote is true then return the list of upvotes for photoId
  * @author Austin Bursey
- * @param {photoId} photoId a photoId Int.
+ * @param {userId} userId a userId Int.
  * @returns {Votes} an array of votes  objects
 */
 async function create_votes(photoId, upvote) {
@@ -452,9 +452,16 @@ async function addPhoto(photo) {
             req.input("uploadDate",sql.DateTime, photo.getUploadDate());
             return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, @image_ref , 0); insert into [post] (user_id , photo_id,upload_date) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()),@uploadDate);" +
                 "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();")
-                .then(function (recordset) {
+                .then(await function (recordset) {
                     if (recordset.recordset[0] != null) {
-                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0], recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, await create_votes(), async function () {
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0], recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
+
+                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = SCOPE_IDENTITY() and vote = 1 order by user_id").then(function (recordset) {
+                                return recordset.recordset;
+                            }).catch(function (err) {
+                                throw err;
+                            })
+                        }, async function () {
 
                             return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id =SCOPE_IDENTITY() and vote = 0 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
@@ -1028,7 +1035,7 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
                 'FROM photo ph ' +
                 'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
                 'WHERE ph.plant_id = @plantId ORDER BY po.upload_date DESC'
-            return await req.query(sqlQuery).then(async function (recordset) {
+            return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] != null) {
                     while (recordset[ind] != null) {
@@ -1075,7 +1082,7 @@ async function getNewestUserPhotos(userId, startIndex, max) {
                 'FROM photo ph ' +
                 'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
                 'WHERE po.[user_id] = @userId ORDER BY po.upload_date DESC'
-            return await req.query(sqlQuery).then(async function (recordset) {
+            return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] != null) {
                     while (recordset[ind] != null) {
@@ -1121,7 +1128,7 @@ async function getTopPhotos(startIndex, max) {
                 'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
                 'ORDER BY SUM(v.vote) DESC'
-            return await req.query(sqlQuery).then(async function (recordset) {
+            return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
@@ -1166,7 +1173,7 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
                 'WHERE ph.plant_id = @plantId ' +
                 'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' +
                 'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
-            return await req.query(sqlQuery).then(async function (recordset) {
+            return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
@@ -1212,7 +1219,7 @@ async function getTopUserPhotos(userId, startIndex, max) {
                 'WHERE po.user_id = @userId ' +
                 'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' +
                 'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
-            return await req.query(sqlQuery).then(async function (recordset) {
+            return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0
                 while (recordset.recordset[ind] != null) {
                     // ???
