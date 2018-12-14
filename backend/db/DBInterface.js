@@ -797,7 +797,6 @@ async function getPhoto(photoId) {
             return await req.query("SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = @photoId;")
                 .then(async function (recordset) {
                     if (recordset.recordset[0] != null) {
-                        console.log(recordset.recordset[0]);
                         photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0].image.toString('base64'), recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, await create_votes(photoId, 1), await create_votes(photoId, 0));
 
                         sql.close();
