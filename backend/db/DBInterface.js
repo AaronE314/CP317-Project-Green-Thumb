@@ -455,7 +455,8 @@ async function addPhoto(photo) {
             +" insert into [post] (user_id , photo_id,upload_date) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()),@uploadDate);" )
                 .then(await function (recordset) {
                     if (recordset.recordset[0] != null) {
-                        photo.setId(recordset.recordset[0].user_id);
+                        console.log(recordset.recordset[0].photo_id);
+                        photo.setId(recordset.recordset[0].photo_id);
 
                         sql.close();
                         return photo;
