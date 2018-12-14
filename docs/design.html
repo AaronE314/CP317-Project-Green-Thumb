@@ -84,15 +84,30 @@
 
         <h3><a id="Definitions">1.4 Definitions, Acronyms, Abbreviations</a></h3>
         <p>
-            <p>For an up-to-date list of relevant definitions, acronyms, and abbreviations, please refer to the
-                GreenThumb Software Requirements Specifications.
-
-            </p>
+            <p><b>AI</b>: abbr. &lsquo;Artificial Intelligence.&rsquo; Software that can mimic the human intelligence required to perform certain tasks.</p>
+            <p><b>API</b>: abbr. &lsquo;Application Programming Interface.&rsquo; A set of tools for communicating between components in a software.</p>
+            <p><b>Backend</b>: The program running the API that allows communication between the database and frontend. The ML primarily occurs here.</p>
+            <p><b>CNN</b>: abbr. &lsquo;Convolutional Neural Network.&rsquo; A special type of neural network that is optimized to work with images.</p>
+            <p><b>Express.js</b>: Is a web application framework for Node.js, It is used to build web apps and APIs.</p>
+            <p><b>Frontend</b>: The component of the GreenThumb application responsible for integrating GreenThumb with the user&rsquo;s specific platform.</p>
+            <p><b>GUI</b>: abbr. &lsquo;Graphical User Interface.&rsquo; An interface with which users can interact with a program.</p>
+            <p><b>MS SQL</b>: abbr. &lsquo;Mircosoft Structured Query Language.&rsquo; A language to manage and manipulate databases.</p> 
+            <p><b>ML</b>: abbr. &lsquo;Machine Learning.&rsquo; An application of AI wherein the system is able to learn automatically.</p>
+            <p><b>NN</b>: abbr. &lsquo;Neural Network.&rsquo; An algorithm the tries to replicate how the brain works in order to do things that are usually hard for computers to do. A basic form of AI.</p>
+            <p><b>QA</b>: abbr. &lsquo;Quality Assurance.&rsquo; The assurance that a piece of code or document meets certain pre-established criteria, ensuring the quality of the product at every stage of its development.</p>
+            <p><b>RCNN</b>: abbr. &lsquo;Region Convolutional Neural Network.&rsquo; A special type of CNN that is optimized for detecting multiple objects within an image.</p>
+            <p><b>RDBMS</b>: abbr. &lsquo;relational  Database Managment System. &rsquo;A database mangment System based on the relational model.</[>
+            <p><b>SRS</b>: abbr. &lsquo;Software Requirements Specification.&rsquo; A document that overviews a proposed application.</p>
+            <p><b>SQL</b>: abbr. &lsquo;Structured Query Language.&rsquo; A language to manage and manipulate databases.</p>
+            <p><b>Tensorflow</b>: &nbsp;A software library developed by Google and designed for creating optimized machine learning models.</p>
 
             <h3><a id="References">1.5 References</a></h3>
-            <p>
-                All references can be found in the SRS documentation.
-            </p>
+            <ul >
+                <li><a  href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/&amp;sa=D&amp;ust=1537753956302000">CP317 course website</a>, including <a  href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/samples.php&amp;sa=D&amp;ust=1537753956302000">previous sample projects</a>.</li>
+                <li >The <a  href="https://www.google.com/url?q=https://play.google.com/store/apps/details?id%3Dcom.robsoft.florist&amp;sa=D&amp;ust=1537753956303000">Florist</a>&nbsp;app.</li>
+                <li >The <a  href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/notes/IEEE_830.pdf&amp;sa=D&amp;ust=1537753956303000">IEEE 830 Standards for Software Requirement Specifications</a>.</li>
+                <li >The <a  href="https://www.google.com/url?q=https://play.google.com/store/apps/details?id%3Dcn.danatech.xingseus&amp;sa=D&amp;ust=1537753956304000">PictureThis</a>&nbsp;app.</li>
+            </ul>
 
     </div>
 
@@ -112,16 +127,12 @@
             For the machine learning portion of the app, the Tensorflow library is used. Tensorflow supports Python
             and JavaScript, but the primary library from Tensorflow here implemented only works on the Python version
             of
-            Tensorflow. Consequently, the retraining of the network is done through the Python version, while the rest
-            of the
-            machine learning is done via JavaScript using Tensorflow.js.
+            Tensorflow. Consequently, the retraining of the network is done through the Python version.
         </p>
         <p>
             For the Database, Microsoft SQL Server is used because of its excellent RDBMS functionality. Our reason for
-            choosing Microsoft SQL Server over other RDBMS, such as MySQL, is due to its security rules which do not
-            allow processes to manipulate its files or binaries. Another advantage of SQL Server is that it can stop
-            query
-            execution before completion without killing the entire process.
+            choosing Microsoft SQL Server over other RDBMS, such as MySQL, is due to the fact that it can stop execution before completeion without killing the entire proccess.
+            Another advantage is its security rules which do not allow processes to manipulate its files or binaries. 
 
         </p>
 
@@ -539,6 +550,18 @@
                         Brendan Whelan:
                         <ul>
                             <li>Fixed spelling errors in classes for Frontend Class Diagram</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+            <b>Version 1.3 (2018/12/14)</b>
+                <ul>
+                    <li>
+                        Joseph Myc:
+                        <ul>
+                            <li>Updated 1.4 and 1.5 to actually have the definitions and references instead of referencing the SRS document</li>
+                            <li>Updated the implementation plan to more accurately describe the implementation</li>
                         </ul>
                     </li>
                 </ul>
