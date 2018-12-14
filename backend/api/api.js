@@ -290,7 +290,7 @@ api.post("/photoReports/byId",
             })) { return; }
 
             res.send({
-                report: (await DBInterface.getPhotoReport(req.body.photoReportID)).toJSON()
+                report: (await DBInterface.getPhotoReport(req.body.photoReportId)).toJSON()
             });
 
         } catch (err) {
@@ -317,7 +317,7 @@ api.post("/photoReports/handle",
             })) { return; }
 
             if (req.body.adminAction === ADMIN_ACTION.Accept) {
-                await DBInterface.removePhoto(photoReport.getPhotoID());
+                await DBInterface.removePhoto(photoReport.getPhotoId());
             } else if (req.body.adminAction === ADMIN_ACTION.AcceptBan) {
                 let photo = await DBInterface.getPhoto(req.body.photoReportId);
                 let user = await DBInterface.getUser(photo.getUserId());
