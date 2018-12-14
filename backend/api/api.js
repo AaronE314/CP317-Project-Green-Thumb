@@ -29,7 +29,8 @@ const assert = require("assert");
 const API_PORT = 2500;
 const DEFAULTS = Object.freeze({
     plantsMaxPhotos: 3,
-    maxPlantsByQuery: 5
+    maxPlantsByQuery: 5,
+    minConfidence: 0.3
 });
 const ERROR_MSG = Object.freeze({
     missingParam: (param) => { return `Missing required '${param}' parameter in request body.`; },
@@ -58,7 +59,7 @@ const express = require("express");
 const api = express();
 
 // Use middleware to properly parse incoming requests.
-api.use(express.json({limit: "25mb"}));
+api.use(express.json({ limit: "25mb" }));
 api.use(express.urlencoded({ extended: true }));
 
 /**
@@ -474,31 +475,55 @@ api.post("/plants/byImage",
 
             let results = [];
             for (let i = 0; i < TFResults.count; i++) {
-                if (TFResults.scores[i] >= 0.3) {
+                if (TFResults.scores[i] >= DEFAULTS.minConfidence) {
                     let plant = await DBInterface.getPlant(TFResults.classes[i]);
-                    let photos = await DBInterface.getTopPlantPhotos(TFResults.classes[i], 0, req.body.maxPhotos);
-                    for (let j = 0; j < photos.length; j++) {
-                        photos[j] = photos[j].toJSON();
-                    }
 
                     let min_y = TFResults.boxes[i][0] * req.body.height;
                     let min_x = TFResults.boxes[i][1] * req.body.width
                     let max_y = TFResults.boxes[i][2] * req.body.height;
                     let max_x = TFResults.boxes[i][3] * req.body.width;
 
-                    results.push({
-                        plant: plant,
-                        photos: photos,
-                        score: TFResults.scores[i],
-                        topLeft: {
-                            x: min_x,
-                            y: min_y
-                        },
-                        bottomRight: {
-                            x: max_x,
-                            y: max_y
+                    let index = 0;
+                    while (index < results.length && results[index].plant.id !== plant.getId()) {
+                        index++;
+                    }
+
+                    if (index >= results.length) { // Plant not yet found in image.
+                        let photos = await DBInterface.getTopPlantPhotos(TFResults.classes[i], 0, req.body.maxPhotos);
+                        for (let j = 0; j < photos.length; j++) {
+                            photos[j] = photos[j].toJSON();
                         }
-                    });
+
+                        results.push({
+                            plant: plant.toJSON(),
+                            photos: photos,
+                            scores: [TFResults.scores[i]],
+                            boxes: [
+                                {
+                                    topLeft: {
+                                        x: min_x,
+                                        y: min_y
+                                    },
+                                    bottomRight: {
+                                        x: max_x,
+                                        y: max_y
+                                    }
+                                }
+                            ]
+                        });
+                    } else { // Plant already identified in provided image - just add the score and boxes.
+                        results[index].scores.push(TFResults.scores[i]);
+                        results[index].boxes.push({
+                            topLeft: {
+                                x: min_x,
+                                y: min_y
+                            },
+                            bottomRight: {
+                                x: max_x,
+                                y: max_y
+                            }
+                        });
+                    }
                 }
             }
 
