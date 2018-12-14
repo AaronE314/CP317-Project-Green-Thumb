@@ -641,7 +641,8 @@ async function removePhotoReport(photoReportId) {
 
         let request = new sql.Request(); // Create Request object.
         request.input('photoReportId', sql.Int, photoReportId);
-        let sqlQuery = 'DELETE FROM report WHERE report_id = @photoReportId'; // Create SQL Query
+        let sqlQuery = 'DELETE FROM admin_report WHERE report_id = @photoReportId; ' +
+        'DELETE FROM report WHERE report_id = @photoReportId;'; // Create SQL Query
 
         // Query the database and remove photo.
         request.query(sqlQuery, function (err, recordset) {
