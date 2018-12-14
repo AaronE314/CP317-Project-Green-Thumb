@@ -1332,6 +1332,10 @@ async function getUser(userId) {
  * @param {Photo} photo The Photo to be updated.
 */
 async function updatePhoto(photo) {
+    let new_photo = await isValidPhotoId(photo.getId());
+    if (new_photo == true) {
+        throw new DBIRecordNotFound("Photo");
+    }
     sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
@@ -1359,6 +1363,10 @@ async function updatePhoto(photo) {
  * @param {PhotoReport} photoReport The PhotoReport to be updated.
 */
 async function updatePhotoReport(photoReport) {
+    let new_photoReport = await isValidReportId(photoReport.getId());
+    if (new_photoReport == true) {
+        throw new DBIRecordNotFound("PhotoReport");
+    }
     sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
@@ -1386,6 +1394,10 @@ async function updatePhotoReport(photoReport) {
  * @param {Plant} plant The Plant to be updated.
 */
 async function updatePlant(plant) {
+    let new_plant = await isValidPlantId(plant.getId());
+    if (new_plant == true) {
+        throw new DBIRecordNotFound("plant");
+    }
     sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
