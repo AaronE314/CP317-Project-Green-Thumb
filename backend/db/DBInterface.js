@@ -235,13 +235,17 @@ async function create_bans(userId) {
 }
 
 /**
- * @desc make an array of votesbased on 'direction' 0 for downvotes. 1 for upvotes.
+ * @desc if upvote is true then return the list of upvotes for photoId
  * @author Austin Bursey
  * @param {userId} userId a userId Int.
  * @returns {Votes} an array of votes  objects
 */
-async function create_votes(photoId, direction) {
+async function create_votes(photoId, upvote) {
     let votes = [];
+    let direction =0;
+    if (upvote){
+        direction = 1 ; 
+    }
     sql.close() // CLose any existing connections
     return await sql.connect(config)
         .then(async function () {
@@ -597,7 +601,7 @@ async function addAdmin(admin) {
 
             let req = new sql.Request();
 
-            return await req.query("Insert into [projectgreenthumb].[dbo].[admin] DEFAULT VALUES  ")
+            return await req.query("Insert into [projectgreenthumb].[dbo].[admin] values ()  ")
                 .then(function (recordset) {
                     sql.close();
                 })
