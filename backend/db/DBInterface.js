@@ -116,7 +116,7 @@ async function photo_report_exists(photoReport) {
         .then(async function () {
 
             let req = new sql.Request();
-            req.input('userId', sql.VarChar, photoReport.getuserId());
+            req.input('userId', sql.VarChar, photoReport.getUserId());
             req.input('photo', sql.Int, photoReport.getPhotoId());
             req.input('date', sql.Date, photoReport.getReportDate());
             return await req.query("Select * from report r JOIN post p ON p.post_id = r.post_id " + 
