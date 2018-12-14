@@ -1035,7 +1035,7 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
                 'FROM photo ph ' +
                 'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
                 'WHERE ph.plant_id = @plantId ORDER BY po.upload_date DESC'
-            return await req.query(sqlQuery).then(function (recordset) {
+            return await req.query(sqlQuery).then(async function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] != null) {
                     while (recordset[ind] != null) {
@@ -1082,7 +1082,7 @@ async function getNewestUserPhotos(userId, startIndex, max) {
                 'FROM photo ph ' +
                 'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
                 'WHERE po.[user_id] = @userId ORDER BY po.upload_date DESC'
-            return await req.query(sqlQuery).then(function (recordset) {
+            return await req.query(sqlQuery).then(async function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] != null) {
                     while (recordset[ind] != null) {
@@ -1128,7 +1128,7 @@ async function getTopPhotos(startIndex, max) {
                 'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
                 'ORDER BY SUM(v.vote) DESC'
-            return await req.query(sqlQuery).then(function (recordset) {
+            return await req.query(sqlQuery).then(async function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
@@ -1173,11 +1173,10 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
                 'WHERE ph.plant_id = @plantId ' +
                 'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' +
                 'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
-            return await req.query(sqlQuery).then(function (recordset) {
+            return await req.query(sqlQuery).then(async function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] == null) {
                     while (recordset[ind] != null) {
-                        // ???
                         photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
@@ -1219,10 +1218,9 @@ async function getTopUserPhotos(userId, startIndex, max) {
                 'WHERE po.user_id = @userId ' +
                 'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' +
                 'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
-            return await req.query(sqlQuery).then(function (recordset) {
+            return await req.query(sqlQuery).then(async function (recordset) {
                 ind = 0
                 while (recordset.recordset[ind] != null) {
-                    // ???
                     photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image.toString('base64'), recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
                     ind = ind + 1;
                 }
