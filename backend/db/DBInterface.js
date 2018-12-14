@@ -494,7 +494,7 @@ async function addPhotoReport(photoReport) {
             req.input("userId", sql.VarChar, photoReport.getUserId());
             return await req.query("Insert into [projectgreenthumb].[dbo].[report] (post_id, report_date , report_details, user_id) " +
                 "Values((SELECT post_id from [post] where photo_id = photoId)" +
-                ", @reportDate , @reportDetails); Insert into [admin_report] (report_id , admin_id , admin_action) " +
+                ", @rDate , @rTest, @userId); Insert into [admin_report] (report_id , admin_id , admin_action) " +
                 "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY(), @photoReport, @admin_Action, @userId);Select * from [projectgreenthumb].[dbo].[report] INNER JOIN [post] ON [post].post_id = [report].post_id  where report_id = SCOPE_IDENTITY() ")
 
                 .then(function (rset) {
