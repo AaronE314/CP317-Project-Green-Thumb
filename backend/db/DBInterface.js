@@ -1019,7 +1019,7 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
             req.input('plantId', sql.Int, plantId);
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
-                'FROM photo ph ' +
+                'FROM [photo] ph ' +
                 'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
                 'WHERE ph.plant_id = @plantId ORDER BY po.upload_date DESC'
             return await req.query(sqlQuery).then(async function (recordset) {
@@ -1066,8 +1066,8 @@ async function getNewestUserPhotos(userId, startIndex, max) {
             req.input('userId', sql.VarChar, userId);
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
-                'FROM photo ph ' +
-                'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
+                'FROM [projectgreenthumb].[dbo].[photo] as ph ' +
+                'LEFT OUTER JOIN [projectgreenthumb].[dbo].[post] as po ON po.photo_id = ph.photo_id ' +
                 'WHERE po.[user_id] = @userId ORDER BY po.upload_date DESC'
             return await req.query(sqlQuery).then(async function (recordset) {
                 ind = 0
@@ -1109,9 +1109,9 @@ async function getTopPhotos(startIndex, max) {
             let req = new sql.Request();
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
-                ', SUM(v.vote) FROM photo ph ' +
-                'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
-                'LEFT OUTER JOIN voting v ON v.photo_id = ph.photo_id' +
+                ', SUM(v.vote) FROM [projectgreenthumb].[dbo].[photo] ph ' +
+                'LEFT OUTER JOIN [projectgreenthumb].[dbo].[post] as po ON po.photo_id = ph.photo_id ' +
+                'LEFT OUTER JOIN [projectgreenthumb].[dbo].[voting] as v ON v.photo_id = ph.photo_id' +
                 'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ' +
                 'ph.tf_record, po.post_id, po.[user_id], po.upload_date ' +
                 'ORDER BY SUM(v.vote) DESC'
@@ -1200,8 +1200,8 @@ async function getTopUserPhotos(userId, startIndex, max) {
             req.input('userId', sql.VarChar, userId);
             sqlQuery = 'SELECT ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id ' +
                 ', po.[user_id], po.upload_date, SUM(v.vote) FROM photo ph ' +
-                'LEFT OUTER JOIN post po ON po.photo_id = ph.photo_id ' +
-                'LEFT OUTER JOIN voting v ON v.photo_id = ph.photo_id ' +
+                'LEFT OUTER JOIN [projectgreenthumb].[dbo].[post] po ON po.photo_id = ph.photo_id ' +
+                'LEFT OUTER JOIN [projectgreenthumb].[dbo].[voting] v ON v.photo_id = ph.photo_id ' +
                 'WHERE po.user_id = @userId ' +
                 'GROUP BY ph.photo_id, ph.plant_id, ph.[image], ph.tf_record, po.post_id, ' +
                 'po.[user_id], po.upload_date ORDER BY SUM(v.vote) DESC'
