@@ -223,7 +223,7 @@ async function create_bans(userId) {
                         bans.push(new Ban(recordset.recordset[i].user_id, recordset.recordset[i].admin_id, recordset.recordset[i].expiration_date, recordset.recordset[i].ban_id));
                         i++;
                     }
-                    return votes;
+                    return bans;
                 })
                 .catch(function (err) {
                     throw err;
