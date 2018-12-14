@@ -13,9 +13,15 @@ var User = require("../User.js");
 
 (async()=>{
     try{
-    let firstBan = new Plant("BenMark4", "IronMan ");
-    let user= await DBInterface.addPlant(firstBan);
-    console.log(user.toJSON());
+     let i = 36;
+    let n =46; 
+    while (i < n ){
+        await DBInterface.removePhoto(i);
+
+        await i++;
+    } 
+    
+    await DBInterface.removePhoto(32);
 
     }catch(error){
         console.log(error);

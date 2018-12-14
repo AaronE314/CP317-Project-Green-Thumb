@@ -494,8 +494,8 @@ async function addPhotoReport(photoReport) {
             req.input("userId", sql.VarChar, photoReport.getUserId());
             return await req.query("Insert into [projectgreenthumb].[dbo].[report] (post_id, report_date , report_details, user_id) " +
                 "Values((SELECT post_id from [post] where photo_id = photoId)" +
-                ", @rDate , @rTest, @userId); Insert into [admin_report] (report_id , admin_id , admin_action) " +
-                "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY(), @photoReport, @admin_Action, @userId);Select * from [projectgreenthumb].[dbo].[report] INNER JOIN [post] ON [post].post_id = [report].post_id  where report_id = SCOPE_IDENTITY() ")
+                ", @rDate , @rText, @userId); Insert into [admin_report] (report_id ) " +
+                "Values (SELECT report_id from [report] where report_id = SCOPE_IDENTITY()) ); Select * from [projectgreenthumb].[dbo].[report] INNER JOIN [post] ON [post].post_id = [report].post_id  where report_id = SCOPE_IDENTITY() ")
 
                 .then(function (rset) {
                     photoReport.setId(rset.recordset[0].report_id);
@@ -617,7 +617,8 @@ async function removePhoto(photoId) {
 
         let request = new sql.Request(); // Create Request object.
         request.input('photoId', sql.Int, photoId);
-        let sqlQuery = 'DELETE FROM photo WHERE photo_id = @photoId'; // Create SQL Query.
+        let sqlQuery = 'DELETE from post WHERE photo_id = @photoId;'+
+        'DELETE FROM photo WHERE photo_id = @photoId'; // Create SQL Query.
 
         // Query the database and remove Photo.
         request.query(sqlQuery, function (err, recordset) {
