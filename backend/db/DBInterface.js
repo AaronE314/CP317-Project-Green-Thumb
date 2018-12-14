@@ -665,29 +665,19 @@ async function removePlant(plantId) {
         request.input('plantId', sql.Int, plantId);
         let sqlQuery = // Create SQL Query.
             // Delete all associated reports.
-            'DELETE FROM report WHERE' +
-            '(SELECT pl.plant_id FROM plant pl ' +
-            'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
-            ' JOIN post po ON ph.photo_id = po.photo_id ' +
-            'JOIN report r ON r.post_id = po.post_id) = @plantId;' +
+            'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE plant_id = @plantId;' + 
 
             // Delete all associated posts.
-            'DELETE FROM post WHERE ' +
-            '(SELECT pl.plant_id FROM plant pl ' +
-            'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
-            'JOIN post po ON ph.photo_id = po.photo_id) = @plantId;' +
+            'DELETE FROM [projectgreenthumb].[dbo].[post] WHERE plant_id = @plantId;' +
 
             // Delete all associated photos.
-            'DELETE FROM photo WHERE plant_id = @plantId;' +
+            'DELETE FROM [projectgreenthumb].[dbo].[photo] WHERE plant_id = @plantId;' +
 
             // Delete all assocaited votes.
-            'DELETE FROM voting WHERE ' +
-            '(SELECT pl.[plant_id] FROM plant pl ' +
-            'JOIN photo ph ON ph.plant_id = pl.plant_id ' +
-            'JOIN voting v ON v.photo_id = ph.photo_id) = @plantId;' +
+            'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE plant_id = @plantId;'+
 
             // Delete the plant.
-            'DELETE FROM plant WHERE plant_id = @plantId;'
+            'DELETE FROM [projectgreenthumb].[dbo].[plant] WHERE plant_id = @plantId;'
 
         // Query the database and remove the Plant.
         request.query(sqlQuery, function (err, recordset) {
