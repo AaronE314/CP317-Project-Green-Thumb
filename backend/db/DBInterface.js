@@ -792,7 +792,6 @@ async function getBan(banId) {
  * @returns {Photo} A Photo object
 */
 async function getPhoto(photoId) {
-    console.log(photoId);
     sql.close() // Close any existing connections.
     return await sql.connect(config)
         .then(async function () {
