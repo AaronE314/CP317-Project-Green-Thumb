@@ -237,7 +237,7 @@ async function create_bans(userId) {
 /**
  * @desc if upvote is true then return the list of upvotes for photoId
  * @author Austin Bursey
- * @param {userId} userId a userId Int.
+ * @param {photoId} photoId a photoId Int.
  * @returns {Votes} an array of votes  objects
 */
 async function create_votes(photoId, upvote) {
@@ -454,14 +454,7 @@ async function addPhoto(photo) {
                 "SELECT PHOTO.photo_id, plant_id, image , tf_record , post_id , user_id , upload_date FROM [projectgreenthumb].[dbo].[photo] INNER JOIN [projectgreenthumb].[dbo].[post] ON (post.photo_id = photo.photo_id)  where photo.photo_id = SCOPE_IDENTITY();")
                 .then(function (recordset) {
                     if (recordset.recordset[0] != null) {
-                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0], recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, async function () {
-
-                            return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id = SCOPE_IDENTITY() and vote = 1 order by user_id").then(function (recordset) {
-                                return recordset.recordset;
-                            }).catch(function (err) {
-                                throw err;
-                            })
-                        }, async function () {
+                        photo = new Photo(recordset.recordset[0].plant_id, recordset.recordset[0].user_id, recordset.recordset[0], recordset.recordset[0].photo_id, recordset.recordset[0].upload_date, await create_votes(), async function () {
 
                             return await req.query("Select user_id from [projectgreenthumb].[dbo].[voting] where photo_id =SCOPE_IDENTITY() and vote = 0 order by user_id").then(function (recordset) {
                                 return recordset.recordset;
