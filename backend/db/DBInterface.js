@@ -1136,9 +1136,9 @@ async function getTopPhotos(startIndex, max) {
  * @returns {Photo[]} An array of Photos of the specified Plant.
 */
 async function getTopPlantPhotos(plantId, startIndex, max) {
-    photos = [];
+    let photos = [];
     sql.close() // Close any existing connections.
-    await sql.connect(config)
+    return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
@@ -1152,17 +1152,12 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
                 'po.[user_id], po.upload_date ORDER BY votes DESC'
             return await req.query(sqlQuery).then(async function (recordset) {
                 ind = 0
-                if (recordset.recordset[0] != null) {
-                    while (recordset[ind] != null) {
-                        photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
-                        ind = ind + 1;
-                    }
-                    sql.close();
-                    return photos;
-                } else {
-                    sql.close();
-                    return [];
+                while (recordset.recordset[ind] != null) {
+                    photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
+                    ind = ind + 1;
                 }
+                sql.close();
+                return photos.slice(startIndex, startIndex + max);
             })
                 .catch(function (err) {
                     throw err;
@@ -1171,7 +1166,6 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
         .catch(function (err) {
             throw err;
         });
-    return photos.slice(startIndex, startIndex + max);
 }
 
 /**

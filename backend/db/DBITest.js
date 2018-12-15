@@ -15,10 +15,7 @@ var User = require("../User.js");
     try{
     let photos = await DBInterface.getTopPlantPhotos(2,0,2);
 
-    let i =0;
-    while(i<2){
-        console.log(photos[i].getId());
-    }
+    console.log(photos[1].toJSON());
     }catch(error){
         console.log(error);
     }
