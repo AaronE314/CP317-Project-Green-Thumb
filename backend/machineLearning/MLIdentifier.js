@@ -126,6 +126,7 @@ class MLIdentifier {
      *      - will schedule 2 hours of training every Sunday, at 4:20 AM, starting Nov. 4, 2018.
      */
     static scheduleTraining(newItem) {
+        // if first item in list set id = 1, else +1 to last scheduledItem
         let id = _scheduledItems.length == 0 ? 1 : _scheduledItems[_scheduledItems.length - 1].id + 1; // ID's start at 1, otherwise +1 to the last element's ID
 
         let item = newItem.split(":");
@@ -160,6 +161,7 @@ class MLIdentifier {
           sched: job
         };
 
+        // add new object to scheduledItems array
         _scheduledItems.push(schedObj);
 
         return schedObj.id;

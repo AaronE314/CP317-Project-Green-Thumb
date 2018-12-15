@@ -13,6 +13,7 @@ var User = require("../User.js");
 
 (async()=>{
     try{
+<<<<<<< HEAD
     let photos = await DBInterface.getUnhandledPhotoReportsByDate(0,3);
     let i = 0;
 
@@ -20,6 +21,9 @@ var User = require("../User.js");
         console.log(photos[i].toJSON());
     }
 
+=======
+    let photos = await DBInterface.getNewestUserPhotos('1234',1,2);
+>>>>>>> 6eea85bba68827fdd132bc9705c676c35223b36a
     }catch(error){
         console.log(error);
     }
