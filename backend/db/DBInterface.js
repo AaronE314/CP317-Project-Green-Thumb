@@ -342,7 +342,7 @@ async function _getVote(photoId, userId) {
             let req = new sql.Request();
             req.input('photoId', sql.Int, photoId);
             req.input('userId', sql.Int, userId);
-            return await req.query("SELECT vote_id FROM [projectgreenthumb].[dbo].[voting] WHERE [user_id] = @userId AND [photo_id] = @photoId");
+            return await req.query("SELECT * FROM [projectgreenthumb].[dbo].[voting] WHERE [user_id] = @userId AND [photo_id] = @photoId");
         })
         .then(function (recordset) {
             if (recordset.recordset.length) {
