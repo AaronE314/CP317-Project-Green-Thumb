@@ -14,9 +14,9 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_main_menu">MainMenuActivity</string>
-    <string name="title_activity_reports">ReportsActivity</string>
-    <string name="title_activity_scan">ScanActivity</string>
+    <string name="title_activity_main_menu">Main Menu</string>
+    <string name="title_activity_reports">Reports</string>
+    <string name="title_activity_scan">Camera</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -94,6 +94,6 @@
     <string name="action_back_to_home">Back to home</string>
     <string name="action_search">Go</string>
     <string name="search_box_hint" translatable="false">Search  (i.e. Jasmine)</string>
-    <string name="search_results_text">Rusults:</string>
+    <string name="search_results_text">Results:</string>
     <string name="title_activity_plant_bio">PlantBioActivity</string>
 </resources>
