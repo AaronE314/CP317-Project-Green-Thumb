@@ -217,6 +217,7 @@ api.post("/photos/remove",
         try {
             if (!await validateParams(req, res, async (body) => {
                 assert(body.photoId !== undefined, ERROR_MSG.missingParam("photoId"));
+                assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
 
                 assert((await DBInterface.getPhoto(body.photoId)).getUserId() === body.userId || await DBInterface.isValidAdminId(body.userId), ERROR_MSG.unauthorized());
             })) { return; }
@@ -334,7 +335,6 @@ api.post("/photoReports/handle",
             console.error(err);
         }
     });
-
 
 api.post("/photoReports/list/byDate",
     /**
