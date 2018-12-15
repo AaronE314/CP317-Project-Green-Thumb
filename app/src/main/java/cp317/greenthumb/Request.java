@@ -1,6 +1,5 @@
 package cp317.greenthumb;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 

@@ -1,322 +1,322 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:2:1-64:12
-INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:2:1-64:12
-INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:2:1-64:12
-INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:2:1-64:12
-MERGED from [com.android.support:design:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/843b01f21f2b63ece8adf98123843915/AndroidManifest.xml:17:1-24:12
-MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/43d8a292659e0cbe4c14711f732b51f7/AndroidManifest.xml:17:1-22:12
-MERGED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:17:1-39:12
-MERGED from [com.google.android.gms:play-services-auth-api-phone:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-api-phone-15.0.1.aar/c1ffac1820300ee4fd91601e1ccbf03a/AndroidManifest.xml:2:1-7:12
-MERGED from [com.google.android.gms:play-services-auth-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-base-15.0.1.aar/95f0e4efd7119741342103fc8fcb4e2c/AndroidManifest.xml:2:1-7:12
-MERGED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/5d6d37c7c44957bcf302df190ed019f2/AndroidManifest.xml:17:1-29:12
-MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/263b9e13e17e763544eab3acbceea3a5/AndroidManifest.xml:2:1-9:12
-MERGED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/7d8c2bbc135335bf0cbe05402e896319/AndroidManifest.xml:17:1-28:12
-MERGED from [com.android.support:support-v4:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/94b9867eaa878a0d1285c401ade4c7ad/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-fragment:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/c46de997c311bf8d45ee14d2bd0e21f5/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/8cf2ea9025c8ef985c6282cfe00200eb/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:recyclerview-v7:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/0270e551a393f85e80b0e686100d4492/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-core-ui:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/0c35f4beca52d6858f4b991ee017f72c/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-core-utils:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/0d7d03f75f39a050848a9e9338ab81c8/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/5bf96614f309f7f66797b0502d7109b7/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:transition:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/66cb4adb84930fc38d32ef270f948d7e/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:loader:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/5d6f049acd6cbbb668b0cc123f272059/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:viewpager:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/3078184ee779aab853ee3b8e45cb9274/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/24ee16f2f27656c6551845cb36f41a51/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:drawerlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/0ceb697e01f75f89b26affb1c6f3e844/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/6b6072f13218199a8c01611c55c62593/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:customview:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/f4d8096e9c6a7e431a0c8510faeff495/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/8e902e3a331a2d0d8b29da2bc26ba806/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/15e35db3f1d8c7193e6bfe5532019170/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-media-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/1f2be8e9d6722611fbb11ed87758187f/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:support-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/046dab85710e213f6f9d726939397f8b/AndroidManifest.xml:17:1-24:12
-MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/4c14b471b90b3f0639e0516ddf65ded7/AndroidManifest.xml:17:1-25:12
-MERGED from [com.android.support:cursoradapter:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/07dba902d6fb0035484c0d2eee168ffe/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:cardview-v7:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/524b2331ff450032bd444e2c4471f6c8/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/b16003a44fa7a55dd724999baf3bf0b0/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:documentfile:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/ae0f10b66c559898e63d84bd27a81a0a/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/b60274fb9dda4b5fa2a59afdf53673d1/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:print:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/c1b7839764d250e04e363fbddfd305a4/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/417df623470b1b980a7d7e72065532d7/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support:interpolator:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/91bf9deab63ec406211f62cc581133e6/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/4d64cdfab26234fbbe2564ac2b40e6fd/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/ff9e3c5e705a3c6423bcf58a55ca2cd1/AndroidManifest.xml:17:1-22:12
-MERGED from [android.arch.core:runtime:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/9ea2337b0491b0b93d847cdf3c51546f/AndroidManifest.xml:17:1-22:12
-MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/e50540899dfc01d214c7a18e619bb439/AndroidManifest.xml:2:1-11:12
-INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:2:1-64:12
-INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:2:1-64:12
-INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:2:1-64:12
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:2:1-64:12
+INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:2:1-64:12
+INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:2:1-64:12
+INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:2:1-64:12
+MERGED from [com.android.support:design:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\design-28.0.0.aar\95ec2f99c6594aa9f8ac09021750cf12\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\appcompat-v7-28.0.0.aar\c3c7213399608fb0a1676b279bbc7f5e\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:17:1-39:12
+MERGED from [com.google.android.gms:play-services-auth-api-phone:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-api-phone-15.0.1.aar\e1a215327387d55a326b3d197db4dae0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-auth-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-base-15.0.1.aar\3885a6e5864cc9b6366583da69a6a936\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\ba57e64f98f80d999b493c3a3d340fa9\AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\95179242680eb6e798d4fa3a2756c3ea\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\6d65f01e0145b6f9cdfabb33b0fb87b6\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v4:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-v4-28.0.0.aar\bf7f7eb2e6dbaa71ef9dade4dadfd96d\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\201c99f434e5496be3aa79deb939e717\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-28.0.0.aar\2d27ea8408852648a82b168c4a0a83c8\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-28.0.0.aar\5b4673eafc0f155c2297014e429c6013\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\4d0634514541a4c88928fba6e89cd8c8\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-core-utils-28.0.0.aar\355ba760bbde5a09e6d378965314eb83\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-28.0.0.aar\dd6623b99d46aa56b21bd67f1125b072\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\transition-28.0.0.aar\921e93d999175049b3125afbeb1989ac\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\loader-28.0.0.aar\96eda949eda65f19254e31e1b6e75ba7\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\viewpager-28.0.0.aar\5656b94125fb65597e81cc432f935f57\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-28.0.0.aar\1ab2bda57eb49f59313250cda9b25273\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\drawerlayout-28.0.0.aar\7dd2867edb4c009d23529eddde1eb061\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-28.0.0.aar\abc67a5e4d1359143ead4855dbf688ed\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\customview-28.0.0.aar\ad6119eab7cae351e2a8d2d4243b465f\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-28.0.0.aar\3a6d232fb52bd482c5325fa2ea04ea00\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-28.0.0.aar\278869263ec6d3531735140bea787831\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-media-compat-28.0.0.aar\bf5b67e305099961de05e1fb979bf160\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\a3f9d944446fa1f6bd0bc2cecd1df3e3\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\bddba9f4dfee8cd77f899d16c70843cc\AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\cursoradapter-28.0.0.aar\3cb2144afe0e17707a58b6fe88930e39\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\cardview-v7-28.0.0.aar\0f6c4f672b0fb8f599aa2592f0c00e50\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\e5c4dd5f099f0268419df2feabdc991d\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\documentfile-28.0.0.aar\aa067651573f0700dc1cf9bfd855b910\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-28.0.0.aar\c68e6851122afa51fbe586bac9c64d11\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\print-28.0.0.aar\4dafbc501e198e62cd583a20b41f9124\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\d82fabeae3a330aa3c67e73f780e1fab\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\interpolator-28.0.0.aar\8106fcfcaa4eb226dbdc9f08744eb7d8\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\f8c01e0e3db35fcf7691588fad430760\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\18724cb307436df97ac084449e02389e\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\b76a6974731fb485cf47c492389be23c\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\01db3df3e8df2663a1034939c06a0f5b\AndroidManifest.xml:2:1-11:12
+INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:2:1-64:12
+INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:2:1-64:12
+INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:2:1-64:12
 	package
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:3:5-31
-		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:3:5-31
+		INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:2:1-64:12
-		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:2:1-64:12
+		INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:2:1-64:12
-		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:2:1-64:12
+		INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:2:11-69
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:2:11-69
 uses-permission#android.permission.GET_ACCOUNTS
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:6:5-71
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:6:5-71
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:6:22-68
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:6:22-68
 uses-permission#android.permission.READ_PROFILE
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:7:5-71
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:7:5-71
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:7:22-68
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:7:22-68
 uses-permission#android.permission.READ_CONTACTS
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:8:5-72
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:8:5-72
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:8:22-69
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:8:22-69
 uses-permission#android.permission.CAMERA
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:9:5-65
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:9:5-65
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:9:22-62
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:9:22-62
 uses-permission#android.permission.INTERNET
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:10:5-67
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:10:5-67
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:10:22-64
-uses-feature#android.hardware.camera
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:11:5-83
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:10:22-64
+uses-feature#android.hardware.camera2
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:11:5-84
 	android:required
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:11:58-81
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:11:59-82
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:11:19-57
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:11:19-58
 uses-permission-sdk-23#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:12:5-88
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:12:5-88
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:12:29-85
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:12:29-85
 application
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:16:5-62:19
-MERGED from [com.android.support:design:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/843b01f21f2b63ece8adf98123843915/AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:design:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/843b01f21f2b63ece8adf98123843915/AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:22:5-37:19
-MERGED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:22:5-37:19
-MERGED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/5d6d37c7c44957bcf302df190ed019f2/AndroidManifest.xml:22:5-27:19
-MERGED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/5d6d37c7c44957bcf302df190ed019f2/AndroidManifest.xml:22:5-27:19
-MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/263b9e13e17e763544eab3acbceea3a5/AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/263b9e13e17e763544eab3acbceea3a5/AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/7d8c2bbc135335bf0cbe05402e896319/AndroidManifest.xml:22:5-26:19
-MERGED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/7d8c2bbc135335bf0cbe05402e896319/AndroidManifest.xml:22:5-26:19
-MERGED from [com.android.support:support-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/046dab85710e213f6f9d726939397f8b/AndroidManifest.xml:22:5-94
-MERGED from [com.android.support:support-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/046dab85710e213f6f9d726939397f8b/AndroidManifest.xml:22:5-94
-MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/4c14b471b90b3f0639e0516ddf65ded7/AndroidManifest.xml:22:5-23:19
-MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/4c14b471b90b3f0639e0516ddf65ded7/AndroidManifest.xml:22:5-23:19
-MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/e50540899dfc01d214c7a18e619bb439/AndroidManifest.xml:9:5-20
-MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/e50540899dfc01d214c7a18e619bb439/AndroidManifest.xml:9:5-20
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:16:5-62:19
+MERGED from [com.android.support:design:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\design-28.0.0.aar\95ec2f99c6594aa9f8ac09021750cf12\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\design-28.0.0.aar\95ec2f99c6594aa9f8ac09021750cf12\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:22:5-37:19
+MERGED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:22:5-37:19
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\ba57e64f98f80d999b493c3a3d340fa9\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\ba57e64f98f80d999b493c3a3d340fa9\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\95179242680eb6e798d4fa3a2756c3ea\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\95179242680eb6e798d4fa3a2756c3ea\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\6d65f01e0145b6f9cdfabb33b0fb87b6\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\6d65f01e0145b6f9cdfabb33b0fb87b6\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\a3f9d944446fa1f6bd0bc2cecd1df3e3\AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\a3f9d944446fa1f6bd0bc2cecd1df3e3\AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\bddba9f4dfee8cd77f899d16c70843cc\AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\bddba9f4dfee8cd77f899d16c70843cc\AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\01db3df3e8df2663a1034939c06a0f5b\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\01db3df3e8df2663a1034939c06a0f5b\AndroidManifest.xml:9:5-20
 	android:appComponentFactory
-		ADDED from [com.android.support:support-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/046dab85710e213f6f9d726939397f8b/AndroidManifest.xml:22:18-91
+		ADDED from [com.android.support:support-compat:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\a3f9d944446fa1f6bd0bc2cecd1df3e3\AndroidManifest.xml:22:18-91
 	android:supportsRtl
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:21:9-35
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:21:9-35
 	android:label
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:19:9-41
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:19:9-41
 	android:roundIcon
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:20:9-54
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:20:9-54
 	android:icon
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:18:9-43
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:18:9-43
 	android:allowBackup
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:17:9-35
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:17:9-35
 	android:theme
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:22:9-40
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:22:9-40
 	android:usesCleartextTraffic
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:23:9-44
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:23:9-44
 provider#android.support.v4.content.FileProvider
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:24:9-32:20
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:24:9-32:20
 	android:grantUriPermissions
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:28:13-47
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:28:13-47
 	android:authorities
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:26:13-64
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:26:13-64
 	android:exported
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:27:13-37
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:27:13-37
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:25:13-67
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:25:13-67
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:29:13-31:64
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:29:13-31:64
 	android:resource
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:31:17-51
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:31:17-51
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:30:17-67
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:30:17-67
 activity#cp317.greenthumb.MainMenuActivity
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:36:9-38:64
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:36:9-38:64
 	android:label
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:38:13-61
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:38:13-61
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:37:13-45
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:37:13-45
 activity#cp317.greenthumb.ReportsActivity
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:39:9-42:59
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:39:9-42:59
 	android:label
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:41:13-59
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:41:13-59
 	android:theme
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:42:13-56
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:42:13-56
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:40:13-44
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:40:13-44
 activity#cp317.greenthumb.ScanActivity
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:43:9-45:59
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:43:9-45:59
 	android:label
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:45:13-56
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:45:13-56
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:44:13-41
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:44:13-41
 activity#cp317.greenthumb.SearchActivity
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:46:9-52
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:46:9-52
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:46:19-49
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:46:19-49
 activity#cp317.greenthumb.SettingsActivity
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:47:9-49:63
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:47:9-49:63
 	android:label
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:49:13-60
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:49:13-60
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:48:13-45
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:48:13-45
 activity#cp317.greenthumb.GalleryActivity
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:50:9-53
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:50:9-53
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:50:19-50
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:50:19-50
 activity#cp317.greenthumb.SplashScreenActivity
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:51:9-60:20
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:51:9-60:20
 	android:label
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:53:13-65
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:53:13-45
 	android:theme
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:54:13-47
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:54:13-47
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:52:13-49
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:52:13-49
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:55:13-59:29
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:55:13-59:29
 action#android.intent.action.MAIN
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:56:17-69
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:56:17-69
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:56:25-66
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:56:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:58:17-77
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:58:17-77
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:58:27-74
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:58:27-74
 activity#cp317.greenthumb.PlantBioActivity
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:61:9-63
+ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:61:9-63
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:61:19-51
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml:61:19-51
 uses-sdk
-INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
-INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
-MERGED from [com.android.support:design:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/843b01f21f2b63ece8adf98123843915/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:design:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/843b01f21f2b63ece8adf98123843915/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/43d8a292659e0cbe4c14711f732b51f7/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/43d8a292659e0cbe4c14711f732b51f7/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-auth-api-phone:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-api-phone-15.0.1.aar/c1ffac1820300ee4fd91601e1ccbf03a/AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-auth-api-phone:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-api-phone-15.0.1.aar/c1ffac1820300ee4fd91601e1ccbf03a/AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-auth-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-base-15.0.1.aar/95f0e4efd7119741342103fc8fcb4e2c/AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-auth-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-base-15.0.1.aar/95f0e4efd7119741342103fc8fcb4e2c/AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/5d6d37c7c44957bcf302df190ed019f2/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/5d6d37c7c44957bcf302df190ed019f2/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/263b9e13e17e763544eab3acbceea3a5/AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-tasks:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-tasks-15.0.1.aar/263b9e13e17e763544eab3acbceea3a5/AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/7d8c2bbc135335bf0cbe05402e896319/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/7d8c2bbc135335bf0cbe05402e896319/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-v4:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/94b9867eaa878a0d1285c401ade4c7ad/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-v4:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-v4-28.0.0.aar/94b9867eaa878a0d1285c401ade4c7ad/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-fragment:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/c46de997c311bf8d45ee14d2bd0e21f5/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-fragment:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-fragment-28.0.0.aar/c46de997c311bf8d45ee14d2bd0e21f5/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/8cf2ea9025c8ef985c6282cfe00200eb/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/animated-vector-drawable-28.0.0.aar/8cf2ea9025c8ef985c6282cfe00200eb/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:recyclerview-v7:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/0270e551a393f85e80b0e686100d4492/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:recyclerview-v7:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/recyclerview-v7-28.0.0.aar/0270e551a393f85e80b0e686100d4492/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-ui:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/0c35f4beca52d6858f4b991ee017f72c/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-ui:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-core-ui-28.0.0.aar/0c35f4beca52d6858f4b991ee017f72c/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-utils:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/0d7d03f75f39a050848a9e9338ab81c8/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-core-utils:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-core-utils-28.0.0.aar/0d7d03f75f39a050848a9e9338ab81c8/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/5bf96614f309f7f66797b0502d7109b7/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-vector-drawable-28.0.0.aar/5bf96614f309f7f66797b0502d7109b7/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:transition:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/66cb4adb84930fc38d32ef270f948d7e/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:transition:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/transition-28.0.0.aar/66cb4adb84930fc38d32ef270f948d7e/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:loader:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/5d6f049acd6cbbb668b0cc123f272059/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:loader:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/loader-28.0.0.aar/5d6f049acd6cbbb668b0cc123f272059/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:viewpager:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/3078184ee779aab853ee3b8e45cb9274/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:viewpager:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/viewpager-28.0.0.aar/3078184ee779aab853ee3b8e45cb9274/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/24ee16f2f27656c6551845cb36f41a51/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/coordinatorlayout-28.0.0.aar/24ee16f2f27656c6551845cb36f41a51/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:drawerlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/0ceb697e01f75f89b26affb1c6f3e844/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:drawerlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/drawerlayout-28.0.0.aar/0ceb697e01f75f89b26affb1c6f3e844/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/6b6072f13218199a8c01611c55c62593/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/slidingpanelayout-28.0.0.aar/6b6072f13218199a8c01611c55c62593/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:customview:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/f4d8096e9c6a7e431a0c8510faeff495/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:customview:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/customview-28.0.0.aar/f4d8096e9c6a7e431a0c8510faeff495/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/8e902e3a331a2d0d8b29da2bc26ba806/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/swiperefreshlayout-28.0.0.aar/8e902e3a331a2d0d8b29da2bc26ba806/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/15e35db3f1d8c7193e6bfe5532019170/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/asynclayoutinflater-28.0.0.aar/15e35db3f1d8c7193e6bfe5532019170/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/1f2be8e9d6722611fbb11ed87758187f/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-media-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-media-compat-28.0.0.aar/1f2be8e9d6722611fbb11ed87758187f/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/046dab85710e213f6f9d726939397f8b/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:support-compat:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/046dab85710e213f6f9d726939397f8b/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/4c14b471b90b3f0639e0516ddf65ded7/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/versionedparcelable-28.0.0.aar/4c14b471b90b3f0639e0516ddf65ded7/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cursoradapter:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/07dba902d6fb0035484c0d2eee168ffe/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cursoradapter:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/cursoradapter-28.0.0.aar/07dba902d6fb0035484c0d2eee168ffe/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cardview-v7:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/524b2331ff450032bd444e2c4471f6c8/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:cardview-v7:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/524b2331ff450032bd444e2c4471f6c8/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/b16003a44fa7a55dd724999baf3bf0b0/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/b16003a44fa7a55dd724999baf3bf0b0/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:documentfile:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/ae0f10b66c559898e63d84bd27a81a0a/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:documentfile:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/documentfile-28.0.0.aar/ae0f10b66c559898e63d84bd27a81a0a/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/b60274fb9dda4b5fa2a59afdf53673d1/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/localbroadcastmanager-28.0.0.aar/b60274fb9dda4b5fa2a59afdf53673d1/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:print:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/c1b7839764d250e04e363fbddfd305a4/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:print:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/print-28.0.0.aar/c1b7839764d250e04e363fbddfd305a4/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/417df623470b1b980a7d7e72065532d7/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/viewmodel-1.1.1.aar/417df623470b1b980a7d7e72065532d7/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:interpolator:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/91bf9deab63ec406211f62cc581133e6/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support:interpolator:28.0.0] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/interpolator-28.0.0.aar/91bf9deab63ec406211f62cc581133e6/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/4d64cdfab26234fbbe2564ac2b40e6fd/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/livedata-1.1.1.aar/4d64cdfab26234fbbe2564ac2b40e6fd/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/ff9e3c5e705a3c6423bcf58a55ca2cd1/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/livedata-core-1.1.1.aar/ff9e3c5e705a3c6423bcf58a55ca2cd1/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.core:runtime:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/9ea2337b0491b0b93d847cdf3c51546f/AndroidManifest.xml:20:5-44
-MERGED from [android.arch.core:runtime:1.1.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/runtime-1.1.1.aar/9ea2337b0491b0b93d847cdf3c51546f/AndroidManifest.xml:20:5-44
-MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/e50540899dfc01d214c7a18e619bb439/AndroidManifest.xml:5:5-7:41
-MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/e50540899dfc01d214c7a18e619bb439/AndroidManifest.xml:5:5-7:41
-INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
-INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
+INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
+MERGED from [com.android.support:design:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\design-28.0.0.aar\95ec2f99c6594aa9f8ac09021750cf12\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\design-28.0.0.aar\95ec2f99c6594aa9f8ac09021750cf12\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\appcompat-v7-28.0.0.aar\c3c7213399608fb0a1676b279bbc7f5e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\appcompat-v7-28.0.0.aar\c3c7213399608fb0a1676b279bbc7f5e\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-api-phone-15.0.1.aar\e1a215327387d55a326b3d197db4dae0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-api-phone-15.0.1.aar\e1a215327387d55a326b3d197db4dae0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-base-15.0.1.aar\3885a6e5864cc9b6366583da69a6a936\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-base-15.0.1.aar\3885a6e5864cc9b6366583da69a6a936\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\ba57e64f98f80d999b493c3a3d340fa9\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\ba57e64f98f80d999b493c3a3d340fa9\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\95179242680eb6e798d4fa3a2756c3ea\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-tasks-15.0.1.aar\95179242680eb6e798d4fa3a2756c3ea\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\6d65f01e0145b6f9cdfabb33b0fb87b6\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\6d65f01e0145b6f9cdfabb33b0fb87b6\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-v4-28.0.0.aar\bf7f7eb2e6dbaa71ef9dade4dadfd96d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-v4-28.0.0.aar\bf7f7eb2e6dbaa71ef9dade4dadfd96d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\201c99f434e5496be3aa79deb939e717\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\201c99f434e5496be3aa79deb939e717\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-28.0.0.aar\2d27ea8408852648a82b168c4a0a83c8\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-28.0.0.aar\2d27ea8408852648a82b168c4a0a83c8\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-28.0.0.aar\5b4673eafc0f155c2297014e429c6013\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-28.0.0.aar\5b4673eafc0f155c2297014e429c6013\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\4d0634514541a4c88928fba6e89cd8c8\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-core-ui-28.0.0.aar\4d0634514541a4c88928fba6e89cd8c8\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-core-utils-28.0.0.aar\355ba760bbde5a09e6d378965314eb83\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-core-utils-28.0.0.aar\355ba760bbde5a09e6d378965314eb83\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-28.0.0.aar\dd6623b99d46aa56b21bd67f1125b072\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-28.0.0.aar\dd6623b99d46aa56b21bd67f1125b072\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\transition-28.0.0.aar\921e93d999175049b3125afbeb1989ac\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\transition-28.0.0.aar\921e93d999175049b3125afbeb1989ac\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\loader-28.0.0.aar\96eda949eda65f19254e31e1b6e75ba7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\loader-28.0.0.aar\96eda949eda65f19254e31e1b6e75ba7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\viewpager-28.0.0.aar\5656b94125fb65597e81cc432f935f57\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\viewpager-28.0.0.aar\5656b94125fb65597e81cc432f935f57\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-28.0.0.aar\1ab2bda57eb49f59313250cda9b25273\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\coordinatorlayout-28.0.0.aar\1ab2bda57eb49f59313250cda9b25273\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\drawerlayout-28.0.0.aar\7dd2867edb4c009d23529eddde1eb061\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\drawerlayout-28.0.0.aar\7dd2867edb4c009d23529eddde1eb061\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-28.0.0.aar\abc67a5e4d1359143ead4855dbf688ed\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\slidingpanelayout-28.0.0.aar\abc67a5e4d1359143ead4855dbf688ed\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\customview-28.0.0.aar\ad6119eab7cae351e2a8d2d4243b465f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\customview-28.0.0.aar\ad6119eab7cae351e2a8d2d4243b465f\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-28.0.0.aar\3a6d232fb52bd482c5325fa2ea04ea00\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\swiperefreshlayout-28.0.0.aar\3a6d232fb52bd482c5325fa2ea04ea00\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-28.0.0.aar\278869263ec6d3531735140bea787831\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\asynclayoutinflater-28.0.0.aar\278869263ec6d3531735140bea787831\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-media-compat-28.0.0.aar\bf5b67e305099961de05e1fb979bf160\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-media-compat-28.0.0.aar\bf5b67e305099961de05e1fb979bf160\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\a3f9d944446fa1f6bd0bc2cecd1df3e3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\a3f9d944446fa1f6bd0bc2cecd1df3e3\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\bddba9f4dfee8cd77f899d16c70843cc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\versionedparcelable-28.0.0.aar\bddba9f4dfee8cd77f899d16c70843cc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\cursoradapter-28.0.0.aar\3cb2144afe0e17707a58b6fe88930e39\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\cursoradapter-28.0.0.aar\3cb2144afe0e17707a58b6fe88930e39\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\cardview-v7-28.0.0.aar\0f6c4f672b0fb8f599aa2592f0c00e50\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\cardview-v7-28.0.0.aar\0f6c4f672b0fb8f599aa2592f0c00e50\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\e5c4dd5f099f0268419df2feabdc991d\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\e5c4dd5f099f0268419df2feabdc991d\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\documentfile-28.0.0.aar\aa067651573f0700dc1cf9bfd855b910\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\documentfile-28.0.0.aar\aa067651573f0700dc1cf9bfd855b910\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-28.0.0.aar\c68e6851122afa51fbe586bac9c64d11\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\localbroadcastmanager-28.0.0.aar\c68e6851122afa51fbe586bac9c64d11\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\print-28.0.0.aar\4dafbc501e198e62cd583a20b41f9124\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\print-28.0.0.aar\4dafbc501e198e62cd583a20b41f9124\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\d82fabeae3a330aa3c67e73f780e1fab\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\d82fabeae3a330aa3c67e73f780e1fab\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\interpolator-28.0.0.aar\8106fcfcaa4eb226dbdc9f08744eb7d8\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\interpolator-28.0.0.aar\8106fcfcaa4eb226dbdc9f08744eb7d8\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\f8c01e0e3db35fcf7691588fad430760\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\f8c01e0e3db35fcf7691588fad430760\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\18724cb307436df97ac084449e02389e\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\18724cb307436df97ac084449e02389e\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\b76a6974731fb485cf47c492389be23c\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\b76a6974731fb485cf47c492389be23c\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\01db3df3e8df2663a1034939c06a0f5b\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\01db3df3e8df2663a1034939c06a0f5b\AndroidManifest.xml:5:5-7:41
+INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml
+		INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Minec\Desktop\CP317-Project-Green-Thumb\app\src\main\AndroidManifest.xml
 activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
-ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:23:9-27:75
+ADDED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:23:9-27:75
 	android:excludeFromRecents
-		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:25:13-46
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:25:13-46
 	android:exported
-		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:26:13-37
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:26:13-37
 	android:theme
-		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:27:13-72
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:27:13-72
 	android:name
-		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:24:13-93
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:24:13-93
 service#com.google.android.gms.auth.api.signin.RevocationBoundService
-ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:33:9-36:110
+ADDED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:33:9-36:110
 	android:exported
-		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:35:13-36
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:35:13-36
 	android:permission
-		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:36:13-107
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:36:13-107
 	android:name
-		ADDED from [com.google.android.gms:play-services-auth:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-auth-15.0.1.aar/5f1a8d96628411a87d0640343894ee7c/AndroidManifest.xml:34:13-89
+		ADDED from [com.google.android.gms:play-services-auth:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-auth-15.0.1.aar\8a72d12e957ab10a1eb97511dd09c94c\AndroidManifest.xml:34:13-89
 activity#com.google.android.gms.common.api.GoogleApiActivity
-ADDED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/5d6d37c7c44957bcf302df190ed019f2/AndroidManifest.xml:23:9-26:75
+ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\ba57e64f98f80d999b493c3a3d340fa9\AndroidManifest.xml:23:9-26:75
 	android:exported
-		ADDED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/5d6d37c7c44957bcf302df190ed019f2/AndroidManifest.xml:25:13-37
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\ba57e64f98f80d999b493c3a3d340fa9\AndroidManifest.xml:25:13-37
 	android:theme
-		ADDED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/5d6d37c7c44957bcf302df190ed019f2/AndroidManifest.xml:26:13-72
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\ba57e64f98f80d999b493c3a3d340fa9\AndroidManifest.xml:26:13-72
 	android:name
-		ADDED from [com.google.android.gms:play-services-base:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-base-15.0.1.aar/5d6d37c7c44957bcf302df190ed019f2/AndroidManifest.xml:24:13-79
+		ADDED from [com.google.android.gms:play-services-base:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-base-15.0.1.aar\ba57e64f98f80d999b493c3a3d340fa9\AndroidManifest.xml:24:13-79
 meta-data#com.google.android.gms.version
-ADDED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/7d8c2bbc135335bf0cbe05402e896319/AndroidManifest.xml:23:9-25:69
+ADDED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\6d65f01e0145b6f9cdfabb33b0fb87b6\AndroidManifest.xml:23:9-25:69
 	android:value
-		ADDED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/7d8c2bbc135335bf0cbe05402e896319/AndroidManifest.xml:25:13-66
+		ADDED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\6d65f01e0145b6f9cdfabb33b0fb87b6\AndroidManifest.xml:25:13-66
 	android:name
-		ADDED from [com.google.android.gms:play-services-basement:15.0.1] /Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/play-services-basement-15.0.1.aar/7d8c2bbc135335bf0cbe05402e896319/AndroidManifest.xml:24:13-58
+		ADDED from [com.google.android.gms:play-services-basement:15.0.1] C:\Users\Minec\.gradle\caches\transforms-1\files-1.1\play-services-basement-15.0.1.aar\6d65f01e0145b6f9cdfabb33b0fb87b6\AndroidManifest.xml:24:13-58

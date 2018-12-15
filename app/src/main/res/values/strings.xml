@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Green Thumb</string>
+    <string name="app_name">GreenThumb</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->

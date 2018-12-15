@@ -2,7 +2,6 @@ package cp317.greenthumb;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
@@ -36,8 +35,8 @@ public class ScanActivity extends Activity {
 
     }
 
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    static final int REQUEST_TAKE_PHOTO = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_TAKE_PHOTO = 1;
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -66,8 +65,11 @@ public class ScanActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        galleryAddPic();
-        //setPic();
+        if (requestCode == REQUEST_TAKE_PHOTO) {
+            galleryAddPic();
+            setPic();
+        }
+
     }
 
 
@@ -109,7 +111,6 @@ public class ScanActivity extends Activity {
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         mImageView.setImageBitmap(bitmap);

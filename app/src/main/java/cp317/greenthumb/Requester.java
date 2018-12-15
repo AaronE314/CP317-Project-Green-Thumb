@@ -1,5 +1,4 @@
 package cp317.greenthumb;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
