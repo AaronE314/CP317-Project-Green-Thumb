@@ -23,8 +23,7 @@
                 <li><a href="#Control_Objects">2.3 Control Objects</a></li>
             </ul>
         </li>
-        <li><a href="#Versions">4. Versions</li>
-        <li><a href="#Authorship">5. Authorship</li>
+        <li><a href="Versions_Authorship">4. Versions & Authorship</li>
     </ul>
 
     <h2> <a id="Introduction"></a>1. Introduction</h2>
@@ -42,6 +41,9 @@
             <b>Admin</b> - A special type of User which has certain privledges. They can ban other Users; add, update, and remove Plants; and handle PhotoReports.
         </li>
         <li>
+            <b>Ban</b> - A restriction on users placed by Admins.
+        </li>
+        <li>
             <b>Photo</b> - A photograph of a Plant subject to upvotes and downvotes.
         </li>
         <li>
@@ -52,9 +54,6 @@
         </li>
         <li>
             <b>User</b> - A user of GreenThumb that has signed in with their Google account. They can post Photos and vote on the Photos posted by other Users.
-        </li>
-        <li>
-            <b>Ban</b> - A restriction on users placed by Admins.
         </li>
         
         
@@ -72,10 +71,10 @@
                         <b>MainMenuActivity</b> - The primary screen from which the user can navigate to the other screens.
                     </li>
                     <li>
-                        <b>ReportsActivity</b> - A screen for reporting a photo.
+                        <b>PlantBioActivity</b> - A screen containing information on the selected plant.
                     </li>
                     <li>
-                        <b>PlantBioActivity</b> - A screen containing information on the selected plant.
+                        <b>ReportsActivity</b> - A screen for reporting a photo.
                     </li>
                     <li>
                          <b>ScanActivity</b> - A screen wherein the user can take and send to the server photos of their plants for identification.
@@ -107,25 +106,119 @@
     <h2><a id="Classes"></a>3. Classes</h2>
     <div style="width: 960px; height: 720px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width: 960px; height: 720px" src="https://www.lucidchart.com/documents/embeddedchart/6ae6dea2-0c30-42b4-adc9-65c48034ccb0" id="JyRirTEnwgtK"></iframe></div>
 
-    <h2><a id="Versions"></a>4. Versions</h1>
-            <ul>
-                <li>Version 0.1 (2018/10/12) - Document outline created</li>
-                <li>Version 0.2 (2018/10/13) - Object classifications, object diagram, class diagram added</li>
-                <li>Version 0.3 (2018/10/14) - State diagrams added</li>
-                <li>Version 0.4 (2018/12/12) - Spelling/Grammar corrections, adjustments to MLTrainer and ML diagrams </li>
-                <li>Version 0.5 (2018/12/14) - Update Class diagram, Remove unnecessary diagrams </li>
-            </ul>
-    
-     <h2><a id="Authorship"></a>5. Authorship</h1>
-            <ul>
-                <li>Saad Ansari - Introduction</li>
-                <li>Austin Bursey - Class diagram</li>
-                <li>Nathaniel Carr - Object classifications, object diagram, class diagram, AppServer state diagram</li>
-                <li>Aaron Exley - MLTrainer, MLIdentifier state diagram</li>
-                <li>Tim McGill - Object classifications</li>
-                <li>Ben Keunen - MLTrainer, Class diagram</li>
-                <li>Nicolas Ross - Entity Objects, Class diagrams</li>
-                <!-- Matt Wong helped us -->
-            </ul>
+    <h2><a id="Versions_Authorship">4. Versions & Authorship</a></h2>
+    <div>
+        <ul>
+            <li>
+                <b>Version 0.1 (2018/10/12)</b>
+                <ul>
+                    <li>
+                        Austin Bursey:
+                        <ul>
+                            <li>Document Outline Created</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.2 (2018/10/13)</b>
+                <ul>
+                    <li>
+                        Saad Ansari:
+                        <ul>
+                            <li>Introduction section</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Austin Bursey:
+                        <ul>
+                            <li>Revised Boundary Objects section</li>
+                            <li>Added Class Diagram</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Nathaniel Carr:
+                        <ul>
+                            <li>Object Classification section</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Tim McGill:
+                        <ul>
+                            <li>Revised Boundary Objects section</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.3 (2018/10/14)</b>
+                <ul>
+                    <li>
+                        Nathaniel Carr:
+                        <ul>
+                            <li>Revised Object Classification section</li>
+                            <li>Added State Diagrams</li>
+                            <li>Revised Object Classification section</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.4 (2018/10/15)</b>
+                <ul>
+                    <li>
+                        Nathaniel Carr:
+                        <ul>
+                            <li>Added Use-Case Diagram</li>
+                            <li>Revised Versions & Authorship section</li>
+                            <li>Revised Boundary Objects section</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.5 (2018/12/12)</b>
+                <ul>
+                    <li>
+                        Saje Bailey:
+                        <ul>
+                            <li>Grammar Correction in Boundary Objecs and Entity Objects sections</li>
+                            <li>Removal of Unimplemented Objects</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Benjamin Keunen:
+                        <ul>
+                            <li>Grammar Correction in Introduction, Boundary Objecs, and Control Objects sections</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <b>Version 0.6 (2018/12/14)</b>
+                <ul>
+                    <li>
+                        Saje Bailey:
+                        <ul>
+                            <li>Revised Versions & Authorship section</li>
+                            <li>Alphabetized Object Classification< section/li>
+                        </ul>
+                    </li>
+                    <li>
+                        Benjamin Keunen:
+                        <ul>
+                            <li>Removal of State Diagrams</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Nicholas Ross:
+                        <ul>
+                            <li>Added Ban Class to Entity Objects</li>
+                        </ul>
+                    </li>
+                </ul>
+             </li>
+         </ul>
+    </div>
 </body>
 </html>
