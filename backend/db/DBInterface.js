@@ -1186,7 +1186,7 @@ async function getUnhandledPhotoReportsByDate(startIndex, max) {
                 'GROUP BY r.report_id, r.report_date, r.report_details, p.photo_id, p.user_id ORDER BY r.report_date DESC';
             return await req.query(sqlQuery).then(function (recordset) {
                 let photoReports = [];
-                for (let i = startIndex; i < recordset.recordset.length && recordset.recordset.length < max; i++) {
+                for (let i = startIndex; i < recordset.recordset.length && photoReports.length < max; i++) {
                     photoReports.push(new PhotoReport(recordset.recordset[i].photo_id, recordset.recordset[i].user_id, recordset.recordset[i].report_details, recordset.recordset[i].report_id, recordset.recordset[i].report_date));
                 }
                 sql.close();

@@ -356,7 +356,7 @@ api.post("/photoReports/list/byDate",
 
             let photoReports = await DBInterface.getUnhandledPhotoReportsByDate(req.body.startIndex, req.body.max);
 
-            for (let i = req.body.startIndex; i < req.body.max; i++) {
+            for (let i = req.body.startIndex; i < photoReports.length && i < req.body.max; i++) {
                 photoReports[i] = photoReports[i].toJSON();
             }
 
