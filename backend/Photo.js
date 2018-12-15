@@ -38,7 +38,7 @@ class Photo {
         this.toJSON = toJSON;
         this.setId = setId;
 
-        // PRIVATE method definitions.
+        // PUBLIC method definitions.
         /**
         * @author Adam Cassidy
         * @returns {Number} The ID of the Photo. Integer.
@@ -55,7 +55,7 @@ class Photo {
         }
         /**
         * @author Adam Cassidy
-        * @returns {Number} userId The ID of the User who uploaded this Photo. Integer.
+        * @returns {String} userId The ID of the User who uploaded this Photo. String.
         */
         function getUserId() {
             return _userId;

@@ -57,7 +57,7 @@
             "type": "node",
             "request": "launch",
             "name": "DBI",
-            "program": "${workspaceFolder}/backend/db\\DBInterface.js",
+            "program": "${workspaceFolder}/backend/db\\DBITest.js",
         }
     ]
 }

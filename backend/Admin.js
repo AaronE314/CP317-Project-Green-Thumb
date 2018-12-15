@@ -21,6 +21,7 @@ class Admin extends User {
         this.nextBanExpirationDate = nextBanExpirationDate;
         this.isBanned = isBanned;
 
+        // PUBLIC method definitions.
         /**
         * @author Nathaniel Carr
         * @returns {Date} Next Ban expiration date.

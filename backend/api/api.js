@@ -217,6 +217,7 @@ api.post("/photos/remove",
         try {
             if (!await validateParams(req, res, async (body) => {
                 assert(body.photoId !== undefined, ERROR_MSG.missingParam("photoId"));
+                assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
 
                 assert((await DBInterface.getPhoto(body.photoId)).getUserId() === body.userId || await DBInterface.isValidAdminId(body.userId), ERROR_MSG.unauthorized());
             })) { return; }
@@ -240,6 +241,7 @@ api.post("/photos/vote",
             if (!await validateParams(req, res, async (body) => {
                 assert(body.photoId !== undefined, ERROR_MSG.missingParam("photoId"));
                 assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+                assert(body.up !== undefined, ERROR_MSG.missingParam("up"));
             })) { return; }
 
             await DBInterface.vote(req.body.photoId, req.body.userId, req.body.up);
@@ -311,20 +313,21 @@ api.post("/photoReports/handle",
                 assert(body.adminId !== undefined, ERROR_MSG.missingParam("adminId"));
                 assert(body.photoReportId !== undefined, ERROR_MSG.missingParam("photoReportId"));
                 assert(body.adminAction !== undefined, ERROR_MSG.missingParam("adminAction"));
-                assert(ADMIN_ACTION[body.adminAction] !== undefined, ERROR_MSG.invalidParam("adminAction"));
+                assert(body.adminAction in Object.keys(ADMIN_ACTION), ERROR_MSG.invalidParam("adminAction"));
 
                 assert(await DBInterface.isValidAdminId(body.adminId), ERROR_MSG.unauthorized());
             })) { return; }
 
+            let photoReport = await DBInterface.getPhotoReport(req.body.photoReportId);
             if (req.body.adminAction === ADMIN_ACTION.Accept) {
                 await DBInterface.removePhoto(photoReport.getPhotoId());
             } else if (req.body.adminAction === ADMIN_ACTION.AcceptBan) {
-                let photo = await DBInterface.getPhoto(req.body.photoReportId);
+                let photo = await DBInterface.getPhoto(photoReport.getPhotoId());
                 let user = await DBInterface.getUser(photo.getUserId());
                 await DBInterface.addBan(new Ban(user.getId(), req.body.adminId, user.nextBanExpirationDate()));
                 await DBInterface.removePhoto(req.body.photoReportId);
-                await DBInterface.removePhotoReport(req.body.photoReportId);
             }
+            await DBInterface.removePhotoReport(req.body.photoReportId);
 
             res.send({});
 
@@ -333,7 +336,6 @@ api.post("/photoReports/handle",
             console.error(err);
         }
     });
-
 
 api.post("/photoReports/list/byDate",
     /**
@@ -435,7 +437,7 @@ api.post("/plants/byId",
             req.body.maxPhotos = req.body.maxPhotos !== undefined ? req.body.maxPhotos : DEFAULTS.plantsMaxPhotos;
 
             let plant = await DBInterface.getPlant(req.body.plantId);
-            let photos = await DBInterface.getTopPlantPhotos(plant.getId());
+            let photos = await DBInterface.getTopPlantPhotos(plant.getId(), 0, req.body.maxPhotos);
             for (let i = 0; i < photos.length; i++) {
                 photos[i] = photos[i].toJSON();
             }
