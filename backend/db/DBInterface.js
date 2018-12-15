@@ -660,11 +660,11 @@ async function removePhotoReport(photoReportId) {
 async function removePlant(plantId) {
     sql.close() // Close any existing connections.
     // Connect to database.
-    sql.connect(config, function (err) {
+    sql.connect(config, async function (err) {
         if (err) { throw err; }
         let request = new sql.Request(); // Create Request object.
         request.input('plantId', sql.Int, plantId);
-        let sqlQuery = // Create SQL Query.
+        await request.query( // Create SQL Query.
             // Delete all associated reports.
             'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE plant_id = @plantId;' + 
 
@@ -678,10 +678,14 @@ async function removePlant(plantId) {
             'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE plant_id = @plantId;'+
 
             // Delete the plant.
-            'DELETE FROM [projectgreenthumb].[dbo].[plant] WHERE plant_id = @plantId;'
+            'DELETE FROM [projectgreenthumb].[dbo].[plant] WHERE plant_id = @plantId;').then(function (recordset){
+                sql.close();
+            }).catch(function(err){
+                throw err;
+            });
 
         // Query the database and remove the Plant.
-        request.query(sqlQuery, function (err, recordset) {
+        await request.query(sqlQuery, function (err, recordset) {
             if (err) { throw err; }
 
             sql.close(); // Close connection.
@@ -697,36 +701,32 @@ async function removePlant(plantId) {
 async function removeUser(userId) {
     sql.close() // Close any existing connections.
     // Connect to database.
-    sql.connect(config, function (err) {
+    sql.connect(config, async function (err) {
         if (err) { throw err; }
         let request = new sql.Request(); // create Request object
         request.input('userId', sql.VarChar, userId);
-        let sqlQuery = // Create SQL Query.
-            // Delete all associated reports.
-            'DELETE FROM [projectgreenthumb].[dbo].[ban] WHERE ' +
-            'user_id = @userId;' +
-            
-            'DELETE FROM [projectgreenthumb].[dbo].[admin_report] ' +
-            'WHERE report_id = ANY(SELECT report_id FROM report WHERE user_id = @userId);'
-            
-            'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE ' + 
-            'user_id = @userId;'
-            
-            'DELETE FROM [projectgreenthumb].[dbo].[post] WHERE ' + 
-            'user_id = @userId;'
-            
-            'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE ' +
-            'user_id = @userId;'
-            
-            'DELETE FROM [projectgreenthumb].[dbo].[user] WHERE [user_id] = @userId;'
-
-        // Query the database and remove the specified User.
-        request.query(sqlQuery, function (err, recordset) {
-            if (err) { throw err; }
-
-            sql.close(); // Close connection.
+        return await request.query("DELETE FROM [projectgreenthumb].[dbo].[ban] WHERE user_id = @userId;"+
+        
+        'DELETE FROM [projectgreenthumb].[dbo].[admin_report] ' +
+        'WHERE report_id = ANY(SELECT report_id FROM report WHERE user_id = @userId);'+
+        
+        'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE ' + 
+        'user_id = @userId;'+
+        'DELETE FROM [projectgreenthumb].[dbo].[photo] WHERE photo_id = ANY (SELECT photo_id FROM [projectgreenthumb].[dbo].[post] where user_id = @userId)'+
+        'DELETE FROM [projectgreenthumb].[dbo].[post] WHERE ' + 
+        'user_id = @userId;'+
+        
+        'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE ' +
+        'user_id = @userId;'+
+        
+        'DELETE FROM [projectgreenthumb].[dbo].[user] WHERE [user_id] = @userId;')
+        .then(async function (rset) {
+        sql.close();
+        })
+        .catch(function (err) {
+            throw err;
         });
-    });
+    })
 }
 
 ///////////////////////////Retrieval Functions////////////////////////////
