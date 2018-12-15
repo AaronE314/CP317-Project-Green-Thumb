@@ -241,6 +241,7 @@ api.post("/photos/vote",
             if (!await validateParams(req, res, async (body) => {
                 assert(body.photoId !== undefined, ERROR_MSG.missingParam("photoId"));
                 assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
+                assert(body.up !== undefined, ERROR_MSG.missingParam("up"));
             })) { return; }
 
             await DBInterface.vote(req.body.photoId, req.body.userId, req.body.up);
