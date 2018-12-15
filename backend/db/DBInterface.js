@@ -664,11 +664,11 @@ async function removePhotoReport(photoReportId) {
 async function removePlant(plantId) {
     sql.close() // Close any existing connections.
     // Connect to database.
-    sql.connect(config, function (err) {
+    sql.connect(config, async function (err) {
         if (err) { throw err; }
         let request = new sql.Request(); // Create Request object.
         request.input('plantId', sql.Int, plantId);
-        let sqlQuery = // Create SQL Query.
+        await request.query( // Create SQL Query.
             // Delete all associated reports.
             'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE plant_id = @plantId;' + 
 
@@ -682,10 +682,14 @@ async function removePlant(plantId) {
             'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE plant_id = @plantId;'+
 
             // Delete the plant.
-            'DELETE FROM [projectgreenthumb].[dbo].[plant] WHERE plant_id = @plantId;'
+            'DELETE FROM [projectgreenthumb].[dbo].[plant] WHERE plant_id = @plantId;').then(function (recordset){
+                sql.close();
+            }).catch(function(err){
+                throw err;
+            });
 
         // Query the database and remove the Plant.
-        request.query(sqlQuery, function (err, recordset) {
+        await request.query(sqlQuery, function (err, recordset) {
             if (err) { throw err; }
 
             sql.close(); // Close connection.
@@ -701,36 +705,32 @@ async function removePlant(plantId) {
 async function removeUser(userId) {
     sql.close() // Close any existing connections.
     // Connect to database.
-    sql.connect(config, function (err) {
+    sql.connect(config, async function (err) {
         if (err) { throw err; }
         let request = new sql.Request(); // create Request object
         request.input('userId', sql.VarChar, userId);
-        let sqlQuery = // Create SQL Query.
-            // Delete all associated reports.
-            'DELETE FROM [projectgreenthumb].[dbo].[ban] WHERE ' +
-            'user_id = @userId;' +
-            
-            'DELETE FROM [projectgreenthumb].[dbo].[admin_report] ' +
-            'WHERE report_id = ANY(SELECT report_id FROM report WHERE user_id = @userId);'
-            
-            'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE ' + 
-            'user_id = @userId;'
-            
-            'DELETE FROM [projectgreenthumb].[dbo].[post] WHERE ' + 
-            'user_id = @userId;'
-            
-            'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE ' +
-            'user_id = @userId;'
-            
-            'DELETE FROM [projectgreenthumb].[dbo].[user] WHERE [user_id] = @userId;'
-
-        // Query the database and remove the specified User.
-        request.query(sqlQuery, function (err, recordset) {
-            if (err) { throw err; }
-
-            sql.close(); // Close connection.
+        return await request.query("DELETE FROM [projectgreenthumb].[dbo].[ban] WHERE user_id = @userId;"+//deletes where user is present 
+        
+        'DELETE FROM [projectgreenthumb].[dbo].[admin_report] ' +
+        'WHERE report_id = ANY(SELECT report_id FROM report WHERE user_id = @userId or post_id = ANY(SELECT post_id from post where user_id = @userId));'+//deletes where 
+        
+        'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE ' + 
+        'user_id = @userId OR post_id = ANY(SELECT post_id from post where user_id = @userId);'+
+        'DELETE FROM [projectgreenthumb].[dbo].[photo] WHERE photo_id = ANY (SELECT photo_id FROM [projectgreenthumb].[dbo].[post] where user_id = @userId)'+
+        'DELETE FROM [projectgreenthumb].[dbo].[post] WHERE ' + 
+        'user_id = @userId;'+
+        
+        'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE ' +
+        'user_id = @userId;'+
+        
+        'DELETE FROM [projectgreenthumb].[dbo].[user] WHERE [user_id] = @userId;')
+        .then(async function (rset) {
+        sql.close();
+        })
+        .catch(function (err) {
+            throw err;
         });
-    });
+    })
 }
 
 ///////////////////////////Retrieval Functions////////////////////////////
@@ -1004,9 +1004,9 @@ async function getPlantByQuery(query) {
  * @returns {Photo[]} The most recent Photos uploaded of the specified Plant.
 */
 async function getNewestPlantPhotos(plantId, startIndex, max) {
-    let photos = [];
+    photos = [];
     sql.close() // Close any existing connections.
-    return await sql.connect(config)
+    await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
@@ -1019,13 +1019,13 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
             return await req.query(sqlQuery).then(async function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] != null) {
-                    while (recordset.recordset[ind] != null) {
+                    while (recordset[ind] != null) {
                         photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
                     
                     sql.close();
-                    return photos.slice(startIndex, startIndex + max);
+                    return photos;
                 } else {
                     sql.close();
                     throw new DBIRecordNotFound("plant photos");
@@ -1039,6 +1039,7 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
         .catch(function (err) {
             throw err;
         });
+    return photos.slice(startIndex, startIndex + max);
 }
 
 /**
@@ -1050,9 +1051,9 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
  * @returns {Photo[]} The most recent Photos uploaded by the specified User.
 */
 async function getNewestUserPhotos(userId, startIndex, max) {
-    let photos = [];
+    photos = [];
     sql.close() // Close any existing connections.
-    return await sql.connect(config)
+    await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
@@ -1065,12 +1066,12 @@ async function getNewestUserPhotos(userId, startIndex, max) {
             return await req.query(sqlQuery).then(async function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] != null) {
-                    while (recordset.recordset[ind] != null) {
+                    while (recordset[ind] != null) {
                         photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
                     sql.close();
-                    return photos.slice(startIndex, startIndex + max);
+                    return photos;
                 } else {
                     sql.close();
                     throw new DBIRecordNotFound("user photos");
@@ -1083,6 +1084,7 @@ async function getNewestUserPhotos(userId, startIndex, max) {
         .catch(function (err) {
             throw err;
         });
+    return photos.slice(startIndex, startIndex + max);
 }
 
 /**
