@@ -13,13 +13,13 @@ var User = require("../User.js");
 
 (async()=>{
     try{
-<<<<<<< HEAD
-    let photos = await DBInterface.removeUser('8');
+    let photos = await DBInterface.getUnhandledPhotoReportsByDate(0,3);
+    let i = 0;
 
-    //console.log(photos[1].toJSON());
-=======
-    let photos = await DBInterface.getNewestUserPhotos('1234',1,2);
->>>>>>> c669337664e5df5babcb900d4ccef89e8a2c96b7
+    while(i < 2){
+        console.log(photos[i].toJSON());
+    }
+
     }catch(error){
         console.log(error);
     }

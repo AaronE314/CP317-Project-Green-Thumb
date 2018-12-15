@@ -1259,8 +1259,7 @@ async function getUnhandledPhotoReportsByDate(startIndex, max) {
         .then(async function () {
             let req = new sql.Request();
             let sqlQuery = 'SELECT r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id FROM report r' +
-                'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
-                'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY r.upload_date';
+            'INNER join post p ON p.post_id = r.post_id GROUP BY r.report_date, r.report_id, r.report_details, p.photo_id,p.user_id ORDER BY r.report_date DESC';
             return await req.query(sqlQuery).then(function (recordset) {
                 ind = 0;
                 while (recordset.recordset[ind] != null) {
@@ -1583,5 +1582,5 @@ module.exports = {
     getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
     getTopUserPhotos, getUnhandledPhotoReportsByDate, getUnhandledPhotoReportsByPriority,
     getUser, updatePlant, updatePhoto, updatePhotoReport, isValidReportId, isValidUserId, isValidPlantId,
-    isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery, create_votes, add_vote, vote
+    isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery, create_votes, add_vote
 }
