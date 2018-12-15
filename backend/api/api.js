@@ -554,12 +554,12 @@ api.post("/plants/byQuery",
             req.body.maxPhotos = req.body.maxPhotos !== undefined ? req.body.maxPhotos : DEFAULTS.plantsMaxPhotos;
             req.body.maxPlants = req.body.maxPlants !== undefined ? req.body.maxPlants : DEFAULTS.maxPlantsByQuery;
 
-            let plants = await DBInterface.getPlantByQuery(req.body.query);
+            let plants = await DBInterface.getPlantByQuery(req.body.query, req.body.maxPlants);
             let results = [];
             for (let i = 0; i < plants.length && i < req.body.maxPlants; i++) {
                 let photos = await DBInterface.getTopPlantPhotos(plants[i].getId(), 0, req.body.maxPhotos);
                 for (let j = 0; j < photos.length; j++) {
-                    photos[i] = photos[i].toJSON();
+                    photos[j] = photos[j].toJSON();
                 }
                 results.push({
                     plant: plants[i].toJSON(),
