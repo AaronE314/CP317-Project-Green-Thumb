@@ -705,10 +705,10 @@ async function removeUser(userId) {
         if (err) { throw err; }
         let request = new sql.Request(); // create Request object
         request.input('userId', sql.VarChar, userId);
-        return await request.query("DELETE FROM [projectgreenthumb].[dbo].[ban] WHERE user_id = @userId;"+
+        return await request.query("DELETE FROM [projectgreenthumb].[dbo].[ban] WHERE user_id = @userId;"+//deletes where user is present 
         
         'DELETE FROM [projectgreenthumb].[dbo].[admin_report] ' +
-        'WHERE report_id = ANY(SELECT report_id FROM report WHERE user_id = @userId);'+
+        'WHERE report_id = ANY(SELECT report_id FROM report WHERE user_id = @userId);'+//deletes where 
         
         'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE ' + 
         'user_id = @userId;'+

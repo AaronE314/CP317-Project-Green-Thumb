@@ -48,7 +48,7 @@ class PhotoReport {
 		}
 		/**
 		 * @author Scott Peebles
-		* @returns {Number} The ID of the reported Photo. Integer.
+		* @returns {String} The user ID associated with the report. String.
 		*/
 		function getUserId() {
 			return _userId;
