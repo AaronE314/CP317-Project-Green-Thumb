@@ -708,10 +708,10 @@ async function removeUser(userId) {
         return await request.query("DELETE FROM [projectgreenthumb].[dbo].[ban] WHERE user_id = @userId;"+//deletes where user is present 
         
         'DELETE FROM [projectgreenthumb].[dbo].[admin_report] ' +
-        'WHERE report_id = ANY(SELECT report_id FROM report WHERE user_id = @userId);'+//deletes where 
+        'WHERE report_id = ANY(SELECT report_id FROM report WHERE user_id = @userId or post_id = ANY(SELECT post_id from post where user_id = @userId));'+//deletes where 
         
         'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE ' + 
-        'user_id = @userId;'+
+        'user_id = @userId OR post_id = ANY(SELECT post_id from post where user_id = @userId);'+
         'DELETE FROM [projectgreenthumb].[dbo].[photo] WHERE photo_id = ANY (SELECT photo_id FROM [projectgreenthumb].[dbo].[post] where user_id = @userId)'+
         'DELETE FROM [projectgreenthumb].[dbo].[post] WHERE ' + 
         'user_id = @userId;'+
