@@ -494,7 +494,7 @@ async function addPhotoReport(photoReport) {
             .then(async function () {
                 let req = new sql.Request();
                 req.input("photoId", sql.Int, photoReport.getPhotoId());
-                req.input("rDate", sql.Date, photoReport.getReportDate());
+                req.input("rDate", sql.DateTime2, photoReport.getReportDate());
                 req.input("rText", sql.VarChar, photoReport.getReportText());
                 req.input("userId", sql.VarChar, photoReport.getUserId());
                 return await req.query("Insert into [projectgreenthumb].[dbo].[report] (post_id, report_date , report_details, user_id) " +
