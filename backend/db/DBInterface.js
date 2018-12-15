@@ -237,7 +237,7 @@ async function create_bans(userId) {
 /**
  * @desc if upvote is true then return the list of upvotes for photoId
  * @author Austin Bursey
- * @param {userId} userId a userId Int.
+ * @param {userId} photoId a userId Int.
  * @returns {Votes} an array of votes  objects
 */
 async function create_votes(photoId, upvote) {
