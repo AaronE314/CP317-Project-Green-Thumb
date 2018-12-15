@@ -641,7 +641,8 @@ async function removePhotoReport(photoReportId) {
 
         let request = new sql.Request(); // Create Request object.
         request.input('photoReportId', sql.Int, photoReportId);
-        let sqlQuery = 'DELETE FROM report WHERE report_id = @photoReportId'; // Create SQL Query
+        let sqlQuery = 'DELETE FROM admin_report WHERE report_id = @photoReportId; ' +
+        'DELETE FROM report WHERE report_id = @photoReportId;'; // Create SQL Query
 
         // Query the database and remove photo.
         request.query(sqlQuery, function (err, recordset) {
@@ -702,23 +703,22 @@ async function removeUser(userId) {
         request.input('userId', sql.VarChar, userId);
         let sqlQuery = // Create SQL Query.
             // Delete all associated reports.
-            'DELETE FROM ban WHERE ' +
+            'DELETE FROM [projectgreenthumb].[dbo].[ban] WHERE ' +
             'user_id = @userId;' +
-
-            // Delete all associated reports.
-            'DELETE FROM report WHERE ' +
-            'user_id = @userId;' +
-
-            // Delete all associated posts.
-            'DELETE FROM post WHERE ' +
-            'user_id = @userId;' +
-
-            // Delete all assocaited votes.
-            'DELETE FROM voting WHERE ' +
-            'user_id = @userId;' +
-
-            // Delete the user.
-            'DELETE FROM[user] WHERE [user_id] = @userId;'
+            
+            'DELETE FROM [projectgreenthumb].[dbo].[admin_report] ' +
+            'WHERE report_id = ANY(SELECT report_id FROM report WHERE user_id = @userId);'
+            
+            'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE ' + 
+            'user_id = @userId;'
+            
+            'DELETE FROM [projectgreenthumb].[dbo].[post] WHERE ' + 
+            'user_id = @userId;'
+            
+            'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE ' +
+            'user_id = @userId;'
+            
+            'DELETE FROM [projectgreenthumb].[dbo].[user] WHERE [user_id] = @userId;'
 
         // Query the database and remove the specified User.
         request.query(sqlQuery, function (err, recordset) {
