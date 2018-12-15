@@ -1181,14 +1181,9 @@ async function getUnhandledPhotoReportsByDate(startIndex, max) {
     return await sql.connect(CONFIG)
         .then(async function () {
             let req = new sql.Request();
-<<<<<<< HEAD
-            let sqlQuery = 'SELECT r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id FROM report r' +
-            'INNER join post p ON p.post_id = r.post_id GROUP BY r.report_date, r.report_id, r.report_details, p.photo_id,p.user_id ORDER BY r.report_date DESC';
-=======
             let sqlQuery = 'SELECT r.report_id, r.report_date, r.report_details, p.photo_id, p.user_id FROM report r ' +
                 'LEFT OUTER JOIN post p ON p.post_id = r.post_id ' +
                 'GROUP BY r.report_id, r.report_date, r.report_details, p.photo_id, p.user_id ORDER BY r.report_date DESC';
->>>>>>> 6eea85bba68827fdd132bc9705c676c35223b36a
             return await req.query(sqlQuery).then(function (recordset) {
                 let photoReports = [];
                 for (let i = startIndex; i < recordset.recordset.length && photoReports.length < max; i++) {
@@ -1530,5 +1525,5 @@ module.exports = {
     getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
     getTopUserPhotos, getUnhandledPhotoReportsByDate,
     getUser, updatePlant, updatePhoto, updatePhotoReport, isValidReportId, isValidUserId, isValidPlantId,
-    isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery, create_votes, add_vote
+    isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery
 }
