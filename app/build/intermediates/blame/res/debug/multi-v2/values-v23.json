@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/tim/AndroidStudioProjects/CP317-Project-Green-Thumb/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v23/values-v23.xml",
+            "outputFile": "/Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "/home/tim/.gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/f12dce7243892c40bf2891868871ac12/res/values-v23/values-v23.xml",
+                    "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/cardview-v7-28.0.0.aar/524b2331ff450032bd444e2c4471f6c8/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/home/tim/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/f1624d003a3cece3d8cb93c0cc7ec092/res/values-v23/values-v23.xml",
+                    "source": "/Users/JacksonNewlands/gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/43d8a292659e0cbe4c14711f732b51f7/res/values-v23/values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,19,32,33,34,35,36",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4",

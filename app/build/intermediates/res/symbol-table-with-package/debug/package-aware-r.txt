@@ -1084,7 +1084,6 @@ drawable scan_album_icon
 drawable scan_camera_icon
 drawable search_icon
 drawable settings_icon
-drawable temp_bio_image
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
@@ -1185,6 +1184,7 @@ id gridItem
 id gridItemImage
 id group_divider
 id groups
+id guideline
 id home
 id homeAsUp
 id icon
@@ -1235,6 +1235,7 @@ id password
 id percent
 id pin
 id plantsList_box
+id progressBar
 id progress_circular
 id progress_horizontal
 id radio
@@ -1264,6 +1265,7 @@ id search_edit_frame
 id search_go_btn
 id search_mag_icon
 id search_plate
+id search_row
 id search_src_text
 id search_txtBox
 id search_voice_btn
@@ -1422,6 +1424,7 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout searchrow
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
