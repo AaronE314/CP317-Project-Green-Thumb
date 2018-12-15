@@ -13,8 +13,12 @@ var User = require("../User.js");
 
 (async()=>{
     try{
-    DBInterface.removeUser('10');
-    
+    let photos = await DBInterface.getTopPlantPhotos(2,0,2);
+
+    let i =0;
+    while(i<2){
+        console.log(photos[i].getId());
+    }
     }catch(error){
         console.log(error);
     }

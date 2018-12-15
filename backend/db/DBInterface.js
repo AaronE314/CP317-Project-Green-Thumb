@@ -623,7 +623,6 @@ async function removePhoto(photoId) {
         // Query the database and remove Photo.
         request.query(sqlQuery, function (err, recordset) {
             if (err) { throw err; }
-
             sql.close(); //Close connection
         });
     });
