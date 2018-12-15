@@ -616,9 +616,13 @@ async function removePhoto(photoId) {
 
         let request = new sql.Request(); // Create Request object.
         request.input('photoId', sql.Int, photoId);
-        let sqlQuery = 'DELETE FROM voting where photo_id = @photoId;' +
-        'DELETE from post WHERE photo_id = @photoId;' +
-        'DELETE FROM photo WHERE photo_id = @photoId;' // Create SQL Query.
+        let sqlQuery = 
+        'DELETE FROM voting WHERE photo_id = @photoId;' +
+        'DELETE FROM admin_report WHERE report_id = ANY(SELECT report_id from report r inner join post p ON p.post_id = r.post_id WHERE p.photo_id = @photoId);' +
+        'DELETE FROM report WHERE post_id = ANY(SELECT post_id FROM post WHERE photo_id = @photoId);' +
+        'DELETE FROM post WHERE photo_id = @photoId;' +
+        'DELETE FROM photo WHERE photo_id = @photoId;';
+        // Create SQL Query.
 
         // Query the database and remove Photo.
         request.query(sqlQuery, function (err, recordset) {
