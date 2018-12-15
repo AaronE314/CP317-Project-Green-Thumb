@@ -55,7 +55,7 @@ public class Requester {
         String postBody = "{ \"query\": \"" + query + "\"}";
         String endPoint = "/plants/byQuery";
 
-        new Request().execute(endPoint, postBody, context);
+        new Request().execute(endPoint, postBody);
     }
 
     public static void getUser(int userId) {
