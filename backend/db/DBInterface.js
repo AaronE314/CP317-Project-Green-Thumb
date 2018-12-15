@@ -1403,13 +1403,13 @@ async function isValidPlantId(plantId) {
  * @param {Number} userId The primary key of the User table. Integer.
  * @returns {Boolean} True iff the userId can be found in the User table of the DB.
 */
-async function isValidUserId() {
+async function isValidUserId(userId) {
     try {
-        sql.close() // Close any existing connections.
+        sql.close();
         return await sql.connect(CONFIG)
             .then(async function () {
                 let req = new sql.Request();
-                req.input('userId', sql.VarBinary, userId);
+                req.input('userId', sql.VarChar, userId);
                 return await req.query("SELECT user_id FROM [projectgreenthumb].[dbo].[user] where user_id = @userId ")
                     .then(function (recordset) {
                         return recordset.recordset.length > 0;
@@ -1472,6 +1472,9 @@ async function vote(photoId, userId, direction) {
     try {
         if (!(await isValidPhotoId(photoId))) {
             throw _DBIRecordNotFound("photoId");
+        }
+        if (!(await isValidUserId(userId))) {
+            throw _DBIRecordNotFound("userId");
         }
         direction = direction ? 1 : 0;
         let curVote = await _getVote(photoId, userId);
