@@ -159,15 +159,17 @@ ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app
 activity#cp317.greenthumb.SplashScreenActivity
 ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:40:9-48:20
 	android:label
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:42:13-65
+		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:43:13-65
+	android:theme
+		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:42:13-47
 	android:name
 		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:41:13-49
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:43:13-47:29
+ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:44:13-47:29
 action#android.intent.action.MAIN
-ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:44:17-69
+ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:45:17-69
 	android:name
-		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:44:25-66
+		ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:45:25-66
 category#android.intent.category.LAUNCHER
 ADDED from /Users/JacksonNewlands/Desktop/CP317/ws/CP317-Project-Green-Thumb/app/src/main/AndroidManifest.xml:46:17-77
 	android:name

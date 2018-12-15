@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.content.SharedPreferences;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import android.widget.Toast;
+import android.widget.ImageButton;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -17,7 +18,8 @@ public class SettingsActivity extends AppCompatActivity {
     private SeekBar fontScaleSlider;
     private TextView previewLabel, aboutText, fontSliderLabel;
     private SharedPreferences prefs;
-    private Button logOutButton, logInButton, backButton;
+    private Button logOutButton, logInButton;
+    private ImageButton backButton;
     private GoogleSignInClient mGoogleSignInClient;
 
     // Seekbar specs
@@ -75,7 +77,6 @@ public class SettingsActivity extends AppCompatActivity {
         logInButton.setTextSize((int)globalVars.text_size);
         fontSliderLabel.setTextSize((int)globalVars.text_size);
         aboutText.setTextSize((int)globalVars.text_size);
-        backButton.setTextSize((int)globalVars.text_size);
 
         // Set the text size of preview label
         previewLabel.setTextSize((int)globalVars.text_size);
@@ -111,7 +112,6 @@ public class SettingsActivity extends AppCompatActivity {
                 logInButton.setTextSize(fontProgress+10);
                 fontSliderLabel.setTextSize(fontProgress+10);
                 aboutText.setTextSize(fontProgress+10);
-                backButton.setTextSize(fontProgress+10);
 
 
             }
