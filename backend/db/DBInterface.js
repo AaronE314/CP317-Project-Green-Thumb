@@ -1000,9 +1000,9 @@ async function getPlantByQuery(query) {
  * @returns {Photo[]} The most recent Photos uploaded of the specified Plant.
 */
 async function getNewestPlantPhotos(plantId, startIndex, max) {
-    photos = [];
+    let photos = [];
     sql.close() // Close any existing connections.
-    await sql.connect(config)
+    return await sql.connect(config)
         .then(async function () {
 
             let req = new sql.Request();
@@ -1015,13 +1015,13 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
             return await req.query(sqlQuery).then(async function (recordset) {
                 ind = 0
                 if (recordset.recordset[0] != null) {
-                    while (recordset[ind] != null) {
+                    while (recordset.recordset[ind] != null) {
                         photos.push(new Photo(recordset.recordset[ind].plant_id, recordset.recordset[ind].user_id, recordset.recordset[ind].image, recordset.recordset[ind].photo_id, recordset.recordset[ind].upload_date, await create_votes(recordset.recordset[ind].photo_id,1), await create_votes(recordset.recordset[ind].photo_id,0)));
                         ind = ind + 1;
                     }
                     
                     sql.close();
-                    return photos;
+                    return photos.slice(startIndex, startIndex + max);
                 } else {
                     sql.close();
                     throw new DBIRecordNotFound("plant photos");
@@ -1035,7 +1035,6 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
         .catch(function (err) {
             throw err;
         });
-    return photos.slice(startIndex, startIndex + max);
 }
 
 /**
