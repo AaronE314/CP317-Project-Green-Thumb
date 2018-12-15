@@ -923,6 +923,7 @@ async function getPlant(plantId) {
 /**
  * @desc Returns all Plants that contain the specified query string.
  * @author Saad Ansari
+ * @author Nathaniel Carr
  * @param {String} query The query string.
  * @returns {Plant[]} The matching Plants.
 */
@@ -1176,22 +1177,20 @@ async function getTopUserPhotos(userId, startIndex, max) {
  * @returns {Photo[]} Array of unhandled PhotoReports.
 */
 async function getUnhandledPhotoReportsByDate(startIndex, max) {
-    let photoReports = [];
     sql.close() // Close any existing connections.
     return await sql.connect(CONFIG)
         .then(async function () {
             let req = new sql.Request();
-            let sqlQuery = 'SELECT r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id FROM report r' +
-                'LEFT OUTER JOIN post p ON p.post_id = r.post_id' +
-                'GROUP BY r.report_id,r.report_date, r.report_details,p.photo_id,p.user_id ORDER BY r.upload_date';
+            let sqlQuery = 'SELECT r.report_id, r.report_date, r.report_details, p.photo_id, p.user_id FROM report r ' +
+                'LEFT OUTER JOIN post p ON p.post_id = r.post_id ' +
+                'GROUP BY r.report_id, r.report_date, r.report_details, p.photo_id, p.user_id ORDER BY r.report_date DESC';
             return await req.query(sqlQuery).then(function (recordset) {
-                ind = 0;
-                while (recordset.recordset[ind] != null) {
-                    photoReports.push(new PhotoReport(recordset.recordset[ind].photo_id, recordset.recordset[ind].user_id, recordset.recordset[ind].report_details, recordset.recordset[ind].report_id, recordset.recordset[ind].report_date));
-                    ind = ind + 1;
+                let photoReports = [];
+                for (let i = startIndex; i < recordset.recordset.length && recordset.recordset.length < max; i++) {
+                    photoReports.push(new PhotoReport(recordset.recordset[i].photo_id, recordset.recordset[i].user_id, recordset.recordset[i].report_details, recordset.recordset[i].report_id, recordset.recordset[i].report_date));
                 }
                 sql.close();
-                return photoReports.slice(startIndex, startIndex + max);
+                return photoReports;
             })
                 .catch(function (err) {
                     throw err;
@@ -1524,7 +1523,7 @@ module.exports = {
     removePhoto, removePhotoReport, removePlant, removeUser,
     getBan, getPhoto, getPhotoReport, getPlant, getPhotoReportsByAdmin, getAdmin,
     getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
-    getTopUserPhotos, getUnhandledPhotoReportsByDate, 
+    getTopUserPhotos, getUnhandledPhotoReportsByDate,
     getUser, updatePlant, updatePhoto, updatePhotoReport, isValidReportId, isValidUserId, isValidPlantId,
     isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery, vote
 }
