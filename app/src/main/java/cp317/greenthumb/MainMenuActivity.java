@@ -57,7 +57,7 @@ public class MainMenuActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 openSettings();
-
+                //Requester.getUser(1234);
             }
         });
         //Search Page

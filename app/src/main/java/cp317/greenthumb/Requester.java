@@ -7,16 +7,18 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.util.Random;
 
+import cp317.greenthumb.Request.AsyncResponse;
+
 public class Requester {
 
     public static void createUser(int userId) {
 
         String postBody = "{\"userId\": \"" + userId + "\"}";
         String endpoint = "/users/add";
-        new Request().execute(endpoint, postBody);
+        new Request(null).execute(endpoint, postBody);
     }
 
-    public static void getBGPhoto() {
+    public static void getBGPhoto(AsyncResponse response) {
 
         Random rand = new Random();
         int photoId = rand.nextInt(5) + 1;
@@ -24,16 +26,16 @@ public class Requester {
         String postBody = "{ \"photoId\":" + photoId + "}";
         String endpoint = "/photos/byId";
 
-        new Request().execute(endpoint, postBody);
+        new Request(response).execute(endpoint, postBody);
     }
 
-    public static void getPhotoReports(int adminId) {
+    public static void getPhotoReports(int adminId, AsyncResponse response) {
         String postBody = "{\"adminId\": \"" + adminId + "\", \"startIndex\": 0}";
         String endpoint = "/photoReports/list/byDate";
-        new Request().execute(endpoint, postBody);
+        new Request(response).execute(endpoint, postBody);
     }
 
-    public static void getPlantByImage(String image, int width, int height) {
+    public static void getPlantByImage(String image, int width, int height, AsyncResponse response) {
 
         Bitmap bm = BitmapFactory.decodeFile(image);
         bm.getHeight();
@@ -46,34 +48,34 @@ public class Requester {
                 height + " }";
         String endpoint = "/plants/byImage";
 
-        new Request().execute(endpoint, postBody);
+        new Request(response).execute(endpoint, postBody);
 
     }
 
-    public static void getPlantByQuery(String query, Context context) {
+    public static void getPlantByQuery(String query, AsyncResponse response) {
 
         String postBody = "{ \"query\": \"" + query + "\"}";
         String endPoint = "/plants/byQuery";
 
-        new Request().execute(endPoint, postBody);
+        new Request(response).execute(endPoint, postBody);
     }
 
-    public static void getUser(int userId) {
+    public static void getUser(int userId, AsyncResponse response) {
 
         String postBody = "{ \"userId\": \"" + userId + "\"}";
         String endpoint = "/users/byId";
 
-        new Request().execute(endpoint, postBody);
+        new Request(response).execute(endpoint, postBody);
 
     }
 
-    public static void handlePhotoReport(int adminId, int photoReportId, int adminAction) {
+    public static void handlePhotoReport(int adminId, int photoReportId, int adminAction, AsyncResponse response) {
 
         String postBody = "{ \"adminAction\": " + adminAction + ", \"adminId\": \"" +
                 adminId + "\", \"photoReportId\": " + photoReportId + "}";
         String endPoint = "/photoReports/handle";
 
-        new Request().execute(endPoint, postBody);
+        new Request(response).execute(endPoint, postBody);
     }
 
     public static void reportPhoto(int userId, int photId, String reportText) {
@@ -83,7 +85,7 @@ public class Requester {
 
         String endPoint = "/photoReports/add";
 
-        new Request().execute(endPoint, postBody);
+        new Request(null).execute(endPoint, postBody);
     }
 
     public static void uploadPhoto(String image, int userId, int plantId) {
@@ -100,7 +102,7 @@ public class Requester {
 
         String endPoint = "/photos/add";
 
-        new Request().execute(endPoint, postBody);
+        new Request(null).execute(endPoint, postBody);
     }
 
     public static void votePhoto(int userId, int photoId, Boolean up) {
@@ -110,7 +112,7 @@ public class Requester {
 
         String endPoint = "/photos/vote";
 
-        new Request().execute(endPoint, postBody);
+        new Request(null).execute(endPoint, postBody);
     }
 
 }

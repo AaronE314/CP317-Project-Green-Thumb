@@ -23,4 +23,9 @@ public class FEPlant {
     public String get_bio() {
         return _bio;
     }
+
+    @Override
+    public String toString() {
+        return this._name;
+    }
 }

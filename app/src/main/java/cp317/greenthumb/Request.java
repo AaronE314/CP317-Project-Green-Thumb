@@ -15,10 +15,24 @@ public class Request extends AsyncTask<String, Void, String> {
 
     String API_BASE_URL="http://baf0b389.ngrok.io";
 
+    public interface AsyncResponse {
+        void processFinish(String result);
+    }
+
+    private AsyncResponse delegate = null;
+
+    public Request(AsyncResponse delegate) {
+        this.delegate = delegate;
+    }
+
     @Override
     protected void onPostExecute(String s) {
-        if (s != null) {
-            Log.d("RESULT: ", s);
+//        if (s != null) {
+//            Log.d("RESULT: ", s);
+//        }
+
+        if (this.delegate != null) {
+            this.delegate.processFinish(s);
         }
     }
 
