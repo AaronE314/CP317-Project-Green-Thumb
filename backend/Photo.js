@@ -55,7 +55,7 @@ class Photo {
         }
         /**
         * @author Adam Cassidy
-        * @returns {Number} userId The ID of the User who uploaded this Photo. Integer.
+        * @returns {String} userId The ID of the User who uploaded this Photo. String.
         */
         function getUserId() {
             return _userId;
