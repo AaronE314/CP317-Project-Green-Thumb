@@ -436,7 +436,7 @@ api.post("/plants/byId",
             req.body.maxPhotos = req.body.maxPhotos !== undefined ? req.body.maxPhotos : DEFAULTS.plantsMaxPhotos;
 
             let plant = await DBInterface.getPlant(req.body.plantId);
-            let photos = await DBInterface.getTopPlantPhotos(plant.getId());
+            let photos = await DBInterface.getTopPlantPhotos(plant.getId(), 0, req.body.maxPhotos);
             for (let i = 0; i < photos.length; i++) {
                 photos[i] = photos[i].toJSON();
             }
