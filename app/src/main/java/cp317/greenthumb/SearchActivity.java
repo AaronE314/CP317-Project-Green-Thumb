@@ -4,24 +4,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import cp317.greenthumb.Request.AsyncResponse;
+
 import static cp317.greenthumb.R.layout.activity_search;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements AsyncResponse {
     private ImageButton backButton;
     private Button searchButton;
     private TextInputEditText searchTextBox;
     private ListView plantsList;
     private ArrayList<FEPlant> plants = new ArrayList<>();
     private String searchText;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +68,10 @@ public class SearchActivity extends AppCompatActivity {
                 gotoPlant(id);
             }
         });
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+
     }
 
     public void backHome(){
@@ -68,15 +81,47 @@ public class SearchActivity extends AppCompatActivity {
 
     public void searchPlant(){
         // Need a function to filter the plants to the Array List
-
-        //Put the search results into the list box;
-        ArrayAdapter<FEPlant> adapter = new ArrayAdapter<>(this,R.layout.activity_search,plants);
-        plantsList.setAdapter(adapter);
+        searchText = searchTextBox.getText().toString();
+        Requester.getPlantByQuery(searchText, this);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     public void gotoPlant(long plantID){
 
         //Intent i = new Intent(this, PlantDescriptionActivity.class);
        // startActivity(i);
+    }
+
+    @Override
+    public void processFinish(String result) {
+        progressBar.setVisibility(View.GONE);
+
+        Log.d("RESULT:", result);
+        JSONObject reader;
+        JSONArray reader2;
+
+        FEPlant plants[];
+
+        try {
+            reader = new JSONObject(result);
+            reader2 = reader.getJSONArray("results");
+            plants = new FEPlant[reader2.length()];
+            for (int i = 0; i < reader2.length(); i++) {
+                JSONObject plantI = reader2.getJSONObject(i);
+                JSONObject plant = plantI.getJSONObject("plant");
+                int id = plant.getInt("id");
+                String name = plant.getString("name");
+                String bio = plant.getString("bio");
+                plants[i] = new FEPlant(id, name, bio);
+            }
+
+
+            //Put the search results into the list box;
+            ArrayAdapter<FEPlant> adapter = new ArrayAdapter<>(this,R.layout.searchrow,plants);
+            plantsList.setAdapter(adapter);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

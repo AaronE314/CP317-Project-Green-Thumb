@@ -1,12 +1,18 @@
 package cp317.greenthumb;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import java.io.IOException;
 import java.util.Set;
 import android.content.Intent;
 
@@ -22,6 +28,10 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE }, 0);
+        }
+
         //Initialize Buttons
 
         //Scan Page
@@ -32,7 +42,7 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        /* Can't implement until scan view done. Might have to scrap.
+        /*Can't implement until scan view done. Might have to scrap.
         //Scan Page
         scanAlbumButton = findViewById(R.id.scanAlbumButton);
         scanAlbumButton.setOnClickListener(new View.OnClickListener(){
@@ -47,6 +57,7 @@ public class MainMenuActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 openSettings();
+                //Requester.getUser(1234);
             }
         });
         //Search Page

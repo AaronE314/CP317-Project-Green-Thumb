@@ -1092,6 +1092,7 @@ id FUNCTION
 id META
 id SHIFT
 id SYM
+id ScanImageView
 id aboutText
 id action0
 id action_bar
@@ -1183,6 +1184,7 @@ id gridItem
 id gridItemImage
 id group_divider
 id groups
+id guideline
 id home
 id homeAsUp
 id icon
@@ -1233,6 +1235,7 @@ id password
 id percent
 id pin
 id plantsList_box
+id progressBar
 id progress_circular
 id progress_horizontal
 id radio
@@ -1262,6 +1265,7 @@ id search_edit_frame
 id search_go_btn
 id search_mag_icon
 id search_plate
+id search_row
 id search_src_text
 id search_txtBox
 id search_voice_btn
@@ -1420,6 +1424,7 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout searchrow
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
@@ -2117,6 +2122,7 @@ styleable Toolbar android_gravity android_minHeight buttonGravity collapseConten
 styleable View android_theme android_focusable paddingEnd paddingStart theme
 styleable ViewBackgroundHelper android_background backgroundTint backgroundTintMode
 styleable ViewStubCompat android_id android_layout android_inflatedId
+xml file_paths
 xml pref_data_sync
 xml pref_general
 xml pref_headers
