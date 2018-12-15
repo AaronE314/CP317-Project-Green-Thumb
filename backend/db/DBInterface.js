@@ -1470,6 +1470,9 @@ async function isValidReportId(reportId) {
 */
 async function vote(photoId, userId, direction) {
     try {
+        if (!(await isValidPhotoId(photoId))) {
+            throw _DBIRecordNotFound("photoId");
+        }
         direction = direction ? 1 : 0;
         let curVote = await _getVote(photoId, userId);
         if (curVote === null) {
