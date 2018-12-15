@@ -172,7 +172,7 @@ async function _plantExists(plant) {
  * @desc Checks if the User exists under another ID.
  * @author Austin Bursey
  * @author Nathaniel Carr
- * @param {plant} user The User.
+ * @param {User} user The User.
  * @returns True iff the object exists.
 */
 async function _userExists(user) {
@@ -204,8 +204,8 @@ async function _userExists(user) {
  * @desc make an array of bans object
  * @author Austin Bursey
  * @author Nathaniel Carr
- * @param {userId} userId a userId Int.
- * @returns {Bans} an array of ban  objects
+ * @param {String} userId a userId Int.
+ * @returns {Ban[]} an array of ban  objects
 */
 async function _createBanArray(userId) {
     try {
@@ -240,7 +240,8 @@ async function _createBanArray(userId) {
  * @desc if upvote is true then return the list of upvotes for photoId
  * @author Austin Bursey
  * @author Nathaniel Carr
- * @param {String} photoId a userId.
+ * @param {Number} photoId
+ * @param {Number} direction of the vote Int.
  * @returns {*} an array of votes  objects
 */
 async function _createVoteArray(photoId, direction) {
@@ -279,9 +280,9 @@ async function _createVoteArray(photoId, direction) {
  * @desc Adds a vote to the database
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {photoId} photoId a plantId Int.
- * @param {userId} userId a userId Int.
- * @param {direction} direction of the vote Int.
+ * @param {Number} photoId a plantId Int.
+ * @param {String} userId a userId Int.
+ * @param {Number} direction of the vote Int.
 */
 async function _addVote(photoId, userId, direction) {
     try {
@@ -308,8 +309,7 @@ async function _addVote(photoId, userId, direction) {
  * @desc removes a vote from the database
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {photoId} photoId a plantId Int.
- * @param {userId} userId a userId Int.
+ * @param {Number} voteId a plantId Int.
 */
 async function _removeVote(voteId) {
     try {
@@ -334,7 +334,8 @@ async function _removeVote(voteId) {
  * @desc Change the direction of a vote
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {voteId} voteId a voteId Int.
+ * @param {Number} voteId a voteId Int.
+ * @param {Number} direction direction vote is going to be changed to
 */
 async function _changeVoteDirection(voteId, direction) {
     try {
@@ -360,8 +361,9 @@ async function _changeVoteDirection(voteId, direction) {
  * @desc Finds and returns a single vote
  * @author Saad Ansari
  * @author Nathaniel Carr
+ * @param {Number} photoId a photoId Int.
  * @param {String} userId a userId Int.
- * @param {String} photoId a photoId Int.
+ * @return {vote} includes vote_id and direction
 */
 async function _getVote(photoId, userId) {
     try {
@@ -395,8 +397,8 @@ async function _getVote(photoId, userId) {
  * @desc Add a Ban to the database.
  * @author Austin Bursey
  * @author Nathaniel Carr
- * @param {ban}  The new Ban object.
- * @return {ban} The orginal ban object with an initialized Id 
+ * @param {Ban}  The new Ban object.
+ * @return {Ban} The orginal ban object with an initialized Id 
 */
 async function addBan(ban) {
     try {
@@ -437,7 +439,7 @@ async function addBan(ban) {
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {Photo} photo The new Photo object.
- * @return {photo} The orginal Photo object with an initialized Id 
+ * @return {Photo} The orginal Photo object with an initialized Id 
 */
 async function addPhoto(photo) {
     try {
@@ -482,7 +484,7 @@ async function addPhoto(photo) {
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {PhotoReport} photoReport The new PhotoReport.
- * @return {report} The orginal PhotoReport object with an initialized Id 
+ * @return {PhotoReport} The orginal PhotoReport object with an initialized Id 
 */
 async function addPhotoReport(photoReport) {
     try {
@@ -528,7 +530,7 @@ async function addPhotoReport(photoReport) {
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {Plant} plant The new Plant.
- * @return {plant} The orginal Plant object with an initialized Id 
+ * @return {Plant} The orginal Plant object with an initialized Id 
 */
 async function addPlant(plant) {
     try {
@@ -569,7 +571,7 @@ async function addPlant(plant) {
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {User} user a User object.
- * @return {user} The orginal user object with an initialized Id 
+ * @return {User} The orginal user object with an initialized Id 
 */
 async function addUser(user) {
     try {
@@ -604,7 +606,7 @@ async function addUser(user) {
  * @author Saad Ansari
  * @author Nathaniel Carr
  * @param {Admin} admin An Admin object.
- * @return {admin} original admin object with ID initialized
+ * @return {Admin} original admin object with ID initialized
 */
 async function addAdmin(admin) {
     try {
@@ -739,7 +741,7 @@ async function removePlant(plantId) {
  * @desc Removes the specified User from the database.
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {Number} userId The primary key of the User.
+ * @param {String} userId The primary key of the User.
 */
 async function removeUser(userId) {
     try {
@@ -993,7 +995,7 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
  * @desc Returns a number of most recent Photos uploaded by the specified User.
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {Number} userId The primary key of the User.
+ * @param {String} userId The primary key of the User.
  * @param {Number} startIndex The index at which to start.
  * @param {Number} max The maximum number of Photos to return.
  * @returns {Photo[]} The most recent Photos uploaded by the specified User.
@@ -1032,6 +1034,7 @@ async function getNewestUserPhotos(userId, startIndex, max) {
  * @desc Returns an array of the top rated Photos of the specified Plant.
  * @author Saad Ansari
  * @author Nathaniel Carr
+ * @param {Number} plantId
  * @param {Number} startIndex The index at which to start.
  * @param {Number} max The maximum number of Photos to return.
  * @returns {Photo[]} An array of Photos of the specified Plant.
@@ -1070,6 +1073,7 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
  * @desc Returns an array of the top rated Photos from the specified User.
  * @author Nathaniel Carr
  * @author Luke Turnbull
+ * @param {String} userId
  * @param {Number} startIndex The index at which to start.
  * @param {Number} max The maximum number of Photos to return.
  * @returns {Photo[]} An array of Photos from the specified User.
@@ -1110,7 +1114,7 @@ async function getTopUserPhotos(userId, startIndex, max) {
  * @author Luke Turnbull
  * @param {Number} startIndex The index at which to start.
  * @param {Number} max The maximum number of PhotoReports to return.
- * @returns {Photo[]} Array of unhandled PhotoReports.
+ * @returns {PhotoReport[]} Array of unhandled PhotoReports.
 */
 async function getUnhandledPhotoReportsByDate(startIndex, max) {
     try {
@@ -1144,7 +1148,7 @@ async function getUnhandledPhotoReportsByDate(startIndex, max) {
  * @desc Returns the requested User object from the DB.
  * @author Nathaniel Carr
  * @author Luke Turnbull
- * @param {Number} userId The primary key of the User table.
+ * @param {String} userId The primary key of the User table.
  * @returns {User} The requested User.
 */
 async function getUser(userId) {
@@ -1400,7 +1404,7 @@ async function isValidPlantId(plantId) {
  * @desc Returns true iff the userId can be found in the User table of the DB.
  * @author Austin Bursey
  * @author Nathaniel Carr
- * @param {Number} userId The primary key of the User table. Integer.
+ * @param {NumbStringer} userId The primary key of the User table. Integer.
  * @returns {Boolean} True iff the userId can be found in the User table of the DB.
 */
 async function isValidUserId(userId) {
@@ -1464,9 +1468,9 @@ async function isValidReportId(reportId) {
  * @desc Manages the votes 
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {userId} userId a userId Int.
- * @param {photoId} photoId a photoId Int.
- * @param {direction} direction the direction of the vote.
+ * @param {Number} photoId a photoId Int.
+ * @param {String} userId a userId Int.
+ * @param {Number} direction the direction of the vote.
 */
 async function vote(photoId, userId, direction) {
     try {
