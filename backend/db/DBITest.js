@@ -13,9 +13,7 @@ var User = require("../User.js");
 
 (async()=>{
     try{
-    let photos = await DBInterface.getNewestPlantPhotos(2,0,2);
-
-    console.log(photos[1].toJSON());
+    let photos = await DBInterface.getNewestUserPhotos('1234',1,2);
     }catch(error){
         console.log(error);
     }
