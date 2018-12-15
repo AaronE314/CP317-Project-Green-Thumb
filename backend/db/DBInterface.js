@@ -971,7 +971,7 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
                 return await req.query(sqlQuery).then(async function (recordset) {
                     let photos = [];
                     for (let i = startIndex; i < recordset.recordset.length && photos.length < max; i++) {
-                        photos[i] = new Photo(recordset.recordset[i].plant_id, recordset.recordset[i].user_id, recordset.recordset[i].image, recordset.recordset[i].photo_id, recordset.recordset[i].upload_date, await _createVoteArray(recordset.recordset[i].photo_id, 1), await _createVoteArray(recordset.recordset[i].photoId, 0));
+                        photos.push(new Photo(recordset.recordset[i].plant_id, recordset.recordset[i].user_id, recordset.recordset[i].image, recordset.recordset[i].photo_id, recordset.recordset[i].upload_date, await _createVoteArray(recordset.recordset[i].photo_id, 1), await _createVoteArray(recordset.recordset[i].photoId, 0)));
                     }
                     return photos;
                 })
@@ -1010,7 +1010,7 @@ async function getNewestUserPhotos(userId, startIndex, max) {
                     .then(async function (recordset) {
                         let photos = [];
                         for (let i = startIndex; i < recordset.recordset.length && photos.length < max; i++) {
-                            photos[i] = new Photo(recordset.recordset[i].plant_id, recordset.recordset[i].user_id, recordset.recordset[i].image, recordset.recordset[i].photo_id, recordset.recordset[i].upload_date, await _createVoteArray(recordset.recordset[i].photo_id, 1), await _createVoteArray(recordset.recordset[i].photoId, 0));
+                            photos.push(new Photo(recordset.recordset[i].plant_id, recordset.recordset[i].user_id, recordset.recordset[i].image, recordset.recordset[i].photo_id, recordset.recordset[i].upload_date, await _createVoteArray(recordset.recordset[i].photo_id, 1), await _createVoteArray(recordset.recordset[i].photoId, 0)));
                         }
                         return photos;
                     })
@@ -1048,7 +1048,7 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
                     .then(async function (recordset) {
                         let photos = [];
                         for (let i = startIndex; i < recordset.recordset.length && photos.length < max; i++) {
-                            photos[i] = new Photo(recordset.recordset[i].plant_id, recordset.recordset[i].user_id, recordset.recordset[i].image, recordset.recordset[i].photo_id, recordset.recordset[i].upload_date, await _createVoteArray(recordset.recordset[i].photo_id, 1), await _createVoteArray(recordset.recordset[i].photoId, 0));
+                            photos.push(new Photo(recordset.recordset[i].plant_id, recordset.recordset[i].user_id, recordset.recordset[i].image, recordset.recordset[i].photo_id, recordset.recordset[i].upload_date, await _createVoteArray(recordset.recordset[i].photo_id, 1), await _createVoteArray(recordset.recordset[i].photoId, 0)));
                         }
                         return photos;
                     })
@@ -1086,7 +1086,7 @@ async function getTopUserPhotos(userId, startIndex, max) {
                     .then(async function (recordset) {
                         let photos = [];
                         for (let i = startIndex; i < recordset.recordset.length && photos.length < max; i++) {
-                            photos[i] = new Photo(recordset.recordset[i].plant_id, recordset.recordset[i].user_id, recordset.recordset[i].image, recordset.recordset[i].photo_id, recordset.recordset[i].upload_date, await _createVoteArray(recordset.recordset[i].photo_id, 1), await _createVoteArray(recordset.recordset[i].photoId, 0));
+                            photos.push(new Photo(recordset.recordset[i].plant_id, recordset.recordset[i].user_id, recordset.recordset[i].image, recordset.recordset[i].photo_id, recordset.recordset[i].upload_date, await _createVoteArray(recordset.recordset[i].photo_id, 1), await _createVoteArray(recordset.recordset[i].photoId, 0)));
                         }
                         return photos;
                     })
