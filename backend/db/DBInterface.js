@@ -1577,5 +1577,5 @@ module.exports = {
     getNewestPlantPhotos, getNewestUserPhotos, getTopPhotos, getTopPlantPhotos,
     getTopUserPhotos, getUnhandledPhotoReportsByDate, getUnhandledPhotoReportsByPriority,
     getUser, updatePlant, updatePhoto, updatePhotoReport, isValidReportId, isValidUserId, isValidPlantId,
-    isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery, create_votes, add_vote
+    isValidPhotoId, isValidBanId, isValidAdminId, getPlantByQuery, create_votes, add_vote, vote
 }
