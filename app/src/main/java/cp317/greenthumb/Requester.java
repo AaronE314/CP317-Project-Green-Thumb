@@ -1,7 +1,7 @@
 package cp317.greenthumb;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Random;
@@ -34,17 +34,27 @@ public class Requester {
         new Request(response).execute(endpoint, postBody);
     }
 
-    public static void getPlantByImage(String image, int width, int height, AsyncResponse response) {
+    public static void getPlantByImage(Bitmap image, int width, int height, AsyncResponse response) {
 
-        Bitmap bm = BitmapFactory.decodeFile(image);
-        bm.getHeight();
-        bm.getWidth();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+//        Bitmap bm = BitmapFactory.decodeFile(image);
+//        bm.getHeight();
+//        bm.getWidth();
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//        String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
 
-        String postBody = "{ \"image\": \"" + encodedImage + "\", \"width\": " + width + "\", \"height\": " +
-                height + " }";
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+
+        String encodedImage = Base64.encodeToString(bytes, Base64.DEFAULT);
+
+        encodedImage = encodedImage.replace("\n", "");
+
+        String postBody = "{ \"image\": \"" + encodedImage + "\", \"width\": " + width + ", \"height\": " +
+                height + ", \"maxPhotos\": 1 }";
+        Log.d("DEBUG", encodedImage);
+//        Log.d("DEBUG", postBody);
         String endpoint = "/plants/byImage";
 
         new Request(response).execute(endpoint, postBody);
@@ -87,14 +97,20 @@ public class Requester {
         new Request(null).execute(endPoint, postBody);
     }
 
-    public static void uploadPhoto(String image, int userId, int plantId) {
+    public static void uploadPhoto(Bitmap image, int userId, int plantId) {
 
-        Bitmap bm = BitmapFactory.decodeFile(image);
-        bm.getHeight();
-        bm.getWidth();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+//        Bitmap bm = BitmapFactory.decodeFile(image);
+//        bm.getHeight();
+//        bm.getWidth();
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//        String encodedImage = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+
+        String encodedImage = Base64.encodeToString(bytes, Base64.DEFAULT);
 
         String postBody = "{ \"image\":\"" + encodedImage + ", \"plantId\":" +
                 plantId +", \"userId\": \"" + userId + "\"}";

@@ -2,6 +2,8 @@ package cp317.greenthumb;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
@@ -10,36 +12,51 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ScanActivity extends Activity {
-    //vars
-    ImageView imageView;
-    ImageView mImageView;
-    String mCurrentPhotoPath;
+import cp317.greenthumb.Request.AsyncResponse;
 
+public class ScanActivity extends Activity implements AsyncResponse {
+
+    private ImageView mImageView;
+    private String mCurrentPhotoPath;
+
+    private ProgressBar progressBar;
+
+    private static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //imageView=findViewById(R.id.ScanImageView);
-        mImageView = findViewById(R.id.ScanImageView);
+
         setContentView(R.layout.activity_scan);
+        mImageView = findViewById(R.id.ScanImageView);
+
+        progressBar = findViewById(R.id.progressBar2);
+        progressBar.setVisibility(View.GONE);
+
         /** A safe way to get an instance of the Camera object. */
         dispatchTakePictureIntent();
 
     }
 
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int REQUEST_TAKE_PHOTO = 1;
-
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
@@ -56,6 +73,7 @@ public class ScanActivity extends Activity {
                         "cp317.greenthumb.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
 
             }
@@ -64,10 +82,12 @@ public class ScanActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_TAKE_PHOTO) {
-            galleryAddPic();
-            setPic();
+        if (resultCode != RESULT_CANCELED) {
+            if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+                galleryAddPic();
+                //Bitmap photo = (Bitmap) data.getExtras().get("data");
+                setPic();
+            }
         }
 
     }
@@ -93,10 +113,13 @@ public class ScanActivity extends Activity {
         this.sendBroadcast(mediaScanIntent);
     }
 
-    private void setPic() {
+    private void setPic(){ //Bitmap photo) {
         // Get the dimensions of the View
-        int targetW = mImageView.getWidth();
-        int targetH = mImageView.getHeight();
+//        int targetW = mImageView.getWidth();
+//        int targetH = mImageView.getHeight();
+
+        int targetW = mImageView.getLayoutParams().width;
+        int targetH = mImageView.getLayoutParams().height;
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -113,6 +136,67 @@ public class ScanActivity extends Activity {
         bmOptions.inSampleSize = scaleFactor;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        mImageView.setImageBitmap(bitmap);
+
+        File imageFile = new File(mCurrentPhotoPath);
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(imageFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Bitmap acutalImage = BitmapFactory.decodeStream(fis);
+
+        try {
+            bitmap = rotateImageIfRequired(bitmap, mCurrentPhotoPath);
+            mImageView.setImageBitmap(bitmap);
+            //Requester.getPlantByImage(acutalImage, acutalImage.getWidth(), acutalImage.getHeight(), this);
+            //progressBar.setVisibility(View.VISIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static Bitmap rotateImageIfRequired(Bitmap img, String path) throws IOException {
+
+        ExifInterface ei = new ExifInterface(path);
+        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                return rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                return rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                return rotateImage(img, 270);
+            default:
+                return img;
+        }
+    }
+
+    private static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
+    }
+
+    @Override
+    public void processFinish(String result) {
+        progressBar.setVisibility(View.GONE);
+
+        Log.d("RESULT:", result);
+        // Decode JSON
+
+//        JSONObject reader;
+//        JSONArray reader2;
+//
+//        try {
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 }
