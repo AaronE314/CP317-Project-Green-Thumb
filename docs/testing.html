@@ -1,6 +1,152 @@
 
 <!DOCTYPE html>
 <html>
+    
+<head>
+    <title>Testing</title>
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Project GreenThumb - SQA Testing Log</h1>
+	<h2>Backend Testing</h2>
+    <p>
+        <table style="width:100%">
+            <tr>
+                <th>Class</th>
+                <th>Method(s) / Endpoint</th>
+                <th>Tested By</th>
+                <th>Date Tested</th>
+                <th>Issues</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>PhotoReport</td>
+         	    <td>All</td>
+                <td>Nathaniel Carr</td>
+                <td>2018/12/07</td>
+                <td>None</td>
+                <td></td>
+            </tr>
+      		 <tr>
+                <td>DBInterface</td>
+         	    <td>getPhotoReport</td>
+                <td>Nathaniel Carr</td>
+                <td>2018/12/08</td>
+                <td>Failure: Crash</td>
+                <td>Fixed</td>
+            </tr>
+            <tr>
+                  <td>DBInterface</td>
+                  <td>getBan</td>
+                  <td>Saje Bailey</td>
+           	      <td>2018/12/10</td>
+                  <td>Failure: Logic Error</td>
+                  <td>Fixed</td>
+              </tr>
+          	  <tr>
+                  <td>DBInterface</td>
+                  <td>getPhotoReport</td>
+                  <td>Saje Bailey</td>
+           	      <td>2018/12/10</td>
+                  <td>Failure: Crash</td>
+                  <td>Fixed</td>
+              </tr>
+             <tr>
+                    <td>Admin</td>
+                    <td>All</td>
+                    <td>Nathaniel Carr</td>
+                    <td>2018/12/10</td>
+                    <td>Failure: Syntax Error</td>
+                    <td>Fixed</td>
+                </tr>
+          		 <tr>
+                  <td>Photo</td>
+                  <td>All</td>
+                  <td>Nathaniel Carr</td>
+                  <td>2018/12/10</td>
+                  <td>Failure: Logic Error</td>
+                  <td>Fixed</td>
+              </tr>
+              <tr>
+                  <td>Photo</td>
+                  <td>All</td>
+                  <td>Scott Peebles</td>
+                  <td>2018/12/10</td>
+                  <td>Failure: Logic Error</td>
+                  <td>Fixed</td>
+              </tr>
+          	  <tr>
+                  <td>DBInterface</td>
+                  <td>getTopPlantPhotos</td>
+                  <td>Austin Bursey</td>
+                  <td>2018/12/10</td>
+                  <td>Failure: Syntax Errorr</td>
+                  <td>Fixed</td>
+              </tr>
+              <tr>
+                  <td>DBInterface</td>
+                  <td>removePhotoReport</td>
+                  <td>Saje Bailey</td>
+                  <td>2018/12/11</td>
+                  <td>Failure: Syntax Errorr</td>
+                  <td>Fixed</td>
+              </tr>
+              <tr>
+                  <td>DBInterface</td>
+                  <td>All "remove" methods</td>
+                  <td>Austin Bursey</td>
+                  <td>2018/12/11</td>
+                  <td>Failure: Syntax Errorr</td>
+                  <td>Fixed</td>
+              </tr>
+              <tr>
+                  <td>DBInterface</td>
+                  <td>addPlant</td>
+                  <td>Luke Turnbull</td>
+                  <td>2018/12/11</td>
+                  <td>Failure: Logic Error</td>
+                  <td>Fixed</td>
+              </tr>
+          	  <tr>
+                  <td>DBInterface</td>
+                  <td>photo_report_exists</td>
+                  <td>Saje Bailey</td>
+                  <td>2018/12/12</td>
+                  <td>Failure: Syntax Errorr</td>
+                  <td>Fixed</td>
+              </tr>
+              <tr>
+                  <td>DBInterface</td>
+                  <td>getUnhandledPhotoReportsByPriority, getUnhandledPhotoReportsByDate</td>
+                  <td>Saje Bailey</td>
+                  <td>2018/12/12</td>
+                  <td>Failure: Unhandled misspelled</td>
+                  <td>Fixed</td>
+              </tr>
+          	  <tr>
+                  <td>API</td>
+                  <td>/photos/add, photos/byId</td>
+                  <td>Aaron Exley</td>
+                  <td>2018/12/12</td>
+                  <td>None</td>
+                  <td></td>
+              </tr>
+     
+            
+        </table>
+
+    </p>
 
 <head>
     <title>Testing</title>
