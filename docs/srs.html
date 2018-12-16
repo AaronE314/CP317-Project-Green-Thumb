@@ -22,8 +22,8 @@
     <p><b>Frontend</b>: The component of the GreenThumb application responsible for integrating GreenThumb with the user&rsquo;s specific platform.</p>
     <p><b>GUI</b>: abbr. &lsquo;Graphical User Interface.&rsquo; An interface with which users can interact with a program.</p>
     <p><b>MS SQL</b>: abbr. &lsquo;Mircosoft Structured Query Language.&rsquo; A language to manage and manipulate databases.</p> 
-    <p><b>ML</b>: abbr. &lsquo;Machine Learning.&rsquo; An application of AI wherein the system is able to improve itself through training.</p>
-    <p><b>NN</b>: abbr. &lsquo;Neural Network.&rsquo; An algorithm that mimics structures in the brain in order to do things that are usually hard for computers to do. A basic form of AI.</p>
+    <p><b>ML</b>: abbr. &lsquo;Machine Learning.&rsquo; An application of AI wherein the system is able to learn automatically.</p>
+    <p><b>NN</b>: abbr. &lsquo;Neural Network.&rsquo; An algorithm the tries to replicate how the brain works in order to do things that are usually hard for computers to do. A basic form of AI.</p>
     <p><b>QA</b>: abbr. &lsquo;Quality Assurance.&rsquo; The assurance that a piece of code or document meets certain pre-established criteria, ensuring the quality of the product at every stage of its development.</p>
     <p><b>RCNN</b>: abbr. &lsquo;Region Convolutional Neural Network.&rsquo; A special type of CNN that is optimized for detecting multiple objects within an image.</p>
     <p><b>RDBMS</b>: abbr. &lsquo;relational  Database Managment System. &rsquo;A database mangment System based on the relational model.</[>
@@ -47,14 +47,14 @@
     <ol  start="1">
         
         <li ><b>Frontend</b>: the component of the GreenThumb application responsible for the GUI and integration with the user&rsquo;s Android device.</li>
-        <li ><b>Backend</b>: the component of the GreenThumb application responsible for running the API that allows the frontend to communicate with the database. The ML primarily occurs here.</li>
+        <li ><b>Backend</b>: the component of the GreenThumb application responsible for running the API that allows the frontend to communicate with the database. The ML occurs here.</li>
         <li ><b>Database</b>: the tables containing the information on each species of plant, as well as user information, admin information, user bans, photo reports, and user-uploaded photographs.</li>
     </ol>
     <h3  >2.1.2 User Interface</h3>
     <ol  start="1">
         <li>Splash: Page that appears on launch, shows the logo while the app loads</li>
         <li>Login: Appears on first launch, or if no Google account is registered. This page prompts the user to log in through google.</li>
-        <li>Main Menu: Has buttons that link to the scan, search, and settings pages.</li>
+        <li>Main Menu: Has buttons to link to the scan and search pages, as well as a button on top to access settings. Displays a white rose behind the logo in the background.</li>
         <li>Settings: Has an about section, a link to the login page if a user would like to change accounts, and a font size slider.</li>
         <li>Scan page: Allows the user to scan plants and submit them to be identified.</li>
         <li>Search page: Allows users to search for different types of plants.</li>
@@ -62,8 +62,6 @@
     </ol>
 
     <p>Note: none of the above images represent the final GUI, but are to be used a example of what one could look like, and will change over the course of the project based on input from users/team members.)</p>
-    <br><b>User Interface Update</b></br>
-    <br>The user interface was succesfully implemented as planned.On startup the splash screen and login menu are initialized. Followed by the scan view which uses "Fragments", a newly introduced behavior in Android Studio to dynamically swipe between the various other menus such as the search page. </br>
 
     <h3 >2.1.3 Communications Interfaces</h3>
     <p >GreenThumb uses Google&rsquo;s Sign In integration to include user accounts.</p>
@@ -96,10 +94,10 @@
         <li ><b>Admin</b>: A user with the privileges of a registered user, along with the ability to remove the photos of other users, ban users, add a species to the database, update an existing species in the database, and remove a species from the database.</li>
     </ol>
     <h2 >2.4 Constraints</h2>
-    <p >Presently, no iOS version of GreenThumb is planned, as too few team members have access to a personal Mac device on which to write code. Should this change, an iOS version will likely be developed. No use of a mapping service such as Google Maps is planned, either.</p>
+    <p >Presently, no iOS version of GreenThumb is planned, as too few team members have access to a personal Mac device on which to write code. Should this change, an iOS version will likely be developed. No use of a mapping services such as Google Maps is planned, either.</p>
     <h2>2.5 Assumptions and Dependencies</h2>
     <p >It is assumed that all devices using GreenThumb have a camera with which to take photographs, and have access to at least the&nbsp;Android 5.0 &ndash; Lollipop operating system. Furthermore, a user must have access to the internet at all times while using GreenThumb.</p>
-    <h2>2.6 Apportioning of Requirements</h2>
+    <h2>2.6 Long Term Objectives</h2>
     <p >The following features may appear in a later version of GreenThumb:</p>
     <ul >
         <li >Creation of an iOS version of the application.</li>
@@ -119,7 +117,7 @@
     <p >Registered users can use all the functions of a guest and:</p>
     <ul >
         <li >Post photos to the corresponding species page.</li>
-        <li >Delete their own photos.</li>
+        <li >Delete own photos.</li>
         <li >Upvote/downvote/report photos.</li>
         <li >View browsing history.</li>
         <li >Clear browsing history.</li>
@@ -134,7 +132,7 @@
         <li >Ban a user.</li>
     </ul>
     <h2  >3.2 Performance Requirements</h2>
-    <p >The app should be able to scale and handle simultaneous interactions with the database. Most of the images should be able to be predicted in seconds, though images with higher resolutions and devices with slower hardware will cause longer prediction times. The responsiveness of the app is dependant on the speed of the user's internet connection, as the requested data must be fetched from the server.</p>
+    <p >The app should be able to scale and handle simultaneous interactions with the database. Most of the images should be able to be predicted in seconds, though the higher the resolution the image is and the slower the devices hardware is the longer it will take. The responsiveness of the app is dependant on the speed of the user's internet connection, as the requested data must be fetched from the server.</p>
     <h1>4. Version History</h1>
     <p>Version 0.1 - 2018/09/18</p>
     <ul >
@@ -183,17 +181,6 @@
     <ul >
         <li>Nathaniel Carr (corrected misc. mistakes in tense, date formatting)</li>
     </ul>
-    
-    <p>Version 1.3 - 2018/12/14</p>
-    <ul >
-        <li>Sachintha Herath (User Interface (2.1) updated)</li>
-    </ul>
-
-    <p>Version 1.4 - 2018/12/15</p>
-    <ul >
-        <li>John Dunphy (Updated ML definitions, misc spelling/grammar fixes)</li>
-    </ul>
-    
     
 </body>
 </html>
