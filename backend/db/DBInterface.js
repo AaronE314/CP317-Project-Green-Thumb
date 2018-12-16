@@ -760,7 +760,7 @@ async function removeUser(userId) {
                     'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE user_id = @userId OR post_id = ANY(SELECT post_id from post where user_id = @userId);' +
                     'DELETE FROM [projectgreenthumb].[dbo].[photo] WHERE photo_id = ANY (SELECT photo_id FROM [projectgreenthumb].[dbo].[post] where user_id = @userId)' +
                     'DELETE FROM [projectgreenthumb].[dbo].[post] WHERE user_id = @userId;' +
-                    'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE photo_id = ANY(SELECT photo_id FROM post WHERE user_id = @userId);' +
+                    'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE user_id = @userId;' +
                     'DELETE FROM [projectgreenthumb].[dbo].[user] WHERE [user_id] = @userId;';
                 await req.query(sqlQuery);
             })
