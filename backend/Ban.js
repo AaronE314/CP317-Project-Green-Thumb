@@ -10,7 +10,7 @@ class Ban {
      * @param {String} userId The ID of the banned User.
      * @param {String} adminId The ID of the Admin who banned the User.
      * @param {*} expirationDate The Date when the Ban expires.
-     * @param {Number=} id The Ban ID. Integer.
+     * @param {Number} id The Ban ID. Integer.
      * @constructor
      */
     constructor(userId, adminId, expirationDate, id) {
@@ -31,28 +31,28 @@ class Ban {
         // PUBLIC method defintions.
         /**
          * @author Nathaniel Carr
-         * @returns {Number} id The Ban ID. Integer.
+         * @returns {Number} The Ban ID. Integer.
          */
         function getId() {
             return _id;
         }
         /**
          * @author Nathaniel Carr
-         * @returns {Number} userId The ID of the banned User. Integer.
+         * @returns {Number} The ID of the banned User. Integer.
          */
         function getUserId() {
             return _userId;
         }
         /**
          * @author Nathaniel Carr
-         * @returns {Number} adminId The ID of the Admin who banned the User. Integer.
+         * @returns {Number} The ID of the Admin who banned the User. Integer.
          */
         function getAdminId() {
             return _adminId;
         }
         /**
          * @author Nathaniel Carr
-         * @returns {*} expirationDate The Date when the Ban expires.
+         * @returns {*} The Date when the Ban expires.
          */
         function getExpirationDate() {
             return _expirationDate;
