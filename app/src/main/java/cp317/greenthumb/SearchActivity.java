@@ -90,11 +90,16 @@ public class SearchActivity extends AppCompatActivity implements AsyncResponse {
 
     }
 
+    /**
+     * This is a function that is called when a user hits the back button takes them back to the main menu.
+     */
     public void backHome(){
         Intent i = new Intent(this, MainMenuActivity.class);
         startActivity(i);
     }
-
+    /**
+     * This is a function that is called when a user hits the search button calls the requester to get a response from the api.
+     */
     public void searchPlant(){
         // Need a function to filter the plants to the Array List
         searchText = searchTextBox.getText().toString();
@@ -102,6 +107,10 @@ public class SearchActivity extends AppCompatActivity implements AsyncResponse {
         progressBar.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Launches the PlantBioAtivity for the requested plant.
+     * @param plantId - int
+     */
     public void gotoPlant(int plantId){
 
         Intent i = new Intent(this, PlantBioActivity.class);
@@ -109,6 +118,10 @@ public class SearchActivity extends AppCompatActivity implements AsyncResponse {
         startActivity(i);
     }
 
+    /**
+     * @Link Request.AsyncResponse
+     * @param result the result of the api.
+     */
     @Override
     public void processFinish(String result) {
         progressBar.setVisibility(View.GONE);

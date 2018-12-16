@@ -17,8 +17,6 @@ import android.widget.ImageButton;
  */
 
 public class SettingsActivity extends AppCompatActivity {
-
-
     // private Button logInButton, backButton, logOutButton;
     private SeekBar fontScaleSlider;
     private TextView previewLabel, aboutText, fontSliderLabel;
@@ -88,10 +86,19 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Slider override functions
         fontScaleSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
+            /**
+             * A function that runs when Touch Tracking starts
+             * @param fontScaleSlider -SeekBar
+             */
             @Override
             public void onStartTrackingTouch(SeekBar fontScaleSlider) { }
 
+            /**
+             * A function that runs when Progress has changed(changes text size)
+             * @param fontScaleSlider - SeekBar
+             * @param progress - int
+             * @param fromUser - boolean
+             */
             @Override
             public void onProgressChanged(SeekBar fontScaleSlider, int progress,
                                           boolean fromUser){
@@ -104,6 +111,10 @@ public class SettingsActivity extends AppCompatActivity {
                 fontProgress = progress;
             }
 
+            /**
+             * A function that runs when touch Tracking stops
+             * @param fontScaleSlider SeekBar
+             */
             @Override
             public void onStopTrackingTouch(SeekBar fontScaleSlider){
                 // When user releases slider, set the font size to that value
@@ -127,7 +138,10 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-    // Opens main menu activity when back button clicked
+    /**
+     * Opens main menu activity when back button clicked
+     * @param v View to go to.
+     */
     public void backToHomeView(View v) {
         System.out.println("Going to main activity...");
         Intent intent = new Intent(this, MainMenuActivity.class);
@@ -135,10 +149,13 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-    // Opens log in activity when log in button clicked
+    /**
+     * Opens log in activity when log in button clicked
+     * @param v View to go to.
+     */
     public void logIn(View v) {
-        System.out.println("Going to LogIn activity...");
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+//        System.out.println("Going to LogIn activity...");
+//        Intent intent = new Intent(this, LoginActivity.class);
+//        startActivity(intent);
     }
 }
