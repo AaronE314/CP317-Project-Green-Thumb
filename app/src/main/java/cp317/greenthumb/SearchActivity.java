@@ -88,8 +88,9 @@ public class SearchActivity extends AppCompatActivity implements AsyncResponse {
 
     public void gotoPlant(long plantID){
 
-        //Intent i = new Intent(this, PlantDescriptionActivity.class);
-       // startActivity(i);
+        Intent i = new Intent(this, PlantBioActivity.class);
+        //i.putExtra("plantID", plantID);
+        startActivity(i);
     }
 
     @Override
