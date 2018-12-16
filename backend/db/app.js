@@ -15,7 +15,7 @@ app.use((req, res, next) => {
         user: 'greenthumbadmin',
         password: 'thumbgreen',
         server: 'greenthumbdb.cn0ybdo6z84o.us-east-2.rds.amazonaws.com',
-        database: 'testDB'
+        database: 'projectgreenthumb'
     };
 
     // Connect to database
@@ -27,15 +27,15 @@ app.use((req, res, next) => {
         var request = new sql.Request();
 
         // Query the database and get the records
-        request.query('SELECT * from testTable', function (err, recordset) {
+        request.query('SELECT * from [user]', function (err, recordset) {
             if (err) console.log(err)
 
             // Send query results as a response
-            var firstName = JSON.stringify(recordset.recordset[0].firstName);
-            var lastName = JSON.stringify(recordset.recordset[0].lastName);
+            // var firstName = JSON.stringify(recordset.recordset[0].firstName);
+            // var lastName = JSON.stringify(recordset.recordset[0].lastName);
             
             //Send results
-            res.send(firstName + " " + lastName);
+            res.send(recordset.recordset);
             res.end();
             sql.close();
 
