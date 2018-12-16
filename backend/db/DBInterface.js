@@ -754,7 +754,7 @@ async function removePlant(plantId) {
  * @desc Removes the specified User from the database.
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {String} userId The primary key of the User.
+ * @param {String} userId The id of the User.
 */
 async function removeUser(userId) {
     try {
@@ -934,7 +934,7 @@ async function getPlant(plantId) {
  * @author Saad Ansari
  * @author Nathaniel Carr
  * @param {String} query The query string.
- * @returns {Plant[]} The matching Plants.
+ * @returns {Plant[]} An array of the matching Plants.
 */
 async function getPlantByQuery(query) {
     try {
@@ -970,9 +970,9 @@ async function getPlantByQuery(query) {
  * @desc Returns an array of most recent plant photos
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {Number} plantId The primary key of the Plant.
- * @param {Number} startIndex The index at which to start.
- * @param {Number} max The maximum number of Photos to return.
+ * @param {Number} plantId The primary key of the Plant. Int
+ * @param {Number} startIndex The index at which to start. Int
+ * @param {Number} max The maximum number of Photos to return. Int
  * @returns {Photo[]} The most recent Photos uploaded of the specified Plant.
 */
 async function getNewestPlantPhotos(plantId, startIndex, max) {
@@ -1008,9 +1008,9 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
  * @desc Returns a number of most recent Photos uploaded by the specified User.
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {String} userId The primary key of the User.
- * @param {Number} startIndex The index at which to start.
- * @param {Number} max The maximum number of Photos to return.
+ * @param {String} userId The primary key of the User. String
+ * @param {Number} startIndex The index at which to start. Int
+ * @param {Number} max The maximum number of Photos to return. Int
  * @returns {Photo[]} The most recent Photos uploaded by the specified User.
 */
 async function getNewestUserPhotos(userId, startIndex, max) {
@@ -1047,9 +1047,9 @@ async function getNewestUserPhotos(userId, startIndex, max) {
  * @desc Returns an array of the top rated Photos of the specified Plant.
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {Number} plantId
- * @param {Number} startIndex The index at which to start.
- * @param {Number} max The maximum number of Photos to return.
+ * @param {Number} plantId The primary key of the plant. Int
+ * @param {Number} startIndex The index at which to start. Int
+ * @param {Number} max The maximum number of Photos to return. Int
  * @returns {Photo[]} An array of Photos of the specified Plant.
 */
 async function getTopPlantPhotos(plantId, startIndex, max) {
@@ -1086,9 +1086,9 @@ async function getTopPlantPhotos(plantId, startIndex, max) {
  * @desc Returns an array of the top rated Photos from the specified User.
  * @author Nathaniel Carr
  * @author Luke Turnbull
- * @param {String} userId
- * @param {Number} startIndex The index at which to start.
- * @param {Number} max The maximum number of Photos to return.
+ * @param {String} userId The id of the user. String
+ * @param {Number} startIndex The index at which to start. Int
+ * @param {Number} max The maximum number of Photos to return. Int
  * @returns {Photo[]} An array of Photos from the specified User.
 */
 async function getTopUserPhotos(userId, startIndex, max) {
@@ -1125,8 +1125,8 @@ async function getTopUserPhotos(userId, startIndex, max) {
  * @desc Returns an array of oldest unhandled PhotoReport.
  * @author Nathaniel Carr
  * @author Luke Turnbull
- * @param {Number} startIndex The index at which to start.
- * @param {Number} max The maximum number of PhotoReports to return.
+ * @param {Number} startIndex The index at which to start. Int
+ * @param {Number} max The maximum number of PhotoReports to return. Int
  * @returns {PhotoReport[]} Array of unhandled PhotoReports.
 */
 async function getUnhandledPhotoReportsByDate(startIndex, max) {
@@ -1161,7 +1161,7 @@ async function getUnhandledPhotoReportsByDate(startIndex, max) {
  * @desc Returns the requested User object from the DB.
  * @author Nathaniel Carr
  * @author Luke Turnbull
- * @param {String} userId The primary key of the User table.
+ * @param {String} userId The primary key of the User table. String
  * @returns {User} The requested User.
 */
 async function getUser(userId) {
@@ -1481,9 +1481,9 @@ async function isValidReportId(reportId) {
  * @desc Manages the votes 
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {Number} photoId a photoId Int.
- * @param {String} userId a userId Int.
- * @param {Number} direction the direction of the vote.
+ * @param {Number} photoId a photoId. Int
+ * @param {String} userId a userId. Int
+ * @param {Number} direction the direction of the vote. Int
 */
 async function vote(photoId, userId, direction) {
     try {
