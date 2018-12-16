@@ -46,7 +46,7 @@ public class PlantBioActivity extends AppCompatActivity implements AsyncResponse
 
         // set loading to visible
         progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.VISIBLE);
 
         imageView = findViewById(R.id.plantImage);
     }
@@ -54,7 +54,7 @@ public class PlantBioActivity extends AppCompatActivity implements AsyncResponse
     @Override
     public void processFinish(String result) {
         // set loading to gone
-        progressBar.setVisibility(View.GONE);
+        //progressBar.setVisibility(View.GONE);
 
         // decode JSON
         String name = "";
