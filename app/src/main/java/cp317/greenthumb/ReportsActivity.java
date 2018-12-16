@@ -83,6 +83,11 @@ public class ReportsActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * This is a function that is called when a user hits the back button takes them back to the main menu.
+     * @param view the view to go to.(just goes to GalleryActivity)
+     */
     public void backToGalleryView(View view){
         Intent intent = new Intent(this, GalleryActivity.class);
         startActivity(intent);

@@ -51,6 +51,10 @@ public class PlantBioActivity extends AppCompatActivity implements AsyncResponse
         imageView = findViewById(R.id.plantImage);
     }
 
+    /**
+     * @link Request.AsyncResponce
+     * @param result
+     */
     @Override
     public void processFinish(String result) {
         // set loading to gone
