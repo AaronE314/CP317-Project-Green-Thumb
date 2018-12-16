@@ -77,7 +77,6 @@ public class Requester {
         new Request(response).execute(endPoint, postBody);
     }
 
-
     public static void getUser(int userId, AsyncResponse response) {
 
         String postBody = "{ \"userId\": \"" + userId + "\"}";
