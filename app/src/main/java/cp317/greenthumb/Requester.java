@@ -69,6 +69,15 @@ public class Requester {
         new Request(response).execute(endPoint, postBody);
     }
 
+    public static void getPlantById(int plantId, AsyncResponse response) {
+
+        String postBody = "{ \"plantId\": " + plantId + "}";
+        String endPoint = "/plants/byId";
+
+        new Request(response).execute(endPoint, postBody);
+    }
+
+
     public static void getUser(int userId, AsyncResponse response) {
 
         String postBody = "{ \"userId\": \"" + userId + "\"}";
