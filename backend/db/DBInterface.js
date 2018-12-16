@@ -612,7 +612,8 @@ async function addAdmin(admin) {
         return await sql.connect(CONFIG)
             .then(async function () {
                 let req = new sql.Request();
-                return await req.query("Insert into [projectgreenthumb].[dbo].[admin] values ();")
+                req.input('userId', sql.VarChar, admin.getId());
+                return await req.query("Insert into [projectgreenthumb].[dbo].[admin] (admin_id) values (@userId);")
                     .then(function () {
                         return admin;
                     })
@@ -750,14 +751,14 @@ async function removeUser(userId) {
         await sql.connect(CONFIG)
             .then(async function () {
                 let req = new sql.Request();
-                req.input('plantId', sql.Int, plantId);
+                req.input('userId', sql.VarChar, userId);
                 let sqlQuery =
                     "DELETE FROM [projectgreenthumb].[dbo].[ban] WHERE user_id = @userId;" +
                     'DELETE FROM [projectgreenthumb].[dbo].[admin_report] WHERE report_id = ANY(SELECT report_id FROM report WHERE user_id = @userId or post_id = ANY(SELECT post_id from post where user_id = @userId));' +
                     'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE user_id = @userId OR post_id = ANY(SELECT post_id from post where user_id = @userId);' +
                     'DELETE FROM [projectgreenthumb].[dbo].[photo] WHERE photo_id = ANY (SELECT photo_id FROM [projectgreenthumb].[dbo].[post] where user_id = @userId)' +
                     'DELETE FROM [projectgreenthumb].[dbo].[post] WHERE user_id = @userId;' +
-                    'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE user_id = @userId;' +
+                    'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE photo_id = ANY(SELECT photo_id FROM post WHERE user_id = @userId);' +
                     'DELETE FROM [projectgreenthumb].[dbo].[user] WHERE [user_id] = @userId;';
                 await req.query(sqlQuery);
             })
