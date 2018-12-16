@@ -26,21 +26,33 @@ const CONFIG = {
 };
 
 ///////////////////////////Error Functions////////////////////////////
+/**
+ * @desc Returns an error when a record is not found.
+ * @author Austin Bursey
+ * @param {*} element The name of the field not found.
+ * @returns {Error} An error with a helpful message. 
+*/
 function _DBIRecordNotFound(element) {
     return new Error(`The ${element} you are looking for cannot be found in our records`);
 }
 
+/**
+ * @desc Returns an error when a record is not found.
+ * @author Austin Bursey
+ * @param {*} element The name of the field not found.
+ * @returns {Error} An error with a helpful message. 
+*/
 function _DBIDuplicate(element) {
     return new Error(`The ${element} object(s) you are attempting to save already exist(s).`);
 }
 
 ///////////////////////////Private Helper Functions////////////////////////////
 /**
- * @desc Checks if the Ban exists under another ID.
+ * @desc Checks if the Ban already exists under another ID.
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {Ban} ban a Ban object.
- * @returns true iff the object exists. 
+ * @returns {Boolean} true iff the object exists. 
 */
 async function _banExists(ban) {
     try {
@@ -70,11 +82,11 @@ async function _banExists(ban) {
 }
 
 /**
- * @desc Checks if the Photo exists under another ID.
+ * @desc Checks if the Photo already exists under another ID.
  * @author Austin Bursey 
  * @author Nathaniel Carr
  * @param {Photo} photo A Photo.
- * @returns True iff the object exists.
+ * @returns {Boolean} True iff the object exists.
 */
 async function _photoExists(photo) {
     try {
@@ -103,11 +115,11 @@ async function _photoExists(photo) {
 }
 
 /**
- * @desc Checks if the Photo exists under another ID.
+ * @desc Checks if the Photo Report already exists under another ID.
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {PhotoReport} photoReport A PhotoReport object.
- * @returns True iff the object exists.
+ * @returns {Boolean} True iff the object exists.
 */
 async function _photoReportExists(photoReport) {
     try {
@@ -137,11 +149,11 @@ async function _photoReportExists(photoReport) {
 }
 
 /**
- * @desc Checks if the Plant exists under another ID.
+ * @desc Checks if the Plant already exists under another ID.
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {Plant} plant The Plant.
- * @returns True iff the object exists.
+ * @returns {Boolean} True iff the object exists.
 */
 async function _plantExists(plant) {
     try {
@@ -169,11 +181,11 @@ async function _plantExists(plant) {
 }
 
 /**
- * @desc Checks if the User exists under another ID.
+ * @desc Checks if the User already exists under another ID.
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {User} user The User.
- * @returns True iff the object exists.
+ * @returns {Boolean} True iff the object exists.
 */
 async function _userExists(user) {
     try {
@@ -201,11 +213,11 @@ async function _userExists(user) {
 }
 
 /**
- * @desc make an array of bans object
+ * @desc makes and returns an array of ban object
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {String} userId a userId Int.
- * @returns {Ban[]} an array of ban  objects
+ * @returns {Ban[]} an array of ban objects
 */
 async function _createBanArray(userId) {
     try {
@@ -240,9 +252,9 @@ async function _createBanArray(userId) {
  * @desc if upvote is true then return the list of upvotes for photoId
  * @author Austin Bursey
  * @author Nathaniel Carr
- * @param {Number} photoId
+ * @param {Number} photoId of the photo. Int
  * @param {Number} direction of the vote Int.
- * @returns {*} an array of votes  objects
+ * @returns {*} an array of votes objects
 */
 async function _createVoteArray(photoId, direction) {
     try {
@@ -309,7 +321,7 @@ async function _addVote(photoId, userId, direction) {
  * @desc removes a vote from the database
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {Number} voteId a plantId Int.
+ * @param {Number} voteId a vote Int.
 */
 async function _removeVote(voteId) {
     try {
@@ -363,7 +375,7 @@ async function _changeVoteDirection(voteId, direction) {
  * @author Nathaniel Carr
  * @param {Number} photoId a photoId Int.
  * @param {String} userId a userId Int.
- * @return {vote} includes vote_id and direction
+ * @return {*} includes vote_id and direction
 */
 async function _getVote(photoId, userId) {
     try {
@@ -397,7 +409,7 @@ async function _getVote(photoId, userId) {
  * @desc Add a Ban to the database.
  * @author Austin Bursey
  * @author Nathaniel Carr
- * @param {Ban}  The new Ban object.
+ * @param {Ban} ban new Ban object.
  * @return {Ban} The orginal ban object with an initialized Id 
 */
 async function addBan(ban) {
@@ -439,7 +451,7 @@ async function addBan(ban) {
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {Photo} photo The new Photo object.
- * @return {Photo} The orginal Photo object with an initialized Id 
+ * @return {Photo} The orginal Photo object with an initialized Id. 
 */
 async function addPhoto(photo) {
     try {
@@ -484,7 +496,7 @@ async function addPhoto(photo) {
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {PhotoReport} photoReport The new PhotoReport.
- * @return {PhotoReport} The orginal PhotoReport object with an initialized Id 
+ * @return {PhotoReport} The orginal PhotoReport object with an initialized Id. 
 */
 async function addPhotoReport(photoReport) {
     try {
@@ -530,7 +542,7 @@ async function addPhotoReport(photoReport) {
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {Plant} plant The new Plant.
- * @return {Plant} The orginal Plant object with an initialized Id 
+ * @return {Plant} The orginal Plant object with an initialized Id. 
 */
 async function addPlant(plant) {
     try {
@@ -571,7 +583,7 @@ async function addPlant(plant) {
  * @author Austin Bursey
  * @author Nathaniel Carr
  * @param {User} user a User object.
- * @return {User} The orginal user object with an initialized Id 
+ * @return {User} The orginal user object with an initialized Id.
 */
 async function addUser(user) {
     try {
@@ -638,7 +650,7 @@ async function addAdmin(admin) {
  * @desc Removes the Photo from the database.
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {Number} photoId The primary key of the Photo.
+ * @param {Number} photoId The id of the Photo.
 */
 async function removePhoto(photoId) {
     try {
@@ -672,7 +684,7 @@ async function removePhoto(photoId) {
  * @desc Removes the report from the database.
  * @author Saad Ansari
  * @author Nathaniel Carr
- * @param {Number} photoReportId The primary key of the PhotoReport.
+ * @param {Number} photoReportId The id of the PhotoReport.
 */
 async function removePhotoReport(photoReportId) {
     try {
