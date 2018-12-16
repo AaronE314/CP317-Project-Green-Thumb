@@ -2,13 +2,11 @@ package cp317.greenthumb;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ProgressBar;
@@ -28,9 +26,6 @@ public class PlantBioActivity extends AppCompatActivity implements AsyncResponse
     private TextView plantName, plantDescription;
     private ProgressBar progressBar;
     private ImageView imageView;
-    private Image plantPhoto;
-    private ArrayList<FEPlant> plants = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +35,9 @@ public class PlantBioActivity extends AppCompatActivity implements AsyncResponse
         Requester.getPlantById(2, this);
 
         plantName = findViewById(R.id.plantTitle);
+        plantName.setTextSize(20);
         plantDescription = findViewById(R.id.description);
+
         //plantName.setTextSize((int)globalVars.text_size);
         //plantDescription.setTextSize((int)globalVars.text_size);
 
@@ -54,33 +51,33 @@ public class PlantBioActivity extends AppCompatActivity implements AsyncResponse
     @Override
     public void processFinish(String result) {
         // set loading to gone
-        //progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
 
         // decode JSON
-        String name = "";
-        String bio = "";
-        String image = "";
+        String name;
+        String bio;
+        String image;
 
         Log.d("RESULT:", result);
-        JSONObject reader;
-        JSONArray reader2;
-
+        JSONObject reader, reader2, reader3;
+        JSONArray aReader;
 
         try {
             reader = new JSONObject(result);
-            reader2 = reader.getJSONArray("results");
-            for (int i = 0; i < reader2.length(); i++) {
-                JSONObject plantI = reader2.getJSONObject(i);
-                JSONObject plant = plantI.getJSONObject("plant");
-                int id = plant.getInt("id");
-                name = plant.getString("name");
-                bio = plant.getString("bio");
-                JSONObject photo = plantI.getJSONObject("photo");
-                image = photo.getString("image");
-            }
+            reader2 = reader.getJSONObject("plant");
+
+            name = reader2.getString("name");
+            bio = reader2.getString("bio");
+
+            aReader = reader.getJSONArray("photos");
+
+            reader3 = aReader.getJSONObject(0);
+
+            image = reader3.getString("image");
 
             plantName.setText(name);
-            plantName.setText(bio);
+            plantDescription.setText(bio);
+
             byte[] decodedString = Base64.decode(image, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
@@ -89,9 +86,6 @@ public class PlantBioActivity extends AppCompatActivity implements AsyncResponse
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-        // set UI stuffs
 
     }
 }
