@@ -10,6 +10,10 @@ import android.content.Intent;
  */
 public class SplashScreenActivity extends Activity {
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -63,16 +63,25 @@ public class MainMenuActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Open the scan view
+     */
     public void openScan() {
         Intent i = new Intent(this, ScanActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Open the settings page
+     */
     public void openSettings() {
         Intent i = new Intent(this, SettingsActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Opens search page
+     */
     public void openSearch() {
         Intent i = new Intent(this, SearchActivity.class);
         startActivity(i);
