@@ -61,9 +61,9 @@
         </li>
     </ul>
 
-    <h2><a id="Introduction">1. Introduction</a></h2>
+    <h1><a id="Introduction">1. Introduction</a></h1>
     <div>
-        <h3><a id="Overview">1.1 Overview</a></h3>
+        <h2><a id="Overview">1.1 Overview</a></h2>
         <p>
             GreenThumb is an Android application that allows users to upload photographs of plants and have their
             species identified. Users logged in with their Google account are able to upload their photographs to the
@@ -73,68 +73,39 @@
             plant by its name.
         </p>
 
-        <h3><a id="Purpose">1.2 Purpose</a></h3>
+        <h2><a id="Purpose">1.2 Purpose</a></h2>
         <p>
             The purpose of this document is to establish the architectural and detailed design for the developers to
             follow to ensure consistency and correctness in the implementation of the software.
         </p>
 
-        <h3><a id="Intended_Audience">1.3 Intended Audience</a></h3>
+        <h2><a id="Intended_Audience">1.3 Intended Audience</a></h2>
         <p>
             The intended audience of this document is the developers.
         </p>
 
-        <h3><a id="Definitions">1.4 Definitions, Acronyms, Abbreviations</a></h3>
+        <h2><a id="Definitions">1.4 Definitions, Acronyms, Abbreviations</a></h2>
         <p>
-            <p><b>AI</b>: abbr. &lsquo;Artificial Intelligence.&rsquo; Software that can mimic the human intelligence
-                required to perform certain tasks.</p>
-            <p><b>API</b>: abbr. &lsquo;Application Programming Interface.&rsquo; A set of tools for communicating
-                between components in a software.</p>
-            <p><b>Backend</b>: The program running the API that allows communication between the database and frontend.
-                The ML primarily occurs here.</p>
-            <p><b>CNN</b>: abbr. &lsquo;Convolutional Neural Network.&rsquo; A special type of neural network that is
-                optimized to work with images.</p>
-            <p><b>Express.js</b>: Is a web application framework for Node.js, It is used to build web apps and APIs.</p>
-            <p><b>Frontend</b>: The component of the GreenThumb application responsible for integrating GreenThumb with
-                the user&rsquo;s specific platform.</p>
-            <p><b>GUI</b>: abbr. &lsquo;Graphical User Interface.&rsquo; An interface with which users can interact
-                with a program.</p>
-            <p><b>MS SQL</b>: abbr. &lsquo;Mircosoft Structured Query Language.&rsquo; A language to manage and
-                manipulate databases.</p>
-            <p><b>ML</b>: abbr. &lsquo;Machine Learning.&rsquo; An application of AI wherein the system is able to
-                learn automatically.</p>
-            <p><b>NN</b>: abbr. &lsquo;Neural Network.&rsquo; An algorithm the tries to replicate how the brain works
-                in order to do things that are usually hard for computers to do. A basic form of AI.</p>
-            <p><b>QA</b>: abbr. &lsquo;Quality Assurance.&rsquo; The assurance that a piece of code or document meets
-                certain pre-established criteria, ensuring the quality of the product at every stage of its
-                development.</p>
-            <p><b>RCNN</b>: abbr. &lsquo;Region Convolutional Neural Network.&rsquo; A special type of CNN that is
-                optimized for detecting multiple objects within an image.</p>
-            <p><b>RDBMS</b>: abbr. &lsquo;relational Database Managment System. &rsquo;A database mangment System based
-                on the relational model.</[>
-                <p><b>SRS</b>: abbr. &lsquo;Software Requirements Specification.&rsquo; A document that overviews a
-                    proposed application.</p>
-                <p><b>SQL</b>: abbr. &lsquo;Structured Query Language.&rsquo; A language to manage and manipulate
-                    databases.</p>
-                <p><b>Tensorflow</b>: &nbsp;A software library developed by Google and designed for creating optimized
-                    machine learning models.</p>
+            For an up-to-date list of relevant definitions, acronyms, and abbreviations, please refer to the
+            GreenThumb Software Requirements Specifications.
+        </p>
 
-                <h3><a id="References">1.5 References</a></h3>
-                <ul>
-                    <li><a href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/&amp;sa=D&amp;ust=1537753956302000">CP317
-                            course website</a>, including <a href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/samples.php&amp;sa=D&amp;ust=1537753956302000">previous
-                            sample projects</a>.</li>
-                    <li>The <a href="https://www.google.com/url?q=https://play.google.com/store/apps/details?id%3Dcom.robsoft.florist&amp;sa=D&amp;ust=1537753956303000">Florist</a>&nbsp;app.</li>
-                    <li>The <a href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/notes/IEEE_830.pdf&amp;sa=D&amp;ust=1537753956303000">IEEE
-                            830 Standards for Software Requirement Specifications</a>.</li>
-                    <li>The <a href="https://www.google.com/url?q=https://play.google.com/store/apps/details?id%3Dcn.danatech.xingseus&amp;sa=D&amp;ust=1537753956304000">PictureThis</a>&nbsp;app.</li>
-                </ul>
+        <h2><a id="References">1.5 References</a></h2>
+        <ul>
+            <li><a href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/&amp;sa=D&amp;ust=1537753956302000">CP317
+                    course website</a>, including <a href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/samples.php&amp;sa=D&amp;ust=1537753956302000">previous
+                    sample projects</a>.</li>
+            <li>The <a href="https://www.google.com/url?q=https://play.google.com/store/apps/details?id%3Dcom.robsoft.florist&amp;sa=D&amp;ust=1537753956303000">Florist</a>&nbsp;app.</li>
+            <li>The <a href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/notes/IEEE_830.pdf&amp;sa=D&amp;ust=1537753956303000">IEEE
+                    830 Standards for Software Requirement Specifications</a>.</li>
+            <li>The <a href="https://www.google.com/url?q=https://play.google.com/store/apps/details?id%3Dcn.danatech.xingseus&amp;sa=D&amp;ust=1537753956304000">PictureThis</a>&nbsp;app.</li>
+        </ul>
 
     </div>
 
-    <h2><a id="Implementation_Plan">2. Implementation Plan</a></h2>
+    <h1><a id="Implementation_Plan">2. Implementation Plan</a></h1>
     <div>
-        <h3><a id="Choice_of_Language">2.1 Choice of Language</a></h3>
+        <h2><a id="Choice_of_Language">2.1 Choice of Language</a></h2>
         <p>
             For the Android frontend, Java is used, as it is the primary language for Android development.
             Consequently, there is a great deal of well-designed documentation available from which to learn.
@@ -158,7 +129,7 @@
 
         </p>
 
-        <h3><a id="Integration">2.2 Integration</a></h3>
+        <h2><a id="Integration">2.2 Integration</a></h2>
         <p>
             The user login and logout functions are provided through integration with the Google Sign-In API. Both the
             Android and web frontend communicate with the backend via a RESTful API created using Express.js. This API
@@ -168,29 +139,30 @@
 
     </div>
 
-    <h2><a id="Detailed_Design">3. Detailed Design</a></h2>
+    <h1><a id="Detailed_Design">3. Detailed Design</a></h1>
     <div>
-        <h3><a id="Class_Diagrams">3.1 Class Diagrams</a></h3>
+        <h2><a id="Class_Diagrams">3.1 Class Diagrams</a></h2>
         <div>
-            <h4><a id="Frontend_Class_Diagrams">3.1.1 Frontend</a></h4>
+            <h3><a id="Frontend_Class_Diagrams">3.1.1 Frontend</a></h3>
             <div style="width: 960px; height: 720px; margin: 10px; position: relative;"><iframe allowfullscreen
                     frameborder="0" style="width:960px; height:720px" src="https://www.lucidchart.com/documents/embeddedchart/fe1d3d1c-9b0f-45da-93ab-fa1609acbb5c"
                     id="26unBgCKeDdp"></iframe></div>
             <p>
 
             </p>
-            <h4><a id="Backend_Class_Diagrams">3.1.2 Backend</h4>
+            <h3><a id="Backend_Class_Diagrams">3.1.2 Backend</h3>
             <div style="width: 960px; height: 720px; margin: 10px; position: relative;"><iframe allowfullscreen
                     frameborder="0" style="width:960px; height:720px" src="https://www.lucidchart.com/documents/embeddedchart/ce204ce9-82a9-46b0-826a-b53bfe2eef9d"
                     id="x5unJ2IbV.ku"></iframe></div>
-            <h4><a id="Database_Diagram">3.1.3 Database</h4>
-            <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen
-                    frameborder="0" style="width:640px; height:480px" src="https://www.lucidchart.com/documents/embeddedchart/95520690-4dae-4acb-8f78-86399d5531b9"
+
+            <h3><a id="Database_Diagram">3.1.3 Database</h3>
+            <div style="width: 960px; height: 720px; margin: 10px; position: relative;"><iframe allowfullscreen
+                    frameborder="0" style="width:960px; height:720px" src="https://www.lucidchart.com/documents/embeddedchart/95520690-4dae-4acb-8f78-86399d5531b9"
                     id=".MSB~Vaz5Vso"></iframe></div>
         </div>
 
 
-        <h3><a id="API_Endpoints">3.3 API Endpoints</a></h3>
+        <h2><a id="API_Endpoints">3.3 API Endpoints</a></h2>
         <table style="width:100%">
             <tr>
                 <th>Endpoint</th>
@@ -354,9 +326,9 @@
 
     </div>
 
-    <h2><a id="Interface_Style_Guide">4. Interface Style Guide</a></h2>
+    <h1><a id="Interface_Style_Guide">4. Interface Style Guide</a></h1>
     <div>
-        <h3><a id="Colour_Guidelines">4.1 Colour Guidelines</a></h3>
+        <h2><a id="Colour_Guidelines">4.1 Colour Guidelines</a></h2>
         <p>
             <table style="width:100%">
                 <tr>
@@ -383,14 +355,14 @@
 
         </p>
 
-        <h3><a id="Font_Guidelines">4.2 Font Guidelines</a></h3>
+        <h2><a id="Font_Guidelines">4.2 Font Guidelines</a></h2>
         <div>
             All fonts are true black (#000000).
             The Web interface uses Arial font.
             The Android interface uses Droid font - the Android default.
         </div>
 
-        <h3><a id="Icon_Set">4.3 Icon Set</a></h3>
+        <h2><a id="Icon_Set">4.3 Icon Set</a></h2>
         <div>
             <table>
                 <tr>
@@ -405,7 +377,7 @@
                 </tr>
             </table>
         </div>
-        <h3><a id="Prototype_Images">4.4 Prototype Images</a></h3>
+        <h2><a id="Prototype_Images">4.4 Prototype Images</a></h2>
         <div>
             <img src="protoimg1.png" height="300px">
             <img src="protoimg2.png" height="300px">
@@ -414,223 +386,62 @@
 
     </div>
 
-    <h2><a id="Versions_Authorship">5. Versions & Authorship</a></h2>
+    <h1><a id="Versions_Authorship">5. Versions & Authorship</a></h1>
     <div>
+        <p>Version 0.1 - 2018/10/25:</p>
         <ul>
-            <li>
-                <b>Version 0.1 (2018/10/25)</b>
-                <ul>
-                    <li>
-                        Austin Bursey:
-                        <ul>
-                            <li>Document Outline Created</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Jackson Newlands:
-                        <ul>
-                            <li>Overview section</li>
-                            <li>Purpose section</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Version 0.2 (2018/10/26)</b>
-                <ul>
-                    <li>
-                        Saad Ansari:
-                        <ul>
-                            <li>Added MS SQL to Choice of Languages section</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Saje Bailey:
-                        <ul>
-                            <li>Revised Overview section</li>
-                            <li>Revised Purpose section</li>
-                            <li>Definitions section</li>
-                            <li>References section</li>
-                            <li>Backend Class Diagram (misc. methods)</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Nathaniel Carr:
-                        <ul>
-                            <li>Integration section</li>
-                            <li>Intended Audience section</li>
-                            <li>Revised Overview section</li>
-                            <li>Revised Purpose section</li>
-                            <li>Updated document formatting</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Aaron Exley:
-                        <ul>
-                            <li>Backend Class Diagram (added MLTrainer, MLIdentifier)</li>
-                            <li>Choice of Language section</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Austin Bursey:
-                        <ul>
-                            <li>Added MS SQL to Choice of Language section</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Version 0.3 (2018/10/27)</b>
-                <ul>
-                    <li>
-                        Austin Bursey:
-                        <ul>
-                            <li>Backend Class Diagram (created DBInterface, FSInterface)</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Version 0.4 (2018/10/28)</b>
-                <ul>
-                    <li>
-                        Nathaniel Carr:
-                        <ul>
-                            <li>API Endpoints section</li>
-                            <li>Backend Class Diagram (revised all classes)</li>
-                            <li>Frontend Class Diagram (created all classes, filled Requester)</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Version 0.5 (2018/10/28)</b>
-                <ul>
-                    <li>
-                        Tim McGill
-                        <ul>
-                            <li>Font Guidelines (4.2)</li>
-                            <li>Frontend Class Diagram (filled/revised some of the classes)</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Version 0.6 (2018/10/29)</b>
-                <ul>
-                    <li>
-                        Adam Cassidy:
-                        <ul>
-                            <li>Revised Purpose section</li>
-                            <li>Revised Choice of Language section</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Version 1.0 (2018/10/30)</b>
-                <ul>
-                    <li>
-                        Nathaniel Carr:
-                        <ul>
-                            <li>Reformatting in Interface Style Guide</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Tim McGill:
-                        <ul>
-                            <li>Colour Guidelines</li>
-                            <li>Font Guidelines</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Brendan Whelan:
-                        <ul>
-                            <li>Icon design</li>
-                            <li>Logo design</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Version 1.1 (2018/11/07)</b>
-                <ul>
-                    <li>
-                        Adam Cassidy:
-                        <ul>
-                            <li>Revised the Photo class in the Backend Class Diagram</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Version 1.2 (2018/11/12)</b>
-                <ul>
-                    <li>
-                        Adam Cassidy:
-                        <ul>
-                            <li>Revised the Photo class constructor in the Backend Class Diagram</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Version 1.2 (2018/11/13)</b>
-                <ul>
-                    <li>
-                        Adam Cassidy:
-                        <ul>
-                            <li>Added image in the Photo class in the Backend Class Diagram</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Brendan Whelan:
-                        <ul>
-                            <li>Fixed spelling errors in classes for Frontend Class Diagram</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <b>Version 1.3 (2018/12/14)</b>
-                <ul>
-                    <li>
-                        Joseph Myc:
-                        <ul>
-                            <li>Updated 1.4 and 1.5 to actually have the definitions and references instead of
-                                referencing the SRS document</li>
-                            <li>Updated the implementation plan to more accurately describe the implementation</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Noah Nichols:
-                        <ul>
-                            <li>Updated API Endpoints</li>
-                        </ul>
-                    </li>
-                    <li>
-                        David Djukic & Mengdan Wan:
-                        <ul>
-                            <li>Updated the frontend class diagram</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Justin Harrott & Scott Peebles:
-                        <ul>
-                            <li>Updated the Backend class diagram</li>
-                        </ul>
-                    </li>
-                    <li>
-                        Saad Ansari & Luke Turnbull:
-                        <ul>
-                            <li>Added database class diagram</li>
-                            <li>Added prototype photos</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
+            <li>Austin Bursey (Document outine created).</li>
+            <li>Jackson Newlands (Overview section; purpose section).</li>
         </ul>
-    </div>
+        <p>Version 0.2 - 2018/10/26:</p>
+        <ul>
+            <li>Saad Ansari (Added MS SQL to choice of languages).</li>
+            <li>Saje Bailey (Revised overview; revised purpose; added definitions; added references; added backend
+                class diagram).</li>
+            <li>Nathaniel Carr (Added intergration; added intended audience; revised overview; revised purpose; updated
+                formatting).</li>
+            <li>Aaron Exley (added MLTrainer & MLIdentifier; added choise of languages).</li>
+        </ul>
+        <p>Version 0.3 - 2018/10/27:</p>
+        <ul>
+            <li>Austin Bursey (Added DBInterface, FSInterface to backend class diagram).</li>
+        </ul>
+        <p>Version 0.4 - 2018/10/28:</p>
+        <ul>
+            <li>Nathaniel Carr (Added API endpoints; revised all classes in backend class diagram; created frontend
+                class diagram).</li>
+            <li>Tim McGill (Added font guidelines; filled views of frontend class diagram).</li>
+        </ul>
+        <p>Version 0.6 - 2018/10/29:</p>
+        <ul>
+            <li>Adam Cassidy (Revised purposes section; revised choice of language section).</li>
+        </ul>
+        <p>Version 1.0 - 2018/10/30:</p>
+        <ul>
+            <li>Nathaniel Carr (Reformatted interface style guide).</li>
+            <li>Tim McGill (added colour and font guidelines).</li>
+            <li>Brendan Whelan (designed icon and logo).</li>
+        </ul>
+        <p>Version 1.1 - 2018/11/07:</p>
+        <ul>
+            <li>Adam Cassidy (Revised Photo class in backend class diagram).</li>
+            <li>Brendan Whelan (Fixed misc. spelling errors in frontend class diagram).</li>
+        </ul>
+        <p>Version 1.3 - 2018/11/14:</p>
+        <ul>
+            <li>Saad Ansari (added database class diagram; added GUI prototype).</li>
+            <li>David Djukic (updated frontend class diagram).</li>
+            <li>Justin Harrott (updated backend class diagram).</li>
+            <li>Scott Peebles (updated backend class diagram).</li>
+            <li>Joseph Myc (updated definitions section; updated implementation plan).</li>
+            <li>Noah Nichols (updated API endpoints).</li>
+            <li>Luke Turnbull (added database class diagram; added GUI prototype).</li>
+            <li>Mengdan Wan (updated frontend class diagram).</li>
+        </ul>
+        <p>Version 2.0 - 2018/11/16:</p>
+        <ul>
+            <li>Nathaniel Carr (reformatted HTML; standardized versions).</li>
+        </ul>
 </body>
 
 </html>
