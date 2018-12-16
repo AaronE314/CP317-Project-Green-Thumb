@@ -92,6 +92,10 @@ public class SettingsActivity extends AppCompatActivity {
                                           boolean fromUser){
                 // Set previewLabel to the current size based on the slider
                 previewLabel.setTextSize(progress+10);
+                logOutButton.setTextSize(progress+10);
+                logInButton.setTextSize(progress+10);
+                fontSliderLabel.setTextSize(progress+10);
+                aboutText.setTextSize(progress+10);
                 fontProgress = progress;
             }
 

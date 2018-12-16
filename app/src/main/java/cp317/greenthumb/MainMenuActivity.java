@@ -20,7 +20,7 @@ import android.content.Intent;
  */
 
 public class MainMenuActivity extends AppCompatActivity {
-    private ImageButton settingsButton,scanButton,scanAlbumButton,searchButton;
+    private ImageButton settingsButton,scanButton,searchButton;
 
 
     @Override
@@ -42,22 +42,11 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         });
 
-        /*Can't implement until scan view done. Might have to scrap.
-        //Scan Page
-        scanAlbumButton = findViewById(R.id.scanAlbumButton);
-        scanAlbumButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                openAlbumScan();
-            }
-        });
-        */
-
         //Settings Page
         settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 openSettings();
-                //Requester.getUser(1234);
             }
         });
         //Search Page
@@ -67,20 +56,13 @@ public class MainMenuActivity extends AppCompatActivity {
                 openSearch();
             }
         });
-        //Get background image from backend to display
+
     }
 
     public void openScan() {
         Intent i = new Intent(this, ScanActivity.class);
         startActivity(i);
     }
-
-    /* Can't implement until scan view done. Will be done later if at all.
-    public void openAlbumScan() {
-        Intent i = new Intent(this, ScanActivity.class);
-        startActivity(i);
-    }
-    */
 
     public void openSettings() {
         Intent i = new Intent(this, SettingsActivity.class);
@@ -91,4 +73,5 @@ public class MainMenuActivity extends AppCompatActivity {
         Intent i = new Intent(this, SearchActivity.class);
         startActivity(i);
     }
+
 }
