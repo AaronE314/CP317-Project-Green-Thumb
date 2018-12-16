@@ -15,13 +15,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 import static cp317.greenthumb.Request.*;
 
 public class PlantBioActivity extends AppCompatActivity implements AsyncResponse {
 
-    //int plantID = getIntent().getIntExtra("plantID", 0);
+    private int plantId;
 
     private TextView plantName, plantDescription;
     private ProgressBar progressBar;
@@ -32,14 +30,13 @@ public class PlantBioActivity extends AppCompatActivity implements AsyncResponse
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plant_bio);
 
-        Requester.getPlantById(2, this);
+        plantId = getIntent().getIntExtra("plantId", 0);
+
+        Requester.getPlantById(plantId, this);
 
         plantName = findViewById(R.id.plantTitle);
-        plantName.setTextSize(20);
+        plantName.setTextSize(30);
         plantDescription = findViewById(R.id.description);
-
-        //plantName.setTextSize((int)globalVars.text_size);
-        //plantDescription.setTextSize((int)globalVars.text_size);
 
         // set loading to visible
         progressBar = findViewById(R.id.progressBar);

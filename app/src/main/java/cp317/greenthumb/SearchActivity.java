@@ -12,12 +12,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import cp317.greenthumb.Request.AsyncResponse;
 
@@ -31,6 +33,8 @@ public class SearchActivity extends AppCompatActivity implements AsyncResponse {
     private ArrayList<FEPlant> plants = new ArrayList<>();
     private String searchText;
     private ProgressBar progressBar;
+
+    private HashMap<String, Integer> idNamePair;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,7 @@ public class SearchActivity extends AppCompatActivity implements AsyncResponse {
         searchTextBox = findViewById(R.id.search_txtBox);
         searchText = searchTextBox.getText().toString();
 
+        idNamePair = new HashMap<>();
 
         //Plants list for search result.
         plantsList = findViewById(R.id.plantsList_box);
@@ -65,7 +70,13 @@ public class SearchActivity extends AppCompatActivity implements AsyncResponse {
         plantsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                gotoPlant(id);
+                TextView tv = (TextView) view;
+
+                String name = tv.getText().toString();
+
+                int plantId = idNamePair.get(name);
+
+                gotoPlant(plantId);
             }
         });
 
@@ -86,10 +97,10 @@ public class SearchActivity extends AppCompatActivity implements AsyncResponse {
         progressBar.setVisibility(View.VISIBLE);
     }
 
-    public void gotoPlant(long plantID){
+    public void gotoPlant(int plantId){
 
         Intent i = new Intent(this, PlantBioActivity.class);
-        //i.putExtra("plantID", plantID);
+        i.putExtra("plantId", plantId);
         startActivity(i);
     }
 
@@ -114,8 +125,8 @@ public class SearchActivity extends AppCompatActivity implements AsyncResponse {
                 String name = plant.getString("name");
                 String bio = plant.getString("bio");
                 plants[i] = new FEPlant(id, name, bio);
+                idNamePair.put(plants[i].get_name(), plants[i].get_id());
             }
-
 
             //Put the search results into the list box;
             ArrayAdapter<FEPlant> adapter = new ArrayAdapter<>(this,R.layout.searchrow,plants);
