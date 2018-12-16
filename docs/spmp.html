@@ -2,7 +2,6 @@
 
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-
     <style>
         table,
         th,
@@ -14,571 +13,680 @@
 </head>
 
 <body>
-    <h1>GreenThumb Software Project Management Plan (Version 1.4)</h1>
-
-    <h2>Table of Contents</h2>
-    <ul>
-        <li><a href="#Introduction">1. Introduction</a></li>
+    <h1>GreenThumb Software Project Management Plan</h1>
+    <div>
+        <h2>Table of Contents</h2>
         <ul>
-            <li><a href="#Overview">1.1 Overview</a></li>
+            <li><a href="#Introduction">1. Introduction</a></li>
             <ul>
-                <li><a href="#Objectives">1.1.1 Objectives</a></li>
+                <li><a href="#Overview">1.1 Overview</a></li>
+                <ul>
+                    <li><a href="#Objectives">1.1.1 Objectives</a></li>
+                </ul>
+                <li><a href="#Deliverables">1.2 Deliverables / Project Timeline</a></li>
+                <li><a href="#Evolution">1.3 SPMP Evolution</a></li>
+                <li><a href="#Definitions">1.4 Definitions, Acronyms, Abbreviations</a></li>
+                <li><a href="#References">1.5 References</a></li>
             </ul>
-            <li><a href="#Deliverables">1.2 Deliverables / Project Timeline</a></li>
-            <li><a href="#Evolution">1.3 SPMP Evolution</a></li>
-            <li><a href="#Definitions">1.4 Definitions, Acronyms, Abbreviations</a></li>
-            <li><a href="#References">1.5 References</a></li>
+            <li><a href="#Organization">2. Project Organization</a></li>
+            <ul>
+                <li><a href="#TeamMembers">2.1 Team Members</a></li>
+                <li><a href="#TeamStructure">2.2 Team Structure</a></li>
+                <li><a href="#Responsibilities">2.3 Project Responsibilities</a></li>
+            </ul>
+            <li><a href="#Management">3. Management</a></li>
+            <ul>
+                <li><a href="#MgmtStructure">3.1 Management Structure</a></li>
+                <li><a href="#Monitoring">3.2 Monitoring, Control Mechanisms</a></li>
+            </ul>
+            <li><a href="#Training">4. Project Staff Training</a></li>
+            <ul>
+                <li><a href="#TrainingMethods">4.1 Methods, Tools, Techniques</a></li>
+                <li><a href="#StaffTraining">4.2 Project Staff Training</a></li>
+                <li><a href="#QualityControl">4.3 Quality Control</a></li>
+            </ul>
+            <li><a href="#Versioning">5. Version History</a></li>
         </ul>
-        <li><a href="#Organization">2. Project Organization</a></li>
-        <ul>
-            <li><a href="#TeamMembers">2.1 Team Members</a></li>
-            <li><a href="#TeamStructure">2.2 Team Structure</a></li>
-            <li><a href="#Responsibilities">2.3 Project Responsibilities</a></li>
-        </ul>
-        <li><a href="#Management">3. Management</a></li>
-        <ul>
-            <li><a href="#MgmtStructure">3.1 Management Structure</a></li>
-            <li><a href="#Monitoring">3.2 Monitoring, Control Mechanisms</a></li>
-        </ul>
-        <li><a href="#Training">4. Project Staff Training</a></li>
-        <ul>
-            <li><a href="#TrainingMethods">4.1 Methods, Tools, Techniques</a></li>
-            <li><a href="#StaffTraining">4.2 Project Staff Training</a></li>
-            <li><a href="#QualityControl">4.3 Quality Control</a></li>
-        </ul>
-        <li><a href="#Versioning">5. Version History</a></li>
-    </ul>
-
+    </div>
 
     <h1 id="Introduction">1. Introduction</h1>
-    <h2 id="Overview">1.1 Overview</h2>
-    <p>Green Thumb is a mobile application capable of running on Android devices. It allows users to upload a
-        photograph of a plant and have its species determined by image recognition and machine learning, as well as
-        browse a database of plants. Further, registered users can upload their photographs to the appropriate
-        species&rsquo; page, where they can be seen by other users.<br><br>This project has no budget.</p>
+    <div>
+        <h2 id="Overview">1.1 Overview</h2>
+        <div>
+            <p>GreenThumb is a mobile application that runs on Android devices. It allows users to upload a
+                photograph of a plant and have its species determined by machine learning and
+                browse a database of plants. Further, registered users can upload their photographs to the appropriate
+                species' page, where they can be seen by other users.
+                <br><br>
+                This project has no budget.
+            </p>
 
-    <h3 id="Objectives">1.1.1 Objectives</h3>
-    <ul>
-        <li>Allow users to identify plants with a picture they take with their phone or device.
-            This will be done using a machine learning algorithm with the GUI.</li>
-        <li>Allow users to browse a database of plants and plant pictures.
-            This will be done using a database with the GUI.</li>
-        <li>Allow users to browse a database of plants and plant pictures.
-            This will be done using a database with the GUI.</li>
-        <li>Allow registered users to upload photographs to the species’ page, where they can be seen by other users.
-            This will be done using the database with the GUI.</li>
+            <h3 id="Objectives">1.1.1 Objectives</h3>
+            <div>
+                <ul>
+                    <li>
+                        Allow users to identify plants with a picture they take with their phone.
+                    </li>
+                    <li>
+                        Allow users to browse a database of plants and plant pictures.
+                    </li>
+                    <li>
+                        Allow users to browse a database of plants and plant pictures.
+                    </li>
+                    <li>
+                        Allow registered users to upload photographs to the species’ page, where they can be seen by
+                        other users.
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-    </ul>
-    <h2 id="Deliverables">1.2 Deliverables / Project Timeline</h2>
-    <p>Note: testing time is included in each deadline, where applicable.</p>
+        <h2 id="Deliverables">1.2 Deliverables / Project Timeline</h2>
+        <div>
+            <p>Note: testing time is included in each deadline, where applicable.</p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <p>Deliverable </p>
+                        </td>
+                        <td>
+                            <p>Deadline</p>
+                        </td>
+                        <td>
+                            <p>Revised Deadline</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Software Project Management Plan (SPMP)</p>
+                        </td>
+                        <td>
+                            <p>2018/09/24</p>
+                        </td>
+                        <td>
+                            <p>2018/12/15</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Software Requirement Specifications (SRS)</p>
+                        </td>
+                        <td>
+                            <p>2018/09/24</p>
+                        </td>
+                        <td>
+                            <p>2018/12/15</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Style Guide</p>
+                        </td>
+                        <td>
+                            <p>2018/10/01</p>
+                        </td>
+                        <td>
+                            <p>2018/10/01</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>GUI Prototype(s)</p>
+                        </td>
+                        <td>
+                            <p>2018/10/04</p>
+                        </td>
+                        <td>
+                            <p>2018/10/30</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Analysis</p>
+                        </td>
+                        <td>
+                            <p>2018/10/07</p>
+                        </td>
+                        <td>
+                            <p>2018/12/15</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Design</p>
+                        </td>
+                        <td>
+                            <p>2018/10/25</p>
+                        </td>
+                        <td>
+                            <p>2018/12/12</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Database</p>
+                        </td>
+                        <td>
+                            <p>2018/11/08</p>
+                        </td>
+                        <td>
+                            <p>2018/12/14</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Implementation</p>
+                        </td>
+                        <td>
+                            <p>2018/12/01</p>
+                        </td>
+                        <td>
+                            <p>2018/12/16</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <p>Deliverable </p>
-                </td>
-                <td>
-                    <p>Deadline</p>
-                </td>
-                <td>
-                    <p>Revised Deadline</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Software Project Management Plan (SPMP)</p>
-                </td>
-                <td>
-                    <p>2018/09/24</p>
-                </td>
-                <td>
-                    <p>2018/12/15</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Software Requirement Specifications (SRS)</p>
-                </td>
-                <td>
-                    <p>2018/09/24</p>
-                </td>
-                <td>
-                    <p>2018/12/15</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Style Guide</p>
-                </td>
-                <td>
-                    <p>2018/10/01</p>
-                </td>
-                <td>
-                    <p>2018/10/01</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>GUI Prototype(s)</p>
-                </td>
-                <td>
-                    <p>2018/10/04</p>
-                </td>
-                <td>
-                    <p>2018/10/30</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Analysis</p>
-                </td>
-                <td>
-                    <p>2018/10/07</p>
-                </td>
-                <td>
-                    <p>2018/12/15</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Design</p>
-                </td>
-                <td>
-                    <p>2018/10/25</p>
-                </td>
-                <td>
-                    <p>2018/12/15</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Database</p>
-                </td>
-                <td>
-                    <p>2018/11/08</p>
-                </td>
-                <td>
-                    <p>2018/11/14</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Implementation</p>
-                </td>
-                <td>
-                    <p>2018/12/01</p>
-                </td>
-                <td>
-                    <p>2018/12/15</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <h2 id="Evolution">1.3 SPMP Evolution</h2>
-    <p>All parts of this document are subject to change as required.</p>
-    <h2 id="Definitions">1.4 Definitions, Acronyms, Abbreviations</h2>
-    <p>For an up-to-date list of relevant definitions, acronyms, and abbreviations, please refer to the GreenThumb
-        Software Requirements Specifications.</p>
-    <h2 id="References">1.5 References</h2>
-    <p>The following sources were used for reference during the production of this document:</p>
-    <ul>
-        <li>The <a href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/&amp;sa=D&amp;ust=1537752898816000">CP317
-                course website</a>, including <a class="c28" href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/samples.php&amp;sa=D&amp;ust=1537752898816000">previous
-                sample projects</a>.</li>
-        <li>The <a href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/notes/IEEE_1058.pdf&amp;sa=D&amp;ust=1537752898817000">IEEE
-                1058 Standard for Software Project Management Plans</a></li>
-    </ul>
-    <h1>2. Project Organization</h1>
+        <h2 id="Evolution">1.3 SPMP Evolution</h2>
+        <div>
+            <p>All parts of this document are subject to change as required.</p>
+        </div>
 
-    <h2 id="TeamMembers">2.1 Team Members</h2>
-    <table>
-        <tbody>
-            <tr>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>Laurier Email</th>
-                <th>Github Username</th>
-            </tr>
-            <tr>
-                <td>Ansari</td>
-                <td>Saad</td>
-                <td>ansa5060@mylaurier.ca</td>
-                <td>saadansari72</td>
-            </tr>
-            <tr>
-                <td>Bailey</td>
-                <td>Saje</td>
-                <td>bail3460@mylaurier.ca</td>
-                <td>HallowedHalcyon</td>
-            </tr>
-            <tr>
-                <td>Buchanan</td>
-                <td>Matthew</td>
-                <td>buch6620@mylaurier.ca</td>
-                <td>epic-mattt</td>
-            </tr>
-            <tr>
-                <td>Bursey</td>
-                <td>Austin</td>
-                <td>burs5200@mylaurier.ca</td>
-                <td>burs5200</td>
-            </tr>
-            <tr>
-                <td>Carr</td>
-                <td>Nathaniel</td>
-                <td>carr0170@mylaurier.ca</td>
-                <td>NathanielCarr</td>
-            </tr>
-            <tr>
-                <td>Cassidy</td>
-                <td>Adam</td>
-                <td>cass8720@mylaurier.ca</td>
-                <td>AdamCassidy</td>
-            </tr>
-            <tr>
-                <td>Djukic</td>
-                <td>David</td>
-                <td>djuk2920@mylaurier.ca</td>
-                <td>daviddjukic</td>
-            </tr>
-            <tr>
-                <td>Dunphy</td>
-                <td>John</td>
-                <td>dunp1410@mylaurier.ca</td>
-                <td>dohnjunphy</td>
-            </tr>
-            <tr>
-                <td>Exley</td>
-                <td>Aaron</td>
-                <td>exle9710@mylaurier.ca</td>
-                <td>AaronE314</td>
-            </tr>
-            <tr>
-                <td>Harrott</td>
-                <td>Justin</td>
-                <td>harr9800@mylaurier.ca</td>
-                <td>SirJuggeth</td>
-            </tr>
-            <tr>
-                <td>Herath</td>
-                <td>Sachintha</td>
-                <td>sachintha3232@gmail.com</td>
-                <td>sachuu</td>
-            </tr>
-            <tr>
-                <td>Keunen</td>
-                <td>Benjamin</td>
-                <td>keun4170@mylaurier.ca</td>
-                <td>benkeun</td>
-            </tr>
-            <tr>
-                <td>Lucic</td>
-                <td>Stefan</td>
-                <td>luci3330@mylaurier.ca</td>
-                <td>Kerpal</td>
-            </tr>
-            <tr>
-                <td>McGill</td>
-                <td>Tim</td>
-                <td>mcgi5190@mylaurier.ca</td>
-                <td>Tim-McGill</td>
-            </tr>
-            <tr>
-                <td>Myc</td>
-                <td>Joseph</td>
-                <td>mycx0900@mylaurier.ca</td>
-                <td>JoelingM</td>
-            </tr>
-            <tr>
-                <td>Newlands</td>
-                <td>Jackson</td>
-                <td>newl2290@mylaurier.ca</td>
-                <td>Jackson097</td>
-            </tr>
-            <tr>
-                <td>Nguyen</td>
-                <td>Duc</td>
-                <td>nguy4645@mylaurier.ca</td>
-                <td>suphuvn</td>
-            </tr>
-            <tr>
-                <td>Nichols</td>
-                <td>Noah </td>
-                <td>nich4770@mylaurier.ca</td>
-                <td>noahjacknichols</td>
-            </tr>
-            <tr>
-                <td>Peebles</td>
-                <td>Scott</td>
-                <td>peeb3030@mylaurier.ca</td>
-                <td>peeb3030</td>
-            </tr>
-            <tr>
-                <td>Ross</td>
-                <td>Nicolas</td>
-                <td>ross3880@mylaurier.ca</td>
-                <td>NicolasRoss</td>
-            </tr>
-            <tr>
-                <td>Turnbull</td>
-                <td>Luke</td>
-                <td>turn0230@mylaurier.ca</td>
-                <td>Iturnbull1</td>
-            </tr>
-            <tr>
-                <td>Whelan</td>
-                <td>Brendan</td>
-                <td>whel2400@mylaurier.ca</td>
-                <td>BrendanWhelan</td>
-            </tr>
-            <tr>
-                <td>Wan</td>
-                <td>Mengdan</td>
-                <td>wanx2060@mylaurier.ca</td>
-                <td>Mengdan Wan</td>
-            </tr>
+        <h2 id="Definitions">1.4 Definitions, Acronyms, Abbreviations</h2>
+        <div>
+            <p>
+                For an up-to-date list of relevant definitions, acronyms, and abbreviations, please refer to the
+                GreenThumb Software Requirements Specifications.
+            </p>
+        </div>
 
-        </tbody>
-    </table>
+        <h2 id="References">1.5 References</h2>
+        <div>
+            <p>The following sources were used for reference during the production of this document:</p>
+            <ul>
+                <li>
+                    The <a href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/&amp;sa=D&amp;ust=1537752898816000">CP317
+                        course website</a>, including <a class="c28" href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/samples.php&amp;sa=D&amp;ust=1537752898816000">previous
+                        sample projects</a>.
+                </li>
+                <li>The <a href="https://www.google.com/url?q=https://bohr.wlu.ca/cp317/notes/IEEE_1058.pdf&amp;sa=D&amp;ust=1537752898817000">IEEE
+                        1058 Standard for Software Project Management Plans</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-    <h2 id="TeamStructure">2.2 Team Structure</h2>
-    <p>The project is divided into teams, including the following:</p>
-    <p></p>
-    <ol start="1">
-        <li>Frontend Team: &nbsp;<br>Tim McGill (frontend manager), Matthew Buchanan, David Djukic, Sachintha Herath,
-            Stefan Lucic, Jackson Newlands, Duc Nguyen, Brendan Whelan.</li>
-        <p></p>
-        <li> Backend Team:
+    <h1 id="Organization">2. Project Organization</h1>
+    <div>
+        <h2 id="TeamMembers">2.1 Team Members</h2>
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Laurier Email</th>
+                        <th>Github Username</th>
+                    </tr>
+                    <tr>
+                        <td>Ansari</td>
+                        <td>Saad</td>
+                        <td>ansa5060@mylaurier.ca</td>
+                        <td>saadansari72</td>
+                    </tr>
+                    <tr>
+                        <td>Bailey</td>
+                        <td>Saje</td>
+                        <td>bail3460@mylaurier.ca</td>
+                        <td>HallowedHalcyon</td>
+                    </tr>
+                    <tr>
+                        <td>Buchanan</td>
+                        <td>Matthew</td>
+                        <td>buch6620@mylaurier.ca</td>
+                        <td>epic-mattt</td>
+                    </tr>
+                    <tr>
+                        <td>Bursey</td>
+                        <td>Austin</td>
+                        <td>burs5200@mylaurier.ca</td>
+                        <td>burs5200</td>
+                    </tr>
+                    <tr>
+                        <td>Carr</td>
+                        <td>Nathaniel</td>
+                        <td>carr0170@mylaurier.ca</td>
+                        <td>NathanielCarr</td>
+                    </tr>
+                    <tr>
+                        <td>Cassidy</td>
+                        <td>Adam</td>
+                        <td>cass8720@mylaurier.ca</td>
+                        <td>AdamCassidy</td>
+                    </tr>
+                    <tr>
+                        <td>Djukic</td>
+                        <td>David</td>
+                        <td>djuk2920@mylaurier.ca</td>
+                        <td>daviddjukic</td>
+                    </tr>
+                    <tr>
+                        <td>Dunphy</td>
+                        <td>John</td>
+                        <td>dunp1410@mylaurier.ca</td>
+                        <td>dohnjunphy</td>
+                    </tr>
+                    <tr>
+                        <td>Exley</td>
+                        <td>Aaron</td>
+                        <td>exle9710@mylaurier.ca</td>
+                        <td>AaronE314</td>
+                    </tr>
+                    <tr>
+                        <td>Harrott</td>
+                        <td>Justin</td>
+                        <td>harr9800@mylaurier.ca</td>
+                        <td>SirJuggeth</td>
+                    </tr>
+                    <tr>
+                        <td>Herath</td>
+                        <td>Sachintha</td>
+                        <td>sachintha3232@gmail.com</td>
+                        <td>sachuu</td>
+                    </tr>
+                    <tr>
+                        <td>Keunen</td>
+                        <td>Benjamin</td>
+                        <td>keun4170@mylaurier.ca</td>
+                        <td>benkeun</td>
+                    </tr>
+                    <tr>
+                        <td>Lucic</td>
+                        <td>Stefan</td>
+                        <td>luci3330@mylaurier.ca</td>
+                        <td>Kerpal</td>
+                    </tr>
+                    <tr>
+                        <td>McGill</td>
+                        <td>Tim</td>
+                        <td>mcgi5190@mylaurier.ca</td>
+                        <td>Tim-McGill</td>
+                    </tr>
+                    <tr>
+                        <td>Myc</td>
+                        <td>Joseph</td>
+                        <td>mycx0900@mylaurier.ca</td>
+                        <td>JoelingM</td>
+                    </tr>
+                    <tr>
+                        <td>Newlands</td>
+                        <td>Jackson</td>
+                        <td>newl2290@mylaurier.ca</td>
+                        <td>Jackson097</td>
+                    </tr>
+                    <tr>
+                        <td>Nguyen</td>
+                        <td>Duc</td>
+                        <td>nguy4645@mylaurier.ca</td>
+                        <td>suphuvn</td>
+                    </tr>
+                    <tr>
+                        <td>Nichols</td>
+                        <td>Noah </td>
+                        <td>nich4770@mylaurier.ca</td>
+                        <td>noahjacknichols</td>
+                    </tr>
+                    <tr>
+                        <td>Peebles</td>
+                        <td>Scott</td>
+                        <td>peeb3030@mylaurier.ca</td>
+                        <td>peeb3030</td>
+                    </tr>
+                    <tr>
+                        <td>Ross</td>
+                        <td>Nicolas</td>
+                        <td>ross3880@mylaurier.ca</td>
+                        <td>NicolasRoss</td>
+                    </tr>
+                    <tr>
+                        <td>Turnbull</td>
+                        <td>Luke</td>
+                        <td>turn0230@mylaurier.ca</td>
+                        <td>Iturnbull1</td>
+                    </tr>
+                    <tr>
+                        <td>Whelan</td>
+                        <td>Brendan</td>
+                        <td>whel2400@mylaurier.ca</td>
+                        <td>BrendanWhelan</td>
+                    </tr>
+                    <tr>
+                        <td>Wan</td>
+                        <td>Mengdan</td>
+                        <td>wanx2060@mylaurier.ca</td>
+                        <td>Mengdan Wan</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <h2 id="TeamStructure">2.2 Team Structure</h2>
+        <div>
+            <p>The project is divided into teams, including the following:</p>
             <p></p>
             <ol start="1">
-                <li>Backend API Sub-Team: <br>Nathaniel Carr, Adam Cassidy, Noah Nichols, Scott Peebles.</br></li>
+                <li>
+                    Frontend Team:
+                    <br>
+                    Tim McGill (frontend manager), Matthew Buchanan, David Djukic, Sachintha
+                    Herath, Stefan Lucic, Jackson Newlands, Duc Nguyen, Brendan Whelan.
+                </li>
                 <p></p>
-                <li>Backend DB Sub-Team: Saje Bailey (backend manager), Saad Ansari, Austin Bursey, Nicolas Ross, Luke
-                    Turnbull<br></br></li>
+                <li>
+                    Backend Team:
+                    <p></p>
+                    <ol start="1">
+                        <li>
+                            Backend API Sub-Team: Nathaniel Carr, Adam Cassidy, Noah Nichols, Scott Peebles.
+                        </li>
+                        <li>
+                            Backend DB Sub-Team: Saje Bailey (backend manager), Saad Ansari, Austin Bursey, Nicolas
+                            Ross, Luke Turnbull.
+                        </li>
+                    </ol>
+                </li>
+                <p></p>
+                <li>Machine Learning Team: <br>Aaron Exley (machine learning manager), John Dunphy, Justin Harrott,
+                    Benjamin Keunen, Joseph Myc.
+                </li>
+                <p></p>
+                <li>
+                    QA Team: <br>Stefan Lucic (QA manager), Saad Ansari, Brendan Whelan, Jackson Newlands.
+                </li>
+                <p></p>
+                <li>
+                    Management Team: <br>Nathaniel Carr (project manager), Saad Ansari, Saje Bailey, Tim McGill, Aaron
+                    Exley, Stefan Lucic.
+                </li>
             </ol>
-        </li>
-        <li>Machine Learning Team: <br>Aaron Exley (machine learning manager), John Dunphy, Justin Harrott, Benjamin
-            Keunen, Joseph Myc</li>
-        <p></p>
-        <li>QA Team: <br>Stefan Lucic (QA manager), Saad Ansari, Brendan Whelan, Jackson Newlands.</li>
-        <p></p>
-        <li>Management Team: <br>Nathaniel Carr (project manager), Saad Ansari, Saje Bailey, Tim McGill, Aaron
-            Exley, Stefan Lucic.</li>
-    </ol>
+            <p></p>
+            <p>The frontend team is responsible for the development of the GUI and integration of GreenThumb onto
+                Android devices.
+                <br><br>
+                The backend team is responsible for the development of a database to contain all information
+                pertinent to the application as well as an API to allow communication between the frontend and
+                database.
+                <br><br>
+                The machine learning team is responsible for setting up and training the image recognition component of
+                GreenThumb.
+                <br><br>
+                The QA sub-team is responsible for assigning test responsibilities to other members of the GreenThumb
+                project and logging the test results.
+            </p>
+            <p></p>
+            <p>
+                The management sub-team is responsible for overseeing the progress of the project as a whole.
+            </p>
+        </div>
 
+        <h2 id="Responsibilities">2.3 Project Responsibilities</h2>
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>
+                            <p>Team</p>
+                        </th>
+                        <th>
+                            <p>Deliverable </p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Management Team</p>
+                        </td>
+                        <td>
+                            <p>SPMP</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Management Team</p>
+                        </td>
+                        <td>
+                            <p>SRS</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Frontend team, QA team</p>
+                        </td>
+                        <td>
+                            <p>Style Guide</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Stefan Lucic</p>
+                        </td>
+                        <td>
+                            <p>GUI Prototype(s)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Frontend team, backend team, ML team</p>
+                        </td>
+                        <td>
+                            <p>Analysis</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Frontend team, backend team, ML team</p>
+                        </td>
+                        <td>
+                            <p>Design</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Backend team</p>
+                        </td>
+                        <td>
+                            <p>Database</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Frontend team, backend team, ML team</p>
+                        </td>
+                        <td>
+                            <p>Implementation</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <p></p>
-    <p>The frontend team is responsible for the development of the GUI and integration of GreenThumb onto Android
-        devices. <br><br>The backend team is responsible for the development of a database to contain all information
-        pertinent to the application as well as an API to allow communication between the frontend and database. <br><br>The
-        machine learning team is responsible for setting up and training the image recognition component of GreenThumb.
-        <br><br>The QA sub-team is responsible for assigning test responsibilities to other members of the GreenThumb
-        project and logging the test results.</p>
-    <p></p>
-    <p>The management sub-team is responsible for overseeing the progress of the project as a whole.</p>
-    <h2 id="Responsibilities">2.3 Project Responsibilities</h2>
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <p>Team / Members</p>
-                </td>
-                <td>
-                    <p>Deliverable </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Management Team</p>
-                </td>
-                <td>
-                    <p>SPMP</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Undetermined</p>
-                </td>
-                <td>
-                    <p>SRS</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Frontend team, QA team</p>
-                </td>
-                <td>
-                    <p>Style Guide</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Stefan Lucic</p>
-                </td>
-                <td>
-                    <p>GUI Prototype(s)</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Frontend team, backend team, ML team</p>
-                </td>
-                <td>
-                    <p>Analysis</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Frontend team, backend team, ML team</p>
-                </td>
-                <td>
-                    <p>Design</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Backend team</p>
-                </td>
-                <td>
-                    <p>Database</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Frontend team, backend team, ML team</p>
-                </td>
-                <td>
-                    <p>Implementation</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
     <h1 id="Management">3. Management</h1>
-    <h2 id="MgmtStructure">3.1 Management Structure</h2>
-    <p>All managers are responsible for overseeing the progress of their team. The project manager keeps the groups in
-        contact and ensures every group is on track relative to each other.</p>
-    <p></p>
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <p>Team</p>
-                </td>
-                <td>
-                    <p>Manager</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Management</p>
-                </td>
-                <td>
-                    <p>Nathaniel Carr (project manager)</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Frontend</p>
-                </td>
-                <td>
-                    <p>Tim McGill</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Backend</p>
-                </td>
-                <td>
-                    <p>Saje Bailey</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Machine Learning</p>
-                </td>
-                <td>
-                    <p>Aaron Exley</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>QA</p>
-                </td>
-                <td>
-                    <p>Stefan Lucic</p>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <h2 id="Monitoring">3.2 Monitoring, Control Mechanisms</h2>
-    <p>The backend, frontend, and machine learning teams have weekly meetings of one hour to discuss scheduling,
-        progress, and issues. The management team has weekly meetings no shorter than one hour to review the progress
-        of the project as a whole. The QA sub-team does not have scheduled meetings, but communicates over the
-        messaging platform, Slack.<br><br>A shared repository is used to keep all member contributions together as well
-        as document changes to the project and maintain previous versions.</p>
+    <div>
+        <h2 id="MgmtStructure">3.1 Management Structure</h2>
+        <div>
+            <p>All managers are responsible for overseeing the progress of their team. The project manager keeps the
+                groups in contact and ensures every group is on track relative to each other.</p>
+            <p></p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>
+                            <p>Team</p>
+                        </th>
+                        <th>
+                            <p>Manager</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Management</p>
+                        </td>
+                        <td>
+                            <p>Nathaniel Carr (project manager)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Frontend</p>
+                        </td>
+                        <td>
+                            <p>Tim McGill</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Backend</p>
+                        </td>
+                        <td>
+                            <p>Saje Bailey</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Machine Learning</p>
+                        </td>
+                        <td>
+                            <p>Aaron Exley</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>QA</p>
+                        </td>
+                        <td>
+                            <p>Stefan Lucic</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 id="Monitoring">3.2 Monitoring, Control Mechanisms</h2>
+        <div>
+            <p>
+                The backend, frontend, and machine learning teams have weekly meetings of one hour to discuss
+                scheduling, progress, and issues. The management team has weekly meetings of one hour to review the
+                progress of the project as a whole. The QA sub-team does not have scheduled meetings, but communicates
+                over the messaging platform, Slack.
+                <br><br>
+                A shared repository is used to keep all member contributions together
+                as well as document changes to the project and maintain previous versions.
+            </p>
+        </div>
+    </div>
+
     <h1 id="Training"> 4. Technical Process</h1>
-    <h2 id="TrainingMethods">4.1 Methods, Tools, Techniques</h2>
-    <p>Backend: Database, express.js, Node.js, Tensorflow</p>
-    <p> </p>
-    <p>Frontend: Android Studio, Gimp, Photoshop</p>
-    <p></p>
-    <p>Languages: Java, JavaScript, Python, MSSQL</p>
-    <p> </p>
-    <p>Repositories: GitHub</p>
-    <p></p>
-    <p>Project Management: Github, Google Sheets, Slack, Trello</p>
-    <h2 id="StaffTraining">4.2 Project Staff Training</h2>
-    <p>The managers of each team are responsible for ensuring that each of their team members has the necessary skills
-        to contribute to their part of the project. Individuals with relevant skills on each team are in charge of
-        teaching their teammates, either during the group meetings or during separate meetings which fit the schedules
-        of those involved.</p>
-    <h2 id="QualityControl">4.3 Quality Control</h2>
-    <p>The QA sub-team designs and assigns tests to the other members of the group and records the results of these
-        tests. In the case that a test fails, the creator of the code is notified by the QA team so changes can be made
-        before the code is re-tested.</p>
-    <p>In the case of non-code portions of the product, the QA team assigns an individual who is not the creator to
-        read over the writing and compare it with the official style guide as well as check for any spelling or grammar
-        mistakes. This person must fix any inconsistencies and log what changes were made to improve the document. </p>
+    <div>
+        <h2 id="TrainingMethods">4.1 Methods, Tools, Techniques</h2>
+        <div>
+            <ul>
+                <li>
+                    Backend: MsSQL, express.js, Node.js, Tensorflow
+                </li>
+                <li>
+                    Frontend: Android Studio, Gimp, Photoshop, Paint.NET
+                </li>
+                <li>
+                    Languages: Java, JavaScript, Python, MSSQL
+                </li>
+                <li>
+                    Repositories: GitHub
+                </li>
+                <li>
+                    Project Management: Github, Google Sheets, Slack, Trello
+                </li>
+            </ul>
+        </div>
+
+        <h2 id="StaffTraining">4.2 Project Staff Training</h2>
+        <div>
+            <p>
+                The managers of each team are responsible for ensuring that each of their team members has the
+                necessary skills to contribute to their part of the project. Individuals with relevant skills on each
+                team are in charge
+                of teaching their teammates, either during the group meetings or during separate meetings which fit the
+                schedules of those involved.
+            </p>
+        </div>
+
+        <h2 id="QualityControl">4.3 Quality Control</h2>
+        <div>
+            <p>
+                The QA sub-team designs and assigns tests to the other members of the group and records the results of
+                these tests. In the case that a test fails, the creator of the code is notified by the QA team so
+                changes can
+                be made before the code is re-tested. If the change is minor (eg. a simple syntax error), the tester
+                will fix it themself.
+            </p>
+            <p>
+                In the case of non-code portions of the product, the QA team assigns an individual who is not the
+                creator to read over the writing and compare it with the official style guide as well as check for any
+                spelling or
+                grammar mistakes. This person must fix any inconsistencies and log what changes were made to improve
+                the
+                document.
+            </p>
+        </div>
+    </div>
+
     <h1 id="Versioning">5. Version History</h1>
-    <p>Version 0.1 - 21/09/2018:</p>
-    <ul>
-        <li>Saje Bailey (1.1, 3.1-3.2)</li>
-        <li>Nathaniel Carr (1.2, 2.1-2.2)</li>
-        <li>Aaron Exley (4.1)</li>
-        <li>Timothy McGill (1.2)</li>
-    </ul>
-    <p></p>
-    <p>Version 0.2 - 22/09/2018:</p>
-    <ul>
-        <li>Saje Bailey (3.2, 4.2-4.3)</li>
-        <li>Nathaniel Carr (1.1, 1.3-1.5, 2.1-2.2, 3.1-3.2, 4.2-4.3)</li>
-        <li>Tim McGill(4.1)</li>
-    </ul>
-    <p></p>
-    <p>Version 1.0 - 23/09/2018:</p>
-    <ul>
-        <li>Saad Ansari (formatting and HTML conversion)</li>
-        <li>Aaron Exley (tense fixes)</li>
-        <li>Brendan Whelan (tense fixes)</li>
-    </ul>
-    <p></p>
-    <p>Version 1.1 - 17/10/2018:</p>
-    <ul>
-        <li>Nathaniel Carr (date formatting and tense fixes)</li>
-    </ul>
-    <p>Version 1.2 - 01/12/2018:</p>
-    <ul>
-        <li>Nathaniel Carr (added "Revised Deadlines")</li>
-    </ul>
-    <p>Version 1.3 - 14/12/2018:</p>
-    <ul>
-        <li>Adam Cassidy (added "Objectives" and changed MySQL to MSSQL)</li>
-    </ul>
-    <p>Version 1.4 - 16/12/2018:</p>
-    <ul>
-        <li>Saad Ansari (Added updated list of group members, contents)</li>
-    </ul>
+    <div>
+        <p>Version 0.1 - 21/09/2018:</p>
+        <ul>
+            <li>Saje Bailey (1.1, 3.1-3.2)</li>
+            <li>Nathaniel Carr (1.2, 2.1-2.2)</li>
+            <li>Aaron Exley (4.1)</li>
+            <li>Timothy McGill (1.2)</li>
+        </ul>
+        <p></p>
+        <p>Version 0.2 - 22/09/2018:</p>
+        <ul>
+            <li>Saje Bailey (3.2, 4.2-4.3)</li>
+            <li>Nathaniel Carr (1.1, 1.3-1.5, 2.1-2.2, 3.1-3.2, 4.2-4.3)</li>
+            <li>Tim McGill(4.1)</li>
+        </ul>
+        <p></p>
+        <p>Version 1.0 - 23/09/2018:</p>
+        <ul>
+            <li>Saad Ansari (formatting and HTML conversion)</li>
+            <li>Aaron Exley (tense fixes)</li>
+            <li>Brendan Whelan (tense fixes)</li>
+        </ul>
+        <p></p>
+        <p>Version 1.1 - 17/10/2018:</p>
+        <ul>
+            <li>Nathaniel Carr (date formatting and tense fixes)</li>
+        </ul>
+        <p>Version 1.2 - 01/12/2018:</p>
+        <ul>
+            <li>Nathaniel Carr (added "Revised Deadlines")</li>
+        </ul>
+        <p>Version 1.3 - 14/12/2018:</p>
+        <ul>
+            <li>Adam Cassidy (added "Objectives" and changed MySQL to MSSQL)</li>
+        </ul>
+        <p>Version 1.4 - 16/12/2018:</p>
+        <ul>
+            <li>Saad Ansari (added updated list of group members, contents)</li>
+        </ul>
+        <p>Version 1.5 - 16/12/2018:</p>
+        <ul>
+            <li>Nathaniel Carr (updated HTML formatting)</li>
+        </ul>
+    </div>
 </body>
 
 </html>
