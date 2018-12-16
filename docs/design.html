@@ -293,7 +293,7 @@
             </tr>
             <tr>
                 <td>/plants/byImage</td>
-                <td>{ image: Image, {maxPhotos: int} }</td>
+                <td>{ image: Image, int: width, int: height, {maxPhotos: int} }</td>
                 <td>{ results: { plant: { bio: String, id: int, name: String}, photos: { downvoteIds: String[], id:
                     int, image: String, plantId: int, uploadDate: String, upvoteIds: String[], userId: String }[],
                     scores: float[],
@@ -598,7 +598,7 @@
                     <li>
                         Noah Nichols:
                         <ul>
-                            <li>API Endpoints</li>
+                            <li>Updated API Endpoints</li>
                         </ul>
                     </li>
                     <li>
