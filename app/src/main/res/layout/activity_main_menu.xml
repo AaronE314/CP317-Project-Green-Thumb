@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainMenuActivity"
-    android:background="@drawable/background_two"
+    android:background="@drawable/background_three"
     >
 
     <ImageView
