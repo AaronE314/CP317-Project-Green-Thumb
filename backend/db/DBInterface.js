@@ -715,6 +715,7 @@ async function removePhotoReport(photoReportId) {
  * @desc Removes the Plant and associated records from the database.
  * @author Saad Ansari
  * @author Nathaniel Carr
+ * @author Austin Bursey
  * @param {Number} plantId The primary key of the Plant.
 */
 async function removePlant(plantId) {
@@ -1008,6 +1009,7 @@ async function getNewestPlantPhotos(plantId, startIndex, max) {
  * @desc Returns a number of most recent Photos uploaded by the specified User.
  * @author Saad Ansari
  * @author Nathaniel Carr
+ * @author Austin Bursey
  * @param {String} userId The primary key of the User. String
  * @param {Number} startIndex The index at which to start. Int
  * @param {Number} max The maximum number of Photos to return. Int
@@ -1047,6 +1049,7 @@ async function getNewestUserPhotos(userId, startIndex, max) {
  * @desc Returns an array of the top rated Photos of the specified Plant.
  * @author Saad Ansari
  * @author Nathaniel Carr
+ * @author Austin Bursey
  * @param {Number} plantId The primary key of the plant. Int
  * @param {Number} startIndex The index at which to start. Int
  * @param {Number} max The maximum number of Photos to return. Int
