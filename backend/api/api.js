@@ -265,6 +265,7 @@ api.post("/photoReports/add",
                 assert(body.userId !== undefined, ERROR_MSG.missingParam("userId"));
                 assert(body.photoId !== undefined, ERROR_MSG.missingParam("photoId"));
                 assert(body.reportText !== undefined, ERROR_MSG.missingParam("reportText"));
+                assert(body.reportText !== "", ERROR_MSG.missingText("reportText"));
             })) { return; }
 
             res.send({
@@ -322,10 +323,9 @@ api.post("/photoReports/handle",
             if (req.body.adminAction === ADMIN_ACTION.Accept) {
                 await DBInterface.removePhoto(photoReport.getPhotoId());
             } else if (req.body.adminAction === ADMIN_ACTION.AcceptBan) {
-                let photo = await DBInterface.getPhoto(photoReport.getPhotoId());
-                let user = await DBInterface.getUser(photo.getUserId());
+                await DBInterface.removePhoto(photoReport.getPhotoId());
+                let user = await DBInterface.getUser(photoReport.getUserId());
                 await DBInterface.addBan(new Ban(user.getId(), req.body.adminId, user.nextBanExpirationDate()));
-                await DBInterface.removePhoto(req.body.photoReportId);
             }
             await DBInterface.removePhotoReport(req.body.photoReportId);
 

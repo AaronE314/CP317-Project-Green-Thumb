@@ -50,7 +50,7 @@ async function _banExists(ban) {
                 let req = new sql.Request();
                 req.input('userId', sql.VarChar, ban.getUserId());
                 req.input('adminId', sql.VarChar, ban.getAdminId());
-                req.input('exp', sql.Date, ban.getExpirationDate());
+                req.input('exp', sql.DateTime2, ban.getExpirationDate());
                 return await req.query("Select * from [projectgreenthumb].[dbo].[ban] where user_id = @userId AND admin_id = @adminId AND expiration_date = @exp")
                     .then(function (recordset) {
                         return recordset.recordset.length > 0;
@@ -117,7 +117,7 @@ async function _photoReportExists(photoReport) {
                 let req = new sql.Request();
                 req.input('userId', sql.VarChar, photoReport.getUserId());
                 req.input('photo', sql.Int, photoReport.getPhotoId());
-                req.input('date', sql.Date, photoReport.getReportDate());
+                req.input('date', sql.DateTime2, photoReport.getReportDate());
                 return await req.query("Select * from report r JOIN post p ON p.post_id = r.post_id WHERE report_date = @date and p.[user_id] = @userId AND p.photo_id = @photo")
                     .then(function (recordset) {
                         return recordset.recordset.length > 0;
@@ -411,7 +411,7 @@ async function addBan(ban) {
                 let req = new sql.Request();
                 req.input('userId', sql.VarChar, ban.getUserId());
                 req.input('adminId', sql.VarChar, ban.getAdminId());
-                req.input('expiration', sql.DateTime, ban.getExpirationDate());
+                req.input('expiration', sql.DateTime2, ban.getExpirationDate());
                 return await req.query("Insert into [projectgreenthumb].[dbo].[ban] (user_id, admin_id, expiration_date) Values (@userId, @adminId, @expiration);Select * from [projectgreenthumb].[dbo].[ban] where ban_id = SCOPE_IDENTITY()")
                     .then(function (recordset) {
                         if (recordset.recordset.length) {
@@ -453,7 +453,7 @@ async function addPhoto(photo) {
                 req.input("plantId", sql.Int, photo.getPlantId());
                 req.input("image_ref", sql.VarChar, photo.getImage());
                 req.input("userId", sql.VarChar, photo.getUserId());
-                req.input("uploadDate", sql.DateTime, photo.getUploadDate());
+                req.input("uploadDate", sql.DateTime2, photo.getUploadDate());
                 return await req.query("insert into [photo] (plant_id , image, tf_record) Values(@plantId, @image_ref , 0);"
                     + "SELECT PHOTO.photo_id FROM [projectgreenthumb].[dbo].[photo] where photo_id = SCOPE_IDENTITY();"
                     + " insert into [post] (user_id , photo_id,upload_date) values (@userId, (Select photo_id from [photo] where photo_id = SCOPE_IDENTITY()),@uploadDate);")
@@ -614,7 +614,8 @@ async function addAdmin(admin) {
         return await sql.connect(CONFIG)
             .then(async function () {
                 let req = new sql.Request();
-                return await req.query("Insert into [projectgreenthumb].[dbo].[admin] values ();")
+                req.input('userId', sql.VarChar, admin.getId());
+                return await req.query("Insert into [projectgreenthumb].[dbo].[admin] (admin_id) values (@userId);")
                     .then(function () {
                         return admin;
                     })
@@ -752,14 +753,14 @@ async function removeUser(userId) {
         await sql.connect(CONFIG)
             .then(async function () {
                 let req = new sql.Request();
-                req.input('plantId', sql.Int, plantId);
+                req.input('userId', sql.VarChar, userId);
                 let sqlQuery =
                     "DELETE FROM [projectgreenthumb].[dbo].[ban] WHERE user_id = @userId;" +
                     'DELETE FROM [projectgreenthumb].[dbo].[admin_report] WHERE report_id = ANY(SELECT report_id FROM report WHERE user_id = @userId or post_id = ANY(SELECT post_id from post where user_id = @userId));' +
                     'DELETE FROM [projectgreenthumb].[dbo].[report] WHERE user_id = @userId OR post_id = ANY(SELECT post_id from post where user_id = @userId);' +
                     'DELETE FROM [projectgreenthumb].[dbo].[photo] WHERE photo_id = ANY (SELECT photo_id FROM [projectgreenthumb].[dbo].[post] where user_id = @userId)' +
                     'DELETE FROM [projectgreenthumb].[dbo].[post] WHERE user_id = @userId;' +
-                    'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE user_id = @userId;' +
+                    'DELETE FROM [projectgreenthumb].[dbo].[voting] WHERE photo_id = ANY(SELECT photo_id FROM post WHERE user_id = @userId);' +
                     'DELETE FROM [projectgreenthumb].[dbo].[user] WHERE [user_id] = @userId;';
                 await req.query(sqlQuery);
             })
@@ -1228,7 +1229,7 @@ async function updatePhotoReport(photoReport) {
             .then(async function () {
                 let req = new sql.Request();
                 req.input("reportId", sql.Int, photoReport.getId());
-                req.input("rDate", sql.Date, photoReport.getReportDate());
+                req.input("rDate", sql.DateTime2, photoReport.getReportDate());
                 req.input("rText", sql.VarChar, photoReport.getReportText());
                 await req.query("UPDATE [report] SET report_date = @rDate, report_details = @rText WHERE report_id = @reportId");
             })
