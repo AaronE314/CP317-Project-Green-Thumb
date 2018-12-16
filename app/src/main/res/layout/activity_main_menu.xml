@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainMenuActivity"
-    android:background="@drawable/background_two"
+    android:background="@drawable/background_three"
     >
 
     <ImageView
@@ -26,8 +26,8 @@
 
     <ImageButton
         android:id="@+id/scanButton"
-        android:layout_width="280dp"
-        android:layout_height="53dp"
+        android:layout_width="291dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="96dp"
@@ -37,20 +37,19 @@
         android:src="@drawable/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/searchButton"
-        android:layout_width="280dp"
-        android:layout_height="53dp"
+        android:layout_width="279dp"
+        android:layout_height="49dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="32dp"
-        android:contentDescription="@null"
         android:alpha="0.75"
         android:background="@null"
+        android:contentDescription="@null"
         android:src="@drawable/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
