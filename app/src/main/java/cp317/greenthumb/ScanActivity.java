@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,6 +19,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
+import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -36,6 +39,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import cp317.greenthumb.Request.AsyncResponse;
+/**
+ @Name: ScanActivity.java
+ @Type: Activity class
+ @Deception: this is Activity class that is used to scan a plant and identify them .
+ */
 
 public class ScanActivity extends Activity implements AsyncResponse {
 
@@ -45,6 +53,8 @@ public class ScanActivity extends Activity implements AsyncResponse {
     private ProgressBar progressBar;
 
     private Bitmap bitmap;
+
+    private ArrayList<RectF> boxes;
 
     private static final int REQUEST_TAKE_PHOTO = 1;
 
@@ -60,6 +70,8 @@ public class ScanActivity extends Activity implements AsyncResponse {
 
         setContentView(R.layout.activity_scan);
         mImageView = findViewById(R.id.ScanImageView);
+
+        boxes = new ArrayList<>();
 
         vto = mImageView.getViewTreeObserver();
 //        vto.addOnPreDrawListener(() -> {
@@ -272,19 +284,49 @@ public class ScanActivity extends Activity implements AsyncResponse {
                     paint.setTextSize(200);
                     Rect bounds = new Rect();
                     paint.getTextBounds(plants[i].get_name(), 0, 1, bounds);
-                    canvas.drawRect(new RectF(boxesPoints[i][j][0],boxesPoints[i][j][1],boxesPoints[i][j][2],boxesPoints[i][j][3]), paint);
+                    RectF rectF = new RectF(boxesPoints[i][j][0],boxesPoints[i][j][1],boxesPoints[i][j][2],boxesPoints[i][j][3]);
+                    boxes.add(rectF);
+                    canvas.drawRect(rectF, paint);
                     paint.setStyle(Paint.Style.FILL);
                     canvas.drawRect(new RectF(boxesPoints[i][j][0],boxesPoints[i][j][1]-200,boxesPoints[i][j][3],boxesPoints[i][j][1]), paint);
                     paint.setColor(Color.BLACK);
                     canvas.drawText(plants[i].get_name(), boxesPoints[i][j][0], boxesPoints[i][j][1] - 20, paint);
                 }
 
-            }
 
+            }
             mImageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+        float x = event.getX();
+        float y = event.getY();
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+
+        switch(action) {
+            case MotionEvent.ACTION_DOWN:
+                for(int k=0;k<boxes.size();k++) {
+                    if (boxes.get(k).contains(x / width, y / height)) {
+                        Intent i = new Intent(this, PlantBioActivity.class);
+                        //i.putExtra("plantID", plantID);
+                        startActivity(i);
+                    }
+                }
+
+        }
+
+        return true ;
+
+    }
+
 }

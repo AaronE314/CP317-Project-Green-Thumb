@@ -10,6 +10,11 @@ import android.content.SharedPreferences;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import android.widget.Toast;
 import android.widget.ImageButton;
+/**
+ @Name: SettingsActivity.java
+ @Type: Activity class
+ @Deception: this is Activity class that is used to change app settings.
+ */
 
 public class SettingsActivity extends AppCompatActivity {
 

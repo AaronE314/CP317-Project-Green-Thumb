@@ -8,6 +8,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+/**
+ @Name: GalleryPhotoAdapter.java
+ @Type: Adpapter class
+ @Deception: this is Adapter class for the gallery Activity.
+ */
+
 
 public class GalleryPhotoAdapter extends BaseAdapter{
 

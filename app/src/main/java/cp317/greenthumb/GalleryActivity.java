@@ -9,6 +9,12 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import java.util.List;
+/**
+ @Name: GalleryActivity.java
+ @Type: Activity class
+ @Deception: this is Activity class that is used to display images, in full screen.
+ */
+
 
 public class GalleryActivity extends AppCompatActivity implements Request.AsyncResponse {
 

@@ -35,8 +35,11 @@ package cp317.greenthumb;
 //import static android.Manifest.permission.READ_CONTACTS;
 
 /**
- * A login screen that offers login via email/password.
+ @Name: LogInActivity.java
+ @Type: Activity class
+ @Deception: this is Activity class that is used to log in, this is Deprecated.
  */
+//@Deprecated
 public class LoginActivity {
         //extends Activity implements LoaderCallbacks<Cursor> {
 //

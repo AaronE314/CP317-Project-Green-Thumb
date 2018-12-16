@@ -16,8 +16,12 @@ import java.io.IOException;
 import java.util.Set;
 import android.content.Intent;
 
-/*test
+/**
+ @Name: MainMenuActivity.java
+ @Type: Activity class
+ @Deception: this is Activity class that is used as the main screen/main menu of the app from which all the other pages can be reached..
  */
+
 
 public class MainMenuActivity extends AppCompatActivity {
     private ImageButton settingsButton,scanButton,searchButton;

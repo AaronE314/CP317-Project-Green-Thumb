@@ -16,6 +16,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static cp317.greenthumb.Request.*;
+/**
+ @Name: PlantBioActivity.java
+ @Type: Activity class
+ @Deception: this is Activity class that is used to display plant bio info.
+ */
+
 
 public class PlantBioActivity extends AppCompatActivity implements AsyncResponse {
 

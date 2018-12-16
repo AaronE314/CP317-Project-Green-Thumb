@@ -1,7 +1,11 @@
-
 package cp317.greenthumb;
 
 import java.util.Date;
+/**
+ @Name: FEPhotoReport.java
+ @Type: object class
+ @Deception: this is object class that holds PhotoReport data.
+ */
 
 public class FEPhotoReport {
     private int _id;

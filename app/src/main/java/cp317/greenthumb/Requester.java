@@ -7,6 +7,11 @@ import java.io.ByteArrayOutputStream;
 import java.util.Random;
 
 import cp317.greenthumb.Request.AsyncResponse;
+/**
+ @Name: Requester.java
+ @Type: java class
+ @Deception: this is java class that is used by other classes to all the request class to call the api.
+ */
 
 public class Requester {
 

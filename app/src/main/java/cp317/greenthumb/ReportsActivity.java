@@ -16,6 +16,11 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import android.app.DialogFragment;
 import cp317.greenthumb.Request.AsyncResponse;
+/**
+ @Name: reportsActivity.java
+ @Type: Activity class
+ @Deception: this is Activity class that is used to generate Reports and send them .
+ */
 
 
 

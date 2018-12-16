@@ -9,6 +9,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+/**
+ @Name: Request.java
+ @Type: AsyncTask class
+ @Deception: this is class that is used to make the request to the api.
+ */
 
 public class Request extends AsyncTask<String, Void, String> {
 

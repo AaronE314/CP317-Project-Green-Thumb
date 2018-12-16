@@ -1,5 +1,11 @@
 
 package cp317.greenthumb;
+/**
+ @Name: FEPlant.java
+ @Type: object class
+ @Deception: this is object class that holds plant data.
+ */
+
 
 public class FEPlant {
     private int _id;

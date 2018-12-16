@@ -24,6 +24,11 @@ import java.util.HashMap;
 import cp317.greenthumb.Request.AsyncResponse;
 
 import static cp317.greenthumb.R.layout.activity_search;
+/**
+ @Name: SearchActivity.java
+ @Type: Activity class
+ @Deception: this is Activity class that is used to search the database for plants.
+ */
 
 public class SearchActivity extends AppCompatActivity implements AsyncResponse {
     private ImageButton backButton;

@@ -1,4 +1,9 @@
 package cp317.greenthumb;
+/**
+ @Name: FEPhoto.java
+ @Type: object class
+ @Deception: this is object class that holds User data.
+ */
 
 public class FEUser {
     private int _id;
