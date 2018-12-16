@@ -20,7 +20,9 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_reports" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_reports" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -29,5 +31,52 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="420dp"
+        android:layout_height="600dp"
+        android:layout_marginTop="55dp"
+        android:contentDescription="TODO"
+        android:background="@drawable/default_background"
+
+        app:layout_anchorGravity="center" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="211dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="170dp"
+        android:text="Report an issue"
+        android:layout_gravity="top|center"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+
+
+        app:layout_anchorGravity="top|center" />
+
+    <Button
+        android:id="@+id/startReportButton"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:text="Send Report" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="51dp"
+        android:layout_height="33dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/button_background"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="left|top"
+        app:srcCompat="?android:attr/homeAsUpIndicator"
+        android:onClick="backToGalleryView"/>
+
 
 </android.support.design.widget.CoordinatorLayout>

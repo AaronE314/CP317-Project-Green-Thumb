@@ -5,9 +5,17 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.widget.Button;
 import android.widget.GridView;
 
-public class GalleryActivity extends AppCompatActivity {
+import java.util.List;
+
+public class GalleryActivity extends AppCompatActivity implements Request.AsyncResponse {
+
+    GridView gridview;
+    Button backButton;
+
+    List<Bitmap> photos;
 
     // when the gallery page is opened the gallery loads all the Bitmap images from b64strings from the database
     @Override
@@ -15,16 +23,23 @@ public class GalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-        //GridView gridview = findViewById(R.id.gridView);
+        //make 3 image requests
+        Requester.getBGPhoto(this);
+        Requester.getBGPhoto(this);
+        Requester.getBGPhoto(this);
 
-        // int userid = Requester.getUser().get_id();
-        String[] b64Photos = new String[1]; // Requester.getPhotosByUser(userid);
-        b64Photos[0] = "";
-        Bitmap[] photos = new Bitmap[b64Photos.length];
-        for (int i = 0; i < b64Photos.length; i++) {
-            byte[] bytePhoto = Base64.decode(b64Photos[i], Base64.DEFAULT);
-            photos[i] = BitmapFactory.decodeByteArray(bytePhoto, 0, bytePhoto.length);
-        }
-        //gridview.setAdapter(new GalleryPhotoAdapter(this, photos));
+        gridview = findViewById(R.id.galleryGridView);
+        backButton = findViewById(R.id.galleryBackButton);
+
+        //set back button click listener to load ? (home page or what ever page it came from)
+        backButton.setOnClickListener();
+    }
+
+    @Override
+    public void processFinish(String result) {
+        byte[] bytePhoto = Base64.decode(result, Base64.DEFAULT);
+        photos.add(BitmapFactory.decodeByteArray(bytePhoto, 0, bytePhoto.length));
+
+        gridview.setAdapter(new GalleryPhotoAdapter(this, (Bitmap[]) photos.toArray()));
     }
 }
