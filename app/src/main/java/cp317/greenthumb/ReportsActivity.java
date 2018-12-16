@@ -20,7 +20,7 @@ import cp317.greenthumb.Request.AsyncResponse;
 
 
 
-public class ReportsActivity extends AppCompatActivity implements AsyncResponse {
+public class ReportsActivity extends AppCompatActivity {
     private ImageButton backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,15 +56,15 @@ public class ReportsActivity extends AppCompatActivity implements AsyncResponse 
                     public void onClick(View view)   {
                         if (!mPhotoId.getText().toString().isEmpty() && !mDate.getText().toString().isEmpty() && !mDetails.getText().toString().isEmpty()){
 
-                            Toast.makeText(ReportsActivity.this,getString(R.string.success_report_msg),Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(ReportsActivity.this,getString(R.string.success_report_msg),Toast.LENGTH_SHORT).show();
 
                             //default report, only need to update USER ID
-                            FEPhotoReport reportInfo = new FEPhotoReport(null,mPhotoId,null,mDetails,mDate);
+                            //FEPhotoReport reportInfo = new FEPhotoReport(null,mPhotoId,null,mDetails,mDate);
 
 
                         }
                         else {
-                            Toast.makeText(ReportsActivity.this,getString(R.string.error_report_msg),Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(ReportsActivity.this,getString(R.string.error_report_msg),Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

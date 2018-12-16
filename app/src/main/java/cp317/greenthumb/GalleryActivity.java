@@ -32,7 +32,7 @@ public class GalleryActivity extends AppCompatActivity implements Request.AsyncR
         backButton = findViewById(R.id.galleryBackButton);
 
         //set back button click listener to load ? (home page or what ever page it came from)
-        backButton.setOnClickListener();
+        //backButton.setOnClickListener();
     }
 
     @Override
