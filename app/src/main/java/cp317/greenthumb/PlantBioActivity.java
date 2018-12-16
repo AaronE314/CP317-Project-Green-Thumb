@@ -36,7 +36,7 @@ public class PlantBioActivity extends AppCompatActivity implements AsyncResponse
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plant_bio);
 
-        plantId = getIntent().getIntExtra("plantId", 0);
+        plantId = getIntent().getIntExtra("plantId", 1);
 
         Requester.getPlantById(plantId, this);
 

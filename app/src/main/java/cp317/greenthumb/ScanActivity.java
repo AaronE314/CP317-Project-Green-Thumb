@@ -2,6 +2,7 @@ package cp317.greenthumb;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -55,13 +56,14 @@ public class ScanActivity extends Activity implements AsyncResponse {
     private Bitmap bitmap;
 
     private ArrayList<RectF> boxes;
+    private ArrayList<Integer> plantIds;
+
+    private int imageHeight;
+    private int imageWidth;
 
     private static final int REQUEST_TAKE_PHOTO = 1;
 
     private ViewTreeObserver vto;
-
-    private int finalImageWidth;
-    private int finalImageHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,14 +74,9 @@ public class ScanActivity extends Activity implements AsyncResponse {
         mImageView = findViewById(R.id.ScanImageView);
 
         boxes = new ArrayList<>();
+        plantIds = new ArrayList<>();
 
         vto = mImageView.getViewTreeObserver();
-//        vto.addOnPreDrawListener(() -> {
-//            mImageView.getViewTreeObserver().removeOnDrawListener(this);
-//            finalImageHeight = mImageView.getMeasuredHeight();
-//            finalImageWidth = mImageView.getMaxWidth();
-//            return true;
-//        });
 
 
         progressBar = findViewById(R.id.progressBar2);
@@ -121,7 +118,6 @@ public class ScanActivity extends Activity implements AsyncResponse {
         if (resultCode != RESULT_CANCELED) {
             if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
                 galleryAddPic();
-                //Bitmap photo = (Bitmap) data.getExtras().get("data");
                 setPic();
             }
         }
@@ -183,6 +179,7 @@ public class ScanActivity extends Activity implements AsyncResponse {
 
         try {
             bitmap = rotateImageIfRequired(bitmap, mCurrentPhotoPath);
+            actualImage = rotateImageIfRequired(actualImage, mCurrentPhotoPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -192,8 +189,8 @@ public class ScanActivity extends Activity implements AsyncResponse {
 
         mImageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
 
-        //Log.d("DEBUG", canvas.getWidth() + " " + canvas.getHeight());
-        //mImageView.setImageBitmap(bitmap);
+        imageHeight = canvas.getHeight();
+        imageWidth = canvas.getWidth();
         Requester.getPlantByImage(actualImage, canvas.getWidth(), canvas.getHeight(), this);
         progressBar.setVisibility(View.VISIBLE);
 
@@ -227,9 +224,6 @@ public class ScanActivity extends Activity implements AsyncResponse {
     @Override
     public void processFinish(String result) {
         progressBar.setVisibility(View.GONE);
-
-        //Log.d("RESULT:", result);
-        // Decode JSON
 
         JSONObject reader;
         JSONArray reader2;
@@ -286,6 +280,7 @@ public class ScanActivity extends Activity implements AsyncResponse {
                     paint.getTextBounds(plants[i].get_name(), 0, 1, bounds);
                     RectF rectF = new RectF(boxesPoints[i][j][0],boxesPoints[i][j][1],boxesPoints[i][j][2],boxesPoints[i][j][3]);
                     boxes.add(rectF);
+                    plantIds.add(plants[i].get_id());
                     canvas.drawRect(rectF, paint);
                     paint.setStyle(Paint.Style.FILL);
                     canvas.drawRect(new RectF(boxesPoints[i][j][0],boxesPoints[i][j][1]-200,boxesPoints[i][j][3],boxesPoints[i][j][1]), paint);
@@ -312,13 +307,15 @@ public class ScanActivity extends Activity implements AsyncResponse {
         int width = size.x;
         int height = size.y;
 
+        int heightMod = imageHeight / height;
+        int widthMod = imageWidth / width;
 
         switch(action) {
             case MotionEvent.ACTION_DOWN:
                 for(int k=0;k<boxes.size();k++) {
-                    if (boxes.get(k).contains(x / width, y / height)) {
+                    if (boxes.get(k).contains(x * widthMod , y * heightMod)) {
                         Intent i = new Intent(this, PlantBioActivity.class);
-                        //i.putExtra("plantID", plantID);
+                        i.putExtra("plantId", plantIds.get(k));
                         startActivity(i);
                     }
                 }
