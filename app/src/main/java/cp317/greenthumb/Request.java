@@ -14,32 +14,47 @@ import java.net.URL;
  @Type: AsyncTask class
  @Deception: this is class that is used to make the request to the api.
  */
-
 public class Request extends AsyncTask<String, Void, String> {
 
     private String API_BASE_URL="http://baf0b389.ngrok.io";
 
+    /**
+     * The interface needed to implement in order to receive a response
+     *
+     * Is called automatically when the thread finishes
+     */
     public interface AsyncResponse {
         void processFinish(String result);
     }
 
+
     private AsyncResponse delegate = null;
 
+    /**
+     * Creates a thread to call the api
+     * @param delegate a class that implements AsyncResponse to get the response
+     */
     public Request(AsyncResponse delegate) {
         this.delegate = delegate;
     }
 
+    /**
+     * is called automatically when the thread completes
+     * @param s the result
+     */
     @Override
     protected void onPostExecute(String s) {
-//        if (s != null) {
-//            Log.d("RESULT: ", s);
-//        }
 
         if (this.delegate != null) {
             this.delegate.processFinish(s);
         }
     }
 
+    /**
+     * calls the api in a separate thread
+     * @param body n number of parameters to be passed, first param needs to be the endpoint, and the second param is the body of the endpoint
+     * @return returns the result of the api
+     */
     @Override
     protected String doInBackground(String... body) {
 

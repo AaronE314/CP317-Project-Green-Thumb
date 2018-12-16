@@ -63,21 +63,15 @@ public class ScanActivity extends Activity implements AsyncResponse {
 
     private static final int REQUEST_TAKE_PHOTO = 1;
 
-    private ViewTreeObserver vto;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //imageView=findViewById(R.id.ScanImageView);
 
         setContentView(R.layout.activity_scan);
         mImageView = findViewById(R.id.ScanImageView);
 
         boxes = new ArrayList<>();
         plantIds = new ArrayList<>();
-
-        vto = mImageView.getViewTreeObserver();
-
 
         progressBar = findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.GONE);
@@ -87,6 +81,9 @@ public class ScanActivity extends Activity implements AsyncResponse {
 
     }
 
+    /**
+     * Creates and sets up the intent that calls the camera
+     */
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -113,6 +110,12 @@ public class ScanActivity extends Activity implements AsyncResponse {
         }
     }
 
+    /**
+     * Is called automatically when the camera takes the photo
+     * @param requestCode code of what requested the camera
+     * @param resultCode code of result
+     * @param data the data from the intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_CANCELED) {
@@ -125,6 +128,11 @@ public class ScanActivity extends Activity implements AsyncResponse {
     }
 
 
+    /**
+     * Creates the image file based on the image taken by the camera and saves it to the phones photos
+     * @return The file of the image
+     * @throws IOException
+     */
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -137,6 +145,9 @@ public class ScanActivity extends Activity implements AsyncResponse {
         return image;
     }
 
+    /**
+     * adds the photo to the gallery
+     */
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(mCurrentPhotoPath);
@@ -145,6 +156,9 @@ public class ScanActivity extends Activity implements AsyncResponse {
         this.sendBroadcast(mediaScanIntent);
     }
 
+    /**
+     * sets the picture from the camera to the imageView on the screen, then calls the api to identify it
+     */
     private void setPic(){ //Bitmap photo) {
         // Get the dimensions of the View
 
@@ -196,6 +210,13 @@ public class ScanActivity extends Activity implements AsyncResponse {
 
     }
 
+    /**
+     * Rotates the image if its off rotation
+     * @param img the bitmap of the image to rotate
+     * @param path the path to the file
+     * @return the bitmap where the image will be rotated
+     * @throws IOException
+     */
     private static Bitmap rotateImageIfRequired(Bitmap img, String path) throws IOException {
 
         ExifInterface ei = new ExifInterface(path);
@@ -213,6 +234,12 @@ public class ScanActivity extends Activity implements AsyncResponse {
         }
     }
 
+    /**
+     * uses a Matrix to rotate the image
+     * @param img the image to rotate as a bitmap
+     * @param degree the degree to rotate it by
+     * @return the rotated bitmap
+     */
     private static Bitmap rotateImage(Bitmap img, int degree) {
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
@@ -221,6 +248,10 @@ public class ScanActivity extends Activity implements AsyncResponse {
         return rotatedImg;
     }
 
+    /**
+     * @link Request.AsyncResponse
+     * @param result the result of the api post
+     */
     @Override
     public void processFinish(String result) {
         progressBar.setVisibility(View.GONE);
@@ -296,6 +327,12 @@ public class ScanActivity extends Activity implements AsyncResponse {
             e.printStackTrace();
         }
     }
+
+    /**
+     * is called on the touch, and will call the bio page if touched within the box
+     * @param event the touch event
+     * @return if the event was resolved
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
