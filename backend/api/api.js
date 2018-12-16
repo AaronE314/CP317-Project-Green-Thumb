@@ -114,7 +114,6 @@ api.post("/photos/byId",
     /**
      * @author Nathaniel Carr
      * @author Noah Nichols
-     * 
      * @desc Return the Photo with the corresponding ID from the database.
      */
     async (req, res) => {
