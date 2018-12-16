@@ -51,8 +51,8 @@
 
         <Button
             android:id="@+id/logInButton"
-            android:layout_width="323dp"
-            android:layout_height="0dp"
+            android:layout_width="324dp"
+            android:layout_height="54dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="76dp"
@@ -80,9 +80,10 @@
 
         <SeekBar
             android:id="@+id/fontScaleSlider"
-            android:layout_width="354dp"
-            android:layout_height="59dp"
+            android:layout_width="358dp"
+            android:layout_height="49dp"
             android:layout_marginStart="13dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="13dp"
             android:layout_marginBottom="82dp"
             android:max="30"
@@ -93,14 +94,18 @@
 
         <TextView
             android:id="@+id/fontSliderLabel"
-            android:layout_width="150dp"
-            android:layout_height="0dp"
+            android:layout_width="154dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="204dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="90dp"
             android:ems="10"
             android:text="Font Size"
+            android:textAlignment="center"
             app:layout_constraintBottom_toTopOf="@+id/changeFont"
-            app:layout_constraintStart_toStartOf="@+id/fontScaleSlider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
