@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-public class GalleryPhotoAdapter extends BaseAdapter {
+public class GalleryPhotoAdapter extends BaseAdapter{
 
     private Context context;
     private Bitmap[] photos;
@@ -45,13 +45,13 @@ public class GalleryPhotoAdapter extends BaseAdapter {
         if (convertView == null) {
             gridItem = inflater.inflate(R.layout.gallerygriditem, new LinearLayout(this.context));
             ImageButton imageButton = gridItem.findViewById(R.id.gridItemImage);
-            imageButton.setImageBitmap(this.photos[0]); // this.photos[position]);
-            imageButton.setOnClickListener(new View.OnClickListener() {
+            imageButton.setImageBitmap(this.photos[position]);
+            /*imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // go to photo page
                 }
-            });
+            });*/
         } else {
             gridItem = convertView;
         }
