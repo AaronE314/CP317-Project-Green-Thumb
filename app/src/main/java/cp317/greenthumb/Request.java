@@ -12,7 +12,7 @@ import java.net.URL;
 
 public class Request extends AsyncTask<String, Void, String> {
 
-    String API_BASE_URL="http://baf0b389.ngrok.io";
+    private String API_BASE_URL="http://baf0b389.ngrok.io";
 
     public interface AsyncResponse {
         void processFinish(String result);

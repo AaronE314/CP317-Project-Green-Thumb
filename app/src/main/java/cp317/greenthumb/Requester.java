@@ -53,7 +53,7 @@ public class Requester {
 
         String postBody = "{ \"image\": \"" + encodedImage + "\", \"width\": " + width + ", \"height\": " +
                 height + ", \"maxPhotos\": 1 }";
-        Log.d("DEBUG", encodedImage);
+//        Log.d("DEBUG", encodedImage);
 //        Log.d("DEBUG", postBody);
         String endpoint = "/plants/byImage";
 

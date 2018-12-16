@@ -2,7 +2,13 @@ package cp317.greenthumb;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +19,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -25,6 +32,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import cp317.greenthumb.Request.AsyncResponse;
@@ -36,7 +44,14 @@ public class ScanActivity extends Activity implements AsyncResponse {
 
     private ProgressBar progressBar;
 
+    private Bitmap bitmap;
+
     private static final int REQUEST_TAKE_PHOTO = 1;
+
+    private ViewTreeObserver vto;
+
+    private int finalImageWidth;
+    private int finalImageHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +60,15 @@ public class ScanActivity extends Activity implements AsyncResponse {
 
         setContentView(R.layout.activity_scan);
         mImageView = findViewById(R.id.ScanImageView);
+
+        vto = mImageView.getViewTreeObserver();
+//        vto.addOnPreDrawListener(() -> {
+//            mImageView.getViewTreeObserver().removeOnDrawListener(this);
+//            finalImageHeight = mImageView.getMeasuredHeight();
+//            finalImageWidth = mImageView.getMaxWidth();
+//            return true;
+//        });
+
 
         progressBar = findViewById(R.id.progressBar2);
         progressBar.setVisibility(View.GONE);
@@ -115,8 +139,6 @@ public class ScanActivity extends Activity implements AsyncResponse {
 
     private void setPic(){ //Bitmap photo) {
         // Get the dimensions of the View
-//        int targetW = mImageView.getWidth();
-//        int targetH = mImageView.getHeight();
 
         int targetW = mImageView.getLayoutParams().width;
         int targetH = mImageView.getLayoutParams().height;
@@ -135,7 +157,7 @@ public class ScanActivity extends Activity implements AsyncResponse {
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
 
         File imageFile = new File(mCurrentPhotoPath);
         FileInputStream fis = null;
@@ -145,16 +167,23 @@ public class ScanActivity extends Activity implements AsyncResponse {
             e.printStackTrace();
         }
 
-        Bitmap acutalImage = BitmapFactory.decodeStream(fis);
+        Bitmap actualImage = BitmapFactory.decodeStream(fis);
 
         try {
             bitmap = rotateImageIfRequired(bitmap, mCurrentPhotoPath);
-            mImageView.setImageBitmap(bitmap);
-            //Requester.getPlantByImage(acutalImage, acutalImage.getWidth(), acutalImage.getHeight(), this);
-            //progressBar.setVisibility(View.VISIBLE);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawBitmap(bitmap, 0, 0, null);
+
+        mImageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+
+        //Log.d("DEBUG", canvas.getWidth() + " " + canvas.getHeight());
+        //mImageView.setImageBitmap(bitmap);
+        Requester.getPlantByImage(actualImage, canvas.getWidth(), canvas.getHeight(), this);
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
@@ -187,16 +216,75 @@ public class ScanActivity extends Activity implements AsyncResponse {
     public void processFinish(String result) {
         progressBar.setVisibility(View.GONE);
 
-        Log.d("RESULT:", result);
+        //Log.d("RESULT:", result);
         // Decode JSON
 
-//        JSONObject reader;
-//        JSONArray reader2;
-//
-//        try {
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        JSONObject reader;
+        JSONArray reader2;
+        FEPlant plants[];
+        float boxesPoints[][][];
+
+        try {
+            reader = new JSONObject(result);
+            reader2 = reader.getJSONArray("results");
+            plants = new FEPlant[reader2.length()];
+            boxesPoints = new float[reader2.length()][][];
+            for (int i = 0; i < reader2.length(); i++) {
+                JSONObject plantI = reader2.getJSONObject(i);
+                JSONObject plant = plantI.getJSONObject("plant");
+                int id = plant.getInt("id");
+                String name = plant.getString("name");
+                String bio = plant.getString("bio");
+                plants[i] = new FEPlant(id, name, bio);
+                JSONArray boxes = plantI.getJSONArray("boxes");
+                boxesPoints[i] = new float[boxes.length()][4];
+                for (int j = 0; j < boxes.length(); j++) {
+                    JSONObject boxesJ = boxes.getJSONObject(j);
+                    JSONObject top = boxesJ.getJSONObject("topLeft");
+                    float topX = (float) top.getDouble("x");
+                    float topY = (float) top.getDouble("y");
+                    JSONObject bottom = boxesJ.getJSONObject("bottomRight");
+                    float bottomX = (float) bottom.getDouble("x");
+                    float bottomY = (float) bottom.getDouble("y");
+                    boxesPoints[i][j][0] = topX;
+                    boxesPoints[i][j][1] = topY;
+                    boxesPoints[i][j][2] = bottomX;
+                    boxesPoints[i][j][3] = bottomY;
+                }
+
+            }
+
+
+            Paint paint = new Paint();
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setColor(Color.WHITE);
+            paint.setStrokeWidth(50);
+            paint.setTextSize(20);
+            Canvas canvas = new Canvas(bitmap);
+            canvas.drawBitmap(bitmap, 0, 0, null);
+
+            for (int i = 0; i < boxesPoints.length; i++) {
+
+                for (int j = 0; j < boxesPoints[i].length; j ++) {
+                    paint.setStyle(Paint.Style.STROKE);
+                    paint.setColor(Color.WHITE);
+                    paint.setStrokeWidth(50);
+                    paint.setTextSize(200);
+                    Rect bounds = new Rect();
+                    paint.getTextBounds(plants[i].get_name(), 0, 1, bounds);
+                    canvas.drawRect(new RectF(boxesPoints[i][j][0],boxesPoints[i][j][1],boxesPoints[i][j][2],boxesPoints[i][j][3]), paint);
+                    paint.setStyle(Paint.Style.FILL);
+                    canvas.drawRect(new RectF(boxesPoints[i][j][0],boxesPoints[i][j][1]-200,boxesPoints[i][j][3],boxesPoints[i][j][1]), paint);
+                    paint.setColor(Color.BLACK);
+                    canvas.drawText(plants[i].get_name(), boxesPoints[i][j][0], boxesPoints[i][j][1] - 20, paint);
+                }
+
+            }
+
+            mImageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
