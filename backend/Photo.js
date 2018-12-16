@@ -55,7 +55,7 @@ class Photo {
         }
         /**
         * @author Adam Cassidy
-        * @returns {String} userId The ID of the User who uploaded this Photo. String.
+        * @returns {String} The ID of the User who uploaded this Photo. String.
         */
         function getUserId() {
             return _userId;
@@ -69,21 +69,21 @@ class Photo {
         }
         /**
          * @author Adam Cassidy
-        * @returns {*} uploadDate The Date on which the Photo was uploaded.
+        * @returns {*} The Date on which the Photo was uploaded.
         */
         function getUploadDate() {
             return _uploadDate;
         }
         /**
          * @author Adam Cassidy
-        * @returns {Number[]} upvoteIds The IDs of the Users who have upvoted on this Photo. Sorted in ascending order. Integer.
+        * @returns {Number[]} The IDs of the Users who have upvoted on this Photo. Sorted in ascending order. Integer.
         */
         function getUpvoteIds() {
             return _upvoteIds;
         }
         /**
          * @author Adam Cassidy
-         * @returns {Number[]} downvoteIds The IDs of the Users who have downvoted on this Photo. Sorted in ascending order. Integer.
+         * @returns {Number[]} The IDs of the Users who have downvoted on this Photo. Sorted in ascending order. Integer.
          */
         function getDownvoteIds() {
             return _downvoteIds;
