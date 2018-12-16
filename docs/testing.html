@@ -1,7 +1,9 @@
 
 <!DOCTYPE html>
 <html>
-    
+	
+<h1>GreenThumb Testing Log</h1>    
+	
 <head>
     <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script> -->
@@ -14,17 +16,17 @@
             text-align: left;
         }
     </style>
-    <title>GreenThumb Testing Log</title>
+    <title>Backend Testing Log</title>
 </head>
 
 <body>
-    <h1>GreenThumb Testing Log</h1>
-	<h2>Backend Testing</h2>
+    
+	<h1>Backend Testing</h1>
     <p>
         <table style="width:100%">
             <tr>
                 <th>Class</th>
-                <th>Method(s) / Endpoint</th>
+                <th>Method(s) / Endpoint(s)</th>
                 <th>Tested By</th>
                 <th>Date Tested</th>
                 <th>Issues</th>
@@ -32,7 +34,7 @@
             </tr>
             <tr>
                 <td>SearchActivity</td>
-         	    <td>All</td>
+         	<td>All</td>
                 <td>Nathaniel Carr</td>
                 <td>2018/12/07</td>
                 <td>None</td>
@@ -40,7 +42,7 @@
             </tr>
       		 <tr>
                 <td>DBInterface</td>
-         	    <td>getPhotoReport</td>
+         	<td>getPhotoReport</td>
                 <td>Nathaniel Carr</td>
                 <td>2018/12/08</td>
                 <td>Failure: Crash</td>
@@ -50,7 +52,7 @@
                   <td>DBInterface</td>
                   <td>getBan</td>
                   <td>Saje Bailey</td>
-           	      <td>2018/12/10</td>
+           	  <td>2018/12/10</td>
                   <td>Failure: Logic Error</td>
                   <td>Fixed</td>
               </tr>
@@ -58,11 +60,11 @@
                   <td>DBInterface</td>
                   <td>getPhotoReport</td>
                   <td>Saje Bailey</td>
-           	      <td>2018/12/10</td>
+           	  <td>2018/12/10</td>
                   <td>Failure: Crash</td>
                   <td>Fixed</td>
               </tr>
-             <tr>
+              <tr>
                     <td>Admin</td>
                     <td>All</td>
                     <td>Nathaniel Carr</td>
@@ -70,7 +72,7 @@
                     <td>Failure: Syntax Error</td>
                     <td>Fixed</td>
                 </tr>
-          		 <tr>
+          	<tr>
                   <td>Photo</td>
                   <td>All</td>
                   <td>Nathaniel Carr</td>
@@ -238,8 +240,30 @@
                   <td>Failure: Crash</td>
                   <td>Fixed</td>
               </tr>
-     
-            
+          	  <tr>
+                  <td>API</td>
+                  <td>/photoReports/remove</td>
+                  <td>Luke Turnbull</td>
+                  <td>2018/12/15</td>
+                  <td>None</td>
+                  <td></td>
+              </tr>
+          	  <tr>
+                  <td>API</td>
+                  <td>/users/add, /users/ban, /users/byId, /users/makeAdmin, /users/remove</td>
+                  <td>Luke Turnbull</td>
+                  <td>2018/12/15</td>
+                  <td>None</td>
+                  <td></td>
+              </tr>
+          	  <tr>
+                  <td>API</td>
+                  <td>/plants/add, /plants/byId, /plants/byImage, /plants/byQuery, /plants/remove, /plants/update</td>
+                  <td>Luke Turnbull</td>
+                  <td>2018/12/15</td>
+                  <td>None</td>
+                  <td></td>
+              </tr>
         </table>
 
     </p>
@@ -422,6 +446,67 @@
                 <td>Tested</td>
             </tr>
 	</table>
+
+    </p>
+	
+	<head>
+    <title>Testing</title>
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Additional Testing</h1>
+    <p>
+        <table style="width:100%">
+            <tr>
+                <th>Document</th>
+                <th>Testing Method(s)</th>
+                <th>Tested By</th>
+                <th>Date Tested</th>
+            </tr>
+	
+	    <tr>
+                <td>Design</td>
+                <td>Walkthrough</td>
+                <td>Tim McGill, Jackson Newlands, Mengdan Wan, Stefan Lucic, Nicholas Ross, Nathaniel Carr, Saad Ansari, Noah Nichols, Saje Bailey, Adam Cassidy, Scott Peebles</td>
+                <td>2018/10/30</td>
+            </tr>	
+	    <tr>
+                <td>Analysis</td>
+                <td>Informal Review</td>
+                <td>Ben Keunen, Matthew Buchanan, Nicholas Ross, Saje Bailey, Nathaniel Carr</td>
+                <td>2018/12/12 - 2018/12/15</td>
+            </tr>	
+	    <tr>
+                <td>Design</td>
+                <td>Informal Review</td>
+                <td>Joseph Myc, Noah Nichols, Mengdan Wan, Scott Peebles, Justin Harrott, David Djukic, Saad Ansari</td>
+                <td>2018/12/12 - 2018/12/15</td>
+            </tr>	
+	    <tr>
+                <td>SPMP & SRS</td>
+                <td>Informal Review</td>
+                <td>Adam Cassidy, John Dunphy, Joseph Myc, Sachintha Herath, Saad Ansari, Nathaniel Carr</td>
+                <td>2018/12/12 - 2018/12/15</td>
+            </tr>	
+	    <tr>
+                <td>Testing</td>
+                <td>Informal Review</td>
+                <td>Brendan Whelan, Duc Nguyen, Jackson Newlands, Saje Bailey</td>
+                <td>2018/12/12 - 2018/12/15</td>
+            </tr>
+		
+
 
     </p>
 </html>
