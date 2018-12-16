@@ -1,12 +1,12 @@
 # CP317-Project-Green-Thumb
 
+## [Link to Documents](https://aarone314.github.io/CP317-Project-Green-Thumb/)
+
 ## Branch Structure
 
 The branches go as follows,
 
 ## Master Banches
-
-DO NOT PUSH TO THIS BRANCH
 
 * Master -> Docs
 * Master-Android -> Main Frontend branch
