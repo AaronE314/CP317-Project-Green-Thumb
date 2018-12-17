@@ -314,7 +314,7 @@ public class ScanActivity extends Activity implements AsyncResponse {
                     plantIds.add(plants[i].get_id());
                     canvas.drawRect(rectF, paint);
                     paint.setStyle(Paint.Style.FILL);
-                    canvas.drawRect(new RectF(boxesPoints[i][j][0],boxesPoints[i][j][1]-200,boxesPoints[i][j][3],boxesPoints[i][j][1]), paint);
+                    canvas.drawRect(new RectF(boxesPoints[i][j][0],boxesPoints[i][j][1]-200,boxesPoints[i][j][2],boxesPoints[i][j][1]), paint);
                     paint.setColor(Color.BLACK);
                     canvas.drawText(plants[i].get_name(), boxesPoints[i][j][0], boxesPoints[i][j][1] - 20, paint);
                 }
