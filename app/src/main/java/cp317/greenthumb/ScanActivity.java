@@ -198,10 +198,12 @@ public class ScanActivity extends Activity implements AsyncResponse {
             e.printStackTrace();
         }
 
-        Canvas canvas = new Canvas(bitmap);
-        canvas.drawBitmap(bitmap, 0, 0, null);
+        Bitmap workingBitmap = Bitmap.createBitmap(bitmap);
+        Bitmap mBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvas = new Canvas(mBitmap);
+        canvas.drawBitmap(mBitmap, 0, 0, null);
 
-        mImageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+        mImageView.setImageDrawable(new BitmapDrawable(getResources(), mBitmap));
 
         imageHeight = canvas.getHeight();
         imageWidth = canvas.getWidth();
@@ -297,8 +299,10 @@ public class ScanActivity extends Activity implements AsyncResponse {
             paint.setColor(Color.WHITE);
             paint.setStrokeWidth(50);
             paint.setTextSize(20);
-            Canvas canvas = new Canvas(bitmap);
-            canvas.drawBitmap(bitmap, 0, 0, null);
+            Bitmap workingBitmap = Bitmap.createBitmap(bitmap);
+            Bitmap mBitmap = workingBitmap.copy(Bitmap.Config.ARGB_8888, true);
+            Canvas canvas = new Canvas(mBitmap);
+            canvas.drawBitmap(mBitmap, 0, 0, null);
 
             for (int i = 0; i < boxesPoints.length; i++) {
 
@@ -314,14 +318,15 @@ public class ScanActivity extends Activity implements AsyncResponse {
                     plantIds.add(plants[i].get_id());
                     canvas.drawRect(rectF, paint);
                     paint.setStyle(Paint.Style.FILL);
-                    canvas.drawRect(new RectF(boxesPoints[i][j][0],boxesPoints[i][j][1]-200,boxesPoints[i][j][3],boxesPoints[i][j][1]), paint);
+                    canvas.drawRect(new RectF(boxesPoints[i][j][0],boxesPoints[i][j][1]-200,boxesPoints[i][j][2],boxesPoints[i][j][1]), paint);
                     paint.setColor(Color.BLACK);
                     canvas.drawText(plants[i].get_name(), boxesPoints[i][j][0], boxesPoints[i][j][1] - 20, paint);
                 }
 
 
             }
-            mImageView.setImageDrawable(new BitmapDrawable(getResources(), bitmap));
+
+            mImageView.setImageDrawable(new BitmapDrawable(getResources(), mBitmap));
 
         } catch (JSONException e) {
             e.printStackTrace();
